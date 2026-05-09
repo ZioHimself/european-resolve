@@ -1,7 +1,12 @@
 import type { Member } from "@/data/members";
 import styles from "./BusinessCard.module.css";
 
-export function BusinessCard({ member }: { member: Member }) {
+type Props = {
+  member: Member;
+  qrSvg?: string;
+};
+
+export function BusinessCard({ member, qrSvg }: Props) {
   return (
     <article className={styles.card}>
       <img
@@ -26,6 +31,13 @@ export function BusinessCard({ member }: { member: Member }) {
         <a href={`tel:${member.phone}`} className={styles.contact}>
           {member.phone}
         </a>
+      )}
+
+      {qrSvg && (
+        <div
+          className={styles.qr}
+          dangerouslySetInnerHTML={{ __html: qrSvg }}
+        />
       )}
     </article>
   );

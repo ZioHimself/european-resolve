@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { members } from "@/data/members";
 import { BusinessCard } from "@/components/ui/BusinessCard";
+import { generateQRSvg } from "@/lib/qr";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -25,5 +26,7 @@ export default async function TeamMemberPage({ params }: Props) {
   const member = members.find((m) => m.slug === slug);
   if (!member) notFound();
 
-  return <BusinessCard member={member} />;
+  const qrSvg = await generateQRSvg(member.slug);
+
+  return <BusinessCard member={member} qrSvg={qrSvg} />;
 }
