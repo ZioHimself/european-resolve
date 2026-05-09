@@ -1,0 +1,215 @@
+@layer tokens {
+  :root {
+    /* ═══════════════════════════════════════════
+       PRIMARY PALETTE
+       ═══════════════════════════════════════════ */
+
+    --color-black: #0a1628;
+    --color-amber: #d4a012;
+
+    /* ═══════════════════════════════════════════
+       SECONDARY PALETTE
+       ═══════════════════════════════════════════ */
+
+    --color-paper: #f5f2eb;
+    --color-white: #ffffff;
+    --color-red: #c41e3a;
+
+    /* ═══════════════════════════════════════════
+       RESOLVE BLACK SCALE
+       ═══════════════════════════════════════════ */
+
+    --color-black-100: #0a1628;
+    --color-black-80: #3b4558;
+    --color-black-60: #6c7488;
+    --color-black-40: #9da3b3;
+    --color-black-20: #ced1d9;
+    --color-black-10: #e7e8ec;
+    --color-black-05: #f3f4f6;
+
+    /* ═══════════════════════════════════════════
+       RESOLVE AMBER SCALE
+       ═══════════════════════════════════════════ */
+
+    --color-amber-100: #8a6800;
+    --color-amber-80: #d4a012;
+    --color-amber-60: #e5be4d;
+    --color-amber-40: #f0d68a;
+    --color-amber-20: #f8ebc4;
+    --color-amber-10: #fcf5e2;
+
+    /* ═══════════════════════════════════════════
+       SIGNAL RED SCALE (use sparingly)
+       ═══════════════════════════════════════════ */
+
+    --color-red-100: #8b1528;
+    --color-red-80: #c41e3a;
+    --color-red-60: #d85c6f;
+    --color-red-20: #f8d5da;
+
+    /* ═══════════════════════════════════════════
+       FUNCTIONAL / SEMANTIC COLOURS
+       ═══════════════════════════════════════════ */
+
+    --color-text-primary: var(--color-black);
+    --color-text-secondary: var(--color-black-60);
+    --color-text-inverted: var(--color-paper);
+    --color-text-inverted-high: var(--color-white);
+    --color-background: var(--color-paper);
+    --color-surface: var(--color-white);
+    --color-border: var(--color-black-20);
+    --color-border-subtle: var(--color-black-10);
+    --color-link: var(--color-amber-100);
+    --color-link-hover: var(--color-amber-60);
+    --color-focus: var(--color-amber);
+    --color-error: var(--color-red);
+    --color-success: #2d7a4d;
+    --color-warning: var(--color-amber);
+
+    /* ═══════════════════════════════════════════
+       TYPOGRAPHY — FONT FAMILIES
+       ═══════════════════════════════════════════ */
+
+    --font-sans: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-serif: var(--font-source-serif), Georgia, "Times New Roman", Times, serif;
+
+    /* ═══════════════════════════════════════════
+       TYPOGRAPHY — FONT SIZES
+       Major third scale (1.250), anchored at 16px
+       ═══════════════════════════════════════════ */
+
+    --text-micro: 0.625rem;
+    --text-caption: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-h4: 1.125rem;
+    --text-h3: 1.375rem;
+    --text-h2: 1.75rem;
+    --text-h1: 2.25rem;
+    --text-display-m: 2.75rem;
+    --text-display-l: 3.5rem;
+    --text-display-xl: 4.5rem;
+
+    /* ═══════════════════════════════════════════
+       TYPOGRAPHY — FONT WEIGHTS
+       ═══════════════════════════════════════════ */
+
+    --font-light: 300;
+    --font-book: 400;
+    --font-medium: 500;
+    --font-bold: 700;
+    --font-extrabold: 800;
+
+    /* ═══════════════════════════════════════════
+       TYPOGRAPHY — LINE HEIGHTS
+       ═══════════════════════════════════════════ */
+
+    --leading-tight: 1.1;
+    --leading-snug: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.6;
+    --leading-loose: 1.7;
+
+    /* ═══════════════════════════════════════════
+       TYPOGRAPHY — LETTER SPACING
+       ═══════════════════════════════════════════ */
+
+    --tracking-tight: -0.01em;
+    --tracking-normal: 0;
+    --tracking-wide: 0.02em;
+    --tracking-wider: 0.05em;
+    --tracking-caps: 0.1em;
+
+    /* ═══════════════════════════════════════════
+       SPACING — 4px base unit
+       ═══════════════════════════════════════════ */
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+    --space-32: 8rem;
+
+    /* ═══════════════════════════════════════════
+       LAYOUT
+       ═══════════════════════════════════════════ */
+
+    --max-width-prose: 65ch;
+    --max-width-content: 72rem;
+    --max-width-narrow: 48rem;
+
+    /* ═══════════════════════════════════════════
+       BORDERS & RADII
+       ═══════════════════════════════════════════ */
+
+    --radius-sm: 0.125rem;
+    --radius-md: 0.25rem;
+    --radius-lg: 0.5rem;
+
+    /* ═══════════════════════════════════════════
+       TRANSITIONS
+       ═══════════════════════════════════════════ */
+
+    --duration-fast: 120ms;
+    --duration-normal: 200ms;
+    --duration-slow: 350ms;
+    --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* ═══════════════════════════════════════════
+       FOCUS
+       ═══════════════════════════════════════════ */
+
+    --focus-ring: 2px solid var(--color-focus);
+    --focus-offset: 2px;
+  }
+
+  /* ═══════════════════════════════════════════
+     DARK MODE
+     ═══════════════════════════════════════════ */
+
+  [data-theme="dark"] {
+    --color-text-primary: var(--color-paper);
+    --color-text-secondary: var(--color-black-40);
+    --color-text-inverted: var(--color-black);
+    --color-background: var(--color-black);
+    --color-surface: var(--color-black-80);
+    --color-border: var(--color-black-60);
+    --color-border-subtle: var(--color-black-80);
+    --color-link: var(--color-amber);
+    --color-link-hover: var(--color-amber-60);
+    --color-focus: var(--color-amber-60);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-text-primary: var(--color-paper);
+      --color-text-secondary: var(--color-black-40);
+      --color-text-inverted: var(--color-black);
+      --color-background: var(--color-black);
+      --color-surface: var(--color-black-80);
+      --color-border: var(--color-black-60);
+      --color-border-subtle: var(--color-black-80);
+      --color-link: var(--color-amber);
+      --color-link-hover: var(--color-amber-60);
+      --color-focus: var(--color-amber-60);
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     RESPONSIVE — large desktop base size bump
+     ═══════════════════════════════════════════ */
+
+  @media (min-width: 90rem) {
+    :root {
+      --text-base: 1.125rem;
+    }
+  }
+}

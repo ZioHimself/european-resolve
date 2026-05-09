@@ -22,6 +22,7 @@
 - [Escalation](.claude/skills/shared/escalation.md) - When to stop and ask
 - [Brevity](.claude/skills/shared/brevity.md) - Output vs dialogue rules
 - [Context Management](.claude/skills/shared/context-management.md) - Tiered context loading (L0/L1/L2)
+- **Missing Context**: If project context (goals, epics, tasks etc.) has not yet been generated through SDD pipeline steps, work it out with the user directly in chat rather than blocking on missing artifacts
 
 ## Acceptance Criteria System
 
@@ -615,10 +616,23 @@ Each agent has its own learnings file: `.claude/skills/sdd-{agent}/learnings/{ag
 - **Promotion**: 3+ occurrences of same gap -> surfaced at session start as "ready for promotion to best practices" (configurable via `lessons.escalation_threshold`). 5+ occurrences -> propose SKILL.md update for the originating agent
 - **Session start**: CRITICAL and WARNING entries from all agents injected as context, sorted by trust level
 
+## Git & Deployment Model
+
+**Trunk-based development. No PRs. No agent commits.**
+
+- Agents MUST NOT run `git commit`, `git add`, `git push`, or any git write operation
+- Agents MUST NOT create branches — all work happens on `main`
+- The human reviews changes in the IDE and commits manually
+- CI/CD runs via GitHub Actions on push to `main`
+- Deployment: Cloudflare Pages serves static build output
+
+This overrides all SDD defaults for `auto_commit`, `auto_pr`, and branch creation.
+`repository.enabled: false` and `orchestrator.auto_commit: false` are set in `sdd-config.yaml`.
+
 ## Key Behavioral Rules
 
-1. **Never auto-merge PRs** — PRs are human-only to merge
-2. **Never `git add .` or `git add -A`** — always stage specific task files
+1. **Never commit or push** — human-only git operations, trunk-based development
+2. **Never `git add .` or `git add -A`** — even if human asks to stage, stage specific files only
 3. **Commit prefixes** — feature auto-commits use `[SDD]` prefix (configurable via `orchestrator.commit_prefix`); bug fix commits use `[BUGFIX]` prefix (configurable via `bug_workflow.commit_prefix`)
 4. **Kebab-case enforcement** — epic and task names must be `[a-z0-9][a-z0-9-]*[a-z0-9]`
 5. **Phase-gate enforcement** — code files can only be written during `unit_test`, `integration_test`, `implement`, `bug_test`, and `bug_implement` phases (enforced by hook; legacy `test` also accepted)

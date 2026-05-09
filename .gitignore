@@ -59,7 +59,18 @@ out/
 .output/
 .cache/
 .parcel-cache/
-.astro/
+
+# === Next.js ===
+.next/
+
+# === TypeScript ===
+*.tsbuildinfo
+
+# === Testing ===
+coverage/
+
+# === Linting ===
+.eslintcache
 
 # === Environment & secrets ===
 .env
@@ -92,3 +103,4 @@ functions/.routes.json
 .claude/
 docs/sdd/
 docs/project/
+brev.md

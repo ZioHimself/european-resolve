@@ -1,0 +1,54 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background-color: rgb(10 22 40 / 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgb(212 160 18 / 0.2);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  padding-right: 1.5rem;
+  padding-bottom: 1rem;
+  padding-left: 1.5rem;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wordmark {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #f5f2eb;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.wordmark:hover {
+  color: #f5f2eb;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.links a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(245 242 235 / 0.8);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+
+.links a:hover {
+  color: #d4a012;
+}

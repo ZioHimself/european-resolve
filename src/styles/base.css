@@ -1,0 +1,243 @@
+@layer base {
+  /* ═══════════════════════════════════════════
+     RESET — modern minimal reset
+     ═══════════════════════════════════════════ */
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    hanging-punctuation: first last;
+  }
+
+  body {
+    min-height: 100dvh;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-book);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  /* ═══════════════════════════════════════════
+     TYPOGRAPHY — headings
+     Digital context: Söhne throughout
+     ═══════════════════════════════════════════ */
+
+  h1 {
+    font-size: var(--text-h1);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  h2 {
+    font-size: var(--text-h2);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-snug);
+  }
+
+  h3 {
+    font-size: var(--text-h3);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-snug);
+  }
+
+  h4 {
+    font-size: var(--text-h4);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-normal);
+  }
+
+  /* Heading spacing: gap before, tight after */
+  :is(h1, h2, h3, h4) {
+    text-wrap: balance;
+  }
+
+  :is(h1, h2, h3, h4) + * {
+    margin-block-start: 0.5em;
+  }
+
+  * + :is(h1, h2, h3, h4) {
+    margin-block-start: 1.5em;
+  }
+
+  /* ═══════════════════════════════════════════
+     TYPOGRAPHY — body text
+     ═══════════════════════════════════════════ */
+
+  p {
+    max-width: var(--max-width-prose);
+    text-wrap: pretty;
+  }
+
+  p + p {
+    margin-block-start: 1em;
+  }
+
+  strong {
+    font-weight: var(--font-bold);
+  }
+
+  small {
+    font-size: var(--text-sm);
+  }
+
+  /* ═══════════════════════════════════════════
+     TYPOGRAPHY — links
+     Underline for hyperlinks only,
+     colour distinguished per spec
+     ═══════════════════════════════════════════ */
+
+  a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: 1px;
+    transition: color var(--duration-fast) var(--easing-default);
+
+    &:hover {
+      color: var(--color-link-hover);
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: var(--focus-offset);
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     LISTS
+     ═══════════════════════════════════════════ */
+
+  ul,
+  ol {
+    padding-inline-start: 1.25em;
+
+    & li + li {
+      margin-block-start: 0.5em;
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     FOCUS — accessible keyboard focus ring
+     Amber ring, 2px offset, per spec
+     ═══════════════════════════════════════════ */
+
+  :focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-offset);
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* ═══════════════════════════════════════════
+     SKIP LINK — first focusable element
+     ═══════════════════════════════════════════ */
+
+  .skip-link {
+    position: absolute;
+    inset-inline-start: -100%;
+    padding: var(--space-2) var(--space-4);
+    background: var(--color-black);
+    color: var(--color-paper);
+    font-weight: var(--font-medium);
+    z-index: 9999;
+
+    &:focus {
+      inset-inline-start: var(--space-4);
+      inset-block-start: var(--space-4);
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     RESPONSIVE HEADING SCALE
+     Mobile-first, scaling up at breakpoints
+     ═══════════════════════════════════════════ */
+
+  @media (max-width: 40rem) {
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    h3 {
+      font-size: 1.125rem;
+    }
+  }
+
+  @media (min-width: 40rem) and (max-width: 64rem) {
+    h1 {
+      font-size: 1.75rem;
+    }
+
+    h2 {
+      font-size: 1.375rem;
+    }
+  }
+
+  /* ═══════════════════════════════════════════
+     SELECTION
+     ═══════════════════════════════════════════ */
+
+  ::selection {
+    background: var(--color-amber-20);
+    color: var(--color-black);
+  }
+
+  /* ═══════════════════════════════════════════
+     REDUCED MOTION
+     ═══════════════════════════════════════════ */
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
