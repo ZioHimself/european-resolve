@@ -34,19 +34,14 @@ export default function Home() {
           <h2 className={styles.aboutHeading}>About</h2>
           <div className={styles.aboutText}>
             <p>
-              European Resolve is a Brussels-based civil society organisation
-              operating at the intersection of European security, democracy, and
-              civic mobilisation.
+              We are a Brussels-based civil society organisation operating at the intersection of European security, democracy, and civic mobilisation.
             </p>
             <p>
-              We bridge expertise, public interest, and decision-making to drive
-              credible, actionable change — boldly, independently, and without
-              alarmism. Our work spans research, public advocacy, and
-              high-visibility civic actions.
+              Our mission is to contribute to European security and democracy by advancing research and knowledge,
+              fostering dialogue between civil society, decision-makers, and research institutions, and informing public discourse through awareness-raising campaigns and civic engagement.
             </p>
-            <p className={styles.emphasis}>
-              We are non-partisan but unapologetically vocal. Europe&apos;s
-              security is not a spectator sport.
+            <p>
+              Our purpose is to reinforce the success of the European project and safeguard a rules-based order in the face of external geopolitical challenges.
             </p>
           </div>
         </div>
