@@ -17,7 +17,7 @@ export default function Home() {
           <h1 className={styles.statement}>
             European Resolve is being built.
           </h1>
-          <p className={styles.subtitle}>
+          <p className={styles.because}>
             Research, dialogue, and civic action to reinforce European security
             and democracy.
           </p>
