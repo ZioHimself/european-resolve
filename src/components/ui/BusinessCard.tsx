@@ -21,6 +21,13 @@ export function BusinessCard({ member, qrSvg }: Props) {
       <p className={styles.title}>{member.title}</p>
       <p className={styles.city}>{member.city}</p>
 
+      {member.bio && (
+        <p
+          className={styles.bio}
+          dangerouslySetInnerHTML={{ __html: member.bio }}
+        />
+      )}
+
       {member.email && (
         <a href={`mailto:${member.email}`} className={styles.contact}>
           {member.email}
