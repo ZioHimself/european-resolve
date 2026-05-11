@@ -63,6 +63,9 @@ out/
 # === Next.js ===
 .next/
 
+# === Generated event thumbnails (rebuilt on every deploy) ===
+public/events/
+
 # === TypeScript ===
 *.tsbuildinfo
 

@@ -1,0 +1,11 @@
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.empty {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  text-align: center;
+  padding: 4rem 0;
+}

@@ -20,9 +20,12 @@
     "qrcode": "^1.5.4",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "server-only": "^0.0.1",
+    "sharp": "^0.34.5",
     "typescript": "^6.0.3"
   },
   "devDependencies": {
+    "@amiceli/vitest-cucumber": "^6.5.0",
     "@eslint/eslintrc": "^3.3.5",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
