@@ -12,6 +12,7 @@ function makeRawEvent(overrides: Partial<RawEvent> = {}): RawEvent {
     notes: "",
     drive_url: "",
     thumbnail_url: "",
+    image_credit: "",
     announcement_url: "",
     announcement_title: "",
     announcement_date: "",
@@ -55,6 +56,7 @@ describe("parseEvents", () => {
       place: "Albertine, Brussels",
       type: "Manifestation",
       thumbnail: "",
+      image_credit: "",
       announcement_url: "https://facebook.com/events/123",
       announcement_title: "Official Event Announcement",
       organizers: [

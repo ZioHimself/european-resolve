@@ -8,13 +8,23 @@
   padding-top: 0;
 }
 
+.figure {
+  margin: 0 0 1rem;
+}
+
 .thumbnail {
   width: 100%;
   height: auto;
   max-height: 16rem;
   object-fit: cover;
   border-radius: var(--radius-md);
-  margin-bottom: 1rem;
+}
+
+.credit {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  margin-top: 0.25rem;
+  text-align: right;
 }
 
 .meta {

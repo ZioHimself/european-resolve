@@ -35,6 +35,7 @@ function makeEvent(overrides: Partial<EventDisplay> = {}): EventDisplay {
     place: "Brussels",
     type: "Protest",
     thumbnail: "",
+    image_credit: "",
     announcement_url: "",
     announcement_title: "",
     organizers: [],

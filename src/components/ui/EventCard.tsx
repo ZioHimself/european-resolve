@@ -14,14 +14,21 @@ export function EventCard({ event }: { event: EventDisplay }) {
   return (
     <article className={styles.card}>
       {event.thumbnail && (
-        <img
-          src={event.thumbnail}
-          alt={event.name}
-          width={800}
-          height={533}
-          loading="lazy"
-          className={styles.thumbnail}
-        />
+        <figure className={styles.figure}>
+          <img
+            src={event.thumbnail}
+            alt={event.name}
+            width={800}
+            height={533}
+            loading="lazy"
+            className={styles.thumbnail}
+          />
+          {event.image_credit && (
+            <figcaption className={styles.credit}>
+              Photo: {event.image_credit}
+            </figcaption>
+          )}
+        </figure>
       )}
 
       <div className={styles.meta}>

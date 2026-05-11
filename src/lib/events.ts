@@ -21,6 +21,7 @@ export type RawEvent = {
   notes: string;
   drive_url: string;
   thumbnail_url: string;
+  image_credit: string;
   announcement_url: string;
   announcement_title: string;
   announcement_date: string;
@@ -41,6 +42,7 @@ export type EventDisplay = {
   place: string;
   type: string;
   thumbnail: string;
+  image_credit: string;
   announcement_url: string;
   announcement_title: string;
   organizers: { name: string; website?: string; role: string }[];
@@ -59,6 +61,7 @@ export function parseEvents(
       place: e.place,
       type: e.type,
       thumbnail: thumbnailMap[e.date] || "",
+      image_credit: e.image_credit || "",
       announcement_url: e.announcement_url,
       announcement_title: e.announcement_title,
       organizers: e.organizers,
