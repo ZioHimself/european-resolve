@@ -17,6 +17,10 @@ export default function Home() {
           <h1 className={styles.statement}>
             European Resolve is being built.
           </h1>
+          <p className={styles.because}>
+            Because Europe&apos;s security needs more than concern — it needs
+            action.
+          </p>
           <p className={styles.subtitle}>
             Research, dialogue, and civic action to reinforce European security
             and democracy.
@@ -33,7 +37,7 @@ export default function Home() {
               We are a Brussels-based civil society organisation operating at the intersection of European security, democracy, and civic mobilisation.
             </p>
             <p>
-              Our mission is to contribute by advancing research and knowledge,
+              Our mission is to contribute to European security and democracy by advancing research and knowledge,
               fostering dialogue between civil society, decision-makers, and research institutions, and informing public discourse through awareness-raising campaigns and civic engagement.
             </p>
             <p>

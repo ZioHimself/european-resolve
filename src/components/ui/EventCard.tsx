@@ -32,8 +32,8 @@ export function EventCard({ event }: { event: EventDisplay }) {
       )}
 
       <div className={styles.meta}>
-        <span className={styles.badge}>{event.type}</span>
         <span className={styles.date}>{formatDate(event.date)}</span>
+        <span className={styles.badge}>{event.type}</span>
       </div>
 
       <h3 className={styles.name}>{event.name}</h3>

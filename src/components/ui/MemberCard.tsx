@@ -14,6 +14,7 @@ export function MemberCard({ member }: { member: Member }) {
       />
       <h3 className={styles.name}>{member.name}</h3>
       <p className={styles.title}>{member.title}</p>
+      <p className={styles.city}>{member.city}</p>
     </Link>
   );
 }
