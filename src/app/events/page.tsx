@@ -18,8 +18,7 @@ export default async function EventsPage() {
     <section className={styles.events}>
       <h1 className={styles.heading}>Events</h1>
       <p className={styles.intro}>
-        We show up where it matters — rallies, panels, policy briefings, and
-        public actions across Europe.
+      We host roundtables, street actions, media campaigns, and conferences dedicated to strengthening European security and democratic values. Follow our latest activities and join us for future events!
       </p>
       <EventTimeline initialEvents={events} />
     </section>
