@@ -33,8 +33,9 @@ export default function Home() {
               We are a Brussels-based civil society organisation operating at the intersection of European security, democracy, and civic mobilisation.
             </p>
             <p>
-              Our mission is to contribute to European security and democracy by advancing research and knowledge,
-              fostering dialogue between civil society, decision-makers, and research institutions, and informing public discourse through awareness-raising campaigns and civic engagement.
+              Our mission is to advance research and knowledge,
+              foster dialogue between civil society, decision-makers, and research institutions, 
+              and inform public discourse through awareness-raising campaigns and civic engagement.
             </p>
             <p>
               Our purpose is to reinforce the success of the European project and safeguard a rules-based order in the face of external geopolitical challenges.
