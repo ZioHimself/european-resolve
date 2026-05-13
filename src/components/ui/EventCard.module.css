@@ -80,6 +80,22 @@
   color: var(--color-link-hover);
 }
 
+.features {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: 1rem 0 0;
+}
+
+.features a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.features a:hover {
+  color: var(--color-link-hover);
+}
+
 .links {
   display: flex;
   flex-wrap: wrap;

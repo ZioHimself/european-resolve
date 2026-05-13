@@ -61,7 +61,7 @@ export function EventCard({ event }: { event: EventDisplay }) {
         </p>
       )}
 
-      {(event.announcement_url || event.media_features.length > 0) && (
+      {(event.announcement_url) && (
         <div className={styles.links}>
           {event.announcement_url && (
             <a
@@ -72,20 +72,29 @@ export function EventCard({ event }: { event: EventDisplay }) {
               {event.announcement_title || "Announcement"}
             </a>
           )}
-          {event.media_features.map((url) => {
+        </div>
+      )}
+
+      {(event.media_features.length > 0) && (
+        <p className={styles.features}>
+          Featured by:{" "}
+          {event.media_features.map((url, i) => {
             const domain = new URL(url).hostname.replace("www.", "");
             return (
-              <a
-                key={url}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {domain}
-              </a>
+              <span key={domain}>
+                {i > 0 && ", "}
+                <a
+                  key={url}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {domain}
+                </a>
+              </span>
             );
           })}
-        </div>
+        </p>
       )}
 
       {event.tags.length > 0 && (
