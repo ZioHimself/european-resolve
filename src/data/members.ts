@@ -16,5 +16,5 @@ export const members = [
   { slug: "benjamin-lemerle", name: "Benjamin Lemerle", title: "Partnerships", city: "Brussels", photo: "/team/benjamin-lemerle.png" },
   { slug: "ivan-zinchenko", name: "Ivan Zinchenko", title: "Project Management", city: "Haacht", photo: "/team/ivan-zinchenko.png" },
   { slug: "serhiy-onyshchenko", name: "Serhiy Onyshchenko", title: "IT", city: "Antwerp", photo: "/team/serhiy-onyshchenko.png", bio: 'A Father. Ukrainian. Software Engineer. Focused on civil activism. Creator of <a href="https://frozen-assets.eu" target="_blank" rel="noopener noreferrer">frozen-assets.eu</a>, presented on <a href="https://youtube.com/clip/Ugkxd5oXTKK5cM-CRwYUgYqcsq78NlEitGhi?si=aqQmTBmgHKKlS4yx" target="_blank" rel="noopener noreferrer">Ukraine Matters</a> YouTube channel. Featured as a guest on the <a href="https://youtu.be/PvalinSwez0?si=HSMlxEWUsnDJdif-" target="_blank" rel="noopener noreferrer">Silicon Curtain</a> podcast.' },
-  { slug: "marco-melega", name: "Marco Melega", title: "Research", city: "Brussels", photo: "/team/marco-melega.png" },
+  { slug: "marco-melega", name: "Marco Melega", title: "Research", city: "Brussels", photo: "/team/marco-melega.png", bio: 'An aerospace engineer living at Brussels and working in the UAS industry with interest in humanitarianism, geopolitics, research and data analytics.' },
 ] satisfies Member[];
