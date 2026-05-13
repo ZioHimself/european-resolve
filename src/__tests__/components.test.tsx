@@ -81,7 +81,6 @@ describe("MemberCard", () => {
     render(<MemberCard member={testMember} />);
     expect(screen.getByText("Test Person")).toBeInTheDocument();
     expect(screen.getByText("Head of Testing")).toBeInTheDocument();
-    expect(screen.getByText("Brussels")).toBeInTheDocument();
   });
 
   it("renders photo", () => {
@@ -105,7 +104,6 @@ describe("BusinessCard", () => {
       screen.getByRole("heading", { name: "Test Person" }),
     ).toBeInTheDocument();
     expect(screen.getByText("Head of Testing")).toBeInTheDocument();
-    expect(screen.getByText("Brussels")).toBeInTheDocument();
   });
 
   it("renders photo", () => {

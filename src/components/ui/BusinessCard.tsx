@@ -19,7 +19,6 @@ export function BusinessCard({ member, qrSvg }: Props) {
 
       <h1 className={styles.name}>{member.name}</h1>
       <p className={styles.title}>{member.title}</p>
-      <p className={styles.city}>{member.city}</p>
 
       {member.bio && (
         <p
