@@ -26,6 +26,7 @@
   line-height: 1.25;
   margin-top: 0;
   margin-bottom: 0;
+  text-wrap: balance;
 }
 
 .title {
@@ -48,6 +49,7 @@
   line-height: 1.6;
   color: var(--color-text-secondary);
   max-width: 36ch;
+  text-wrap: balance;
 }
 
 .contact {
