@@ -4,7 +4,7 @@
 .DS_Store
 .AppleDouble
 .LSOverride
-Icon?
+Icon[^a-zA-Z]
 ._*
 .Spotlight-V100
 .Trashes
