@@ -1,5 +1,41 @@
 import { describe, it, expect } from "vitest";
-import { members } from "@/data/members";
+import { members, getSocialUrl, getSocialHandle } from "@/data/members";
+
+describe("getSocialUrl", () => {
+  it("returns undefined for undefined input", () => {
+    expect(getSocialUrl(undefined)).toBeUndefined();
+  });
+
+  it("returns the string directly when given a string", () => {
+    expect(getSocialUrl("https://github.com/user")).toBe("https://github.com/user");
+  });
+
+  it("returns url property when given an object", () => {
+    expect(getSocialUrl({ url: "https://github.com/user" })).toBe("https://github.com/user");
+  });
+
+  it("returns url property when object also has handle", () => {
+    expect(getSocialUrl({ url: "https://github.com/user", handle: "@user" })).toBe("https://github.com/user");
+  });
+});
+
+describe("getSocialHandle", () => {
+  it("returns undefined for undefined input", () => {
+    expect(getSocialHandle(undefined)).toBeUndefined();
+  });
+
+  it("returns undefined for string input (no handle)", () => {
+    expect(getSocialHandle("https://github.com/user")).toBeUndefined();
+  });
+
+  it("returns undefined when object has no handle", () => {
+    expect(getSocialHandle({ url: "https://github.com/user" })).toBeUndefined();
+  });
+
+  it("returns handle when object has handle", () => {
+    expect(getSocialHandle({ url: "https://github.com/user", handle: "@user" })).toBe("@user");
+  });
+});
 
 describe("members data", () => {
   it("is non-empty", () => {

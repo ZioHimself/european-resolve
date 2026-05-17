@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "resize-marco": "sips -Z 400 /Users/serhiy/dev/github/ziohimself/european-resolve/public/team/marco-melega.png"
   },
   "dependencies": {
     "@types/node": "^25.6.2",
