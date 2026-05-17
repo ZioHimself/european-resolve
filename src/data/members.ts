@@ -63,7 +63,9 @@ export const members = [
     city: "Brussels",
     photo: "/team/benjamin-lemerle.png",
     bio: "Strategic partnerships, policy and advocacy specialist focusing on EU external relations, humanitarian action and multilateral engagement, with a particular interest in Ukraine, European security and EU enlargement.",
-    socials: {}
+    socials: {
+      linkedin: "https://www.linkedin.com/in/benjamin-lemerle-224300a6"
+    }
   },
   {
     slug: "ivan-zinchenko",
