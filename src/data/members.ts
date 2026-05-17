@@ -62,6 +62,7 @@ export const members = [
     title: "Partnerships",
     city: "Brussels",
     photo: "/team/benjamin-lemerle.png",
+    bio: "Strategic partnerships, policy and advocacy specialist focusing on EU external relations, humanitarian action and multilateral engagement, with a particular interest in Ukraine, European security and EU enlargement.",
     socials: {}
   },
   {
