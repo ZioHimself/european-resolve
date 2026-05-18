@@ -26,7 +26,7 @@ export default async function TeamMemberPage({ params }: Props) {
   const member = members.find((m) => m.slug === slug);
   if (!member) notFound();
 
-  const qrSvg = await generateQRSvg(member.slug);
+  const qrSvg = await generateQRSvg(member);
 
   return <BusinessCard member={member} qrSvg={qrSvg} />;
 }

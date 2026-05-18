@@ -1,5 +1,6 @@
 import type { Member, SocialLinks } from "@/data/members";
 import { getSocialUrl, getSocialHandle } from "@/data/members";
+import { ObfuscatedEmail } from "./ObfuscatedEmail";
 import styles from "./BusinessCard.module.css";
 
 type Props = {
@@ -39,9 +40,7 @@ export function BusinessCard({ member, qrSvg }: Props) {
       )}
 
       {member.email && (
-        <a href={`mailto:${member.email}`} className={styles.contact}>
-          {member.email}
-        </a>
+        <ObfuscatedEmail email={member.email} className={styles.contact} />
       )}
 
       {member.phone && (

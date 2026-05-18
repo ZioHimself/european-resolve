@@ -154,7 +154,7 @@ describe("BusinessCard", () => {
 
   it("renders email and phone when present", () => {
     render(<BusinessCard member={memberWithContact} />);
-    expect(screen.getByText("test@example.org")).toBeInTheDocument();
+    expect(screen.getByText("test[at]example.org")).toBeInTheDocument();
     expect(screen.getByText("+32 123 456 789")).toBeInTheDocument();
   });
 

@@ -36,7 +36,8 @@ export const members = [
     name: "Michael Desloover",
     title: "Operations",
     city: "Antwerp",
-    photo: "/team/michael-desloover.png"
+    photo: "/team/michael-desloover.png",
+    email: "michael.desloover@european-resolve.org"
   },
   {
     slug: "liza-bezvershenko",
@@ -47,14 +48,16 @@ export const members = [
     bio: "Ukrainian civil society and advocacy specialist based in Brussels, focusing on EU-Ukraine relations, European integration, and democracy promotion. Recipient of the 2024 Young Diplomat Award and a recognised voice for Ukraine in Brussels, featured in international media.",
     socials: {
       linkedin: { url: "https://www.linkedin.com/in/lizabezvershenko", handle: "/in/lizabezvershenko" }
-    }
+    },
+    email: "liza.bezvershenko@european-resolve.org"
   },
   {
     slug: "olena-kuzhym",
     name: "Olena Kuzhym",
     title: "Advocacy",
     city: "Wespelaar",
-    photo: "/team/olena-kuzhym.png"
+    photo: "/team/olena-kuzhym.png",
+    email: "olena.kuzhym@european-resolve.org"
   },
   {
     slug: "benjamin-lemerle",
@@ -65,7 +68,8 @@ export const members = [
     bio: "Strategic partnerships, policy and advocacy specialist focusing on EU external relations, humanitarian action and multilateral engagement, with a particular interest in Ukraine, European security and EU enlargement.",
     socials: {
       linkedin: "https://www.linkedin.com/in/benjamin-lemerle-224300a6"
-    }
+    },
+    email: "benjamin.lemerle@european-resolve.org"
   },
   {
     slug: "ivan-zinchenko",
@@ -73,7 +77,8 @@ export const members = [
     title: "Project Management",
     city: "Haacht",
     photo: "/team/ivan-zinchenko.png",
-    socials: {}
+    socials: {},
+    email: "ivan.zinchenko@european-resolve.org"
   },
   {
     slug: "serhiy-onyshchenko",
@@ -87,7 +92,8 @@ export const members = [
       x: "https://x.com/ziohimself",
       bluesky: { url: "https://bsky.app/profile/ziohimself", handle: "ziohimself.bsky.social" },
       linkedin: { url: "https://www.linkedin.com/in/serhiy-onyshchenko-%F0%9F%87%BA%F0%9F%87%A6-90706170", handle: "/in/serhiy-onyshchenko-🇺🇦" }
-    }
+    },
+    email: "serhiy.onyshchenko@european-resolve.org"
   },
   {
     slug: "marco-melega",
@@ -99,6 +105,7 @@ export const members = [
     socials: {
       linkedin: "https://www.linkedin.com/in/marco-melega-39ba0523",
       facebook: "https://www.facebook.com/share/1FugzdcKMf"
-    }
+    },
+    email: "marco.melega@european-resolve.org"
   },
 ] satisfies Member[];
