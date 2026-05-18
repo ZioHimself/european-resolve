@@ -19,12 +19,6 @@ export function Footer() {
         <div className={styles.right}>
           <nav className={styles.links} aria-label="Footer navigation">
             <Link href="/privacy">Privacy Policy</Link>
-            <a
-              href="mailto:it@european-resolve.org"
-              className={styles.privacyEmail}
-            >
-              it@european-resolve.org
-            </a>
           </nav>
           <p className={styles.notice}>
             We don&apos;t use cookies or collect personal data.
