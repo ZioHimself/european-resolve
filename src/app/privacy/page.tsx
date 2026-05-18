@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -54,9 +53,8 @@ export default function PrivacyPage() {
 
       <h2>Contact</h2>
       <p>
-        For data-related inquiries, contact the{" "}
-        <Link href="/team/serhiy-onyshchenko">Head of IT</Link> at European
-        Resolve VZW.
+        For data-related inquiries, contact{" "}
+        <a href="mailto:it@european-resolve.org">it@european-resolve.org</a>.
       </p>
     </article>
   );
