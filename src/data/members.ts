@@ -33,7 +33,7 @@ export type Member = {
 export const members = [
   {
     slug: "michael-desloover",
-    name: "Michael Desloover",
+    name: "Michaël Desloover",
     title: "Operations",
     city: "Antwerp",
     photo: "/team/michael-desloover.png",
