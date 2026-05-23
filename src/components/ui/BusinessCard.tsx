@@ -14,10 +14,12 @@ const socialIcons: { key: keyof SocialLinks; icon: string; label: string }[] = [
   { key: "x", icon: "/icons/x.png", label: "X" },
   { key: "bluesky", icon: "/icons/bluesky.png", label: "Bluesky" },
   { key: "facebook", icon: "/icons/facebook.png", label: "Facebook" },
+  { key: "instagram", icon: "/icons/instagram.png", label: "Instagram" },
 ];
 
 export function BusinessCard({ member, qrSvg }: Props) {
-  const hasSocials = member.socials && Object.values(member.socials).some(Boolean);
+  const hasSocials =
+    member.socials && Object.values(member.socials).some(Boolean);
 
   return (
     <article className={styles.card}>
@@ -66,7 +68,9 @@ export function BusinessCard({ member, qrSvg }: Props) {
                 title={handle || label}
               >
                 <img src={icon} alt={label} width={24} height={24} />
-                {handle && <span className={styles.socialHandle}>{handle}</span>}
+                {handle && (
+                  <span className={styles.socialHandle}>{handle}</span>
+                )}
               </a>
             );
           })}

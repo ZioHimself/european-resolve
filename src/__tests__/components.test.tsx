@@ -57,13 +57,17 @@ const memberWithAllSocials: Member = {
     x: "https://x.com/testperson",
     bluesky: "https://bsky.app/profile/testperson",
     facebook: "https://facebook.com/testperson",
+    instagram: "https://instagram.com/testperson",
   },
 };
 
 const memberWithSocialsAndHandles: Member = {
   ...testMember,
   socials: {
-    linkedin: { url: "https://linkedin.com/in/test-person", handle: "test-person" },
+    linkedin: {
+      url: "https://linkedin.com/in/test-person",
+      handle: "test-person",
+    },
     github: { url: "https://github.com/testdev", handle: "@testdev" },
     x: "https://x.com/testperson",
   },
@@ -165,41 +169,59 @@ describe("BusinessCard", () => {
     });
 
     it("does not render socials section when socials object is empty", () => {
-      const { container } = render(<BusinessCard member={memberWithEmptySocials} />);
+      const { container } = render(
+        <BusinessCard member={memberWithEmptySocials} />,
+      );
       expect(container.querySelector('a[target="_blank"]')).toBeNull();
     });
 
     it("renders only provided social links", () => {
       render(<BusinessCard member={memberWithSocials} />);
-      expect(screen.getByLabelText("Test Person on LinkedIn")).toBeInTheDocument();
-      expect(screen.getByLabelText("Test Person on GitHub")).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Test Person on LinkedIn"),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Test Person on GitHub"),
+      ).toBeInTheDocument();
       expect(screen.getByLabelText("Test Person on X")).toBeInTheDocument();
       expect(screen.queryByLabelText("Test Person on Bluesky")).toBeNull();
       expect(screen.queryByLabelText("Test Person on Facebook")).toBeNull();
+      expect(screen.queryByLabelText("Test Person on Instagram")).toBeNull();
     });
 
     it("renders all social links when all are provided", () => {
       render(<BusinessCard member={memberWithAllSocials} />);
-      expect(screen.getByLabelText("Test Person on LinkedIn")).toBeInTheDocument();
-      expect(screen.getByLabelText("Test Person on GitHub")).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Test Person on LinkedIn"),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Test Person on GitHub"),
+      ).toBeInTheDocument();
       expect(screen.getByLabelText("Test Person on X")).toBeInTheDocument();
-      expect(screen.getByLabelText("Test Person on Bluesky")).toBeInTheDocument();
-      expect(screen.getByLabelText("Test Person on Facebook")).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Test Person on Bluesky"),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Test Person on Facebook"),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByLabelText("Test Person on Instagram"),
+      ).toBeInTheDocument();
     });
 
     it("social links have correct href attributes (string format)", () => {
       render(<BusinessCard member={memberWithSocials} />);
       expect(screen.getByLabelText("Test Person on LinkedIn")).toHaveAttribute(
         "href",
-        "https://linkedin.com/in/test-person"
+        "https://linkedin.com/in/test-person",
       );
       expect(screen.getByLabelText("Test Person on GitHub")).toHaveAttribute(
         "href",
-        "https://github.com/test-person"
+        "https://github.com/test-person",
       );
       expect(screen.getByLabelText("Test Person on X")).toHaveAttribute(
         "href",
-        "https://x.com/testperson"
+        "https://x.com/testperson",
       );
     });
 
@@ -207,11 +229,11 @@ describe("BusinessCard", () => {
       render(<BusinessCard member={memberWithSocialsAndHandles} />);
       expect(screen.getByLabelText("Test Person on LinkedIn")).toHaveAttribute(
         "href",
-        "https://linkedin.com/in/test-person"
+        "https://linkedin.com/in/test-person",
       );
       expect(screen.getByLabelText("Test Person on GitHub")).toHaveAttribute(
         "href",
-        "https://github.com/testdev"
+        "https://github.com/testdev",
       );
     });
 
@@ -245,11 +267,11 @@ describe("BusinessCard", () => {
       render(<BusinessCard member={memberWithSocialsAndHandles} />);
       expect(screen.getByLabelText("Test Person on LinkedIn")).toHaveAttribute(
         "title",
-        "test-person"
+        "test-person",
       );
       expect(screen.getByLabelText("Test Person on X")).toHaveAttribute(
         "title",
-        "X"
+        "X",
       );
     });
   });
