@@ -45,9 +45,7 @@ function makeEvent(overrides: Partial<EventDisplay> = {}): EventDisplay {
   };
 }
 
-const feature = await loadFeature(
-  "src/__tests__/features/events-page.feature",
-);
+const feature = await loadFeature("src/__tests__/features/events-page.feature");
 
 describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
   AfterEachScenario(() => {
@@ -59,35 +57,26 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
     ({ Given, When, Then, And }) => {
       let events: EventDisplay[];
 
-      Given(
-        'the API returns events on "2025-12-12" and "2026-02-22"',
-        () => {
-          events = [
-            makeEvent({ date: "2025-12-12", name: "Earlier Event" }),
-            makeEvent({ date: "2026-02-22", name: "Later Event" }),
-          ];
-        },
-      );
+      Given('the API returns events on "2025-12-12" and "2026-02-22"', () => {
+        events = [
+          makeEvent({ date: "2025-12-12", name: "Earlier Event" }),
+          makeEvent({ date: "2026-02-22", name: "Later Event" }),
+        ];
+      });
 
       When("the events page is rendered", async () => {
-        const { EventTimeline } = await import(
-          "@/components/ui/EventTimeline"
-        );
+        const { EventTimeline } = await import("@/components/ui/EventTimeline");
         render(<EventTimeline initialEvents={events} />);
       });
 
       Then('the first event displayed is from "2026-02-22"', () => {
         const cards = screen.getAllByRole("article");
-        expect(
-          within(cards[0]).getByText("Later Event"),
-        ).toBeInTheDocument();
+        expect(within(cards[0]).getByText("Later Event")).toBeInTheDocument();
       });
 
       And('the second event displayed is from "2025-12-12"', () => {
         const cards = screen.getAllByRole("article");
-        expect(
-          within(cards[1]).getByText("Earlier Event"),
-        ).toBeInTheDocument();
+        expect(within(cards[1]).getByText("Earlier Event")).toBeInTheDocument();
       });
     },
   );
@@ -105,12 +94,9 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
         event.type = "Manifestation";
       });
 
-      And(
-        'the event place is "Pl. de l\'Albertine, 1000 Brussels"',
-        () => {
-          event.place = "Pl. de l'Albertine, 1000 Brussels";
-        },
-      );
+      And('the event place is "Pl. de l\'Albertine, 1000 Brussels"', () => {
+        event.place = "Pl. de l'Albertine, 1000 Brussels";
+      });
 
       And(
         'the event has organizers "European Resolve" and "Embassy of Ukraine"',
@@ -151,22 +137,17 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
         expect(screen.getByText("Manifestation")).toBeInTheDocument();
       });
 
-      And(
-        'the place "Pl. de l\'Albertine, 1000 Brussels" is displayed',
-        () => {
-          expect(
-            screen.getByText("Pl. de l'Albertine, 1000 Brussels"),
-          ).toBeInTheDocument();
-        },
-      );
+      And('the place "Pl. de l\'Albertine, 1000 Brussels" is displayed', () => {
+        expect(
+          screen.getByText("Pl. de l'Albertine, 1000 Brussels"),
+        ).toBeInTheDocument();
+      });
 
-      And("the organizers are listed", () => {
-        expect(
-          screen.getByText("European Resolve"),
-        ).toBeInTheDocument();
-        expect(
-          screen.getByText("Embassy of Ukraine"),
-        ).toBeInTheDocument();
+      And("the organizers are listed with their roles", () => {
+        expect(screen.getByText("Speakers:")).toBeInTheDocument();
+        expect(screen.getByText("Organizer:")).toBeInTheDocument();
+        expect(screen.getByText("European Resolve")).toBeInTheDocument();
+        expect(screen.getByText("Embassy of Ukraine")).toBeInTheDocument();
       });
 
       And("the tags are displayed", () => {
@@ -179,46 +160,37 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
   Scenario("Show thumbnail when available", ({ Given, When, Then }) => {
     let event: EventDisplay;
 
-    Given(
-      'an event with thumbnail "/events/2026-02-22.jpg"',
-      () => {
-        event = makeEvent({ thumbnail: "/events/2026-02-22.jpg" });
-      },
-    );
+    Given('an event with thumbnail "/events/2026-02-22.jpg"', () => {
+      event = makeEvent({ thumbnail: "/events/2026-02-22.jpg" });
+    });
 
     When("the event card is rendered", async () => {
       const { EventCard } = await import("@/components/ui/EventCard");
       render(<EventCard event={event} />);
     });
 
-    Then(
-      'an image with source "/events/2026-02-22.jpg" is displayed',
-      () => {
-        const img = screen.getByRole("img");
-        expect(img).toHaveAttribute("src", "/events/2026-02-22.jpg");
-      },
-    );
+    Then('an image with source "/events/2026-02-22.jpg" is displayed', () => {
+      const img = screen.getByRole("img");
+      expect(img).toHaveAttribute("src", "/events/2026-02-22.jpg");
+    });
   });
 
-  Scenario(
-    "Hide thumbnail when not available",
-    ({ Given, When, Then }) => {
-      let event: EventDisplay;
+  Scenario("Hide thumbnail when not available", ({ Given, When, Then }) => {
+    let event: EventDisplay;
 
-      Given("an event without a thumbnail", () => {
-        event = makeEvent({ thumbnail: "" });
-      });
+    Given("an event without a thumbnail", () => {
+      event = makeEvent({ thumbnail: "" });
+    });
 
-      When("the event card is rendered", async () => {
-        const { EventCard } = await import("@/components/ui/EventCard");
-        render(<EventCard event={event} />);
-      });
+    When("the event card is rendered", async () => {
+      const { EventCard } = await import("@/components/ui/EventCard");
+      render(<EventCard event={event} />);
+    });
 
-      Then("no event image is displayed", () => {
-        expect(screen.queryByRole("img")).toBeNull();
-      });
-    },
-  );
+    Then("no event image is displayed", () => {
+      expect(screen.queryByRole("img")).toBeNull();
+    });
+  });
 
   Scenario(
     "Show announcement link when URL is present",
@@ -234,37 +206,28 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
         },
       );
 
-      And(
-        'the announcement title is "Official Event Announcement"',
-        () => {
-          event.announcement_title = "Official Event Announcement";
-        },
-      );
+      And('the announcement title is "Official Event Announcement"', () => {
+        event.announcement_title = "Official Event Announcement";
+      });
 
       When("the event card is rendered", async () => {
         const { EventCard } = await import("@/components/ui/EventCard");
         render(<EventCard event={event} />);
       });
 
-      Then(
-        'a link labelled "Official Event Announcement" is displayed',
-        () => {
-          expect(
-            screen.getByText("Official Event Announcement"),
-          ).toBeInTheDocument();
-        },
-      );
+      Then('a link labelled "Official Event Announcement" is displayed', () => {
+        expect(
+          screen.getByText("Official Event Announcement"),
+        ).toBeInTheDocument();
+      });
 
-      And(
-        'the link points to "https://facebook.com/events/123"',
-        () => {
-          const link = screen.getByText("Official Event Announcement");
-          expect(link.closest("a")).toHaveAttribute(
-            "href",
-            "https://facebook.com/events/123",
-          );
-        },
-      );
+      And('the link points to "https://facebook.com/events/123"', () => {
+        const link = screen.getByText("Official Event Announcement");
+        expect(link.closest("a")).toHaveAttribute(
+          "href",
+          "https://facebook.com/events/123",
+        );
+      });
     },
   );
 
@@ -286,47 +249,39 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
       });
 
       Then("no announcement link is displayed", () => {
-        expect(
-          screen.queryByText("Official Event Announcement"),
-        ).toBeNull();
+        expect(screen.queryByText("Official Event Announcement")).toBeNull();
       });
     },
   );
 
-  Scenario(
-    "Show media feature links when present",
-    ({ Given, When, Then }) => {
-      let event: EventDisplay;
+  Scenario("Show media feature links when present", ({ Given, When, Then }) => {
+    let event: EventDisplay;
 
-      Given(
-        'an event with media features "https://wsj.com/article" and "https://npr.org/story"',
-        () => {
-          event = makeEvent({
-            media_features: [
-              "https://wsj.com/article",
-              "https://npr.org/story",
-            ],
-          });
-        },
-      );
+    Given(
+      'an event with media features "https://wsj.com/article" and "https://npr.org/story"',
+      () => {
+        event = makeEvent({
+          media_features: ["https://wsj.com/article", "https://npr.org/story"],
+        });
+      },
+    );
 
-      When("the event card is rendered", async () => {
-        const { EventCard } = await import("@/components/ui/EventCard");
-        render(<EventCard event={event} />);
-      });
+    When("the event card is rendered", async () => {
+      const { EventCard } = await import("@/components/ui/EventCard");
+      render(<EventCard event={event} />);
+    });
 
-      Then("2 media feature links are displayed", () => {
-        const links = screen
-          .getAllByRole("link")
-          .filter(
-            (link) =>
-              link.getAttribute("href")?.includes("wsj.com") ||
-              link.getAttribute("href")?.includes("npr.org"),
-          );
-        expect(links).toHaveLength(2);
-      });
-    },
-  );
+    Then("2 media feature links are displayed", () => {
+      const links = screen
+        .getAllByRole("link")
+        .filter(
+          (link) =>
+            link.getAttribute("href")?.includes("wsj.com") ||
+            link.getAttribute("href")?.includes("npr.org"),
+        );
+      expect(links).toHaveLength(2);
+    });
+  });
 
   Scenario(
     "Hide media features section when empty",
@@ -401,51 +356,39 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
     },
   );
 
-  Scenario(
-    "Show empty state when no events exist",
-    ({ Given, When, Then }) => {
-      Given("the API returns no events", () => {
-        // empty setup
-      });
+  Scenario("Show empty state when no events exist", ({ Given, When, Then }) => {
+    Given("the API returns no events", () => {
+      // empty setup
+    });
 
-      When("the events page is rendered", async () => {
-        const { EventTimeline } = await import(
-          "@/components/ui/EventTimeline"
-        );
-        render(<EventTimeline initialEvents={[]} />);
-      });
+    When("the events page is rendered", async () => {
+      const { EventTimeline } = await import("@/components/ui/EventTimeline");
+      render(<EventTimeline initialEvents={[]} />);
+    });
 
-      Then('the message "No events yet" is displayed', () => {
-        expect(screen.getByText("No events yet")).toBeInTheDocument();
-      });
-    },
-  );
+    Then('the message "No events yet" is displayed', () => {
+      expect(screen.getByText("No events yet")).toBeInTheDocument();
+    });
+  });
 
   Scenario(
     "Client-side refresh does not clear build-time data on failure",
     ({ Given, And, When, Then }) => {
       let events: EventDisplay[];
 
-      Given(
-        "the events page was rendered with 2 build-time events",
-        () => {
-          events = [
-            makeEvent({ name: "Event A", date: "2026-01-01" }),
-            makeEvent({ name: "Event B", date: "2026-02-01" }),
-          ];
-        },
-      );
+      Given("the events page was rendered with 2 build-time events", () => {
+        events = [
+          makeEvent({ name: "Event A", date: "2026-01-01" }),
+          makeEvent({ name: "Event B", date: "2026-02-01" }),
+        ];
+      });
 
       And("the client-side fetch fails", () => {
-        vi.mocked(fetchEvents).mockRejectedValue(
-          new Error("Network error"),
-        );
+        vi.mocked(fetchEvents).mockRejectedValue(new Error("Network error"));
       });
 
       When("the page hydrates", async () => {
-        const { EventTimeline } = await import(
-          "@/components/ui/EventTimeline"
-        );
+        const { EventTimeline } = await import("@/components/ui/EventTimeline");
         render(<EventTimeline initialEvents={events} />);
       });
 

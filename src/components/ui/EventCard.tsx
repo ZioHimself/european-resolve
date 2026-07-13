@@ -1,4 +1,5 @@
 import type { EventDisplay } from "@/lib/events";
+import { groupOrganizersByRole } from "@/lib/events";
 import styles from "./EventCard.module.css";
 
 function formatDate(iso: string): string {
@@ -40,28 +41,32 @@ export function EventCard({ event }: { event: EventDisplay }) {
       <p className={styles.place}>{event.place}</p>
 
       {event.organizers.length > 0 && (
-        <p className={styles.organizers}>
-          Organised by:{" "}
-          {event.organizers.map((org, i) => (
-            <span key={org.name}>
-              {i > 0 && ", "}
-              {org.website ? (
-                <a
-                  href={org.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {org.name}
-                </a>
-              ) : (
-                <span>{org.name}</span>
-              )}
-            </span>
+        <div className={styles.organizers}>
+          {groupOrganizersByRole(event.organizers).map((group) => (
+            <p key={group.role} className={styles.organizerGroup}>
+              <span className={styles.role}>{group.role}:</span>{" "}
+              {group.members.map((m, i) => (
+                <span key={m.name}>
+                  {i > 0 && ", "}
+                  {m.website ? (
+                    <a
+                      href={m.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {m.name}
+                    </a>
+                  ) : (
+                    <span>{m.name}</span>
+                  )}
+                </span>
+              ))}
+            </p>
           ))}
-        </p>
+        </div>
       )}
 
-      {(event.announcement_url) && (
+      {event.announcement_url && (
         <div className={styles.links}>
           {event.announcement_url && (
             <a
@@ -75,7 +80,7 @@ export function EventCard({ event }: { event: EventDisplay }) {
         </div>
       )}
 
-      {(event.media_features.length > 0) && (
+      {event.media_features.length > 0 && (
         <p className={styles.features}>
           Featured by:{" "}
           {event.media_features.map((url, i) => {

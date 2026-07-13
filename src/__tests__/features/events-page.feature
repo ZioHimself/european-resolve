@@ -21,7 +21,7 @@ Feature: Events page
     And the event name "We Remember" is displayed
     And a type badge showing "Manifestation" is displayed
     And the place "Pl. de l'Albertine, 1000 Brussels" is displayed
-    And the organizers are listed
+    And the organizers are listed with their roles
     And the tags are displayed
 
   Scenario: Show thumbnail when available

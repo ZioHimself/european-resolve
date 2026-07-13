@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseEvents } from "@/lib/events";
+import { parseEvents, groupOrganizersByRole } from "@/lib/events";
 import type { RawEvent } from "@/lib/events";
 
 function makeRawEvent(overrides: Partial<RawEvent> = {}): RawEvent {
@@ -40,7 +40,11 @@ describe("parseEvents", () => {
         announcement_url: "https://facebook.com/events/123",
         announcement_title: "Official Event Announcement",
         organizers: [
-          { name: "European Resolve", website: "https://european-resolve.org", role: "Speakers" },
+          {
+            name: "European Resolve",
+            website: "https://european-resolve.org",
+            role: "Speakers",
+          },
         ],
         media_features: ["https://example.com/article"],
         tags: ["Belgium", "Ukraine"],
@@ -60,7 +64,11 @@ describe("parseEvents", () => {
       announcement_url: "https://facebook.com/events/123",
       announcement_title: "Official Event Announcement",
       organizers: [
-        { name: "European Resolve", website: "https://european-resolve.org", role: "Speakers" },
+        {
+          name: "European Resolve",
+          website: "https://european-resolve.org",
+          role: "Speakers",
+        },
       ],
       media_features: ["https://example.com/article"],
       tags: ["Belgium", "Ukraine"],
@@ -190,7 +198,11 @@ describe("parseEvents", () => {
 
   it("preserves organizer data including websites", () => {
     const organizers = [
-      { name: "European Resolve", website: "https://european-resolve.org", role: "Lead Organizer" },
+      {
+        name: "European Resolve",
+        website: "https://european-resolve.org",
+        role: "Lead Organizer",
+      },
       { name: "Partner Org", role: "Co-Organizer" },
     ];
     const raw = [makeRawEvent({ organizers })];
@@ -198,5 +210,75 @@ describe("parseEvents", () => {
     const result = parseEvents(raw, {});
 
     expect(result[0].organizers).toEqual(organizers);
+  });
+});
+
+describe("groupOrganizersByRole", () => {
+  it("groups organizers by their role", () => {
+    const organizers = [
+      {
+        name: "European Resolve",
+        website: "https://european-resolve.org",
+        role: "Lead Organizer",
+      },
+      {
+        name: "Promote Ukraine",
+        website: "https://promoteukraine.org",
+        role: "Lead Organizer",
+      },
+      { name: "Guest Speaker", role: "Speakers" },
+    ];
+
+    const result = groupOrganizersByRole(organizers);
+
+    expect(result).toEqual([
+      {
+        role: "Lead Organizer",
+        members: [
+          { name: "European Resolve", website: "https://european-resolve.org" },
+          { name: "Promote Ukraine", website: "https://promoteukraine.org" },
+        ],
+      },
+      {
+        role: "Speakers",
+        members: [{ name: "Guest Speaker" }],
+      },
+    ]);
+  });
+
+  it("defaults missing role to 'Organizer'", () => {
+    const organizers = [{ name: "No Role Org", role: "" }];
+
+    const result = groupOrganizersByRole(organizers);
+
+    expect(result).toEqual([
+      { role: "Organizer", members: [{ name: "No Role Org" }] },
+    ]);
+  });
+
+  it("preserves insertion order of roles", () => {
+    const organizers = [
+      { name: "A", role: "Speakers" },
+      { name: "B", role: "Lead Organizer" },
+      { name: "C", role: "Speakers" },
+    ];
+
+    const result = groupOrganizersByRole(organizers);
+
+    expect(result[0].role).toBe("Speakers");
+    expect(result[1].role).toBe("Lead Organizer");
+  });
+
+  it("returns empty array for empty input", () => {
+    expect(groupOrganizersByRole([])).toEqual([]);
+  });
+
+  it("omits website key when not provided", () => {
+    const organizers = [{ name: "Solo Org", role: "Partner" }];
+
+    const result = groupOrganizersByRole(organizers);
+
+    expect(result[0].members[0]).toEqual({ name: "Solo Org" });
+    expect(result[0].members[0]).not.toHaveProperty("website");
   });
 });

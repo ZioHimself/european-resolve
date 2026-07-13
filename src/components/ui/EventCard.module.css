@@ -70,6 +70,14 @@
   margin: 1rem 0 0;
 }
 
+.organizerGroup {
+  margin: 0;
+}
+
+.role {
+  font-weight: var(--font-medium);
+}
+
 .organizers a {
   color: var(--color-link);
   text-decoration: underline;

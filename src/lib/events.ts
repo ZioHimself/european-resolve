@@ -65,12 +65,29 @@ export function parseEvents(
       announcement_url: e.announcement_url,
       announcement_title: e.announcement_title,
       organizers: e.organizers,
-      media_features: Array.isArray(e.media_features)
-        ? e.media_features
-        : [],
+      media_features: Array.isArray(e.media_features) ? e.media_features : [],
       tags: e.tags,
     }))
     .sort((a, b) => b.date.localeCompare(a.date));
+}
+
+export type OrganizersByRole = {
+  role: string;
+  members: { name: string; website?: string }[];
+}[];
+
+export function groupOrganizersByRole(
+  organizers: { name: string; website?: string; role: string }[],
+): OrganizersByRole {
+  const map = new Map<string, { name: string; website?: string }[]>();
+  for (const org of organizers) {
+    const role = org.role || "Organizer";
+    if (!map.has(role)) map.set(role, []);
+    map
+      .get(role)!
+      .push({ name: org.name, ...(org.website && { website: org.website }) });
+  }
+  return Array.from(map, ([role, members]) => ({ role, members }));
 }
 
 export async function fetchEvents(): Promise<EventDisplay[]> {
