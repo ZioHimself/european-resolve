@@ -9,7 +9,7 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   return (
     <nav aria-label="Breadcrumb" className={styles.nav}>
       <ol className={styles.list}>
-        {items.map((item, i) => (
+        {items.map((item) => (
           <li key={item.label} className={styles.item}>
             {item.href ? (
               <a href={item.href} className={styles.link}>
