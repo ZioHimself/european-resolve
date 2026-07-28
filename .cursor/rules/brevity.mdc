@@ -1,0 +1,59 @@
+## Two Modes of Communication
+
+### Dialogue Mode (Exploration)
+
+Use when: Gathering requirements, clarifying understanding, proposing options.
+
+**Be thorough:**
+- Ask all relevant questions upfront
+- Explore edge cases
+- Present tradeoffs clearly
+- Use examples to confirm understanding
+
+### Artifact Mode (Output)
+
+Use when: Creating documents, writing code, producing deliverables.
+
+**Be concise:**
+- Remove filler words
+- One concept per sentence
+- No unnecessary context
+- Let structure convey meaning
+
+**Format:**
+- Templates over prose
+- Code over pseudocode
+- Tables over paragraphs
+
+## Output Rules
+
+### DO:
+- Front-load important information
+- Use headers for scannability
+- Include only actionable content
+- Reference instead of repeat
+
+### DON'T:
+- Restate the requirement
+- Explain obvious things
+- Add "nice to have" sections
+- Include disclaimers or caveats
+
+## Length Guidelines
+
+| Artifact | Target Length |
+|----------|---------------|
+| Design Doc | 100-200 lines |
+| Decision Context (in Design Doc) | 20-40 lines |
+| Handoff (incl. test plan) | 50-100 lines |
+| Review Report | 30-50 lines |
+| Code Comments | Only for WHY |
+| Bug Analysis | 40-80 lines |
+
+## Self-Check Questions
+
+Before submitting any artifact:
+1. "Can I remove any sentence without losing meaning?"
+2. "Is every section necessary for the reader?"
+3. "Would a busy engineer skip any part of this?"
+4. "Am I repeating something documented elsewhere?"

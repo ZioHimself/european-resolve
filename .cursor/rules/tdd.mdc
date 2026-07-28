@@ -1,0 +1,1 @@
+When planning or implementing features, always write tests before implementation code. Follow red-green-refactor: failing test first, minimal code to pass, then clean up.
