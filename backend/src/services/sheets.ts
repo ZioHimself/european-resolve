@@ -92,9 +92,9 @@ export class SheetsService {
 
   private getTierPrice(tierId: string): number {
     const prices: Record<string, number> = {
-      supporter: 35,
-      champion: 75,
-      patron: 150,
+      supporter: 10,
+      champion: 35,
+      patron: 95,
     };
     return prices[tierId] ?? 0;
   }

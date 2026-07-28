@@ -19,12 +19,12 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TIER_DATA: Record<TierId, { name: string; price: number; rewards: string[] }> = {
   supporter: {
     name: "Supporter",
-    price: 35,
-    rewards: ["Race bib", "Finisher medal", "Digital certificate"],
+    price: 10,
+    rewards: ["Race bib", "Finisher medal", "Digital certificate", "Hurkit keychain"],
   },
   champion: {
     name: "Champion",
-    price: 75,
+    price: 35,
     rewards: [
       "Race bib",
       "Finisher medal",
@@ -32,11 +32,13 @@ const TIER_DATA: Record<TierId, { name: string; price: number; rewards: string[]
       "Technical race t-shirt",
       "Finisher pack",
       "Name on digital wall",
+      "Hurkit military branch coin",
+      "Hurkit branded sports socks",
     ],
   },
   patron: {
     name: "Patron",
-    price: 150,
+    price: 95,
     rewards: [
       "Race bib",
       "Finisher medal",
@@ -47,6 +49,7 @@ const TIER_DATA: Record<TierId, { name: string; price: number; rewards: string[]
       "Embroidered finisher hoodie",
       "Reserved starting corral",
       "Post-race reception invite",
+      "Hurkit silk scarf",
     ],
   },
 };
