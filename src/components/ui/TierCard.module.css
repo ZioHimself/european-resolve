@@ -15,6 +15,11 @@
     box-shadow: 0 2px 8px rgba(0, 91, 187, 0.1);
   }
 
+  .selected {
+    border: 2px solid var(--color-ua-blue);
+    box-shadow: 0 2px 12px rgba(0, 91, 187, 0.15);
+  }
+
   .badge {
     position: absolute;
     top: 0;
@@ -77,8 +82,20 @@
     color: var(--color-text-primary);
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
+    font-family: inherit;
     line-height: var(--leading-normal);
-    cursor: not-allowed;
-    opacity: 0.5;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+
+    &:hover {
+      border-color: var(--color-ua-blue);
+      color: var(--color-ua-blue);
+    }
+  }
+
+  .selectButton[aria-pressed="true"] {
+    background: var(--color-ua-blue);
+    border-color: var(--color-ua-blue);
+    color: var(--color-white);
   }
 }

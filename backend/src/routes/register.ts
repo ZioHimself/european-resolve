@@ -1,0 +1,140 @@
+import { Hono } from "hono";
+import { SheetsService } from "../services/sheets.js";
+import { config } from "../config.js";
+import type {
+  RegisterRequest,
+  RegisterResponse,
+  ValidationError,
+  ApiResponse,
+  TierId,
+  TshirtSize,
+  Language,
+} from "../types.js";
+
+const VALID_TIER_IDS: TierId[] = ["supporter", "champion", "patron"];
+const VALID_TSHIRT_SIZES: TshirtSize[] = ["XS", "S", "M", "L", "XL", "XXL"];
+const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian"];
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const TIER_DATA: Record<TierId, { name: string; price: number; rewards: string[] }> = {
+  supporter: {
+    name: "Supporter",
+    price: 35,
+    rewards: ["Race bib", "Finisher medal", "Digital certificate"],
+  },
+  champion: {
+    name: "Champion",
+    price: 75,
+    rewards: [
+      "Race bib",
+      "Finisher medal",
+      "Digital certificate",
+      "Technical race t-shirt",
+      "Finisher pack",
+      "Name on digital wall",
+    ],
+  },
+  patron: {
+    name: "Patron",
+    price: 150,
+    rewards: [
+      "Race bib",
+      "Finisher medal",
+      "Digital certificate",
+      "Technical race t-shirt",
+      "Finisher pack",
+      "Name on digital wall",
+      "Embroidered finisher hoodie",
+      "Reserved starting corral",
+      "Post-race reception invite",
+    ],
+  },
+};
+
+function validate(body: Record<string, unknown>): ValidationError[] {
+  const errors: ValidationError[] = [];
+
+  if (!body.fullName || typeof body.fullName !== "string" || !body.fullName.trim()) {
+    errors.push({ field: "fullName", message: "Full name is required" });
+  }
+
+  if (!body.email || typeof body.email !== "string" || !EMAIL_REGEX.test(body.email)) {
+    errors.push({ field: "email", message: "Valid email address is required" });
+  }
+
+  if (
+    !body.tshirtSize ||
+    !VALID_TSHIRT_SIZES.includes(body.tshirtSize as TshirtSize)
+  ) {
+    errors.push({ field: "tshirtSize", message: "Valid t-shirt size is required" });
+  }
+
+  if (
+    !body.language ||
+    !VALID_LANGUAGES.includes(body.language as Language)
+  ) {
+    errors.push({ field: "language", message: "Valid language is required" });
+  }
+
+  if (!body.country || typeof body.country !== "string" || !body.country.trim()) {
+    errors.push({ field: "country", message: "Country is required" });
+  }
+
+  if (!body.tierId || !VALID_TIER_IDS.includes(body.tierId as TierId)) {
+    errors.push({ field: "tierId", message: "Valid tier is required" });
+  }
+
+  if (body.gdprConsent !== true) {
+    errors.push({
+      field: "gdprConsent",
+      message: "GDPR consent is required to register",
+    });
+  }
+
+  return errors;
+}
+
+export const registerRoute = new Hono();
+
+const sheetsService = new SheetsService();
+
+registerRoute.post("/", async (c) => {
+  const body = (await c.req.json()) as Record<string, unknown>;
+
+  const errors = validate(body);
+  if (errors.length > 0) {
+    return c.json({ success: false, errors } satisfies ApiResponse<never>, 400);
+  }
+
+  const data = body as unknown as RegisterRequest;
+
+  const existing = await sheetsService.findByEmail(data.email);
+  if (existing) {
+    const tier = TIER_DATA[existing.tierId as TierId] ?? TIER_DATA.supporter;
+    const response: RegisterResponse = {
+      participantId: existing.participantId,
+      fullName: existing.fullName,
+      tierId: existing.tierId as TierId,
+      tierName: tier.name,
+      amountEur: existing.amountEur,
+      rewards: tier.rewards,
+      monobankJarUrl: config.monobankJarUrl,
+    };
+    return c.json({ success: true, data: response } satisfies ApiResponse<RegisterResponse>);
+  }
+
+  const { participantId } = await sheetsService.appendRegistration(data);
+  const tier = TIER_DATA[data.tierId];
+
+  const response: RegisterResponse = {
+    participantId,
+    fullName: data.fullName,
+    tierId: data.tierId,
+    tierName: tier.name,
+    amountEur: tier.price,
+    rewards: tier.rewards,
+    monobankJarUrl: config.monobankJarUrl,
+  };
+
+  return c.json({ success: true, data: response } satisfies ApiResponse<RegisterResponse>);
+});

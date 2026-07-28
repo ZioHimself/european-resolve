@@ -2,10 +2,16 @@ import type { Tier } from "@/data/event";
 import { FeeBreakdownBar } from "@/components/ui/FeeBreakdownBar";
 import styles from "./TierCard.module.css";
 
-export function TierCard({ tier }: { tier: Tier }) {
+interface TierCardProps {
+  tier: Tier;
+  isSelected: boolean;
+  onSelect: () => void;
+}
+
+export function TierCard({ tier, isSelected, onSelect }: TierCardProps) {
   return (
     <article
-      className={`${styles.card} ${tier.highlighted ? styles.highlighted : ""}`}
+      className={`${styles.card} ${tier.highlighted ? styles.highlighted : ""} ${isSelected ? styles.selected : ""}`}
     >
       {tier.highlighted && <span className={styles.badge}>Most chosen</span>}
       <span className={styles.overline}>{tier.name}</span>
@@ -24,10 +30,10 @@ export function TierCard({ tier }: { tier: Tier }) {
       <button
         type="button"
         className={styles.selectButton}
-        disabled
-        aria-disabled="true"
+        onClick={onSelect}
+        aria-pressed={isSelected}
       >
-        Select
+        {isSelected ? "Selected" : "Select"}
       </button>
     </article>
   );

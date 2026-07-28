@@ -5,15 +5,6 @@
     gap: var(--space-6);
   }
 
-  .banner {
-    background: var(--color-amber-10);
-    padding: var(--space-3) var(--space-6);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    color: var(--color-text-primary);
-    line-height: var(--leading-relaxed);
-  }
-
   .card {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
@@ -30,6 +21,30 @@
     line-height: var(--leading-snug);
     color: var(--color-text-primary);
     margin: 0;
+  }
+
+  .errorSummary {
+    background: var(--color-red-10, #fef2f2);
+    border: 1px solid var(--color-red-20, #fecaca);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-6);
+    color: var(--color-red, #c41e3a);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+
+    & strong {
+      display: block;
+      margin-bottom: var(--space-2);
+    }
+
+    & ul {
+      margin: 0;
+      padding-left: var(--space-4);
+    }
+
+    & li {
+      margin-bottom: var(--space-1);
+    }
   }
 
   .grid {
@@ -54,15 +69,36 @@
     color: var(--color-text-primary);
   }
 
+  .optional {
+    font-weight: var(--font-normal);
+    color: var(--color-text-secondary);
+  }
+
   .input {
     border: 1px solid var(--color-black-20);
     border-radius: var(--radius-lg);
     padding: var(--space-3) var(--space-4);
     font-size: var(--text-base);
     font-family: inherit;
-    background: var(--color-black-05);
+    background: var(--color-surface);
     color: var(--color-text-primary);
-    pointer-events: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-ua-blue);
+      box-shadow: 0 0 0 2px rgba(0, 91, 187, 0.2);
+    }
+
+    &[aria-invalid="true"] {
+      border-color: var(--color-red, #c41e3a);
+    }
+  }
+
+  .fieldError {
+    font-size: var(--text-caption);
+    color: var(--color-red, #c41e3a);
+    line-height: var(--leading-normal);
   }
 
   .checkboxes {
@@ -78,13 +114,13 @@
     font-size: var(--text-sm);
     line-height: var(--leading-relaxed);
     color: var(--color-text-primary);
-    cursor: default;
+    cursor: pointer;
   }
 
   .checkbox {
     flex-shrink: 0;
     margin-top: 3px;
-    pointer-events: none;
+    cursor: pointer;
   }
 
   .footer {
@@ -112,7 +148,16 @@
     padding: var(--space-2) var(--space-4);
     border: none;
     border-radius: var(--radius-lg);
-    cursor: not-allowed;
-    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.15s;
+
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   }
 }

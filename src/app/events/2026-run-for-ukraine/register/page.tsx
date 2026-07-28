@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { TierGrid } from "@/components/ui/TierGrid";
-import { RegistrationForm } from "@/components/ui/RegistrationForm";
+import { RegisterClient } from "@/components/ui/RegisterClient";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -35,8 +34,7 @@ export default function RegisterPage() {
         </div>
 
         <div className={styles.sections}>
-          <TierGrid />
-          <RegistrationForm />
+          <RegisterClient />
         </div>
       </div>
     </>
