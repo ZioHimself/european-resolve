@@ -1,0 +1,20 @@
+@layer components {
+  .stripe {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 200px;
+    background: linear-gradient(
+      to bottom,
+      var(--color-ua-blue) 50%,
+      var(--color-ua-yellow) 50%
+    );
+    border-radius: 3px;
+
+    @media (max-width: 639px) {
+      display: none;
+    }
+  }
+}

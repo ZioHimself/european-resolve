@@ -1,0 +1,44 @@
+@layer components {
+  .box {
+    background: var(--color-black);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .overline {
+    font-size: var(--text-caption);
+    font-weight: var(--font-medium);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-ua-blue);
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .url {
+    font-size: var(--text-base);
+    color: var(--color-white);
+  }
+
+  .copyButton {
+    background: var(--color-white);
+    color: var(--color-black);
+    font-size: var(--text-caption);
+    font-weight: var(--font-medium);
+    font-family: inherit;
+    padding: var(--space-1) var(--space-3);
+    border: none;
+    border-radius: 999px;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

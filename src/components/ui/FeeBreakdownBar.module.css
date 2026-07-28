@@ -1,0 +1,62 @@
+@layer components {
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .overline {
+    font-size: var(--text-caption);
+    font-weight: var(--font-medium);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .bar {
+    display: flex;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .causeSegment {
+    height: 100%;
+    background: var(--color-ua-blue);
+  }
+
+  .logisticsSegment {
+    height: 100%;
+    background: var(--color-ua-yellow);
+  }
+
+  .legend {
+    display: flex;
+    gap: var(--space-4);
+    font-size: var(--text-caption);
+    color: var(--color-text-secondary);
+  }
+
+  .legendItem {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .dotCause,
+  .dotLogistics {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dotCause {
+    background: var(--color-ua-blue);
+  }
+
+  .dotLogistics {
+    background: var(--color-ua-yellow);
+  }
+}

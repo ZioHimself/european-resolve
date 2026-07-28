@@ -1,0 +1,107 @@
+@layer components {
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .banner {
+    background: var(--color-amber-10);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    line-height: var(--leading-relaxed);
+  }
+
+  .heading {
+    font-size: var(--text-h2);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-snug);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+
+    @media (max-width: 639px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+  }
+
+  .input {
+    border: 1px solid var(--color-black-20);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-base);
+    font-family: inherit;
+    background: var(--color-black-05);
+    color: var(--color-text-primary);
+    pointer-events: none;
+  }
+
+  .checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .checkboxLabel {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-primary);
+    cursor: default;
+  }
+
+  .checkbox {
+    flex-shrink: 0;
+    margin-top: 3px;
+    pointer-events: none;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    padding-top: var(--space-4);
+  }
+
+  .total {
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+  }
+
+  .submitButton {
+    background: var(--color-black);
+    color: var(--color-white);
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    font-family: inherit;
+    padding: var(--space-3) var(--space-6);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

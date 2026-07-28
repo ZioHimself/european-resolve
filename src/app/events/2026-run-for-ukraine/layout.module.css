@@ -1,0 +1,9 @@
+@layer components {
+  .eventRoot {
+    background-color: var(--color-surface);
+    min-height: 100%;
+    padding-top: 3.5rem;
+    --color-link: #0066cc;
+    --color-link-hover: #004499;
+  }
+}
