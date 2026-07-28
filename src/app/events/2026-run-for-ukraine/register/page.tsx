@@ -26,11 +26,11 @@ export default function RegisterPage() {
 
       <div className={styles.content}>
         <div className={styles.header}>
-          <span className={styles.overline}>Track A · Sign up</span>
-          <h1 className={styles.title}>Pick a tier and register</h1>
+          <span className={styles.overline}>Track A · Donate or Run</span>
+          <h1 className={styles.title}>Pick a tier</h1>
           <p className={styles.subtitle}>
-            Every tier includes a race bib and directly funds charging stations
-            for Ukraine&apos;s defenders. Choose the level that fits you.
+            Every tier directly funds charging stations for Ukraine&apos;s
+            defenders. Run on the day or simply support from anywhere.
           </p>
         </div>
 

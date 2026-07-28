@@ -14,6 +14,16 @@
     line-height: var(--leading-relaxed);
   }
 
+  .card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    background: var(--color-surface);
+  }
+
   .heading {
     font-size: var(--text-h2);
     font-weight: var(--font-bold);
@@ -95,10 +105,11 @@
   .submitButton {
     background: var(--color-black);
     color: var(--color-white);
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     font-weight: var(--font-medium);
     font-family: inherit;
-    padding: var(--space-3) var(--space-6);
+    line-height: var(--leading-normal);
+    padding: var(--space-2) var(--space-4);
     border: none;
     border-radius: var(--radius-lg);
     cursor: not-allowed;

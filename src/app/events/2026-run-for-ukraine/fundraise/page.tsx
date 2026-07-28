@@ -25,11 +25,11 @@ export default function FundraisePage() {
 
       <div className={styles.content}>
         <div className={styles.header}>
-          <span className={styles.overline}>Track B · Raise funds</span>
+          <span className={styles.overline}>Track B · Fundraise and Run</span>
           <h1 className={styles.title}>Your fundraising page</h1>
           <p className={styles.subtitle}>
             Takes about a minute. Share your page with friends and family to help
-            reach the collective goal.
+            reach the collective goal — then show up and run.
           </p>
         </div>
 

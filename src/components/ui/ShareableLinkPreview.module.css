@@ -1,6 +1,7 @@
 @layer components {
   .box {
-    background: var(--color-black);
+    background: var(--color-black-10);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-4) var(--space-6);
     display: flex;
@@ -26,19 +27,28 @@
 
   .url {
     font-size: var(--text-base);
-    color: var(--color-white);
+    color: var(--color-text-primary);
   }
 
   .copyButton {
-    background: var(--color-white);
-    color: var(--color-black);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    background: var(--color-black);
+    color: var(--color-white);
     font-size: var(--text-caption);
     font-weight: var(--font-medium);
     font-family: inherit;
-    padding: var(--space-1) var(--space-3);
+    line-height: var(--leading-normal);
+    padding: var(--space-2) var(--space-3);
     border: none;
-    border-radius: 999px;
+    border-radius: var(--radius-md);
     cursor: not-allowed;
     opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  .copyIcon {
+    display: block;
   }
 }

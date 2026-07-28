@@ -1,8 +1,8 @@
 @layer components {
   .hero {
     position: relative;
-    padding-top: var(--space-20);
-    padding-bottom: var(--space-16);
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-10);
     max-width: var(--max-width-content);
     margin-inline: auto;
     padding-inline: var(--space-6);

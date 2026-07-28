@@ -1,0 +1,2 @@
+# Short URL for participant fundraising pages
+/r4u/:slug /events/2026-run-for-ukraine/fundraise/:slug 301
