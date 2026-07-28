@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-28T05:23:49.030Z"
+last_updated: "2026-07-28T15:28:05.091Z"
 progress:
-  total_phases: 4
+  total_phases: 5
   completed_phases: 0
   total_plans: 7
   completed_plans: 0
@@ -54,3 +54,9 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 
 ---
 *Last updated: 2026-07-28 after Phase 1 execution*
+
+## Accumulated Context
+
+### Roadmap Evolution
+
+- Phase 02.1 inserted after Phase 2: Replace Monobank jar with WhyDonate (URGENT)
