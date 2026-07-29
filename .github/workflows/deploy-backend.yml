@@ -62,5 +62,5 @@ jobs:
           env_vars: |
             SPREADSHEET_ID=${{ vars.SPREADSHEET_ID }}
             CORS_ORIGINS=${{ vars.CORS_ORIGINS }}
-            MONOBANK_JAR_URL=${{ vars.MONOBANK_JAR_URL }}
+            WHYDONATE_WIDGET_URL=${{ vars.WHYDONATE_WIDGET_URL }}
             NODE_ENV=production

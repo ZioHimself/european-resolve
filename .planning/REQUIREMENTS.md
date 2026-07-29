@@ -1,7 +1,7 @@
 # Requirements: Run for Ukraine 2026
 
 **Defined:** 2026-07-28
-**Core Value:** Participants can register and share personal fundraising pages that drive donations to the Monobank jar with full transparency
+**Core Value:** Participants can register and share personal fundraising pages that drive donations via WhyDonate with full transparency
 
 ## v1 Requirements
 
@@ -22,7 +22,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **REGA-03**: User can fill registration form (full name, email, phone, t-shirt size, language, country)
 - [ ] **REGA-04**: User must consent to GDPR data processing before submitting
 - [ ] **REGA-05**: User can opt-in to ongoing communications (optional checkbox)
-- [ ] **REGA-06**: User is redirected to Monobank jar after registration with clear messaging about payment method
+- [ ] **REGA-06**: User can complete payment via WhyDonate donation link after registration with payment confirmation flow
 - [ ] **REGA-07**: User receives on-page confirmation with participant ID after successful registration
 - [ ] **REGA-08**: Registration data is persisted to Google Sheets via backend API
 
@@ -38,17 +38,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [ ] **PAGE-01**: Visitor can view any published fundraiser page by its URL slug
 - [ ] **PAGE-02**: Visitor can see the fundraiser's name, photo, personal message, and personal goal
-- [ ] **PAGE-03**: Visitor can click "Donate" which redirects to the Monobank jar with clear payment-method notice
+- [ ] **PAGE-03**: Visitor can click "Donate" which opens WhyDonate donation page
 - [ ] **PAGE-04**: Visitor can share the fundraiser page via WhatsApp, LinkedIn, Facebook, X, Email, or copy link
 - [ ] **PAGE-05**: Visitor can see a donor wall of opt-in supporters (name + message)
 - [ ] **PAGE-06**: Visitor can add their name and message to the donor wall (opt-in, entered on platform — not from payment)
 
 ### Progress Dashboard
 
-- [ ] **DASH-01**: Public page shows overall amount raised (from Monobank jar balance, converted to EUR)
+- [ ] **DASH-01**: Public page shows overall amount raised (from Google Sheets confirmed payments in EUR)
 - [ ] **DASH-02**: Public page shows fundraising goal and percentage reached (progress bar)
 - [ ] **DASH-03**: Public page shows number of registered participants
-- [ ] **DASH-04**: Public page shows cause description with link to beneficiary and Monobank jar
+- [ ] **DASH-04**: Public page shows cause description with link to beneficiary and WhyDonate campaign
 - [ ] **DASH-05**: Stats refresh automatically without page reload (polling or SSE)
 
 ### Backend API
@@ -57,11 +57,11 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **API-02**: Backend provides POST /api/register endpoint (validates + writes to Google Sheets)
 - [ ] **API-03**: Backend provides POST /api/fundraiser endpoint (creates page + writes to Google Sheets)
 - [ ] **API-04**: Backend provides GET /api/fundraiser/:slug endpoint (reads from Google Sheets)
-- [ ] **API-05**: Backend provides GET /api/progress endpoint (cached jar balance + participant count)
-- [ ] **API-06**: Backend polls Monobank jar balance every 60s and caches result
+- [ ] **API-05**: Backend provides GET /api/progress endpoint (sums confirmed payments from Sheets + participant count)
+- [ ] **API-06**: Backend reads confirmed payment totals from Google Sheets (no external polling needed)
 - [ ] **API-07**: Backend provides POST /api/donors endpoint (add donor wall entry)
 - [ ] **API-08**: Backend provides GET /api/donors/:slug endpoint (read donor wall for a fundraiser)
-- [ ] **API-09**: Backend logs jar-balance readings with timestamps for audit trail (REQ-13)
+- [ ] **API-09**: Payment confirmations are timestamped in Google Sheets (built-in audit trail)
 
 ### Design & UX
 
@@ -69,7 +69,6 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **DESX-02**: Layout matches prototype screenshots (spacing, typography hierarchy, card patterns)
 - [ ] **DESX-03**: Pages reuse existing Nav, Footer, and layout shell (not prototype's mock header)
 - [ ] **DESX-04**: Pages are mobile-responsive with mobile-first form UX
-- [ ] **DESX-05**: Monobank payment limitation is clearly communicated before redirect (Visa/Mastercard only, no Bancontact)
 
 ## v2 Requirements
 
@@ -117,13 +116,12 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Feature | Reason |
 |---------|--------|
-| Platform payment processing | Monobank jar model — platform never touches money |
+| Platform payment processing | WhyDonate handles payments — platform confirms via redirect token |
 | Per-runner donation totals | Shared jar provides only aggregate balance |
 | Leaderboard / rankings | Requires per-runner attribution not available |
 | Belgian tax certificates | Funds never pass through NGO |
-| Bancontact / bank transfer | Limited to what Monobank jar supports |
-| Donor-level data export | Donor identities sit with Monobank/charity |
-| Per-donation notifications | Payment data doesn't flow back from jar |
+| Donor-level data export | Donor identities managed by WhyDonate |
+| Per-donation notifications | WhyDonate does not provide webhook callbacks in current integration |
 | Multi-event support | Single event for now; generalise later |
 | User accounts / login | Static site, no authentication layer |
 
@@ -173,11 +171,10 @@ Deferred to future release. Tracked but not in current roadmap.
 | DESX-02 | Phase 1 | Pending |
 | DESX-03 | Phase 1 | Pending |
 | DESX-04 | Phase 1 | Pending |
-| DESX-05 | Phase 2 | Pending |
 
 **Coverage:**
-- v1 requirements: 37 total
-- Mapped to phases: 37
+- v1 requirements: 36 total
+- Mapped to phases: 36
 - Unmapped: 0 ✓
 
 ---

@@ -23,17 +23,23 @@
 
 ---
 
-### Phase 2: Backend API & Registration
+### Phase 2: Backend API & Registration ✓
 **Goal:** Deploy a GCP Cloud Run backend that accepts Track A registrations, persists them to Google Sheets, and returns confirmation — completing the registration user journey end-to-end.
 **Mode:** mvp
-**Requirements:** REGA-06, REGA-07, REGA-08, API-01, API-02, DESX-05
+**Requirements:** REGA-06, REGA-07, REGA-08, API-01, API-02
 **UI hint:** no
+**Completed:** 2026-07-29
+
+Plans:
+- [x] 01 — Backend API: Hono Service with Google Sheets Registration
+- [x] 02 — Frontend Activation: Interactive Registration with Confirmation
+- [x] 03 — CI/CD: GitHub Actions Deploy to Cloud Run
 
 **Success Criteria:**
 1. Cloud Run service deploys and responds to health checks
 2. POST `/api/register` validates input and writes a row to Google Sheets "Registrations" tab
 3. Registration form on frontend submits to backend and shows confirmation with participant ID
-4. After confirmation, user sees Monobank jar redirect button with Visa/Mastercard-only notice
+4. After confirmation, user sees WhyDonate donation link to complete payment
 5. CORS allows requests from `european-resolve.org` (and localhost for dev)
 6. Invalid form submissions return structured validation errors displayed to user
 7. Google Sheets service account auth works in production
@@ -42,13 +48,16 @@
 
 ### Phase 02.1: Replace Monobank jar with WhyDonate (INSERTED)
 
-**Goal:** [Urgent work - to be planned]
-**Requirements**: TBD
+**Goal:** Migrate donation integration to WhyDonate — embed WhyDonate donation link in post-registration flow, add secure payment token confirmation, update Google Sheets as progress data source.
+**Requirements**: REGA-06
 **Depends on:** Phase 2
-**Plans:** 0 plans
+**Plans:** 4 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 02.1 to break down)
+- [x] 01 — Backend: WhyDonate config & payment token generation
+- [x] 02 — Backend: Payment confirmation endpoint
+- [x] 03 — Frontend: WhyDonate widget & payment confirmation flow
+- [x] 04 — Documentation: Update requirements and roadmap for WhyDonate
 
 ### Phase 3: Fundraising Pages & Live Progress
 **Goal:** Users can create personal fundraising pages, visitors can view them with live collective progress, and the donor wall is functional — completing both participation tracks.
@@ -60,11 +69,11 @@ Plans:
 1. User can create a fundraising page and receive a shareable URL
 2. Photo upload works (Cloud Storage) and displays on the fundraiser page
 3. Fundraiser pages load dynamically by slug with name, photo, message, and collective total
-4. "Donate" CTA on fundraiser pages redirects to Monobank jar
+4. "Donate" CTA on fundraiser pages opens WhyDonate donation page
 5. Social sharing buttons generate correct share URLs (WhatsApp, LinkedIn, Facebook, X, Email, Copy link)
 6. Donor wall accepts opt-in entries and displays them on the fundraiser page
-7. Progress dashboard shows jar balance (UAH→EUR), goal %, participant count — auto-refreshing
-8. Backend polls Monobank jar every 60s and logs readings with timestamps
+7. Progress dashboard shows confirmed payment totals from Sheets (EUR), goal %, participant count — auto-refreshing
+8. Backend reads confirmed payments from Google Sheets
 9. Draft/publish flow works for fundraiser pages
 
 ---
