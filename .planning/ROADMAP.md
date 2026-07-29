@@ -68,12 +68,12 @@ Plans:
 Plans:
 
 **Wave 1**
-- [ ] 01 — Backend: Fundraiser CRUD, Photo Upload, Progress & Donor Wall APIs
+- [x] 01 — Backend: Fundraiser CRUD, Photo Upload, Progress & Donor Wall APIs
 
 **Wave 2** *(blocked on Wave 1 completion)*
-- [ ] 02 — Frontend: Fundraise Form Activation & Fundraiser Page
-- [ ] 03 — Frontend: Progress Dashboard Live Data & Social Sharing
-- [ ] 04 — Frontend: Donor Wall
+- [x] 02 — Frontend: Fundraise Form Activation & Fundraiser Page
+- [x] 03 — Frontend: Progress Dashboard Live Data & Social Sharing
+- [x] 04 — Frontend: Donor Wall
 
 **Success Criteria:**
 1. User can create a fundraising page and receive a shareable URL

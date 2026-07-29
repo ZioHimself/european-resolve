@@ -28,6 +28,7 @@
   .url {
     font-size: var(--text-base);
     color: var(--color-text-primary);
+    word-break: break-all;
   }
 
   .copyButton {
@@ -43,9 +44,18 @@
     padding: var(--space-2) var(--space-3);
     border: none;
     border-radius: var(--radius-md);
-    cursor: not-allowed;
-    opacity: 0.5;
+    cursor: pointer;
     flex-shrink: 0;
+    transition: opacity 0.15s;
+
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   }
 
   .copyIcon {

@@ -1,7 +1,12 @@
 import { randomBytes } from "node:crypto";
 import { google, type sheets_v4 } from "googleapis";
 import { config } from "../config.js";
-import type { RegisterRequest } from "../types.js";
+import type {
+  RegisterRequest,
+  FundraiserCreateRequest,
+  FundraiserUpdateRequest,
+  DonorWallEntry,
+} from "../types.js";
 
 export interface ExistingRegistration {
   participantId: string;
@@ -12,7 +17,20 @@ export interface ExistingRegistration {
   paymentToken: string;
 }
 
+export interface FundraiserRow {
+  slug: string;
+  displayName: string;
+  message: string;
+  goalEur: number;
+  photoFileId: string;
+  editToken: string;
+  status: "draft" | "published";
+  createdAt: string;
+}
+
 const SHEET_NAME = "Registrations";
+const FUNDRAISER_SHEET = "Fundraisers";
+const DONOR_WALL_SHEET = "Donor Wall";
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
 export class SheetsService {
@@ -159,5 +177,243 @@ export class SheetsService {
       patron: 95,
     };
     return prices[tierId] ?? 0;
+  }
+
+  async generateSlug(displayName: string): Promise<string> {
+    const base = displayName
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
+
+    const res = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: `${FUNDRAISER_SHEET}!A:A`,
+    });
+
+    const rows = res.data.values ?? [];
+    const existing = new Set(rows.map((r) => r[0]));
+
+    if (!existing.has(base)) return base;
+
+    let counter = 2;
+    while (existing.has(`${base}-${counter}`)) {
+      counter++;
+    }
+    return `${base}-${counter}`;
+  }
+
+  async createFundraiser(
+    data: FundraiserCreateRequest,
+    photoFileId: string | null,
+  ): Promise<{ slug: string; editToken: string }> {
+    const slug = await this.generateSlug(data.displayName);
+    const editToken = randomBytes(8).toString("hex");
+
+    const row = [
+      slug,
+      data.displayName,
+      data.message,
+      String(data.goalEur),
+      photoFileId ?? "",
+      editToken,
+      "draft",
+      new Date().toISOString(),
+    ];
+
+    await this.sheets.spreadsheets.values.append({
+      spreadsheetId: config.spreadsheetId,
+      range: `${FUNDRAISER_SHEET}!A1`,
+      valueInputOption: "RAW",
+      requestBody: { values: [row] },
+    });
+
+    return { slug, editToken };
+  }
+
+  async getFundraiser(slug: string): Promise<FundraiserRow | null> {
+    const res = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: `${FUNDRAISER_SHEET}!A:H`,
+    });
+
+    const rows = res.data.values;
+    if (!rows || rows.length <= 1) return null;
+
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (row[0] === slug) {
+        return {
+          slug: row[0] as string,
+          displayName: row[1] as string,
+          message: row[2] as string,
+          goalEur: Number(row[3]),
+          photoFileId: (row[4] as string) ?? "",
+          editToken: row[5] as string,
+          status: (row[6] as "draft" | "published") ?? "draft",
+          createdAt: row[7] as string,
+        };
+      }
+    }
+
+    return null;
+  }
+
+  async updateFundraiser(
+    slug: string,
+    editToken: string,
+    updates: Partial<FundraiserUpdateRequest>,
+    photoFileId?: string,
+  ): Promise<FundraiserRow | null> {
+    const res = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: `${FUNDRAISER_SHEET}!A:H`,
+    });
+
+    const rows = res.data.values;
+    if (!rows || rows.length <= 1) return null;
+
+    let matchIndex = -1;
+    for (let i = 1; i < rows.length; i++) {
+      if (rows[i][0] === slug) {
+        matchIndex = i;
+        break;
+      }
+    }
+
+    if (matchIndex === -1) return null;
+
+    const row = rows[matchIndex];
+    if (row[5] !== editToken) return null;
+
+    const updatedRow = [
+      row[0],
+      updates.displayName ?? row[1],
+      updates.message ?? row[2],
+      updates.goalEur !== undefined ? String(updates.goalEur) : row[3],
+      photoFileId ?? row[4],
+      row[5],
+      updates.status ?? row[6],
+      row[7],
+    ];
+
+    const rowNumber = matchIndex + 1;
+    await this.sheets.spreadsheets.values.update({
+      spreadsheetId: config.spreadsheetId,
+      range: `${FUNDRAISER_SHEET}!A${rowNumber}:H${rowNumber}`,
+      valueInputOption: "RAW",
+      requestBody: { values: [updatedRow] },
+    });
+
+    return {
+      slug: updatedRow[0] as string,
+      displayName: updatedRow[1] as string,
+      message: updatedRow[2] as string,
+      goalEur: Number(updatedRow[3]),
+      photoFileId: (updatedRow[4] as string) ?? "",
+      editToken: updatedRow[5] as string,
+      status: (updatedRow[6] as "draft" | "published") ?? "draft",
+      createdAt: updatedRow[7] as string,
+    };
+  }
+
+  async listPublishedFundraisers(): Promise<FundraiserRow[]> {
+    const res = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: `${FUNDRAISER_SHEET}!A:H`,
+    });
+
+    const rows = res.data.values;
+    if (!rows || rows.length <= 1) return [];
+
+    return rows
+      .slice(1)
+      .filter((row) => row[6] === "published")
+      .map((row) => ({
+        slug: row[0] as string,
+        displayName: row[1] as string,
+        message: row[2] as string,
+        goalEur: Number(row[3]),
+        photoFileId: (row[4] as string) ?? "",
+        editToken: row[5] as string,
+        status: "published" as const,
+        createdAt: row[7] as string,
+      }));
+  }
+
+  async getProgress(): Promise<{
+    totalRaisedEur: number;
+    participantCount: number;
+    donorCount: number;
+  }> {
+    const regRes = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: `${SHEET_NAME}!A:P`,
+    });
+
+    const regRows = regRes.data.values ?? [];
+    let totalRaisedEur = 0;
+    let participantCount = 0;
+
+    if (regRows.length > 1) {
+      participantCount = regRows.length - 1;
+      for (let i = 1; i < regRows.length; i++) {
+        const row = regRows[i];
+        if (row[13] === "paid") {
+          totalRaisedEur += Number(row[14]) || 0;
+        }
+      }
+    }
+
+    const donorRes = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: `${DONOR_WALL_SHEET}!A:A`,
+    });
+
+    const donorRows = donorRes.data.values ?? [];
+    const donorCount = Math.max(0, donorRows.length - 1);
+
+    return { totalRaisedEur, participantCount, donorCount };
+  }
+
+  async addDonorWallEntry(
+    slug: string,
+    name: string,
+    message: string,
+  ): Promise<void> {
+    const row = [slug, name, message, new Date().toISOString()];
+
+    await this.sheets.spreadsheets.values.append({
+      spreadsheetId: config.spreadsheetId,
+      range: `${DONOR_WALL_SHEET}!A1`,
+      valueInputOption: "RAW",
+      requestBody: { values: [row] },
+    });
+  }
+
+  async getDonorWallEntries(slug: string): Promise<DonorWallEntry[]> {
+    const res = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: `${DONOR_WALL_SHEET}!A:D`,
+    });
+
+    const rows = res.data.values;
+    if (!rows || rows.length <= 1) return [];
+
+    return rows
+      .slice(1)
+      .filter((row) => row[0] === slug)
+      .map((row) => ({
+        fundraiserSlug: row[0] as string,
+        donorName: row[1] as string,
+        message: row[2] as string,
+        createdAt: row[3] as string,
+      }))
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
   }
 }

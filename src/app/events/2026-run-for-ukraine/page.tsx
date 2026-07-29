@@ -4,6 +4,7 @@ import { CoOrganiserBar } from "@/components/ui/CoOrganiserBar";
 import { EventHero } from "@/components/ui/EventHero";
 import { ProgressSection } from "@/components/ui/ProgressSection";
 import { TrackCards } from "@/components/ui/TrackCards";
+import { eventDetails } from "@/data/event";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -25,6 +26,27 @@ export default function RunForUkrainePage() {
       <EventHero />
       <div className={styles.sections}>
         <ProgressSection />
+        <p className={styles.causeDescription}>
+          All donations go directly to{" "}
+          <a
+            href={eventDetails.beneficiary.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.causeLink}
+          >
+            {eventDetails.beneficiary.name}
+          </a>{" "}
+          — {eventDetails.beneficiary.mission}. Donate via our{" "}
+          <a
+            href={process.env.NEXT_PUBLIC_WHYDONATE_CAMPAIGN_URL ?? "https://whydonate.com/en/fundraising/run-for-ukraine-2026"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.causeLink}
+          >
+            WhyDonate campaign
+          </a>
+          .
+        </p>
         <TrackCards />
       </div>
     </>

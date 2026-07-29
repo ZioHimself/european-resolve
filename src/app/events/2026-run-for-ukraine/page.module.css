@@ -8,4 +8,22 @@
     padding-inline: var(--space-6);
     padding-bottom: var(--space-16);
   }
+
+  .causeDescription {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+    text-align: center;
+  }
+
+  .causeLink {
+    color: var(--color-ua-blue);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }

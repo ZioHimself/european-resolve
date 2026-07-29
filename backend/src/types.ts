@@ -44,3 +44,48 @@ export interface ValidationError {
 export type ApiResponse<T> =
   | { success: true; data: T }
   | { success: false; errors: ValidationError[] };
+
+export interface FundraiserCreateRequest {
+  displayName: string;
+  message: string;
+  goalEur: number;
+}
+
+export interface FundraiserResponse {
+  slug: string;
+  displayName: string;
+  message: string;
+  goalEur: number;
+  photoUrl: string | null;
+  status: "draft" | "published";
+  createdAt: string;
+  editToken?: string;
+}
+
+export interface FundraiserUpdateRequest {
+  displayName?: string;
+  message?: string;
+  goalEur?: number;
+  status?: "draft" | "published";
+}
+
+export interface ProgressResponse {
+  totalRaisedEur: number;
+  goalEur: number;
+  goalPercent: number;
+  participantCount: number;
+  donorCount: number;
+}
+
+export interface DonorWallEntry {
+  fundraiserSlug: string;
+  donorName: string;
+  message: string;
+  createdAt: string;
+}
+
+export interface DonorWallRequest {
+  fundraiserSlug: string;
+  donorName: string;
+  message: string;
+}

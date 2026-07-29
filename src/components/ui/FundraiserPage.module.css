@@ -1,0 +1,209 @@
+@layer components {
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-16) 0;
+  }
+
+  .spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--color-black-20);
+    border-top-color: var(--color-ua-blue);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .notFound {
+    text-align: center;
+    padding: var(--space-16) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .notFoundHeading {
+    font-size: var(--text-h2);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .notFoundText {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .backLink {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-ua-blue);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: var(--space-8) 0;
+  }
+
+  .draftBanner {
+    background: var(--color-amber-10);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    text-align: center;
+    line-height: var(--leading-relaxed);
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: center;
+  }
+
+  .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--color-ua-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .avatarImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .avatarPlaceholder {
+    font-size: var(--text-h1);
+    font-weight: var(--font-bold);
+    color: var(--color-white);
+  }
+
+  .name {
+    font-size: var(--text-h2);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-snug);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .message {
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    line-height: var(--leading-relaxed);
+
+    & p {
+      margin: 0;
+    }
+  }
+
+  .goalInfo {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .goalPersonal {
+    font-weight: var(--font-medium);
+  }
+
+  .goalCollective {
+    font-weight: var(--font-medium);
+    color: var(--color-ua-blue);
+  }
+
+  .donateSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .donateHeading {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+    text-align: center;
+  }
+
+  .editControls {
+    display: flex;
+    justify-content: center;
+    padding: var(--space-4) 0;
+  }
+
+  .publishButton {
+    background: var(--color-ua-blue);
+    color: var(--color-white);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    font-family: inherit;
+    padding: var(--space-3) var(--space-6);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: opacity 0.15s;
+
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  .shareSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .shareSectionHeading {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+    text-align: center;
+  }
+
+  .donorWallSection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+}
