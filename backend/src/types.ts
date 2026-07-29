@@ -21,7 +21,8 @@ export interface RegisterResponse {
   tierName: string;
   amountEur: number;
   rewards: string[];
-  monobankJarUrl: string;
+  paymentToken: string;
+  whydonateWidgetUrl: string;
 }
 
 export interface ValidationError {
