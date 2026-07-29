@@ -121,12 +121,13 @@ registerRoute.post("/", async (c) => {
       tierName: tier.name,
       amountEur: existing.amountEur,
       rewards: tier.rewards,
-      monobankJarUrl: config.monobankJarUrl,
+      paymentToken: existing.paymentToken,
+      whydonateWidgetUrl: config.whydonateWidgetUrl,
     };
     return c.json({ success: true, data: response } satisfies ApiResponse<RegisterResponse>);
   }
 
-  const { participantId } = await sheetsService.appendRegistration(data);
+  const { participantId, paymentToken } = await sheetsService.appendRegistration(data);
   const tier = TIER_DATA[data.tierId];
 
   const response: RegisterResponse = {
@@ -136,7 +137,8 @@ registerRoute.post("/", async (c) => {
     tierName: tier.name,
     amountEur: tier.price,
     rewards: tier.rewards,
-    monobankJarUrl: config.monobankJarUrl,
+    paymentToken,
+    whydonateWidgetUrl: config.whydonateWidgetUrl,
   };
 
   return c.json({ success: true, data: response } satisfies ApiResponse<RegisterResponse>);
