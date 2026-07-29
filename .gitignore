@@ -82,6 +82,7 @@ coverage/
 *.pem
 *.key
 *.cert
+sa-key.json
 
 # === Logs ===
 *.log
