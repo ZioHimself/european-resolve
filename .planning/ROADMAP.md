@@ -65,6 +65,16 @@ Plans:
 **Requirements:** FUND-01, FUND-02, FUND-03, FUND-04, FUND-05, PAGE-01, PAGE-02, PAGE-03, PAGE-04, PAGE-05, PAGE-06, DASH-01, DASH-02, DASH-03, DASH-04, DASH-05, EVNT-02, API-03, API-04, API-05, API-06, API-07, API-08, API-09
 **UI hint:** yes
 
+Plans:
+
+**Wave 1**
+- [ ] 01 — Backend: Fundraiser CRUD, Photo Upload, Progress & Donor Wall APIs
+
+**Wave 2** *(blocked on Wave 1 completion)*
+- [ ] 02 — Frontend: Fundraise Form Activation & Fundraiser Page
+- [ ] 03 — Frontend: Progress Dashboard Live Data & Social Sharing
+- [ ] 04 — Frontend: Donor Wall
+
 **Success Criteria:**
 1. User can create a fundraising page and receive a shareable URL
 2. Photo upload works (Cloud Storage) and displays on the fundraiser page

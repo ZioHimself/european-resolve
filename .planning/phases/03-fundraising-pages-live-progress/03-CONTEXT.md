@@ -48,7 +48,7 @@ Users can create personal fundraising pages (Track B) with a display name, photo
 - **D-18:** New "Donor Wall" tab for wall entries (fundraiser slug, donor name, message, created_at).
 
 ### Claude's Discretion
-- Client-side routing implementation (catch-all route vs named dynamic segment)
+- Client-side routing: query parameter approach (`/fundraiser?by=mariia-k`) — single static page, ID read via `useSearchParams().get('by')`
 - Google Drive folder structure and sharing permissions setup
 - Photo upload API request/response shape (multipart form or base64)
 - Fundraiser form validation rules (name length, message length, goal range)
