@@ -23,23 +23,20 @@ export function RegisterClient() {
 
   return (
     <div className={styles.wrapper}>
-      <TierGrid
-        selectedTierId={selectedTierId}
-        onSelectTier={setSelectedTierId}
-      />
-
-      <p className={styles.paymentNotice}>
-        All tiers are paid via Monobank jar (Visa/Mastercard only). Bancontact
-        and bank transfers are not supported.
-      </p>
-
       {registrationResult ? (
         <ConfirmationPanel result={registrationResult} />
       ) : (
-        <RegistrationForm
-          selectedTier={selectedTier}
-          onSuccess={setRegistrationResult}
-        />
+        <>
+          <TierGrid
+            selectedTierId={selectedTierId}
+            onSelectTier={setSelectedTierId}
+          />
+
+          <RegistrationForm
+            selectedTier={selectedTier}
+            onSuccess={setRegistrationResult}
+          />
+        </>
       )}
     </div>
   );

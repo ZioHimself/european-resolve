@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import type { RegisterResponse } from "./registerTypes";
+import { WhyDonateWidget } from "./WhyDonateWidget";
 import styles from "./ConfirmationPanel.module.css";
 
 interface ConfirmationPanelProps {
@@ -6,6 +10,52 @@ interface ConfirmationPanelProps {
 }
 
 export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
+  const [confirming, setConfirming] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleConfirm() {
+    setConfirming(true);
+    setError(null);
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
+
+    try {
+      const res = await fetch(`${apiUrl}/api/register/confirm-payment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: result.paymentToken }),
+      });
+      const data = await res.json();
+
+      if (data.success && data.data?.confirmed) {
+        setConfirmed(true);
+      } else {
+        setError(data.errors?.[0]?.message ?? "Confirmation failed");
+      }
+    } catch {
+      setError("Could not confirm payment. Please try again.");
+    } finally {
+      setConfirming(false);
+    }
+  }
+
+  if (confirmed) {
+    return (
+      <section className={styles.panel}>
+        <div className={styles.confirmedIcon} aria-hidden="true">
+          ✓
+        </div>
+        <h2 className={styles.heading}>Payment received — thank you!</h2>
+        <p className={styles.participantId}>Your ID: {result.participantId}</p>
+        <p className={styles.confirmedMessage}>
+          Your registration is now complete. You&apos;ll receive your race
+          materials at the event.
+        </p>
+      </section>
+    );
+  }
+
   return (
     <section className={styles.panel}>
       <div className={styles.icon} aria-hidden="true">
@@ -41,22 +91,34 @@ export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
         </ul>
       </div>
 
-      {result.monobankJarUrl && (
-        <div className={styles.ctaSection}>
-          <a
-            href={result.monobankJarUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.ctaButton}
-          >
-            Proceed to donate — Monobank
-          </a>
-          <p className={styles.visaNotice}>
-            Monobank jar accepts Visa and Mastercard only. Bancontact and bank
-            transfers are not supported.
-          </p>
+      <div className={styles.donationSection}>
+        <h3 className={styles.donationHeading}>
+          Complete your €{result.amountEur} donation
+        </h3>
+        <p className={styles.donationInstructions}>
+          Please select the <strong>€{result.amountEur}</strong> option below to
+          complete your {result.tierName} registration.
+        </p>
+
+        <div className={styles.widgetContainer}>
+          <WhyDonateWidget shortcode="nudW7" />
         </div>
-      )}
+
+        <div className={styles.confirmSection}>
+          <p className={styles.confirmLabel}>
+            After completing your donation above:
+          </p>
+          <button
+            type="button"
+            className={styles.confirmButton}
+            onClick={handleConfirm}
+            disabled={confirming}
+          >
+            {confirming ? "Confirming…" : "I\u2019ve completed my donation"}
+          </button>
+          {error && <p className={styles.confirmError}>{error}</p>}
+        </div>
+      </div>
     </section>
   );
 }

@@ -4,12 +4,4 @@
     flex-direction: column;
     gap: var(--space-8);
   }
-
-  .paymentNotice {
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
-    text-align: center;
-    line-height: var(--leading-relaxed);
-    margin: 0;
-  }
 }
