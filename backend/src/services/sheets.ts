@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { google, type sheets_v4 } from "googleapis";
 import { config } from "../config.js";
 import type { RegisterRequest } from "../types.js";
@@ -8,6 +9,7 @@ export interface ExistingRegistration {
   email: string;
   tierId: string;
   amountEur: number;
+  paymentToken: string;
 }
 
 const SHEET_NAME = "Registrations";
@@ -24,7 +26,7 @@ export class SheetsService {
   async findByEmail(email: string): Promise<ExistingRegistration | null> {
     const res = await this.sheets.spreadsheets.values.get({
       spreadsheetId: config.spreadsheetId,
-      range: `${SHEET_NAME}!A:L`,
+      range: `${SHEET_NAME}!A:P`,
     });
 
     const rows = res.data.values;
@@ -41,6 +43,7 @@ export class SheetsService {
           email: row[2] as string,
           tierId: row[7] as string,
           amountEur: Number(row[8]),
+          paymentToken: (row[12] as string) ?? "",
         };
       }
     }
@@ -50,9 +53,10 @@ export class SheetsService {
 
   async appendRegistration(
     data: RegisterRequest,
-  ): Promise<{ participantId: string }> {
+  ): Promise<{ participantId: string; paymentToken: string }> {
     const rowCount = await this.getRowCount();
     const participantId = `R4U-${rowCount}`;
+    const paymentToken = randomUUID();
 
     const row = [
       participantId,
@@ -67,6 +71,10 @@ export class SheetsService {
       String(data.gdprConsent),
       String(data.commsOptin ?? false),
       new Date().toISOString(),
+      paymentToken,
+      "pending",
+      "",
+      "",
     ];
 
     await this.sheets.spreadsheets.values.append({
@@ -76,7 +84,7 @@ export class SheetsService {
       requestBody: { values: [row] },
     });
 
-    return { participantId };
+    return { participantId, paymentToken };
   }
 
   private async getRowCount(): Promise<number> {
