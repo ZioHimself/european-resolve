@@ -70,17 +70,28 @@ Plans:
 ---
 
 ### Phase 4: Polish, Communications & Post-Event Readiness
-**Goal:** Registration confirmation emails are sent, i18n structure is in place, and the site handles the post-event "completed" state gracefully.
+**Goal:** i18n structure is in place and the site handles the post-event "completed" state gracefully.
 **Mode:** mvp
 **Requirements:** (overflow from REQ-9, REQ-12, REQ-14 — v2 items pulled forward if time permits)
 **UI hint:** no
 
 **Success Criteria:**
-1. Registration confirmation email sent via transactional email service (Resend or equivalent)
-2. Content strings are extracted to locale files (English populated, FR/UK stubs ready)
-3. Post-event flag in config disables registration and shows "Event completed" with final totals
-4. Event page remains accessible after the event as an archive/results page
-5. All v1 requirements verified as complete
+1. Content strings are extracted to locale files (English populated, FR/UK stubs ready)
+2. Post-event flag in config disables registration and shows "Event completed" with final totals
+3. Event page remains accessible after the event as an archive/results page
+4. All v1 requirements verified as complete
+
+---
+
+### Phase 04.1: Registration Confirmation Emails (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 4
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 04.1 to break down)
 
 ---
 
@@ -94,11 +105,14 @@ Phase 1 (Static Pages) ──→ Phase 2 (Backend + Registration)
                                     │
                                     ▼
                            Phase 4 (Polish + Post-Event)
+                                    │
+                                    ▼
+                           Phase 04.1 (Registration Confirmation Emails)
 ```
 
 ## Milestone Boundary
 
-Phases 1–4 constitute **Milestone 1: Event Launch**. After Phase 4, the event page is ready for public launch ahead of 23 August 2026.
+Phases 1–4.1 constitute **Milestone 1: Event Launch**. After Phase 04.1, the event page is ready for public launch ahead of 23 August 2026.
 
 ---
 *Created: 2026-07-28*
