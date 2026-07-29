@@ -25,6 +25,17 @@ export interface RegisterResponse {
   whydonateWidgetUrl: string;
 }
 
+export interface ConfirmPaymentRequest {
+  token: string;
+}
+
+export interface ConfirmPaymentResponse {
+  confirmed: boolean;
+  participantId: string;
+  tierName: string;
+  amountEur: number;
+}
+
 export interface ValidationError {
   field: string;
   message: string;

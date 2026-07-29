@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { randomBytes } from "node:crypto";
 import { google, type sheets_v4 } from "googleapis";
 import { config } from "../config.js";
 import type { RegisterRequest } from "../types.js";
@@ -56,7 +56,7 @@ export class SheetsService {
   ): Promise<{ participantId: string; paymentToken: string }> {
     const rowCount = await this.getRowCount();
     const participantId = `R4U-${rowCount}`;
-    const paymentToken = randomUUID();
+    const paymentToken = randomBytes(4).toString("hex").toUpperCase();
 
     const row = [
       participantId,
@@ -85,6 +85,60 @@ export class SheetsService {
     });
 
     return { participantId, paymentToken };
+  }
+
+  async confirmPayment(
+    token: string,
+  ): Promise<
+    | { success: true; participantId: string; tierName: string; amountEur: number }
+    | { success: false; error: string }
+  > {
+    const res = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: `${SHEET_NAME}!A:P`,
+    });
+
+    const rows = res.data.values;
+    if (!rows || rows.length <= 1) {
+      return { success: false, error: "invalid_token" };
+    }
+
+    const normalised = token.toUpperCase().trim();
+    let matchIndex = -1;
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (row[12] === normalised) {
+        matchIndex = i;
+        break;
+      }
+    }
+
+    if (matchIndex === -1) {
+      return { success: false, error: "invalid_token" };
+    }
+
+    const row = rows[matchIndex];
+
+    if (row[13] === "paid") {
+      return { success: false, error: "already_confirmed" };
+    }
+
+    const rowNumber = matchIndex + 1;
+    await this.sheets.spreadsheets.values.update({
+      spreadsheetId: config.spreadsheetId,
+      range: `${SHEET_NAME}!M${rowNumber}:P${rowNumber}`,
+      valueInputOption: "RAW",
+      requestBody: {
+        values: [["", "paid", row[8], new Date().toISOString()]],
+      },
+    });
+
+    return {
+      success: true,
+      participantId: row[0] as string,
+      tierName: row[7] as string,
+      amountEur: Number(row[8]),
+    };
   }
 
   private async getRowCount(): Promise<number> {

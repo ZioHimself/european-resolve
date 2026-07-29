@@ -3,6 +3,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { config } from "./config.js";
 import { healthRoute } from "./routes/health.js";
+import { confirmPaymentRoute } from "./routes/confirm-payment.js";
 import { registerRoute } from "./routes/register.js";
 import { errorHandler } from "./middleware/error.js";
 
@@ -19,6 +20,7 @@ app.use(
 );
 
 app.route("/health", healthRoute);
+app.route("/api/register/confirm-payment", confirmPaymentRoute);
 app.route("/api/register", registerRoute);
 
 app.onError(errorHandler);
