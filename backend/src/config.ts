@@ -15,6 +15,6 @@ export const config = Object.freeze({
     .split(",")
     .map((o) => o.trim())
     .filter(Boolean),
-  monobankJarUrl: process.env.MONOBANK_JAR_URL ?? "",
+  whydonateWidgetUrl: process.env.WHYDONATE_WIDGET_URL ?? "",
   nodeEnv,
 });
