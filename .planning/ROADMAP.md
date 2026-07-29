@@ -40,6 +40,16 @@
 
 ---
 
+### Phase 02.1: Replace Monobank jar with WhyDonate (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 2
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 02.1 to break down)
+
 ### Phase 3: Fundraising Pages & Live Progress
 **Goal:** Users can create personal fundraising pages, visitors can view them with live collective progress, and the donor wall is functional — completing both participation tracks.
 **Mode:** mvp
