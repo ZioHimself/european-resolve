@@ -122,7 +122,7 @@ Implement the post-event lifecycle state triggered by `NEXT_PUBLIC_EVENT_STATUS=
 
 2. **fundraise/page.tsx**: Import `getEventStatus`. If `completed`:
    - Show a prominent "Fundraiser creation is closed" banner
-   - Hide the FundraiseForm
+   - Hide the FundraiseForm (3-step wizard component)
    - Include link back to results page
    - Keep breadcrumbs visible
 
@@ -134,7 +134,7 @@ Implement the post-event lifecycle state triggered by `NEXT_PUBLIC_EVENT_STATUS=
 - Register page shows "Registration is closed" banner when `NEXT_PUBLIC_EVENT_STATUS=completed`
 - Fundraise page shows "Fundraiser creation is closed" banner when completed
 - Both banners include a link to the main event/results page
-- Tier cards, registration form, and fundraise form are hidden when completed
+- Tier cards, registration form, and fundraise wizard are hidden when completed
 - Breadcrumbs still render on both pages
 - Pages render normally when status is `active`
 - Closed banners use project design tokens (amber/warning palette)

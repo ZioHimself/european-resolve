@@ -34,21 +34,26 @@ Create the i18n locale file structure, TypeScript type system, and `t()` helper 
 - src/components/ui/RegistrationForm.tsx
 - src/components/ui/FundraiseForm.tsx
 - src/components/ui/FundraiserPage.tsx
+- src/components/ui/FundraiserConfirmation.tsx
 - src/components/ui/DonorWallForm.tsx
+- src/components/ui/TierCard.tsx
+- src/components/ui/registerTypes.ts
 </read_first>
 <action>
 Create `src/locales/types.ts` with a `Locale` interface using flat dot-notation keys organized by namespace:
 - `hero.*` — EventHero strings
 - `tracks.*` — TrackCards strings (track A/B titles, descriptions, features, CTAs)
 - `progress.*` — ProgressSection labels
-- `register.*` — Registration page header, tier labels, form fields, validation messages, confirmation
-- `fundraise.*` — Fundraise page header, form fields, validation messages, confirmation
+- `register.*` — Registration page header, participation type toggle ("I'll run on the day" / "I'll support from anywhere"), form fields, conditional GDPR text (runner vs supporter variants), dynamic submit button text, error summary, validation messages, confirmation
+- `fundraise.*` — Fundraise wizard step labels ("1. Your page", "2. Runner details", "3. Review"), step headings, form fields, validation messages, navigation buttons ("Next: Runner details →", "← Back"), review section labels (all review key/value pairs), combined submit button ("Create page and register — €{price}")
+- `confirmation.*` — Fundraiser confirmation: success heading, shareable/edit links, copy buttons; runner registration section (participant ID, tier, amount, rewards heading); payment flow (heading, instructions, confirm button states, confirmed banner)
+- `tierCard.*` — "Most chosen" badge, "Selected"/"Select" button text
 - `fundraiser.*` — Fundraiser page labels (not found, draft banner, donate heading, share heading, goal labels)
 - `donorWall.*` — Donor wall form labels, gate button, thank-you
 - `event.*` — Landing page strings (cause description, beneficiary text)
-- `common.*` — Shared strings (loading, error, characters count)
+- `common.*` — Shared strings (loading, error, characters count, "Copied!", optional label)
 - `closed.*` — Post-event closed banners and results page content
-- `errors.*` — Backend error code mappings (VALIDATION_* codes)
+- `errors.*` — Backend error code mappings (VALIDATION_* codes including VALIDATION_PARTICIPATION_TYPE_REQUIRED)
 
 Export as `export type Locale = { [key: string]: string }` with a Record type that enforces all keys present.
 </action>
@@ -72,20 +77,30 @@ Export as `export type Locale = { [key: string]: string }` with a Record type th
 - src/app/events/2026-run-for-ukraine/fundraise/page.tsx
 - src/components/ui/FundraiseForm.tsx
 - src/components/ui/FundraiserPage.tsx
+- src/components/ui/FundraiserConfirmation.tsx
 - src/components/ui/DonorWallForm.tsx
 - src/components/ui/RegistrationForm.tsx
 - src/components/ui/ConfirmationPanel.tsx
+- src/components/ui/TierCard.tsx
+- src/components/ui/registerTypes.ts
 - src/data/event.ts
 </read_first>
 <action>
 Create `src/locales/en.ts` that exports a `const en` object satisfying the `Locale` type. Populate every key with the current English string extracted from the components listed in read_first. Use `satisfies Locale` for type safety with inference.
+
+Key areas requiring special attention:
+- FundraiseForm.tsx is a 3-step wizard: extract step indicator labels, step headings, all review section key/value labels, navigation buttons, and the combined submit button text
+- FundraiserConfirmation.tsx has a full registration section with payment flow: participant ID, tier/amount display, rewards heading, WhyDonate payment instructions, confirm button states, confirmed banner
+- RegistrationForm.tsx has participation type toggle strings ("I'll run on the day" / "I'll support from anywhere"), conditional GDPR text (runner vs supporter), dynamic submit button text variants, error summary heading
+- TierCard.tsx has "Most chosen" badge and "Selected"/"Select" button text
 
 Interpolation syntax: `{variableName}` for dynamic values (e.g., `"progress.raised": "€{amount} raised"`).
 </action>
 <acceptance_criteria>
 - `src/locales/en.ts` exists and exports `en` object with `satisfies Locale`
 - Every namespace prefix from the type has at least one key populated
-- All hardcoded English strings from the ~15 event components are represented
+- All hardcoded English strings from the ~15 event components are represented (~130-150 keys total)
+- Wizard step labels, review keys, participation toggle, and payment flow strings are all included
 - No empty string values in the English locale
 - TypeScript compiles without errors
 </acceptance_criteria>

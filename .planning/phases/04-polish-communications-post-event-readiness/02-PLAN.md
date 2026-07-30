@@ -19,6 +19,7 @@ files_modified:
   - src/components/ui/SocialShareButtons.tsx
   - src/components/ui/CoOrganiserBar.tsx
   - src/components/ui/WhyDonateWidget.tsx
+  - src/components/ui/TierCard.tsx
   - src/app/events/2026-run-for-ukraine/page.tsx
   - src/app/events/2026-run-for-ukraine/register/page.tsx
   - src/app/events/2026-run-for-ukraine/fundraise/page.tsx
@@ -80,6 +81,8 @@ Keep `metadata` objects in English (SEO — not part of i18n scope per D-02).
 - src/components/ui/ConfirmationPanel.tsx
 - src/components/ui/FundraiseForm.tsx
 - src/components/ui/FundraiserConfirmation.tsx
+- src/components/ui/TierCard.tsx
+- src/components/ui/registerTypes.ts
 </read_first>
 <action>
 For each client component (`'use client'`):
@@ -87,19 +90,25 @@ For each client component (`'use client'`):
 2. Replace hardcoded labels, placeholders, button text, validation messages, and confirmation text with `t()` calls
 
 Specific targets:
-- **RegistrationForm.tsx**: Field labels ("Full name", "Email", "Phone"), placeholders, GDPR consent text, submit button text, client-side validation messages
+- **RegistrationForm.tsx** (~25 strings): Participation type toggle ("How will you participate?", "I'll run on the day", "I'll support from anywhere"), field labels ("Full name", "Email", "Phone", "T-shirt size", "Language", "Country"), "(optional)" label, conditional GDPR consent text (runner variant: "race registration and safety"; supporter variant: "event registration and donation tracking"), comms opt-in text, error summary heading ("Please fix the following:"), dynamic submit buttons ("Register — €{price}" / "Support — €{price}" / "Registering..." / "Select a tier to register"), "Total: €{price}"
 - **ConfirmationPanel.tsx**: "Registration complete" heading, participant ID text, WhyDonate link text, next steps
-- **FundraiseForm.tsx**: "Display name", "Personal message", "Personal goal (€)" labels, placeholders, "Save draft"/"Publish page →" buttons, photo upload label, char count format
-- **FundraiserConfirmation.tsx**: Success heading, shareable link text, instructions
+- **FundraiseForm.tsx** (~40 strings): This is now a 3-step wizard. Extract:
+  - Step indicator labels ("1. Your page", "2. Runner details", "3. Review")
+  - Step 1 heading ("Set up your fundraising page"), field labels ("Display name", "Personal message", "Personal goal (€)"), placeholders, photo upload label ("+ Photo"), "Next: Runner details →" button, char count
+  - Step 2 heading ("Your runner registration"), all registration form fields duplicated within the wizard (labels, GDPR text, comms text), "← Back"/"Next: Review →" buttons, tier error
+  - Step 3 heading ("Review and submit"), all review section labels ("Your fundraising page", "Runner registration"), review key names ("Display name", "Message", "Goal", "Photo", "Tier", "Full name", "Email", "T-shirt", "Country"), "Uploaded"/"None" values, "← Back" and combined submit ("Create page and register — €{price}" / "Creating…")
+- **FundraiserConfirmation.tsx** (~30 strings): "Your fundraising page is ready!" heading, subheading, "Your shareable link"/"Secret edit link — save this!" labels, "Copy"/"Copied!" buttons, edit link hint, "Runner registration" section heading, "Your ID: {id}", "Tier"/"Amount" labels, "Your rewards" heading, payment section ("Complete your €{amount} donation", instructions, "I've completed my donation"/"Confirming…"), confirmed banner ("Payment confirmed — you're all set!"), "View your page →", "Share your page" heading
+- **TierCard.tsx**: "Most chosen" badge text, "Selected"/"Select" button text
 
 Keep error messages that come from the backend API as-is for now (Plan 03 handles backend → error codes → t() mapping).
 </action>
 <acceptance_criteria>
-- RegistrationForm.tsx uses `t()` for all labels, placeholders, and button text
+- RegistrationForm.tsx uses `t()` for all labels, placeholders, toggle text, conditional GDPR text, and dynamic button text
 - ConfirmationPanel.tsx uses `t()` for all user-facing strings
-- FundraiseForm.tsx uses `t()` for all labels, placeholders, buttons, and helper text
-- FundraiserConfirmation.tsx uses `t()` for all user-facing strings
-- All four components still render correctly in English (visual regression: same output)
+- FundraiseForm.tsx uses `t()` for all 3 wizard steps: labels, headings, fields, review keys, navigation buttons, and submit button
+- FundraiserConfirmation.tsx uses `t()` for all user-facing strings including registration section and payment flow
+- TierCard.tsx uses `t()` for badge and button text
+- All components still render correctly in English (visual regression: same output)
 - `npm run build` succeeds
 </acceptance_criteria>
 </task>
@@ -119,7 +128,7 @@ Keep error messages that come from the backend API as-is for now (Plan 03 handle
 <action>
 1. **FundraiserPage.tsx**: Replace "Fundraiser not found", "This page is a draft...", "Donate" heading, "Share this page" heading, "Personal goal:", "Collective total:", "'s page", "Create your own fundraiser →", "Publishing…"/"Publish this page" with `t()` calls
 2. **DonorWall.tsx**: Replace any heading text ("Supporter wall" or similar) with `t()`
-3. **DonorWallForm.tsx**: Replace "Your name", "Your message" labels, "I've donated — leave a message of support" gate button, "Posting…"/"Post to wall" button, "Thank you for your support!", placeholders, character count with `t()` calls
+3. **DonorWallForm.tsx**: Replace "Your name", "Your message" labels, "I've donated — leave a message of support" gate button, "Posting…"/"Post to wall" button, "Thank you for your support!", placeholders ("How you want to appear", "A word of encouragement..."), character count with `t()` calls
 4. **SocialShareButtons.tsx**: Replace any aria-labels or button text with `t()`
 5. **WhyDonateWidget.tsx**: Replace any wrapper text or loading text with `t()`
 6. **ProgressSection.tsx**: Replace "Live progress", "Updated live", "Raised", "Goal", "Participants", "Donors", "raised · Goal" with `t()` calls

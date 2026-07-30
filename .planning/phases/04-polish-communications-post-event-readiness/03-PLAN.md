@@ -44,6 +44,7 @@ Migrate backend validation responses from human-readable English messages to mac
    - `VALIDATION_COUNTRY_REQUIRED`
    - `VALIDATION_TIER_INVALID`
    - `VALIDATION_GDPR_REQUIRED`
+   - `VALIDATION_PARTICIPATION_TYPE_REQUIRED`
    - `VALIDATION_DISPLAYNAME_LENGTH` (2-50 chars)
    - `VALIDATION_MESSAGE_REQUIRED`
    - `VALIDATION_MESSAGE_LENGTH` (max 500)
@@ -76,7 +77,8 @@ Migrate backend validation responses from human-readable English messages to mac
 Update `validate()` function in `register.ts` to include `code` alongside existing `message`:
 - `{ field: "fullName", message: "Full name is required", code: "VALIDATION_FULLNAME_REQUIRED" }`
 - `{ field: "email", message: "Valid email address is required", code: "VALIDATION_EMAIL_INVALID" }`
-- `{ field: "tshirtSize", message: "Valid t-shirt size is required", code: "VALIDATION_TSHIRT_INVALID" }`
+- `{ field: "participationType", message: "Participation type is required", code: "VALIDATION_PARTICIPATION_TYPE_REQUIRED" }`
+- `{ field: "tshirtSize", message: "Valid t-shirt size is required", code: "VALIDATION_TSHIRT_INVALID" }` (conditional — runners only)
 - `{ field: "language", message: "Valid language is required", code: "VALIDATION_LANGUAGE_INVALID" }`
 - `{ field: "country", message: "Country is required", code: "VALIDATION_COUNTRY_REQUIRED" }`
 - `{ field: "tierId", message: "Valid tier is required", code: "VALIDATION_TIER_INVALID" }`
@@ -86,29 +88,31 @@ Keep `message` unchanged for backward compatibility.
 </action>
 <acceptance_criteria>
 - Every `errors.push()` in `register.ts` includes a `code` field
-- All 7 validation errors have unique, meaningful codes
+- All 8 validation errors have unique, meaningful codes (participationType added)
 - `message` field values are unchanged (backward compatible)
 - Backend compiles without errors
 </acceptance_criteria>
 </task>
 
 <task id="03.3">
-<title>Add error codes to fundraiser routes</title>
+<title>Add error codes to fundraiser routes (including combined register endpoint)</title>
 <read_first>
 - backend/src/types.ts
 - backend/src/routes/fundraiser.ts
 </read_first>
 <action>
-Update validation errors in `fundraiser.ts` POST and PUT handlers:
-- POST: displayName length, message required/length, goalEur invalid, photo type, photo size → add `code` field to each
-- PUT: Same validations plus status invalid, auth required (403), auth invalid (403) → add `code` field
-- GET 404: `{ field: "slug", message: "Fundraiser not found", code: "VALIDATION_SLUG_NOT_FOUND" }`
+Update validation errors in `fundraiser.ts` POST, PUT, and the new POST `/register` handlers:
+- POST `/`: displayName length, message required/length, goalEur invalid, photo type, photo size → add `code` field to each
+- PUT `/:slug`: Same validations plus status invalid, auth required (403), auth invalid (403) → add `code` field
+- GET `/:slug` 404: `{ field: "slug", message: "Fundraiser not found", code: "VALIDATION_SLUG_NOT_FOUND" }`
+- POST `/register` (combined wizard endpoint): This endpoint validates both fundraiser fields (displayName, message, goalEur, photo) AND registration fields (fullName, email, tshirtSize, language, country, tierId, gdprConsent). Add `code` field to all ~12 validation errors. Uses the same error codes as the standalone routes above.
 </action>
 <acceptance_criteria>
 - Every `errors.push()` and error response in `fundraiser.ts` includes a `code` field
-- POST handler: 5 validation errors have codes
-- PUT handler: 7 validation errors + 1 auth error have codes
-- GET 404: error response has code
+- POST `/` handler: 5 validation errors have codes
+- PUT `/:slug` handler: 7 validation errors + 1 auth error have codes
+- GET `/:slug` 404: error response has code
+- POST `/register` handler: all ~12 validation errors have codes (reuses codes from register.ts and POST `/`)
 - Backend compiles without errors
 </acceptance_criteria>
 </task>
