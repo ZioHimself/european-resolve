@@ -23,6 +23,20 @@ export function EventHero() {
           {eventDetails.beneficiary.name} – {eventDetails.beneficiary.mission}{" "}
           ↗
         </a>
+        {/*
+        <p className={styles.causeDescription}>
+          All donations go directly to{" "}
+          <a
+            href={eventDetails.beneficiary.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.causeLink}
+          >
+            {eventDetails.beneficiary.name}
+          </a>
+          .
+        </p>
+        */}
       </p>
     </section>
   );
