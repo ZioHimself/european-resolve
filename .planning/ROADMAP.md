@@ -119,6 +119,16 @@ Plans:
 **Depends on:** Phase 4
 **UI hint:** no
 
+Plans:
+
+**Wave 1**
+- [ ] 01 — French (FR) Locale: Belgian French Translations
+- [ ] 02 — Ukrainian (UK) Locale: Standard Ukrainian Translations
+- [ ] 03 — Dutch (NL) & German (DE) Locales: Full Translations
+
+**Wave 2** *(blocked on Wave 1 completion)*
+- [ ] 04 — Content Fix: Plast Removal & Cross-Locale Verification
+
 **Success Criteria:**
 1. French (FR) locale file contains translations for all keys present in the English (EN) base locale
 2. Ukrainian (UK) locale file contains translations for all keys present in the English (EN) base locale

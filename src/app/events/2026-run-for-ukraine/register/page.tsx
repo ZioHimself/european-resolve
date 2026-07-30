@@ -1,29 +1,26 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { RegisterClient } from "@/components/ui/RegisterClient";
-import { getEventStatus } from "@/hooks/useEventStatus";
+import { useEventStatus } from "@/hooks/useEventStatus";
+import { useLocale } from "@/components/ui/LocaleProvider";
 import { t } from "@/locales";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: "Register — Run for Ukraine 2026",
-  description:
-    "Choose your tier and register for the Run for Ukraine 2026 charity run in Brussels. Every fee helps fund charging stations for defenders.",
-};
-
 export default function RegisterPage() {
-  const isCompleted = getEventStatus() === "completed";
+  useLocale();
+  const isCompleted = useEventStatus() === "completed";
 
   return (
     <>
       <Breadcrumbs
         items={[
-          { label: "Events", href: "/events" },
+          { label: t("nav.events"), href: "/events" },
           {
             label: "Run for Ukraine 2026",
             href: "/events/2026-run-for-ukraine",
           },
-          { label: "Register" },
+          { label: t("nav.register") },
         ]}
       />
 

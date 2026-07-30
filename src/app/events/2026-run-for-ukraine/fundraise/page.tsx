@@ -1,29 +1,26 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FundraiseForm } from "@/components/ui/FundraiseForm";
-import { getEventStatus } from "@/hooks/useEventStatus";
+import { useEventStatus } from "@/hooks/useEventStatus";
+import { useLocale } from "@/components/ui/LocaleProvider";
 import { t } from "@/locales";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: "Fundraise — Run for Ukraine 2026",
-  description:
-    "Create your personal fundraising page for the Run for Ukraine 2026 charity run in Brussels. Help fund charging stations for defenders.",
-};
-
 export default function FundraisePage() {
-  const isCompleted = getEventStatus() === "completed";
+  useLocale();
+  const isCompleted = useEventStatus() === "completed";
 
   return (
     <>
       <Breadcrumbs
         items={[
-          { label: "Events", href: "/events" },
+          { label: t("nav.events"), href: "/events" },
           {
             label: "Run for Ukraine 2026",
             href: "/events/2026-run-for-ukraine",
           },
-          { label: "Fundraise" },
+          { label: t("nav.fundraise") },
         ]}
       />
 

@@ -249,4 +249,15 @@ export interface Locale {
   "errors.VALIDATION_SLUG_REQUIRED": string;
   "errors.VALIDATION_SLUG_NOT_FOUND": string;
   "errors.INTERNAL_ERROR": string;
+
+  // nav.* — Breadcrumb labels
+  "nav.events": string;
+  "nav.register": string;
+  "nav.fundraise": string;
+  "nav.fundraiser": string;
+
+  // feeBreakdown.* — FeeBreakdownBar
+  "feeBreakdown.overline": string;
+  "feeBreakdown.cause": string;
+  "feeBreakdown.logistics": string;
 }

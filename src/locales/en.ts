@@ -281,4 +281,15 @@ export const en = {
   "errors.VALIDATION_SLUG_REQUIRED": "Fundraiser slug is required",
   "errors.VALIDATION_SLUG_NOT_FOUND": "Fundraiser not found",
   "errors.INTERNAL_ERROR": "An unexpected error occurred. Please try again.",
+
+  // nav (breadcrumbs)
+  "nav.events": "Events",
+  "nav.register": "Register",
+  "nav.fundraise": "Fundraise",
+  "nav.fundraiser": "Fundraiser",
+
+  // feeBreakdown
+  "feeBreakdown.overline": "Where it goes",
+  "feeBreakdown.cause": "cause",
+  "feeBreakdown.logistics": "logistics",
 } satisfies Locale;

@@ -1,0 +1,39 @@
+@layer components {
+  .switcher {
+    display: flex;
+    gap: var(--space-1);
+    align-items: center;
+  }
+
+  .pill {
+    all: unset;
+    cursor: pointer;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm, 4px);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    line-height: 1;
+    color: var(--color-black-60);
+    transition: background-color 0.15s, color 0.15s;
+
+    &:hover {
+      color: var(--color-black-100);
+      background-color: var(--color-black-05);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-amber);
+      outline-offset: 2px;
+    }
+  }
+
+  .active {
+    color: var(--color-amber-100);
+    background-color: var(--color-amber-10);
+    font-weight: var(--font-semibold);
+
+    &:hover {
+      background-color: var(--color-amber-20);
+    }
+  }
+}

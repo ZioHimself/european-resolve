@@ -1,3 +1,4 @@
+import { t } from "@/locales";
 import styles from "./FeeBreakdownBar.module.css";
 
 export function FeeBreakdownBar({
@@ -13,7 +14,7 @@ export function FeeBreakdownBar({
 
   return (
     <div className={styles.container}>
-      <span className={styles.overline}>Where it goes</span>
+      <span className={styles.overline}>{t("feeBreakdown.overline")}</span>
       <div className={styles.bar}>
         <div
           className={styles.causeSegment}
@@ -27,11 +28,11 @@ export function FeeBreakdownBar({
       <div className={styles.legend}>
         <span className={styles.legendItem}>
           <span className={styles.dotCause} />
-          €{causeFee} cause
+          €{causeFee} {t("feeBreakdown.cause")}
         </span>
         <span className={styles.legendItem}>
           <span className={styles.dotLogistics} />
-          €{logisticsFee} logistics
+          €{logisticsFee} {t("feeBreakdown.logistics")}
         </span>
       </div>
     </div>

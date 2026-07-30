@@ -15,14 +15,14 @@ progress:
 # Project State
 
 **Project:** Run for Ukraine 2026
-**Status:** Executing — Phase 4 complete, ready for Phase 4.1
+**Status:** Executing — Phase 5 planned, ready for execution
 
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2026-07-28)
 
 **Core value:** Participants can register and share personal fundraising pages that drive donations via WhyDonate with full transparency
-**Current focus:** Phase 4.1 — Registration Confirmation Emails
+**Current focus:** Phase 5 — i18n Translations (4 plans, 2 waves)
 
 ## Current Phase
 
@@ -40,6 +40,7 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 | 2.1   | ●      | 4/4   | 100%     |
 | 3     | ●      | 4/4   | 100%     |
 | 4     | ●      | 4/4   | 100%     |
+| 5     | ◐      | 0/4   | 0%       |
 | 4.1   | ○      | 0/0   | 0%       |
 
 ## Recent Activity
@@ -61,6 +62,7 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - 2026-07-29: Phase 4 context gathered (3 areas discussed: i18n structure, post-event UX, archive content)
 - 2026-07-30: Phase 4 planned (4 plans in 2 waves: i18n infrastructure, string extraction, backend error codes, post-event mode)
 - 2026-07-30: Phase 4 executed — all 4 plans complete (typecheck ✓, backend typecheck ✓)
+- 2026-07-30: Phase 5 planned (4 plans in 2 waves: FR translations, UK translations, NL+DE translations, verification)
 
 ---
 *Last updated: 2026-07-30 after Phase 4 execution*
