@@ -94,6 +94,16 @@ Plans:
 **Requirements:** (overflow from REQ-9, REQ-12, REQ-14 — v2 items pulled forward if time permits)
 **UI hint:** no
 
+Plans:
+
+**Wave 1**
+- [ ] 01 — i18n Infrastructure: Locale Files, Types & t() Helper
+- [ ] 02 — String Extraction: Migrate Event Components to t() Helper
+- [ ] 03 — Backend Error Codes: Machine-Readable Validation Responses
+
+**Wave 2** *(blocked on Wave 1 completion)*
+- [ ] 04 — Post-Event Mode: Results Page, Closed Banners & Gallery
+
 **Success Criteria:**
 1. Content strings are extracted to locale files (English populated, FR/UK stubs ready)
 2. Post-event flag in config disables registration and shows "Event completed" with final totals
