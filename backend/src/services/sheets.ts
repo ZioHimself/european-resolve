@@ -372,13 +372,17 @@ export class SheetsService {
       }
     }
 
-    const donorRes = await this.sheets.spreadsheets.values.get({
-      spreadsheetId: config.spreadsheetId,
-      range: `${DONOR_WALL_SHEET}!A:A`,
-    });
-
-    const donorRows = donorRes.data.values ?? [];
-    const donorCount = Math.max(0, donorRows.length - 1);
+    let donorCount = 0;
+    try {
+      const donorRes = await this.sheets.spreadsheets.values.get({
+        spreadsheetId: config.spreadsheetId,
+        range: `${DONOR_WALL_SHEET}!A:A`,
+      });
+      const donorRows = donorRes.data.values ?? [];
+      donorCount = Math.max(0, donorRows.length - 1);
+    } catch {
+      // Donor Wall sheet may not exist yet — default to 0
+    }
 
     return { totalRaisedEur, participantCount, donorCount };
   }

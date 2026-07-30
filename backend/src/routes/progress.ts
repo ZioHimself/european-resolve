@@ -8,26 +8,31 @@ export const progressRoute = new Hono();
 const sheetsService = new SheetsService();
 
 progressRoute.get("/", async (c) => {
-  const { totalRaisedEur, participantCount, donorCount } =
-    await sheetsService.getProgress();
+  try {
+    const { totalRaisedEur, participantCount, donorCount } =
+      await sheetsService.getProgress();
 
-  const goalPercent = Math.min(
-    100,
-    Math.round((totalRaisedEur / config.goalEur) * 100),
-  );
+    const goalPercent = Math.min(
+      100,
+      Math.round((totalRaisedEur / config.goalEur) * 100),
+    );
 
-  const response: ProgressResponse = {
-    totalRaisedEur,
-    goalEur: config.goalEur,
-    goalPercent,
-    participantCount,
-    donorCount,
-  };
+    const response: ProgressResponse = {
+      totalRaisedEur,
+      goalEur: config.goalEur,
+      goalPercent,
+      participantCount,
+      donorCount,
+    };
 
-  c.header("Cache-Control", "public, max-age=30");
+    c.header("Cache-Control", "public, max-age=30");
 
-  return c.json({
-    success: true,
-    data: response,
-  } satisfies ApiResponse<ProgressResponse>);
+    return c.json({
+      success: true,
+      data: response,
+    } satisfies ApiResponse<ProgressResponse>);
+  } catch (err) {
+    console.error("Progress fetch failed:", err);
+    throw err;
+  }
 });
