@@ -1,7 +1,7 @@
 # Roadmap: Run for Ukraine 2026
 
 **Created:** 2026-07-28
-**Phases:** 4
+**Phases:** 5
 **Mode:** Vertical MVP (each phase delivers a deployable increment)
 
 ---
@@ -102,6 +102,23 @@ Plans:
 
 ---
 
+### Phase 5: i18n Translations
+**Goal:** Populate French (FR) and Ukrainian (UK) locale files with complete, reviewed translations for all user-facing strings — making the event pages fully multilingual.
+**Mode:** mvp
+**Requirements:** I18N-01, I18N-02
+**Depends on:** Phase 4
+**UI hint:** no
+
+**Success Criteria:**
+1. French (FR) locale file contains translations for all keys present in the English (EN) base locale
+2. Ukrainian (UK) locale file contains translations for all keys present in the English (EN) base locale
+3. No missing or placeholder keys remain in FR or UK locale files
+4. Language switcher (I18N-03, from Phase 4) correctly renders pages in all three languages
+5. Date, number, and currency formatting respects each locale's conventions
+6. Build succeeds with `npm run build` for all three locale variants
+
+---
+
 ### Phase 04.1: Registration Confirmation Emails (INSERTED)
 
 **Goal:** [Urgent work - to be planned]
@@ -125,13 +142,15 @@ Phase 1 (Static Pages) ──→ Phase 2 (Backend + Registration)
                                     ▼
                            Phase 4 (Polish + Post-Event)
                                     │
+                                    ├──→ Phase 5 (i18n Translations)
+                                    │
                                     ▼
                            Phase 04.1 (Registration Confirmation Emails)
 ```
 
 ## Milestone Boundary
 
-Phases 1–4.1 constitute **Milestone 1: Event Launch**. After Phase 04.1, the event page is ready for public launch ahead of 23 August 2026.
+Phases 1–5 (including 04.1) constitute **Milestone 1: Event Launch**. After Phase 5 and Phase 04.1, the event page is fully multilingual and ready for public launch ahead of 23 August 2026.
 
 ---
 *Created: 2026-07-28*
