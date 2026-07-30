@@ -83,6 +83,7 @@
   }
 
   .input {
+    height: 2.75rem;
     border: 1px solid var(--color-black-20);
     border-radius: var(--radius-lg);
     padding: var(--space-3) var(--space-4);
@@ -94,6 +95,15 @@
     &:focus {
       outline: 2px solid var(--color-ua-blue);
       outline-offset: 1px;
+    }
+
+    &:is(select) {
+      appearance: none;
+      padding-right: var(--space-10, 2.5rem);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%230a1628' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right var(--space-4) center;
+      cursor: pointer;
     }
   }
 
