@@ -21,6 +21,7 @@ interface FundraiserConfirmationProps {
   editToken: string;
   displayName: string;
   registration?: RegistrationData;
+  onPaymentConfirmed?: () => void;
 }
 
 export function FundraiserConfirmation({
@@ -28,6 +29,7 @@ export function FundraiserConfirmation({
   editToken,
   displayName,
   registration,
+  onPaymentConfirmed,
 }: FundraiserConfirmationProps) {
   const baseUrl = "european-resolve.org/events/2026-run-for-ukraine/fundraiser";
   const shareableUrl = `https://${baseUrl}?by=${slug}`;
@@ -71,6 +73,7 @@ export function FundraiserConfirmation({
 
       if (data.success && data.data?.confirmed) {
         setConfirmed(true);
+        onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
         setConfirmError(firstErr?.code ? t(`errors.${firstErr.code}`) || firstErr.message : firstErr?.message ?? t("confirmation.confirmFailed"));

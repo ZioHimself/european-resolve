@@ -51,6 +51,18 @@ interface CombinedResult {
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const STORAGE_KEY = "r4u:fundraise";
+
+function readSavedResult(): CombinedResult | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : null;
+  } catch {
+    return null;
+  }
+}
+
 export function FundraiseForm() {
   const [step, setStep] = useState<Step>(1);
   const [data, setData] = useState<FormData>({
@@ -71,7 +83,7 @@ export function FundraiseForm() {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState<CombinedResult | null>(null);
+  const [result, setResult] = useState<CombinedResult | null>(readSavedResult);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function update(fields: Partial<FormData>) {
@@ -203,11 +215,20 @@ export function FundraiseForm() {
       }
 
       setResult(json.data);
+      try {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(json.data));
+      } catch { /* storage unavailable */ }
     } catch {
       setErrors({ global: t("fundraise.networkError") });
     } finally {
       setSubmitting(false);
     }
+  }
+
+  function handlePaymentConfirmed() {
+    try {
+      sessionStorage.removeItem(STORAGE_KEY);
+    } catch { /* storage unavailable */ }
   }
 
   if (result) {
@@ -217,6 +238,7 @@ export function FundraiseForm() {
         editToken={result.fundraiser.editToken}
         displayName={result.fundraiser.displayName}
         registration={result.registration}
+        onPaymentConfirmed={handlePaymentConfirmed}
       />
     );
   }

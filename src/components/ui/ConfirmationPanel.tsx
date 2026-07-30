@@ -8,9 +8,10 @@ import styles from "./ConfirmationPanel.module.css";
 
 interface ConfirmationPanelProps {
   result: RegisterResponse;
+  onPaymentConfirmed?: () => void;
 }
 
-export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
+export function ConfirmationPanel({ result, onPaymentConfirmed }: ConfirmationPanelProps) {
   const [confirming, setConfirming] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,6 +32,7 @@ export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
 
       if (data.success && data.data?.confirmed) {
         setConfirmed(true);
+        onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
         setError(firstErr?.code ? t(`errors.${firstErr.code}`) || firstErr.message : firstErr?.message ?? t("register.confirmFailed"));
