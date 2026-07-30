@@ -1,6 +1,8 @@
 import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
 import { DriveService } from "../services/drive.js";
+import { sendFundraiserEmail } from "../services/email.js";
+import { config } from "../config.js";
 import type {
   FundraiserResponse,
   FundraiserRegisterResponse,
@@ -359,6 +361,24 @@ fundraiserRoute.post("/register", async (c) => {
       paymentToken,
     },
   };
+
+  sendFundraiserEmail(
+    {
+      name: fullName!.trim(),
+      email: email!.trim().toLowerCase(),
+      participantId,
+      tierName: tier.name,
+      amountEur: tier.price,
+      rewards: tier.rewards,
+      donationUrl: config.donationUrl,
+      slug,
+      editToken,
+      displayName: displayName!.trim(),
+      fundraiserGoalEur: goalEur,
+      siteUrl: config.corsOrigins[0] ?? "https://european-resolve.org",
+    },
+    language as Language,
+  ).catch((err) => console.error("[email] Failed to send fundraiser confirmation:", err));
 
   return c.json({ success: true, data: response } satisfies ApiResponse<FundraiserRegisterResponse>, 201);
 });

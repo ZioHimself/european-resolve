@@ -14,4 +14,12 @@ export interface EmailLocale {
   eventLocation: string;
   footerText: string;
   footerUnsubscribe: string;
+  fundraiserSubject: string;
+  fundraiserIntro: string;
+  fundraiserHeading: string;
+  fundraiserPageLabel: string;
+  fundraiserEditLabel: string;
+  fundraiserEditHint: string;
+  fundraiserDisplayNameLabel: string;
+  fundraiserGoalLabel: string;
 }

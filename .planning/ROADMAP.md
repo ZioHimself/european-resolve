@@ -141,13 +141,16 @@ Plans:
 
 ### Phase 04.1: Registration Confirmation Emails (INSERTED)
 
-**Goal:** [Urgent work - to be planned]
-**Requirements**: TBD
+**Goal:** Wire SMTP credentials into Cloud Run deployment and add a fundraiser confirmation email so both Track A and Track B participants receive confirmation emails in production.
+**Requirements**: ADMN-03
 **Depends on:** Phase 4
-**Plans:** 0 plans
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 04.1 to break down)
+
+**Wave 1**
+- [ ] 01 — SMTP Deploy Config: Add SMTP credentials to Cloud Run deployment
+- [ ] 02 — Fundraiser Confirmation Email: Localized email template + route integration
 
 ---
 

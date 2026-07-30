@@ -20,4 +20,15 @@ export const nl: EmailLocale = {
     "Deze e-mail is verzonden door European Resolve VZW als bevestiging van je inschrijving voor Run for Ukraine 2026.",
   footerUnsubscribe:
     "Je ontvangt dit bericht omdat je je hebt ingeschreven voor het evenement. Er worden geen verdere e-mails verstuurd tenzij je hebt ingestemd met communicatie.",
+  fundraiserSubject:
+    "Run for Ukraine 2026 — Je actiepagina staat online!",
+  fundraiserIntro:
+    "Goed nieuws, {name}! Je bent ingeschreven ÉN je persoonlijke actiepagina staat online. Deel de link met vrienden en familie om je doel te bereiken.",
+  fundraiserHeading: "Je actiepagina",
+  fundraiserPageLabel: "Deel deze link",
+  fundraiserEditLabel: "Bewerk je pagina",
+  fundraiserEditHint:
+    "Bewaar deze link — het is de enige manier om je actiepagina te bewerken. Deel deze niet publiekelijk.",
+  fundraiserDisplayNameLabel: "Weergavenaam",
+  fundraiserGoalLabel: "Persoonlijk doel",
 };

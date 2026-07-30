@@ -59,8 +59,20 @@ jobs:
           service: run-for-ukraine-api
           image: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT }}/european-resolve/api:${{ github.sha }}
           region: ${{ vars.GCP_REGION }}
+          # Required GitHub Secrets for SMTP (email confirmation):
+          #   SMTP_HOST     — smtp.mailbox.org
+          #   SMTP_PORT     — 465
+          #   SMTP_USER     — info@european-resolve.org
+          #   SMTP_PASS     — mailbox.org app password
+          #   SMTP_FROM     — Run for Ukraine 2026 <info@european-resolve.org>
+          # Add via: Settings > Secrets and variables > Actions > Secrets
           env_vars: |
             SPREADSHEET_ID=${{ vars.SPREADSHEET_ID }}
             CORS_ORIGINS=${{ vars.CORS_ORIGINS }}
             WHYDONATE_WIDGET_URL=${{ vars.WHYDONATE_WIDGET_URL }}
             NODE_ENV=production
+            SMTP_HOST=${{ secrets.SMTP_HOST }}
+            SMTP_PORT=${{ secrets.SMTP_PORT }}
+            SMTP_USER=${{ secrets.SMTP_USER }}
+            SMTP_PASS=${{ secrets.SMTP_PASS }}
+            SMTP_FROM=${{ secrets.SMTP_FROM }}

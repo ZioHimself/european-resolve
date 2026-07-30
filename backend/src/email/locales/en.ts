@@ -20,4 +20,15 @@ export const en: EmailLocale = {
     "This email was sent by European Resolve VZW as confirmation of your Run for Ukraine 2026 registration.",
   footerUnsubscribe:
     "You are receiving this because you registered for the event. No further emails will be sent unless you opted in to communications.",
+  fundraiserSubject:
+    "Run for Ukraine 2026 — Your fundraiser page is live!",
+  fundraiserIntro:
+    "Great news, {name}! You're registered AND your personal fundraiser page is live. Share it with friends and family to help reach your goal.",
+  fundraiserHeading: "Your fundraiser page",
+  fundraiserPageLabel: "Share this link",
+  fundraiserEditLabel: "Edit your page",
+  fundraiserEditHint:
+    "Save this link — it's the only way to edit your fundraiser page. Do not share it publicly.",
+  fundraiserDisplayNameLabel: "Display name",
+  fundraiserGoalLabel: "Personal goal",
 };
