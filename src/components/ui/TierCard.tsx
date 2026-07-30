@@ -1,14 +1,36 @@
 import type { Tier } from "@/data/event";
 import { FeeBreakdownBar } from "@/components/ui/FeeBreakdownBar";
+import type { ParticipationType } from "./registerTypes";
 import styles from "./TierCard.module.css";
+
+const RUNNER_ONLY_REWARDS = new Set([
+  "Race bib",
+  "Finisher medal",
+  "Technical race t-shirt",
+  "Finisher pack",
+  "Reserved starting corral",
+  "Post-race reception invite",
+  "Embroidered finisher hoodie",
+]);
 
 interface TierCardProps {
   tier: Tier;
   isSelected: boolean;
   onSelect: () => void;
+  participationType: ParticipationType;
 }
 
-export function TierCard({ tier, isSelected, onSelect }: TierCardProps) {
+export function TierCard({
+  tier,
+  isSelected,
+  onSelect,
+  participationType,
+}: TierCardProps) {
+  const visibleRewards =
+    participationType === "runner"
+      ? tier.rewards
+      : tier.rewards.filter((r) => !RUNNER_ONLY_REWARDS.has(r));
+
   return (
     <article
       className={`${styles.card} ${tier.highlighted ? styles.highlighted : ""} ${isSelected ? styles.selected : ""}`}
@@ -21,7 +43,7 @@ export function TierCard({ tier, isSelected, onSelect }: TierCardProps) {
         logisticsFee={tier.logisticsFee}
       />
       <ul className={styles.rewards}>
-        {tier.rewards.map((reward) => (
+        {visibleRewards.map((reward) => (
           <li key={reward} className={styles.reward}>
             <span className={styles.check}>✓</span> {reward}
           </li>

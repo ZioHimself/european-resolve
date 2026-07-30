@@ -1,6 +1,10 @@
 import { useState } from "react";
 import type { Tier } from "@/data/event";
-import type { RegisterResponse, ValidationError } from "./registerTypes";
+import type {
+  ParticipationType,
+  RegisterResponse,
+  ValidationError,
+} from "./registerTypes";
 import styles from "./RegistrationForm.module.css";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -10,11 +14,15 @@ const API_URL =
 
 interface RegistrationFormProps {
   selectedTier: Tier | null;
+  participationType: ParticipationType;
+  onParticipationTypeChange: (type: ParticipationType) => void;
   onSuccess: (result: RegisterResponse) => void;
 }
 
 export function RegistrationForm({
   selectedTier,
+  participationType,
+  onParticipationTypeChange,
   onSuccess,
 }: RegistrationFormProps) {
   const [fullName, setFullName] = useState("");
@@ -28,6 +36,8 @@ export function RegistrationForm({
   const [errors, setErrors] = useState<ValidationError[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const isRunner = participationType === "runner";
+
   function validateForm(): ValidationError[] {
     const errs: ValidationError[] = [];
 
@@ -39,6 +49,9 @@ export function RegistrationForm({
         field: "email",
         message: "Valid email address is required",
       });
+    }
+    if (isRunner && !tshirtSize) {
+      errs.push({ field: "tshirtSize", message: "T-shirt size is required" });
     }
     if (!country.trim()) {
       errs.push({ field: "country", message: "Country is required" });
@@ -79,10 +92,11 @@ export function RegistrationForm({
           fullName: fullName.trim(),
           email: email.trim().toLowerCase(),
           phone: phone.trim() || undefined,
-          tshirtSize,
+          ...(isRunner ? { tshirtSize } : {}),
           language,
           country: country.trim(),
           tierId: selectedTier.id,
+          participationType,
           gdprConsent,
           commsOptin,
         }),
@@ -113,6 +127,30 @@ export function RegistrationForm({
     <section className={styles.section}>
       <form className={styles.card} onSubmit={handleSubmit} noValidate>
         <h2 className={styles.heading}>Your details</h2>
+
+        <fieldset className={styles.toggleFieldset}>
+          <legend className={styles.toggleLegend}>
+            How will you participate?
+          </legend>
+          <div className={styles.toggle}>
+            <button
+              type="button"
+              className={`${styles.toggleOption} ${isRunner ? styles.toggleActive : ""}`}
+              onClick={() => onParticipationTypeChange("runner")}
+              aria-pressed={isRunner}
+            >
+              I&apos;ll run on the day
+            </button>
+            <button
+              type="button"
+              className={`${styles.toggleOption} ${!isRunner ? styles.toggleActive : ""}`}
+              onClick={() => onParticipationTypeChange("supporter")}
+              aria-pressed={!isRunner}
+            >
+              I&apos;ll support from anywhere
+            </button>
+          </div>
+        </fieldset>
 
         {errors.length > 0 && (
           <div className={styles.errorSummary} role="alert">
@@ -170,24 +208,26 @@ export function RegistrationForm({
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="reg-tshirt">
-              T-shirt size
-            </label>
-            <select
-              id="reg-tshirt"
-              className={styles.input}
-              value={tshirtSize}
-              onChange={(e) => setTshirtSize(e.target.value)}
-            >
-              <option value="XS">XS</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-              <option value="XXL">XXL</option>
-            </select>
-          </div>
+          {isRunner && (
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="reg-tshirt">
+                T-shirt size
+              </label>
+              <select
+                id="reg-tshirt"
+                className={styles.input}
+                value={tshirtSize}
+                onChange={(e) => setTshirtSize(e.target.value)}
+              >
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
+            </div>
+          )}
           <div className={styles.field}>
             <label className={styles.label} htmlFor="reg-language">
               Language
@@ -232,8 +272,11 @@ export function RegistrationForm({
             />
             <span>
               <strong>GDPR consent (required)</strong>. I agree to my data being
-              processed for the purpose of race registration and safety, in line
-              with the privacy notice.
+              processed for the purpose of{" "}
+              {isRunner
+                ? "race registration and safety"
+                : "event registration and donation tracking"}
+              , in line with the privacy notice.
             </span>
           </label>
           {fieldError("gdprConsent") && (
@@ -268,7 +311,9 @@ export function RegistrationForm({
             {isSubmitting
               ? "Registering..."
               : selectedTier
-                ? `Register — €${selectedTier.price}`
+                ? isRunner
+                  ? `Register — €${selectedTier.price}`
+                  : `Support — €${selectedTier.price}`
                 : "Select a tier to register"}
           </button>
         </div>

@@ -1,15 +1,17 @@
 export type TierId = "supporter" | "champion" | "patron";
 export type TshirtSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
 export type Language = "English" | "French" | "Ukrainian";
+export type ParticipationType = "runner" | "supporter";
 
 export interface RegisterRequest {
   fullName: string;
   email: string;
   phone?: string;
-  tshirtSize: TshirtSize;
+  tshirtSize?: TshirtSize;
   language: Language;
   country: string;
   tierId: TierId;
+  participationType: ParticipationType;
   gdprConsent: boolean;
   commsOptin?: boolean;
 }
@@ -19,6 +21,7 @@ export interface RegisterResponse {
   fullName: string;
   tierId: TierId;
   tierName: string;
+  participationType: ParticipationType;
   amountEur: number;
   rewards: string[];
   paymentToken: string;

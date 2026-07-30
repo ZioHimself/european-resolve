@@ -6,13 +6,15 @@ import { tiers } from "@/data/event";
 import { TierGrid } from "@/components/ui/TierGrid";
 import { RegistrationForm } from "@/components/ui/RegistrationForm";
 import { ConfirmationPanel } from "@/components/ui/ConfirmationPanel";
-import type { RegisterResponse } from "./registerTypes";
+import type { ParticipationType, RegisterResponse } from "./registerTypes";
 import styles from "./RegisterClient.module.css";
 
 type TierId = "supporter" | "champion" | "patron";
 
 export function RegisterClient() {
   const [selectedTierId, setSelectedTierId] = useState<TierId | null>(null);
+  const [participationType, setParticipationType] =
+    useState<ParticipationType>("runner");
   const [registrationResult, setRegistrationResult] =
     useState<RegisterResponse | null>(null);
 
@@ -30,10 +32,13 @@ export function RegisterClient() {
           <TierGrid
             selectedTierId={selectedTierId}
             onSelectTier={setSelectedTierId}
+            participationType={participationType}
           />
 
           <RegistrationForm
             selectedTier={selectedTier}
+            participationType={participationType}
+            onParticipationTypeChange={setParticipationType}
             onSuccess={setRegistrationResult}
           />
         </>

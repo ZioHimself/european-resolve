@@ -15,6 +15,7 @@ export interface ExistingRegistration {
   tierId: string;
   amountEur: number;
   paymentToken: string;
+  participationType: string;
 }
 
 export interface FundraiserRow {
@@ -44,7 +45,7 @@ export class SheetsService {
   async findByEmail(email: string): Promise<ExistingRegistration | null> {
     const res = await this.sheets.spreadsheets.values.get({
       spreadsheetId: config.spreadsheetId,
-      range: `${SHEET_NAME}!A:P`,
+      range: `${SHEET_NAME}!A:Q`,
     });
 
     const rows = res.data.values;
@@ -62,6 +63,7 @@ export class SheetsService {
           tierId: row[7] as string,
           amountEur: Number(row[8]),
           paymentToken: (row[12] as string) ?? "",
+          participationType: (row[16] as string) ?? "runner",
         };
       }
     }
@@ -81,7 +83,7 @@ export class SheetsService {
       data.fullName,
       data.email,
       data.phone ?? "",
-      data.tshirtSize,
+      data.tshirtSize ?? "",
       data.language,
       data.country,
       data.tierId,
@@ -93,6 +95,7 @@ export class SheetsService {
       "pending",
       "",
       "",
+      data.participationType,
     ];
 
     await this.sheets.spreadsheets.values.append({
@@ -113,7 +116,7 @@ export class SheetsService {
   > {
     const res = await this.sheets.spreadsheets.values.get({
       spreadsheetId: config.spreadsheetId,
-      range: `${SHEET_NAME}!A:P`,
+      range: `${SHEET_NAME}!A:Q`,
     });
 
     const rows = res.data.values;

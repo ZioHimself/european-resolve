@@ -9,12 +9,24 @@ import type {
   TierId,
   TshirtSize,
   Language,
+  ParticipationType,
 } from "../types.js";
 
 const VALID_TIER_IDS: TierId[] = ["supporter", "champion", "patron"];
 const VALID_TSHIRT_SIZES: TshirtSize[] = ["XS", "S", "M", "L", "XL", "XXL"];
 const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian"];
+const VALID_PARTICIPATION_TYPES: ParticipationType[] = ["runner", "supporter"];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const RUNNER_ONLY_REWARDS = new Set([
+  "Race bib",
+  "Finisher medal",
+  "Technical race t-shirt",
+  "Finisher pack",
+  "Reserved starting corral",
+  "Post-race reception invite",
+  "Embroidered finisher hoodie",
+]);
 
 const TIER_DATA: Record<TierId, { name: string; price: number; rewards: string[] }> = {
   supporter: {
@@ -66,10 +78,21 @@ function validate(body: Record<string, unknown>): ValidationError[] {
   }
 
   if (
-    !body.tshirtSize ||
-    !VALID_TSHIRT_SIZES.includes(body.tshirtSize as TshirtSize)
+    !body.participationType ||
+    !VALID_PARTICIPATION_TYPES.includes(body.participationType as ParticipationType)
   ) {
-    errors.push({ field: "tshirtSize", message: "Valid t-shirt size is required" });
+    errors.push({ field: "participationType", message: "Participation type is required" });
+  }
+
+  const isRunner = body.participationType === "runner";
+
+  if (isRunner) {
+    if (
+      !body.tshirtSize ||
+      !VALID_TSHIRT_SIZES.includes(body.tshirtSize as TshirtSize)
+    ) {
+      errors.push({ field: "tshirtSize", message: "Valid t-shirt size is required" });
+    }
   }
 
   if (
@@ -97,6 +120,11 @@ function validate(body: Record<string, unknown>): ValidationError[] {
   return errors;
 }
 
+function filterRewards(rewards: string[], participationType: ParticipationType): string[] {
+  if (participationType === "runner") return rewards;
+  return rewards.filter((r) => !RUNNER_ONLY_REWARDS.has(r));
+}
+
 export const registerRoute = new Hono();
 
 const sheetsService = new SheetsService();
@@ -114,13 +142,15 @@ registerRoute.post("/", async (c) => {
   const existing = await sheetsService.findByEmail(data.email);
   if (existing) {
     const tier = TIER_DATA[existing.tierId as TierId] ?? TIER_DATA.supporter;
+    const participationType = (existing.participationType || "runner") as ParticipationType;
     const response: RegisterResponse = {
       participantId: existing.participantId,
       fullName: existing.fullName,
       tierId: existing.tierId as TierId,
       tierName: tier.name,
+      participationType,
       amountEur: existing.amountEur,
-      rewards: tier.rewards,
+      rewards: filterRewards(tier.rewards, participationType),
       paymentToken: existing.paymentToken,
       whydonateWidgetUrl: config.whydonateWidgetUrl,
     };
@@ -135,8 +165,9 @@ registerRoute.post("/", async (c) => {
     fullName: data.fullName,
     tierId: data.tierId,
     tierName: tier.name,
+    participationType: data.participationType,
     amountEur: tier.price,
-    rewards: tier.rewards,
+    rewards: filterRewards(tier.rewards, data.participationType),
     paymentToken,
     whydonateWidgetUrl: config.whydonateWidgetUrl,
   };

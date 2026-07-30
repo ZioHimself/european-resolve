@@ -40,6 +40,8 @@ export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
     }
   }
 
+  const isRunner = result.participationType === "runner";
+
   if (confirmed) {
     return (
       <section className={styles.panel}>
@@ -49,8 +51,9 @@ export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
         <h2 className={styles.heading}>Payment received — thank you!</h2>
         <p className={styles.participantId}>Your ID: {result.participantId}</p>
         <p className={styles.confirmedMessage}>
-          Your registration is now complete. You&apos;ll receive your race
-          materials at the event.
+          {isRunner
+            ? "Your registration is now complete. You'll receive your race materials at the event."
+            : "Thank you for supporting from afar! You'll receive a digital certificate by email."}
         </p>
       </section>
     );
