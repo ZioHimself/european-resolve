@@ -53,6 +53,10 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
   const changeLocale = useCallback((code: LocaleCode) => {
     setLocale(code);
     localStorage.setItem(STORAGE_KEY, code);
