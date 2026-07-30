@@ -33,7 +33,7 @@ export const tiers = [
     price: 10,
     causeFee: 6,
     logisticsFee: 4,
-    rewards: ["Race bib", "Finisher medal", "Digital certificate", "Hurkit keychain"],
+    rewards: ["Race bib", "Digital certificate", "Hurkit keychain"],
     highlighted: false,
   },
   {
@@ -44,10 +44,8 @@ export const tiers = [
     logisticsFee: 10,
     rewards: [
       "Race bib",
-      "Finisher medal",
       "Digital certificate",
       "Technical race t-shirt",
-      "Finisher pack",
       "Name on digital wall",
       "Hurkit military branch coin",
       "Hurkit branded sports socks",
@@ -62,13 +60,10 @@ export const tiers = [
     logisticsFee: 15,
     rewards: [
       "Race bib",
-      "Finisher medal",
       "Digital certificate",
       "Technical race t-shirt",
-      "Finisher pack",
       "Name on digital wall",
       "Embroidered finisher hoodie",
-      "Reserved starting corral",
       "Post-race reception invite",
       "Hurkit silk scarf",
     ],
@@ -80,7 +75,6 @@ export const coOrganisers = [
   { abbreviation: "EUB", name: "Embassy of Ukraine in Belgium" },
   { abbreviation: "UV", name: "Ukrainian Voices" },
   { abbreviation: "ER", name: "European Resolve" },
-  { abbreviation: "PL", name: "Plast" },
 ] satisfies CoOrganiser[];
 
 export const eventDetails = {
