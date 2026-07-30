@@ -102,6 +102,181 @@
     font-style: italic;
   }
 
+  .registrationSection {
+    width: 100%;
+    max-width: 32rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .registrationHeading {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .participantId {
+    font-size: var(--text-h3);
+    font-weight: var(--font-bold);
+    color: var(--color-ua-blue);
+    margin: 0;
+  }
+
+  .summary {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .summaryRow {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .summaryKey {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .summaryValue {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+  }
+
+  .rewards {
+    width: 100%;
+    text-align: left;
+  }
+
+  .rewardsHeading {
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-3) 0;
+  }
+
+  .rewardsList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .reward {
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    line-height: var(--leading-normal);
+  }
+
+  .check {
+    color: var(--color-success, #16a34a);
+    font-weight: var(--font-bold);
+  }
+
+  .paymentSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .paymentHeading {
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .paymentInstructions {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  .widgetContainer {
+    width: 100%;
+    min-height: 200px;
+  }
+
+  .confirmSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .confirmLabel {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .confirmButton {
+    display: inline-block;
+    background: var(--color-ua-yellow, #ffd700);
+    color: var(--color-black);
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    font-family: inherit;
+    line-height: var(--leading-normal);
+    padding: var(--space-3) var(--space-8);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: opacity 0.15s;
+
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  .confirmError {
+    font-size: var(--text-sm);
+    color: var(--color-error, #c41e3a);
+    margin: 0;
+  }
+
+  .confirmedBanner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    background: color-mix(in srgb, var(--color-success, #16a34a) 10%, transparent);
+    border: 1px solid var(--color-success, #16a34a);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+  }
+
+  .confirmedIcon {
+    font-weight: var(--font-bold);
+    color: var(--color-success, #16a34a);
+  }
+
   .viewLink {
     display: inline-block;
     background: var(--color-ua-blue);

@@ -92,3 +92,22 @@ export interface DonorWallRequest {
   donorName: string;
   message: string;
 }
+
+export interface FundraiserRegisterResponse {
+  fundraiser: {
+    slug: string;
+    editToken: string;
+    displayName: string;
+    photoUrl: string | null;
+  };
+  registration: {
+    participantId: string;
+    fullName: string;
+    tierId: TierId;
+    tierName: string;
+    amountEur: number;
+    rewards: string[];
+    paymentToken: string;
+    whydonateWidgetUrl: string;
+  };
+}

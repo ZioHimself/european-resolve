@@ -73,6 +73,7 @@ export class SheetsService {
 
   async appendRegistration(
     data: RegisterRequest,
+    fundraiserSlug?: string,
   ): Promise<{ participantId: string; paymentToken: string }> {
     const rowCount = await this.getRowCount();
     const participantId = `R4U-${rowCount}`;
@@ -96,6 +97,7 @@ export class SheetsService {
       "",
       "",
       data.participationType,
+      fundraiserSlug ?? "",
     ];
 
     await this.sheets.spreadsheets.values.append({
