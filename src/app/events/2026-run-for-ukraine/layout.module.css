@@ -8,10 +8,19 @@
   }
 
   .langBar {
+    background: var(--color-black-05);
+  }
+
+  .langBarInner {
     display: flex;
     justify-content: flex-end;
-    padding: var(--space-2) var(--space-4);
-    max-width: 72rem;
+    align-items: center;
+    padding: var(--space-2) var(--space-6);
+    max-width: var(--max-width-content);
     margin-inline: auto;
+  }
+
+  .eventRoot:has([data-co-organiser-bar]) .langBar {
+    display: none;
   }
 }

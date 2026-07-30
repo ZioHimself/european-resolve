@@ -3,6 +3,7 @@
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { CoOrganiserBar } from "@/components/ui/CoOrganiserBar";
 import { EventHero } from "@/components/ui/EventHero";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { ProgressSection } from "@/components/ui/ProgressSection";
 import { TrackCards } from "@/components/ui/TrackCards";
 import { EventGallery } from "@/components/ui/EventGallery";
@@ -18,7 +19,7 @@ export default function RunForUkrainePage() {
 
   return (
     <>
-      <CoOrganiserBar />
+      <CoOrganiserBar actions={<LanguageSwitcher />} />
       <Breadcrumbs
         items={[
           { label: t("nav.events"), href: "/events" },

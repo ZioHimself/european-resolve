@@ -97,7 +97,9 @@ export default function EventLayout({
       />
       <LocaleProvider>
         <div className={styles.langBar}>
-          <LanguageSwitcher />
+          <div className={styles.langBarInner}>
+            <LanguageSwitcher />
+          </div>
         </div>
         {children}
       </LocaleProvider>
