@@ -1,6 +1,14 @@
 export type TierId = "supporter" | "champion" | "patron";
 export type TshirtSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
-export type Language = "English" | "French" | "Ukrainian";
+export type Language = "English" | "French" | "Ukrainian" | "Dutch" | "German";
+
+export const LANGUAGE_TO_LOCALE: Record<Language, string> = {
+  English: "en",
+  French: "fr",
+  Ukrainian: "uk",
+  Dutch: "nl",
+  German: "de",
+};
 export type ParticipationType = "runner" | "supporter";
 
 export interface RegisterRequest {

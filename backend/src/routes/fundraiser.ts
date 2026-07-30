@@ -23,7 +23,7 @@ const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 const VALID_TIER_IDS: TierId[] = ["supporter", "champion", "patron"];
 const VALID_TSHIRT_SIZES: TshirtSize[] = ["XS", "S", "M", "L", "XL", "XXL"];
-const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian"];
+const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian", "Dutch", "German"];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const TIER_DATA: Record<TierId, { name: string; price: number; rewards: string[] }> = {

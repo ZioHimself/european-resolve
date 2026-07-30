@@ -1,0 +1,23 @@
+import type { EmailLocale } from "./types.js";
+
+export const uk: EmailLocale = {
+  subject: "Run for Ukraine 2026 — Реєстрацію підтверджено!",
+  greeting: "Вітаємо, {name}!",
+  confirmationIntro:
+    "Вашу реєстрацію на Run for Ukraine 2026 підтверджено. Ось ваші дані:",
+  participantIdLabel: "ID учасника",
+  tierLabel: "Рівень",
+  amountLabel: "Сума",
+  rewardsLabel: "Ваші нагороди",
+  donationHeading: "Завершіть донат",
+  donationInstructions:
+    "Щоб завершити реєстрацію на рівні {tierName}, будь ласка, зробіть донат €{amount} за посиланням нижче.",
+  donationButton: "Задонатити €{amount}",
+  eventDetailsHeading: "Деталі події",
+  eventDate: "23 серпня 2026",
+  eventLocation: "Брюссель, Бельгія",
+  footerText:
+    "Цей лист надіслано European Resolve VZW як підтвердження вашої реєстрації на Run for Ukraine 2026.",
+  footerUnsubscribe:
+    "Ви отримали цей лист, тому що зареєструвались на подію. Інших листів не буде надіслано, якщо ви не погодились на розсилку.",
+};

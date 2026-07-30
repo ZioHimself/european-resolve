@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
+import { sendConfirmationEmail } from "../services/email.js";
 import { config } from "../config.js";
 import type {
   RegisterRequest,
@@ -14,7 +15,7 @@ import type {
 
 const VALID_TIER_IDS: TierId[] = ["supporter", "champion", "patron"];
 const VALID_TSHIRT_SIZES: TshirtSize[] = ["XS", "S", "M", "L", "XL", "XXL"];
-const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian"];
+const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian", "Dutch", "German"];
 const VALID_PARTICIPATION_TYPES: ParticipationType[] = ["runner", "supporter"];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -172,6 +173,19 @@ registerRoute.post("/", async (c) => {
     paymentToken,
     whydonateWidgetUrl: config.whydonateWidgetUrl,
   };
+
+  sendConfirmationEmail(
+    {
+      name: data.fullName,
+      email: data.email,
+      participantId,
+      tierName: tier.name,
+      amountEur: tier.price,
+      rewards: filterRewards(tier.rewards, data.participationType),
+      donationUrl: config.whydonateWidgetUrl,
+    },
+    data.language,
+  ).catch((err) => console.error("[email] Failed to send confirmation:", err));
 
   return c.json({ success: true, data: response } satisfies ApiResponse<RegisterResponse>);
 });
