@@ -70,9 +70,11 @@ jobs:
             SPREADSHEET_ID=${{ vars.SPREADSHEET_ID }}
             CORS_ORIGINS=${{ vars.CORS_ORIGINS }}
             WHYDONATE_WIDGET_URL=${{ vars.WHYDONATE_WIDGET_URL }}
+            GOOGLE_DRIVE_FOLDER_ID=${{ vars.GOOGLE_DRIVE_FOLDER_ID }}
+            GALLERY_FOLDER_ID=${{ vars.GALLERY_FOLDER_ID }}
             NODE_ENV=production
-            SMTP_HOST=${{ secrets.SMTP_HOST }}
-            SMTP_PORT=${{ secrets.SMTP_PORT }}
-            SMTP_USER=${{ secrets.SMTP_USER }}
+            SMTP_HOST=${{ vars.SMTP_HOST }}
+            SMTP_PORT=${{ vars.SMTP_PORT }}
+            SMTP_USER=${{ vars.SMTP_USER }}
             SMTP_PASS=${{ secrets.SMTP_PASS }}
-            SMTP_FROM=${{ secrets.SMTP_FROM }}
+            SMTP_FROM=${{ vars.SMTP_FROM }}
