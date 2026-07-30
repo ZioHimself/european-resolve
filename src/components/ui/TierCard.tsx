@@ -6,12 +6,7 @@ import styles from "./TierCard.module.css";
 
 const RUNNER_ONLY_REWARDS = new Set([
   "Race bib",
-  "Finisher medal",
   "Technical race t-shirt",
-  "Finisher pack",
-  "Reserved starting corral",
-  "Post-race reception invite",
-  "Embroidered finisher hoodie",
 ]);
 
 interface TierCardProps {

@@ -76,8 +76,6 @@ export const tiers = [
       "Digital certificate",
       "Technical race t-shirt",
       "Name on digital wall",
-      "Embroidered finisher hoodie",
-      "Post-race reception invite",
       "Hurkit silk scarf",
     ],
     highlighted: false,
