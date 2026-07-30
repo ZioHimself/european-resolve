@@ -9,7 +9,6 @@ export interface RegisterResponse {
   amountEur: number;
   rewards: string[];
   paymentToken: string;
-  whydonateWidgetUrl: string;
 }
 
 export interface ValidationError {

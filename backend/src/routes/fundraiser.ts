@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
 import { DriveService } from "../services/drive.js";
-import { config } from "../config.js";
 import type {
   FundraiserResponse,
   FundraiserRegisterResponse,
@@ -365,7 +364,6 @@ fundraiserRoute.post("/register", async (c) => {
       amountEur: tier.price,
       rewards: tier.rewards,
       paymentToken,
-      whydonateWidgetUrl: config.whydonateWidgetUrl,
     },
   };
 

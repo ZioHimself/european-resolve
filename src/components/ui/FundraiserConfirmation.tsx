@@ -14,7 +14,6 @@ interface RegistrationData {
   amountEur: number;
   rewards: string[];
   paymentToken: string;
-  whydonateWidgetUrl: string;
 }
 
 interface FundraiserConfirmationProps {

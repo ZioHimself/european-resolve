@@ -33,7 +33,6 @@ export interface RegisterResponse {
   amountEur: number;
   rewards: string[];
   paymentToken: string;
-  whydonateWidgetUrl: string;
 }
 
 export interface ConfirmPaymentRequest {
@@ -117,6 +116,5 @@ export interface FundraiserRegisterResponse {
     amountEur: number;
     rewards: string[];
     paymentToken: string;
-    whydonateWidgetUrl: string;
   };
 }

@@ -46,7 +46,6 @@ interface CombinedResult {
     amountEur: number;
     rewards: string[];
     paymentToken: string;
-    whydonateWidgetUrl: string;
   };
 }
 

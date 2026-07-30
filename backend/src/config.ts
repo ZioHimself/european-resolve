@@ -23,7 +23,7 @@ export const config = Object.freeze({
     .split(",")
     .map((o) => o.trim())
     .filter(Boolean),
-  whydonateWidgetUrl: process.env.WHYDONATE_WIDGET_URL ?? "",
+  donationUrl: process.env.WHYDONATE_WIDGET_URL ?? "",
   smtp: {
     host: process.env.SMTP_HOST ?? "",
     port: Number(process.env.SMTP_PORT) || 465,

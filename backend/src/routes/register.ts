@@ -154,7 +154,6 @@ registerRoute.post("/", async (c) => {
       amountEur: existing.amountEur,
       rewards: filterRewards(tier.rewards, participationType),
       paymentToken: existing.paymentToken,
-      whydonateWidgetUrl: config.whydonateWidgetUrl,
     };
     return c.json({ success: true, data: response } satisfies ApiResponse<RegisterResponse>);
   }
@@ -171,7 +170,6 @@ registerRoute.post("/", async (c) => {
     amountEur: tier.price,
     rewards: filterRewards(tier.rewards, data.participationType),
     paymentToken,
-    whydonateWidgetUrl: config.whydonateWidgetUrl,
   };
 
   sendConfirmationEmail(
@@ -182,7 +180,7 @@ registerRoute.post("/", async (c) => {
       tierName: tier.name,
       amountEur: tier.price,
       rewards: filterRewards(tier.rewards, data.participationType),
-      donationUrl: config.whydonateWidgetUrl,
+      donationUrl: config.donationUrl,
     },
     data.language,
   ).catch((err) => console.error("[email] Failed to send confirmation:", err));
