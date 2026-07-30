@@ -409,6 +409,8 @@ export function FundraiseForm() {
                 <option value="English">English</option>
                 <option value="French">French</option>
                 <option value="Ukrainian">Ukrainian</option>
+                <option value="Dutch">Dutch</option>
+                <option value="German">German</option>
               </select>
             </div>
             <div className={styles.field}>
