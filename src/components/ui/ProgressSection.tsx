@@ -108,8 +108,8 @@ export function ProgressSection() {
         <div className={styles.barLabels}>
           <span className={styles.barLeft}>
             {t("progress.barLabel", {
-              raised: `€${totalRaised.toLocaleString("en-GB")}`,
-              goal: `€${goalEur.toLocaleString("en-GB")}`,
+              raised: totalRaised.toLocaleString("en-GB"),
+              goal: goalEur.toLocaleString("en-GB"),
             })}
           </span>
           <span className={styles.barRight}>{goalPct}</span>
