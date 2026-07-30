@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { t } from "@/locales";
 import { SocialShareButtons } from "@/components/ui/SocialShareButtons";
 import { WhyDonateWidget } from "@/components/ui/WhyDonateWidget";
 import styles from "./FundraiserConfirmation.module.css";
@@ -72,10 +73,11 @@ export function FundraiserConfirmation({
       if (data.success && data.data?.confirmed) {
         setConfirmed(true);
       } else {
-        setConfirmError(data.errors?.[0]?.message ?? "Confirmation failed");
+        const firstErr = data.errors?.[0];
+        setConfirmError(firstErr?.code ? t(`errors.${firstErr.code}`) || firstErr.message : firstErr?.message ?? t("confirmation.confirmFailed"));
       }
     } catch {
-      setConfirmError("Could not confirm payment. Please try again.");
+      setConfirmError(t("confirmation.confirmError"));
     } finally {
       setConfirming(false);
     }
@@ -86,13 +88,13 @@ export function FundraiserConfirmation({
       <div className={styles.icon} aria-hidden="true">
         ✓
       </div>
-      <h2 className={styles.heading}>Your fundraising page is ready!</h2>
+      <h2 className={styles.heading}>{t("confirmation.heading")}</h2>
       <p className={styles.subheading}>
-        Share your page with friends and family — {displayName}
+        {t("confirmation.subheading", { name: displayName })}
       </p>
 
       <div className={styles.linkBox}>
-        <span className={styles.linkLabel}>Your shareable link</span>
+        <span className={styles.linkLabel}>{t("confirmation.shareableLink")}</span>
         <div className={styles.linkRow}>
           <span className={styles.linkUrl}>{baseUrl}?by={slug}</span>
           <button
@@ -100,15 +102,13 @@ export function FundraiserConfirmation({
             className={styles.copyButton}
             onClick={() => copyToClipboard(shareableUrl, "share")}
           >
-            {copiedShare ? "Copied!" : "Copy"}
+            {copiedShare ? t("confirmation.copied") : t("confirmation.copy")}
           </button>
         </div>
       </div>
 
       <div className={styles.linkBox}>
-        <span className={styles.linkLabel}>
-          Secret edit link — save this!
-        </span>
+        <span className={styles.linkLabel}>{t("confirmation.editLink")}</span>
         <div className={styles.linkRow}>
           <span className={styles.linkUrl}>
             …?by={slug}&edit={editToken.slice(0, 4)}…
@@ -118,32 +118,34 @@ export function FundraiserConfirmation({
             className={styles.copyButton}
             onClick={() => copyToClipboard(editUrl, "edit")}
           >
-            {copiedEdit ? "Copied!" : "Copy"}
+            {copiedEdit ? t("confirmation.copied") : t("confirmation.copy")}
           </button>
         </div>
-        <p className={styles.linkHint}>
-          This link lets you edit and publish your page. Keep it private.
-        </p>
+        <p className={styles.linkHint}>{t("confirmation.editHint")}</p>
       </div>
 
       {registration && (
         <div className={styles.registrationSection}>
-          <h3 className={styles.registrationHeading}>Runner registration</h3>
-          <p className={styles.participantId}>Your ID: {registration.participantId}</p>
+          <h3 className={styles.registrationHeading}>
+            {t("confirmation.registrationHeading")}
+          </h3>
+          <p className={styles.participantId}>
+            {t("confirmation.participantId", { id: registration.participantId })}
+          </p>
 
           <div className={styles.summary}>
             <div className={styles.summaryRow}>
-              <span className={styles.summaryKey}>Tier</span>
+              <span className={styles.summaryKey}>{t("confirmation.tier")}</span>
               <span className={styles.summaryValue}>{registration.tierName}</span>
             </div>
             <div className={styles.summaryRow}>
-              <span className={styles.summaryKey}>Amount</span>
+              <span className={styles.summaryKey}>{t("confirmation.amount")}</span>
               <span className={styles.summaryValue}>€{registration.amountEur}</span>
             </div>
           </div>
 
           <div className={styles.rewards}>
-            <h4 className={styles.rewardsHeading}>Your rewards</h4>
+            <h4 className={styles.rewardsHeading}>{t("confirmation.rewardsHeading")}</h4>
             <ul className={styles.rewardsList}>
               {registration.rewards.map((reward) => (
                 <li key={reward} className={styles.reward}>
@@ -156,10 +158,15 @@ export function FundraiserConfirmation({
           {!confirmed ? (
             <div className={styles.paymentSection}>
               <h4 className={styles.paymentHeading}>
-                Complete your €{registration.amountEur} donation
+                {t("confirmation.paymentHeading", {
+                  amount: String(registration.amountEur),
+                })}
               </h4>
               <p className={styles.paymentInstructions}>
-                Select the <strong>€{registration.amountEur}</strong> option below to complete your {registration.tierName} registration.
+                {t("confirmation.paymentInstructions", {
+                  amount: String(registration.amountEur),
+                  tierName: registration.tierName,
+                })}
               </p>
 
               <div className={styles.widgetContainer}>
@@ -167,14 +174,16 @@ export function FundraiserConfirmation({
               </div>
 
               <div className={styles.confirmSection}>
-                <p className={styles.confirmLabel}>After completing your donation above:</p>
+                <p className={styles.confirmLabel}>{t("confirmation.afterDonation")}</p>
                 <button
                   type="button"
                   className={styles.confirmButton}
                   onClick={handleConfirmPayment}
                   disabled={confirming}
                 >
-                  {confirming ? "Confirming…" : "I\u2019ve completed my donation"}
+                  {confirming
+                    ? t("confirmation.confirming")
+                    : t("confirmation.confirmButton")}
                 </button>
                 {confirmError && <p className={styles.confirmError}>{confirmError}</p>}
               </div>
@@ -182,7 +191,7 @@ export function FundraiserConfirmation({
           ) : (
             <div className={styles.confirmedBanner}>
               <span className={styles.confirmedIcon}>✓</span>
-              Payment confirmed — you&apos;re all set!
+              {t("confirmation.confirmed")}
             </div>
           )}
         </div>
@@ -192,11 +201,11 @@ export function FundraiserConfirmation({
         href={`/events/2026-run-for-ukraine/fundraiser?by=${slug}`}
         className={styles.viewLink}
       >
-        View your page →
+        {t("confirmation.viewPage")}
       </a>
 
       <div className={styles.shareSection}>
-        <h3 className={styles.shareHeading}>Share your page</h3>
+        <h3 className={styles.shareHeading}>{t("confirmation.shareHeading")}</h3>
         <SocialShareButtons url={shareableUrl} title={displayName} />
       </div>
     </section>

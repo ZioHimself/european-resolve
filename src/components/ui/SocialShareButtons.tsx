@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { t } from "@/locales";
 import styles from "./SocialShareButtons.module.css";
 
 interface SocialShareButtonsProps {
@@ -13,12 +14,11 @@ export function SocialShareButtons({ url, title, message }: SocialShareButtonsPr
   const [copied, setCopied] = useState(false);
 
   const shareMessage =
-    message ??
-    `Support ${title}'s fundraiser for Run for Ukraine 2026! Every euro funds charging stations for Ukraine's defenders.`;
+    message ?? t("social.shareMessage", { title });
 
   const links = [
     {
-      label: "Share on WhatsApp",
+      label: t("social.shareWhatsApp"),
       href: `https://wa.me/?text=${encodeURIComponent(shareMessage + " " + url)}`,
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -27,7 +27,7 @@ export function SocialShareButtons({ url, title, message }: SocialShareButtonsPr
       ),
     },
     {
-      label: "Share on LinkedIn",
+      label: t("social.shareLinkedIn"),
       href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -36,7 +36,7 @@ export function SocialShareButtons({ url, title, message }: SocialShareButtonsPr
       ),
     },
     {
-      label: "Share on Facebook",
+      label: t("social.shareFacebook"),
       href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -45,7 +45,7 @@ export function SocialShareButtons({ url, title, message }: SocialShareButtonsPr
       ),
     },
     {
-      label: "Share on X",
+      label: t("social.shareX"),
       href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}&url=${encodeURIComponent(url)}`,
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -54,7 +54,7 @@ export function SocialShareButtons({ url, title, message }: SocialShareButtonsPr
       ),
     },
     {
-      label: "Share via Email",
+      label: t("social.shareEmail"),
       href: `mailto:?subject=${encodeURIComponent(title + " — Run for Ukraine 2026")}&body=${encodeURIComponent(shareMessage + "\n\n" + url)}`,
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -93,7 +93,7 @@ export function SocialShareButtons({ url, title, message }: SocialShareButtonsPr
         type="button"
         className={styles.button}
         onClick={handleCopy}
-        aria-label="Copy link"
+        aria-label={t("social.copyLink")}
       >
         {copied ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

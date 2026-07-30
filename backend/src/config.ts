@@ -17,6 +17,7 @@ export const config = Object.freeze({
   port: Number(process.env.PORT) || 8080,
   spreadsheetId,
   googleDriveFolderId,
+  galleryFolderId: process.env.GALLERY_FOLDER_ID ?? "",
   goalEur: Number(process.env.GOAL_EUR) || 3000,
   corsOrigins: (process.env.CORS_ORIGINS ?? "http://localhost:3000")
     .split(",")

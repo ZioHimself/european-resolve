@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { t } from "@/locales";
 import styles from "./DonorWall.module.css";
 
 interface DonorEntry {
@@ -64,8 +65,8 @@ export function DonorWall({ slug, entries, onEntriesLoaded }: DonorWallProps) {
   if (loading) {
     return (
       <section className={styles.section}>
-        <h2 className={styles.heading}>Supporters</h2>
-        <p className={styles.loading}>Loading…</p>
+        <h2 className={styles.heading}>{t("donorWall.heading")}</h2>
+        <p className={styles.loading}>{t("donorWall.loading")}</p>
       </section>
     );
   }
@@ -73,14 +74,14 @@ export function DonorWall({ slug, entries, onEntriesLoaded }: DonorWallProps) {
   return (
     <section className={styles.section}>
       <h2 className={styles.heading}>
-        Supporters{" "}
+        {t("donorWall.heading")}{" "}
         {entries.length > 0 && (
           <span className={styles.count}>({entries.length})</span>
         )}
       </h2>
 
       {entries.length === 0 ? (
-        <p className={styles.empty}>No supporters yet — be the first!</p>
+        <p className={styles.empty}>{t("donorWall.empty")}</p>
       ) : (
         <ul className={styles.list}>
           {entries.map((entry, i) => (

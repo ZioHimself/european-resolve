@@ -75,24 +75,24 @@ fundraiserRoute.post("/", async (c) => {
   const errors: ValidationError[] = [];
 
   if (!displayName || displayName.trim().length < 2 || displayName.trim().length > 50) {
-    errors.push({ field: "displayName", message: "Display name must be 2-50 characters" });
+    errors.push({ field: "displayName", message: "Display name must be 2-50 characters", code: "VALIDATION_DISPLAYNAME_LENGTH" });
   }
 
   if (!message || message.trim().length > 500) {
-    errors.push({ field: "message", message: "Message is required (max 500 characters)" });
+    errors.push({ field: "message", message: "Message is required (max 500 characters)", code: "VALIDATION_MESSAGE_REQUIRED" });
   }
 
   const goalEur = Number(goalEurRaw);
   if (!goalEurRaw || isNaN(goalEur) || goalEur < 10 || goalEur > 100000 || !Number.isInteger(goalEur)) {
-    errors.push({ field: "goalEur", message: "Goal must be a whole number between 10 and 100,000 EUR" });
+    errors.push({ field: "goalEur", message: "Goal must be a whole number between 10 and 100,000 EUR", code: "VALIDATION_GOAL_INVALID" });
   }
 
   if (photo) {
     if (!ALLOWED_IMAGE_TYPES.includes(photo.type)) {
-      errors.push({ field: "photo", message: "Photo must be JPEG, PNG, or WebP" });
+      errors.push({ field: "photo", message: "Photo must be JPEG, PNG, or WebP", code: "VALIDATION_PHOTO_TYPE" });
     }
     if (photo.size > MAX_PHOTO_SIZE) {
-      errors.push({ field: "photo", message: "Photo must be under 5MB" });
+      errors.push({ field: "photo", message: "Photo must be under 5MB", code: "VALIDATION_PHOTO_SIZE" });
     }
   }
 
@@ -131,7 +131,7 @@ fundraiserRoute.get("/:slug", async (c) => {
 
   if (!fundraiser) {
     return c.json(
-      { success: false, errors: [{ field: "slug", message: "Fundraiser not found" }] } satisfies ApiResponse<never>,
+      { success: false, errors: [{ field: "slug", message: "Fundraiser not found", code: "VALIDATION_SLUG_NOT_FOUND" }] } satisfies ApiResponse<never>,
       404,
     );
   }
@@ -155,7 +155,7 @@ fundraiserRoute.put("/:slug", async (c) => {
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return c.json(
-      { success: false, errors: [{ field: "authorization", message: "Edit token required" }] } satisfies ApiResponse<never>,
+      { success: false, errors: [{ field: "authorization", message: "Edit token required", code: "VALIDATION_AUTH_REQUIRED" }] } satisfies ApiResponse<never>,
       403,
     );
   }
@@ -172,30 +172,30 @@ fundraiserRoute.put("/:slug", async (c) => {
   const errors: ValidationError[] = [];
 
   if (displayName !== null && (displayName.trim().length < 2 || displayName.trim().length > 50)) {
-    errors.push({ field: "displayName", message: "Display name must be 2-50 characters" });
+    errors.push({ field: "displayName", message: "Display name must be 2-50 characters", code: "VALIDATION_DISPLAYNAME_LENGTH" });
   }
 
   if (message !== null && message.trim().length > 500) {
-    errors.push({ field: "message", message: "Message must be max 500 characters" });
+    errors.push({ field: "message", message: "Message must be max 500 characters", code: "VALIDATION_MESSAGE_LENGTH" });
   }
 
   if (goalEurRaw !== null) {
     const g = Number(goalEurRaw);
     if (isNaN(g) || g < 10 || g > 100000 || !Number.isInteger(g)) {
-      errors.push({ field: "goalEur", message: "Goal must be a whole number between 10 and 100,000 EUR" });
+      errors.push({ field: "goalEur", message: "Goal must be a whole number between 10 and 100,000 EUR", code: "VALIDATION_GOAL_INVALID" });
     }
   }
 
   if (status !== null && status !== "draft" && status !== "published") {
-    errors.push({ field: "status", message: "Status must be 'draft' or 'published'" });
+    errors.push({ field: "status", message: "Status must be 'draft' or 'published'", code: "VALIDATION_STATUS_INVALID" });
   }
 
   if (photo) {
     if (!ALLOWED_IMAGE_TYPES.includes(photo.type)) {
-      errors.push({ field: "photo", message: "Photo must be JPEG, PNG, or WebP" });
+      errors.push({ field: "photo", message: "Photo must be JPEG, PNG, or WebP", code: "VALIDATION_PHOTO_TYPE" });
     }
     if (photo.size > MAX_PHOTO_SIZE) {
-      errors.push({ field: "photo", message: "Photo must be under 5MB" });
+      errors.push({ field: "photo", message: "Photo must be under 5MB", code: "VALIDATION_PHOTO_SIZE" });
     }
   }
 
@@ -219,7 +219,7 @@ fundraiserRoute.put("/:slug", async (c) => {
 
   if (!updated) {
     return c.json(
-      { success: false, errors: [{ field: "authorization", message: "Invalid edit token or fundraiser not found" }] } satisfies ApiResponse<never>,
+      { success: false, errors: [{ field: "authorization", message: "Invalid edit token or fundraiser not found", code: "VALIDATION_AUTH_INVALID" }] } satisfies ApiResponse<never>,
       403,
     );
   }
@@ -258,53 +258,53 @@ fundraiserRoute.post("/register", async (c) => {
   const errors: ValidationError[] = [];
 
   if (!displayName || displayName.trim().length < 2 || displayName.trim().length > 50) {
-    errors.push({ field: "displayName", message: "Display name must be 2-50 characters" });
+    errors.push({ field: "displayName", message: "Display name must be 2-50 characters", code: "VALIDATION_DISPLAYNAME_LENGTH" });
   }
 
   if (!message || message.trim().length > 500) {
-    errors.push({ field: "message", message: "Message is required (max 500 characters)" });
+    errors.push({ field: "message", message: "Message is required (max 500 characters)", code: "VALIDATION_MESSAGE_REQUIRED" });
   }
 
   const goalEur = Number(goalEurRaw);
   if (!goalEurRaw || isNaN(goalEur) || goalEur < 10 || goalEur > 100000 || !Number.isInteger(goalEur)) {
-    errors.push({ field: "goalEur", message: "Goal must be a whole number between 10 and 100,000 EUR" });
+    errors.push({ field: "goalEur", message: "Goal must be a whole number between 10 and 100,000 EUR", code: "VALIDATION_GOAL_INVALID" });
   }
 
   if (photo) {
     if (!ALLOWED_IMAGE_TYPES.includes(photo.type)) {
-      errors.push({ field: "photo", message: "Photo must be JPEG, PNG, or WebP" });
+      errors.push({ field: "photo", message: "Photo must be JPEG, PNG, or WebP", code: "VALIDATION_PHOTO_TYPE" });
     }
     if (photo.size > MAX_PHOTO_SIZE) {
-      errors.push({ field: "photo", message: "Photo must be under 5MB" });
+      errors.push({ field: "photo", message: "Photo must be under 5MB", code: "VALIDATION_PHOTO_SIZE" });
     }
   }
 
   if (!fullName || typeof fullName !== "string" || !fullName.trim()) {
-    errors.push({ field: "fullName", message: "Full name is required" });
+    errors.push({ field: "fullName", message: "Full name is required", code: "VALIDATION_FULLNAME_REQUIRED" });
   }
 
   if (!email || typeof email !== "string" || !EMAIL_REGEX.test(email)) {
-    errors.push({ field: "email", message: "Valid email address is required" });
+    errors.push({ field: "email", message: "Valid email address is required", code: "VALIDATION_EMAIL_INVALID" });
   }
 
   if (!tshirtSize || !VALID_TSHIRT_SIZES.includes(tshirtSize as TshirtSize)) {
-    errors.push({ field: "tshirtSize", message: "Valid t-shirt size is required" });
+    errors.push({ field: "tshirtSize", message: "Valid t-shirt size is required", code: "VALIDATION_TSHIRT_INVALID" });
   }
 
   if (!language || !VALID_LANGUAGES.includes(language as Language)) {
-    errors.push({ field: "language", message: "Valid language is required" });
+    errors.push({ field: "language", message: "Valid language is required", code: "VALIDATION_LANGUAGE_INVALID" });
   }
 
   if (!country || typeof country !== "string" || !country.trim()) {
-    errors.push({ field: "country", message: "Country is required" });
+    errors.push({ field: "country", message: "Country is required", code: "VALIDATION_COUNTRY_REQUIRED" });
   }
 
   if (!tierId || !VALID_TIER_IDS.includes(tierId as TierId)) {
-    errors.push({ field: "tierId", message: "Valid tier is required" });
+    errors.push({ field: "tierId", message: "Valid tier is required", code: "VALIDATION_TIER_INVALID" });
   }
 
   if (gdprConsent !== "true") {
-    errors.push({ field: "gdprConsent", message: "GDPR consent is required to register" });
+    errors.push({ field: "gdprConsent", message: "GDPR consent is required to register", code: "VALIDATION_GDPR_REQUIRED" });
   }
 
   if (errors.length > 0) {

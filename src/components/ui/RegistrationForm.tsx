@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Tier } from "@/data/event";
+import { t } from "@/locales";
 import type {
   ParticipationType,
   RegisterResponse,
@@ -42,25 +43,19 @@ export function RegistrationForm({
     const errs: ValidationError[] = [];
 
     if (!fullName.trim()) {
-      errs.push({ field: "fullName", message: "Full name is required" });
+      errs.push({ field: "fullName", message: t("register.errorFullName") });
     }
     if (!email.trim() || !EMAIL_REGEX.test(email)) {
-      errs.push({
-        field: "email",
-        message: "Valid email address is required",
-      });
+      errs.push({ field: "email", message: t("register.errorEmail") });
     }
     if (isRunner && !tshirtSize) {
-      errs.push({ field: "tshirtSize", message: "T-shirt size is required" });
+      errs.push({ field: "tshirtSize", message: t("register.errorTshirt") });
     }
     if (!country.trim()) {
-      errs.push({ field: "country", message: "Country is required" });
+      errs.push({ field: "country", message: t("register.errorCountry") });
     }
     if (!gdprConsent) {
-      errs.push({
-        field: "gdprConsent",
-        message: "GDPR consent is required to register",
-      });
+      errs.push({ field: "gdprConsent", message: t("register.errorGdpr") });
     }
 
     return errs;
@@ -105,18 +100,14 @@ export function RegistrationForm({
       const data = await res.json();
 
       if (!data.success) {
-        setErrors(data.errors ?? [{ field: "_global", message: "Registration failed. Please try again." }]);
+        setErrors(data.errors ?? [{ field: "_global", message: t("register.failedFallback") }]);
         return;
       }
 
       onSuccess(data.data as RegisterResponse);
     } catch {
       setErrors([
-        {
-          field: "_global",
-          message:
-            "Could not connect to the registration server. Please try again later.",
-        },
+        { field: "_global", message: t("register.networkError") },
       ]);
     } finally {
       setIsSubmitting(false);
@@ -126,11 +117,11 @@ export function RegistrationForm({
   return (
     <section className={styles.section}>
       <form className={styles.card} onSubmit={handleSubmit} noValidate>
-        <h2 className={styles.heading}>Your details</h2>
+        <h2 className={styles.heading}>{t("register.heading")}</h2>
 
         <fieldset className={styles.toggleFieldset}>
           <legend className={styles.toggleLegend}>
-            How will you participate?
+            {t("register.howParticipate")}
           </legend>
           <div className={styles.toggle}>
             <button
@@ -139,7 +130,7 @@ export function RegistrationForm({
               onClick={() => onParticipationTypeChange("runner")}
               aria-pressed={isRunner}
             >
-              I&apos;ll run on the day
+              {t("register.runOnDay")}
             </button>
             <button
               type="button"
@@ -147,17 +138,17 @@ export function RegistrationForm({
               onClick={() => onParticipationTypeChange("supporter")}
               aria-pressed={!isRunner}
             >
-              I&apos;ll support from anywhere
+              {t("register.supportAnywhere")}
             </button>
           </div>
         </fieldset>
 
         {errors.length > 0 && (
           <div className={styles.errorSummary} role="alert">
-            <strong>Please fix the following:</strong>
+            <strong>{t("register.errorSummary")}</strong>
             <ul>
               {errors.map((err) => (
-                <li key={`${err.field}-${err.message}`}>{err.message}</li>
+                <li key={`${err.field}-${err.message}`}>{err.code ? t(`errors.${err.code}`) || err.message : err.message}</li>
               ))}
             </ul>
           </div>
@@ -166,7 +157,7 @@ export function RegistrationForm({
         <div className={styles.grid}>
           <div className={styles.field}>
             <label className={styles.label} htmlFor="reg-name">
-              Full name
+              {t("register.fullName")}
             </label>
             <input
               id="reg-name"
@@ -182,7 +173,7 @@ export function RegistrationForm({
           </div>
           <div className={styles.field}>
             <label className={styles.label} htmlFor="reg-email">
-              Email
+              {t("register.email")}
             </label>
             <input
               id="reg-email"
@@ -198,7 +189,8 @@ export function RegistrationForm({
           </div>
           <div className={styles.field}>
             <label className={styles.label} htmlFor="reg-phone">
-              Phone <span className={styles.optional}>(optional)</span>
+              {t("register.phone")}{" "}
+              <span className={styles.optional}>{t("register.optional")}</span>
             </label>
             <input
               id="reg-phone"
@@ -211,7 +203,7 @@ export function RegistrationForm({
           {isRunner && (
             <div className={styles.field}>
               <label className={styles.label} htmlFor="reg-tshirt">
-                T-shirt size
+                {t("register.tshirtSize")}
               </label>
               <select
                 id="reg-tshirt"
@@ -230,7 +222,7 @@ export function RegistrationForm({
           )}
           <div className={styles.field}>
             <label className={styles.label} htmlFor="reg-language">
-              Language
+              {t("register.language")}
             </label>
             <select
               id="reg-language"
@@ -245,7 +237,7 @@ export function RegistrationForm({
           </div>
           <div className={styles.field}>
             <label className={styles.label} htmlFor="reg-country">
-              Country
+              {t("register.country")}
             </label>
             <input
               id="reg-country"
@@ -271,12 +263,10 @@ export function RegistrationForm({
               aria-invalid={!!fieldError("gdprConsent")}
             />
             <span>
-              <strong>GDPR consent (required)</strong>. I agree to my data being
-              processed for the purpose of{" "}
+              <strong>{t("register.gdprHeading")}</strong>.{" "}
               {isRunner
-                ? "race registration and safety"
-                : "event registration and donation tracking"}
-              , in line with the privacy notice.
+                ? t("register.gdprRunner")
+                : t("register.gdprSupporter")}
             </span>
           </label>
           {fieldError("gdprConsent") && (
@@ -292,16 +282,17 @@ export function RegistrationForm({
               onChange={(e) => setCommsOptin(e.target.checked)}
             />
             <span>
-              <strong>Ongoing communications (optional)</strong>. Send me news
-              about future editions and the beneficiary&apos;s work. I can
-              unsubscribe at any time.
+              <strong>{t("register.commsHeading")}</strong>.{" "}
+              {t("register.commsText")}
             </span>
           </label>
         </div>
 
         <div className={styles.footer}>
           <span className={styles.total}>
-            Total: {selectedTier ? `€${selectedTier.price}` : "€—"}
+            {selectedTier
+              ? t("register.total", { price: String(selectedTier.price) })
+              : t("register.totalEmpty")}
           </span>
           <button
             type="submit"
@@ -309,12 +300,12 @@ export function RegistrationForm({
             disabled={!selectedTier || isSubmitting}
           >
             {isSubmitting
-              ? "Registering..."
+              ? t("register.submitting")
               : selectedTier
                 ? isRunner
-                  ? `Register — €${selectedTier.price}`
-                  : `Support — €${selectedTier.price}`
-                : "Select a tier to register"}
+                  ? t("register.submitRunner", { price: String(selectedTier.price) })
+                  : t("register.submitSupporter", { price: String(selectedTier.price) })
+                : t("register.selectTier")}
           </button>
         </div>
       </form>

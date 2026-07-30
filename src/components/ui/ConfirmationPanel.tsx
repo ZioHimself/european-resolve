@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { t } from "@/locales";
 import type { RegisterResponse } from "./registerTypes";
 import { WhyDonateWidget } from "./WhyDonateWidget";
 import styles from "./ConfirmationPanel.module.css";
@@ -31,10 +32,11 @@ export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
       if (data.success && data.data?.confirmed) {
         setConfirmed(true);
       } else {
-        setError(data.errors?.[0]?.message ?? "Confirmation failed");
+        const firstErr = data.errors?.[0];
+        setError(firstErr?.code ? t(`errors.${firstErr.code}`) || firstErr.message : firstErr?.message ?? t("register.confirmFailed"));
       }
     } catch {
-      setError("Could not confirm payment. Please try again.");
+      setError(t("register.confirmNetworkError"));
     } finally {
       setConfirming(false);
     }
@@ -48,12 +50,14 @@ export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
         <div className={styles.confirmedIcon} aria-hidden="true">
           ✓
         </div>
-        <h2 className={styles.heading}>Payment received — thank you!</h2>
-        <p className={styles.participantId}>Your ID: {result.participantId}</p>
+        <h2 className={styles.heading}>{t("register.confirmedHeading")}</h2>
+        <p className={styles.participantId}>
+          {t("register.confirmParticipantId", { id: result.participantId })}
+        </p>
         <p className={styles.confirmedMessage}>
           {isRunner
-            ? "Your registration is now complete. You'll receive your race materials at the event."
-            : "Thank you for supporting from afar! You'll receive a digital certificate by email."}
+            ? t("register.confirmedRunner")
+            : t("register.confirmedSupporter")}
         </p>
       </section>
     );
@@ -64,27 +68,31 @@ export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
       <div className={styles.icon} aria-hidden="true">
         ✓
       </div>
-      <h2 className={styles.heading}>Registration confirmed!</h2>
+      <h2 className={styles.heading}>{t("register.confirmHeading")}</h2>
 
-      <p className={styles.participantId}>Your ID: {result.participantId}</p>
+      <p className={styles.participantId}>
+        {t("register.confirmParticipantId", { id: result.participantId })}
+      </p>
 
       <div className={styles.summary}>
         <div className={styles.row}>
-          <span className={styles.rowLabel}>Name</span>
+          <span className={styles.rowLabel}>{t("register.confirmName")}</span>
           <span className={styles.rowValue}>{result.fullName}</span>
         </div>
         <div className={styles.row}>
-          <span className={styles.rowLabel}>Tier</span>
+          <span className={styles.rowLabel}>{t("register.confirmTier")}</span>
           <span className={styles.rowValue}>{result.tierName}</span>
         </div>
         <div className={styles.row}>
-          <span className={styles.rowLabel}>Amount</span>
+          <span className={styles.rowLabel}>{t("register.confirmAmount")}</span>
           <span className={styles.rowValue}>€{result.amountEur}</span>
         </div>
       </div>
 
       <div className={styles.rewards}>
-        <h3 className={styles.rewardsHeading}>Your rewards</h3>
+        <h3 className={styles.rewardsHeading}>
+          {t("register.confirmRewardsHeading")}
+        </h3>
         <ul className={styles.rewardsList}>
           {result.rewards.map((reward) => (
             <li key={reward} className={styles.reward}>
@@ -96,11 +104,15 @@ export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
 
       <div className={styles.donationSection}>
         <h3 className={styles.donationHeading}>
-          Complete your €{result.amountEur} donation
+          {t("register.confirmDonationHeading", {
+            amount: String(result.amountEur),
+          })}
         </h3>
         <p className={styles.donationInstructions}>
-          Please select the <strong>€{result.amountEur}</strong> option below to
-          complete your {result.tierName} registration.
+          {t("register.confirmDonationInstructions", {
+            amount: String(result.amountEur),
+            tierName: result.tierName,
+          })}
         </p>
 
         <div className={styles.widgetContainer}>
@@ -109,7 +121,7 @@ export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
 
         <div className={styles.confirmSection}>
           <p className={styles.confirmLabel}>
-            After completing your donation above:
+            {t("register.confirmAfterDonation")}
           </p>
           <button
             type="button"
@@ -117,7 +129,9 @@ export function ConfirmationPanel({ result }: ConfirmationPanelProps) {
             onClick={handleConfirm}
             disabled={confirming}
           >
-            {confirming ? "Confirming…" : "I\u2019ve completed my donation"}
+            {confirming
+              ? t("register.confirmingPayment")
+              : t("register.confirmButton")}
           </button>
           {error && <p className={styles.confirmError}>{error}</p>}
         </div>

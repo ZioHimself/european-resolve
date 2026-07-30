@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FundraiseForm } from "@/components/ui/FundraiseForm";
+import { getEventStatus } from "@/hooks/useEventStatus";
+import { t } from "@/locales";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -10,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function FundraisePage() {
+  const isCompleted = getEventStatus() === "completed";
+
   return (
     <>
       <Breadcrumbs
@@ -24,16 +28,37 @@ export default function FundraisePage() {
       />
 
       <div className={styles.content}>
-        <div className={styles.header}>
-          <span className={styles.overline}>Track B · Fundraise and Run</span>
-          <h1 className={styles.title}>Your fundraising page</h1>
-          <p className={styles.subtitle}>
-            Takes about a minute. Share your page with friends and family to help
-            reach the collective goal — then show up and run.
-          </p>
-        </div>
+        {isCompleted ? (
+          <div className={styles.closedBanner}>
+            <span className={styles.closedIcon} aria-hidden="true">
+              ℹ️
+            </span>
+            <h1 className={styles.closedHeading}>
+              {t("closed.fundraiseClosed")}
+            </h1>
+            <p className={styles.closedText}>
+              {t("closed.eventCompleted")}
+            </p>
+            <a
+              href="/events/2026-run-for-ukraine"
+              className={styles.closedLink}
+            >
+              {t("closed.seeResults")}
+            </a>
+          </div>
+        ) : (
+          <>
+            <div className={styles.header}>
+              <span className={styles.overline}>
+                {t("fundraise.overline")}
+              </span>
+              <h1 className={styles.title}>{t("fundraise.title")}</h1>
+              <p className={styles.subtitle}>{t("fundraise.subtitle")}</p>
+            </div>
 
-        <FundraiseForm />
+            <FundraiseForm />
+          </>
+        )}
       </div>
     </>
   );

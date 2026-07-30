@@ -12,7 +12,7 @@ export const errorHandler: ErrorHandler = (err, c) => {
   return c.json(
     {
       success: false,
-      errors: [{ field: "_global", message }],
+      errors: [{ field: "_global", message, code: "INTERNAL_ERROR" }],
     },
     500,
   );

@@ -13,7 +13,7 @@ donorsRoute.post("/", async (c) => {
 
   const fundraiserSlug = body.fundraiserSlug;
   if (!fundraiserSlug || typeof fundraiserSlug !== "string" || !fundraiserSlug.trim()) {
-    errors.push({ field: "fundraiserSlug", message: "Fundraiser slug is required" });
+    errors.push({ field: "fundraiserSlug", message: "Fundraiser slug is required", code: "VALIDATION_SLUG_REQUIRED" });
   }
 
   const donorName = body.donorName;
@@ -23,7 +23,7 @@ donorsRoute.post("/", async (c) => {
     donorName.trim().length < 2 ||
     donorName.trim().length > 50
   ) {
-    errors.push({ field: "donorName", message: "Name must be 2-50 characters" });
+    errors.push({ field: "donorName", message: "Name must be 2-50 characters", code: "VALIDATION_DONOR_NAME_LENGTH" });
   }
 
   const message = body.message;
@@ -33,7 +33,7 @@ donorsRoute.post("/", async (c) => {
     message.trim().length < 5 ||
     message.trim().length > 200
   ) {
-    errors.push({ field: "message", message: "Message must be 5-200 characters" });
+    errors.push({ field: "message", message: "Message must be 5-200 characters", code: "VALIDATION_DONOR_MESSAGE_LENGTH" });
   }
 
   if (errors.length > 0) {

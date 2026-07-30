@@ -206,4 +206,16 @@
     flex-direction: column;
     gap: var(--space-6);
   }
+
+  .donationsClosed {
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+    text-align: center;
+    padding: var(--space-6);
+    background: var(--color-amber-05, #fdf8e8);
+    border: 1px solid var(--color-amber-20, #f0dfa0);
+    border-radius: var(--radius-md, 8px);
+    margin: 0;
+  }
 }

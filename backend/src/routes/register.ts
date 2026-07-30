@@ -70,18 +70,18 @@ function validate(body: Record<string, unknown>): ValidationError[] {
   const errors: ValidationError[] = [];
 
   if (!body.fullName || typeof body.fullName !== "string" || !body.fullName.trim()) {
-    errors.push({ field: "fullName", message: "Full name is required" });
+    errors.push({ field: "fullName", message: "Full name is required", code: "VALIDATION_FULLNAME_REQUIRED" });
   }
 
   if (!body.email || typeof body.email !== "string" || !EMAIL_REGEX.test(body.email)) {
-    errors.push({ field: "email", message: "Valid email address is required" });
+    errors.push({ field: "email", message: "Valid email address is required", code: "VALIDATION_EMAIL_INVALID" });
   }
 
   if (
     !body.participationType ||
     !VALID_PARTICIPATION_TYPES.includes(body.participationType as ParticipationType)
   ) {
-    errors.push({ field: "participationType", message: "Participation type is required" });
+    errors.push({ field: "participationType", message: "Participation type is required", code: "VALIDATION_PARTICIPATION_TYPE_REQUIRED" });
   }
 
   const isRunner = body.participationType === "runner";
@@ -91,7 +91,7 @@ function validate(body: Record<string, unknown>): ValidationError[] {
       !body.tshirtSize ||
       !VALID_TSHIRT_SIZES.includes(body.tshirtSize as TshirtSize)
     ) {
-      errors.push({ field: "tshirtSize", message: "Valid t-shirt size is required" });
+      errors.push({ field: "tshirtSize", message: "Valid t-shirt size is required", code: "VALIDATION_TSHIRT_INVALID" });
     }
   }
 
@@ -99,21 +99,22 @@ function validate(body: Record<string, unknown>): ValidationError[] {
     !body.language ||
     !VALID_LANGUAGES.includes(body.language as Language)
   ) {
-    errors.push({ field: "language", message: "Valid language is required" });
+    errors.push({ field: "language", message: "Valid language is required", code: "VALIDATION_LANGUAGE_INVALID" });
   }
 
   if (!body.country || typeof body.country !== "string" || !body.country.trim()) {
-    errors.push({ field: "country", message: "Country is required" });
+    errors.push({ field: "country", message: "Country is required", code: "VALIDATION_COUNTRY_REQUIRED" });
   }
 
   if (!body.tierId || !VALID_TIER_IDS.includes(body.tierId as TierId)) {
-    errors.push({ field: "tierId", message: "Valid tier is required" });
+    errors.push({ field: "tierId", message: "Valid tier is required", code: "VALIDATION_TIER_INVALID" });
   }
 
   if (body.gdprConsent !== true) {
     errors.push({
       field: "gdprConsent",
       message: "GDPR consent is required to register",
+      code: "VALIDATION_GDPR_REQUIRED",
     });
   }
 

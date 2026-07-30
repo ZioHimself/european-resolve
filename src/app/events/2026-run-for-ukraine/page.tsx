@@ -4,7 +4,9 @@ import { CoOrganiserBar } from "@/components/ui/CoOrganiserBar";
 import { EventHero } from "@/components/ui/EventHero";
 import { ProgressSection } from "@/components/ui/ProgressSection";
 import { TrackCards } from "@/components/ui/TrackCards";
-import { eventDetails } from "@/data/event";
+import { EventGallery } from "@/components/ui/EventGallery";
+import { AccountabilityReport } from "@/components/ui/AccountabilityReport";
+import { getEventStatus } from "@/hooks/useEventStatus";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -14,6 +16,8 @@ export const metadata: Metadata = {
 };
 
 export default function RunForUkrainePage() {
+  const isCompleted = getEventStatus() === "completed";
+
   return (
     <>
       <CoOrganiserBar />
@@ -23,10 +27,17 @@ export default function RunForUkrainePage() {
           { label: "Run for Ukraine 2026" },
         ]}
       />
-      <EventHero />
+      <EventHero isCompleted={isCompleted} />
       <div className={styles.sections}>
         <ProgressSection />
-        <TrackCards />
+        {isCompleted ? (
+          <>
+            <EventGallery />
+            <AccountabilityReport />
+          </>
+        ) : (
+          <TrackCards />
+        )}
       </div>
     </>
   );

@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { TierGrid } from "@/components/ui/TierGrid";
 import { tiers } from "@/data/event";
+import { t } from "@/locales";
 import { FundraiserConfirmation } from "@/components/ui/FundraiserConfirmation";
 import styles from "./FundraiseForm.module.css";
 
@@ -81,16 +82,16 @@ export function FundraiseForm() {
   function validateStep1(): FormErrors {
     const errs: FormErrors = {};
     if (data.displayName.trim().length < 2 || data.displayName.trim().length > 50) {
-      errs.displayName = "Display name must be 2-50 characters";
+      errs.displayName = t("fundraise.errorDisplayName");
     }
     if (!data.message.trim()) {
-      errs.message = "Message is required";
+      errs.message = t("fundraise.errorMessageRequired");
     } else if (data.message.trim().length > 500) {
-      errs.message = "Message must be under 500 characters";
+      errs.message = t("fundraise.errorMessageLength");
     }
     const goal = Number(data.goalEur);
     if (!data.goalEur || isNaN(goal) || goal < 10 || goal > 100000 || !Number.isInteger(goal)) {
-      errs.goalEur = "Goal must be a whole number between 10 and 100,000";
+      errs.goalEur = t("fundraise.errorGoal");
     }
     return errs;
   }
@@ -98,19 +99,19 @@ export function FundraiseForm() {
   function validateStep2(): FormErrors {
     const errs: FormErrors = {};
     if (!data.tierId) {
-      errs.tierId = "Please select a tier";
+      errs.tierId = t("fundraise.errorTier");
     }
     if (!data.fullName.trim()) {
-      errs.fullName = "Full name is required";
+      errs.fullName = t("fundraise.errorFullName");
     }
     if (!data.email.trim() || !EMAIL_REGEX.test(data.email)) {
-      errs.email = "Valid email address is required";
+      errs.email = t("fundraise.errorEmail");
     }
     if (!data.country.trim()) {
-      errs.country = "Country is required";
+      errs.country = t("fundraise.errorCountry");
     }
     if (!data.gdprConsent) {
-      errs.gdprConsent = "GDPR consent is required to register";
+      errs.gdprConsent = t("fundraise.errorGdpr");
     }
     return errs;
   }
@@ -146,11 +147,11 @@ export function FundraiseForm() {
     if (!file) return;
 
     if (file.size > 5 * 1024 * 1024) {
-      setErrors((prev) => ({ ...prev, photo: "Photo must be under 5MB" }));
+      setErrors((prev) => ({ ...prev, photo: t("fundraise.errorPhoto") }));
       return;
     }
     if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-      setErrors((prev) => ({ ...prev, photo: "Photo must be JPEG, PNG, or WebP" }));
+      setErrors((prev) => ({ ...prev, photo: t("fundraise.errorPhotoType") }));
       return;
     }
 
@@ -190,10 +191,10 @@ export function FundraiseForm() {
 
       if (!res.ok || !json.success) {
         const apiErrors: FormErrors = {};
-        for (const err of (json.errors ?? []) as { field: string; message: string }[]) {
-          apiErrors[err.field] = err.message;
+        for (const err of (json.errors ?? []) as { field: string; message: string; code?: string }[]) {
+          apiErrors[err.field] = err.code ? t(`errors.${err.code}`) || err.message : err.message;
         }
-        setErrors(Object.keys(apiErrors).length > 0 ? apiErrors : { global: "Something went wrong. Please try again." });
+        setErrors(Object.keys(apiErrors).length > 0 ? apiErrors : { global: t("fundraise.globalError") });
         if (apiErrors.displayName || apiErrors.message || apiErrors.goalEur || apiErrors.photo) {
           setStep(1);
         } else if (Object.keys(apiErrors).length > 0) {
@@ -204,7 +205,7 @@ export function FundraiseForm() {
 
       setResult(json.data);
     } catch {
-      setErrors({ global: "Network error. Please check your connection and try again." });
+      setErrors({ global: t("fundraise.networkError") });
     } finally {
       setSubmitting(false);
     }
@@ -221,23 +222,29 @@ export function FundraiseForm() {
     );
   }
 
-  const selectedTier = data.tierId ? tiers.find((t) => t.id === data.tierId) : null;
+  const selectedTier = data.tierId ? tiers.find((tier) => tier.id === data.tierId) : null;
 
   return (
     <section className={styles.section}>
       <div className={styles.stepIndicator}>
-        <span className={step >= 1 ? styles.stepActive : styles.stepInactive}>1. Your page</span>
+        <span className={step >= 1 ? styles.stepActive : styles.stepInactive}>
+          {t("fundraise.step1")}
+        </span>
         <span className={styles.stepDivider}>→</span>
-        <span className={step >= 2 ? styles.stepActive : styles.stepInactive}>2. Runner details</span>
+        <span className={step >= 2 ? styles.stepActive : styles.stepInactive}>
+          {t("fundraise.step2")}
+        </span>
         <span className={styles.stepDivider}>→</span>
-        <span className={step >= 3 ? styles.stepActive : styles.stepInactive}>3. Review</span>
+        <span className={step >= 3 ? styles.stepActive : styles.stepInactive}>
+          {t("fundraise.step3")}
+        </span>
       </div>
 
       {errors.global && <p className={styles.errorGlobal}>{errors.global}</p>}
 
       {step === 1 && (
         <div className={styles.card}>
-          <h2 className={styles.stepHeading}>Set up your fundraising page</h2>
+          <h2 className={styles.stepHeading}>{t("fundraise.step1Heading")}</h2>
           <div className={styles.formLayout}>
             <button
               type="button"
@@ -248,7 +255,7 @@ export function FundraiseForm() {
               {data.photoPreview ? (
                 <img src={data.photoPreview} alt="Preview" className={styles.photoImage} />
               ) : (
-                <span className={styles.photoPlaceholder}>+ Photo</span>
+                <span className={styles.photoPlaceholder}>{t("fundraise.photoLabel")}</span>
               )}
               <input
                 ref={fileInputRef}
@@ -262,7 +269,9 @@ export function FundraiseForm() {
 
             <div className={styles.fields}>
               <div className={styles.field}>
-                <label className={styles.label} htmlFor="fund-name">Display name</label>
+                <label className={styles.label} htmlFor="fund-name">
+                  {t("fundraise.displayName")}
+                </label>
                 <input
                   id="fund-name"
                   type="text"
@@ -270,25 +279,31 @@ export function FundraiseForm() {
                   value={data.displayName}
                   onChange={(e) => update({ displayName: e.target.value })}
                   maxLength={50}
-                  placeholder="How you want to appear on your page"
+                  placeholder={t("fundraise.displayNamePlaceholder")}
                 />
                 {errors.displayName && <p className={styles.error}>{errors.displayName}</p>}
               </div>
               <div className={styles.field}>
-                <label className={styles.label} htmlFor="fund-message">Personal message</label>
+                <label className={styles.label} htmlFor="fund-message">
+                  {t("fundraise.personalMessage")}
+                </label>
                 <textarea
                   id="fund-message"
                   className={`${styles.input} ${styles.textarea}`}
                   value={data.message}
                   onChange={(e) => update({ message: e.target.value })}
                   maxLength={500}
-                  placeholder="Why are you running? What drives you?"
+                  placeholder={t("fundraise.messagePlaceholder")}
                 />
-                <span className={styles.charCount}>{data.message.length}/500</span>
+                <span className={styles.charCount}>
+                  {t("common.charCount", { count: String(data.message.length), max: "500" })}
+                </span>
                 {errors.message && <p className={styles.error}>{errors.message}</p>}
               </div>
               <div className={styles.field}>
-                <label className={styles.label} htmlFor="fund-goal">Personal goal (€)</label>
+                <label className={styles.label} htmlFor="fund-goal">
+                  {t("fundraise.goalLabel")}
+                </label>
                 <input
                   id="fund-goal"
                   type="number"
@@ -307,7 +322,7 @@ export function FundraiseForm() {
           <div className={styles.actions}>
             <span />
             <button type="button" className={styles.primaryButton} onClick={handleNext}>
-              Next: Runner details →
+              {t("fundraise.nextRunner")}
             </button>
           </div>
         </div>
@@ -315,7 +330,7 @@ export function FundraiseForm() {
 
       {step === 2 && (
         <div className={styles.card}>
-          <h2 className={styles.stepHeading}>Your runner registration</h2>
+          <h2 className={styles.stepHeading}>{t("fundraise.step2Heading")}</h2>
 
           {errors.tierId && <p className={styles.error}>{errors.tierId}</p>}
           <TierGrid
@@ -326,7 +341,9 @@ export function FundraiseForm() {
 
           <div className={styles.grid}>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="reg-name">Full name</label>
+              <label className={styles.label} htmlFor="reg-name">
+                {t("fundraise.fullName")}
+              </label>
               <input
                 id="reg-name"
                 type="text"
@@ -337,7 +354,9 @@ export function FundraiseForm() {
               {errors.fullName && <p className={styles.error}>{errors.fullName}</p>}
             </div>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="reg-email">Email</label>
+              <label className={styles.label} htmlFor="reg-email">
+                {t("fundraise.email")}
+              </label>
               <input
                 id="reg-email"
                 type="email"
@@ -349,7 +368,8 @@ export function FundraiseForm() {
             </div>
             <div className={styles.field}>
               <label className={styles.label} htmlFor="reg-phone">
-                Phone <span className={styles.optional}>(optional)</span>
+                {t("fundraise.phone")}{" "}
+                <span className={styles.optional}>{t("common.optional")}</span>
               </label>
               <input
                 id="reg-phone"
@@ -360,7 +380,9 @@ export function FundraiseForm() {
               />
             </div>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="reg-tshirt">T-shirt size</label>
+              <label className={styles.label} htmlFor="reg-tshirt">
+                {t("fundraise.tshirtSize")}
+              </label>
               <select
                 id="reg-tshirt"
                 className={styles.input}
@@ -376,7 +398,9 @@ export function FundraiseForm() {
               </select>
             </div>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="reg-language">Language</label>
+              <label className={styles.label} htmlFor="reg-language">
+                {t("fundraise.language")}
+              </label>
               <select
                 id="reg-language"
                 className={styles.input}
@@ -389,7 +413,9 @@ export function FundraiseForm() {
               </select>
             </div>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="reg-country">Country</label>
+              <label className={styles.label} htmlFor="reg-country">
+                {t("fundraise.country")}
+              </label>
               <input
                 id="reg-country"
                 type="text"
@@ -410,7 +436,8 @@ export function FundraiseForm() {
                 onChange={(e) => update({ gdprConsent: e.target.checked })}
               />
               <span>
-                <strong>GDPR consent (required)</strong>. I agree to my data being processed for the purpose of race registration and safety, in line with the privacy notice.
+                <strong>{t("fundraise.gdprHeading")}</strong>.{" "}
+                {t("fundraise.gdprText")}
               </span>
             </label>
             {errors.gdprConsent && <p className={styles.error}>{errors.gdprConsent}</p>}
@@ -422,17 +449,18 @@ export function FundraiseForm() {
                 onChange={(e) => update({ commsOptin: e.target.checked })}
               />
               <span>
-                <strong>Ongoing communications (optional)</strong>. Send me news about future editions and the beneficiary&apos;s work.
+                <strong>{t("fundraise.commsHeading")}</strong>.{" "}
+                {t("fundraise.commsText")}
               </span>
             </label>
           </div>
 
           <div className={styles.actions}>
             <button type="button" className={styles.ghostButton} onClick={handleBack}>
-              ← Back
+              {t("fundraise.back")}
             </button>
             <button type="button" className={styles.primaryButton} onClick={handleNext}>
-              Next: Review →
+              {t("fundraise.nextReview")}
             </button>
           </div>
         </div>
@@ -440,53 +468,59 @@ export function FundraiseForm() {
 
       {step === 3 && (
         <div className={styles.card}>
-          <h2 className={styles.stepHeading}>Review and submit</h2>
+          <h2 className={styles.stepHeading}>{t("fundraise.step3Heading")}</h2>
 
           <div className={styles.reviewSection}>
-            <h3 className={styles.reviewLabel}>Your fundraising page</h3>
+            <h3 className={styles.reviewLabel}>{t("fundraise.reviewPage")}</h3>
             <div className={styles.reviewGrid}>
               <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Display name</span>
+                <span className={styles.reviewKey}>{t("fundraise.reviewDisplayName")}</span>
                 <span className={styles.reviewValue}>{data.displayName}</span>
               </div>
               <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Message</span>
-                <span className={styles.reviewValue}>{data.message.slice(0, 80)}{data.message.length > 80 ? "…" : ""}</span>
+                <span className={styles.reviewKey}>{t("fundraise.reviewMessage")}</span>
+                <span className={styles.reviewValue}>
+                  {data.message.slice(0, 80)}{data.message.length > 80 ? "\u2026" : ""}
+                </span>
               </div>
               <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Goal</span>
-                <span className={styles.reviewValue}>€{Number(data.goalEur).toLocaleString("en-GB")}</span>
+                <span className={styles.reviewKey}>{t("fundraise.reviewGoal")}</span>
+                <span className={styles.reviewValue}>
+                  €{Number(data.goalEur).toLocaleString("en-GB")}
+                </span>
               </div>
               <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Photo</span>
-                <span className={styles.reviewValue}>{data.photoFile ? "Uploaded" : "None"}</span>
+                <span className={styles.reviewKey}>{t("fundraise.reviewPhoto")}</span>
+                <span className={styles.reviewValue}>
+                  {data.photoFile ? t("fundraise.reviewUploaded") : t("fundraise.reviewNone")}
+                </span>
               </div>
             </div>
           </div>
 
           <div className={styles.reviewSection}>
-            <h3 className={styles.reviewLabel}>Runner registration</h3>
+            <h3 className={styles.reviewLabel}>{t("fundraise.reviewRegistration")}</h3>
             <div className={styles.reviewGrid}>
               <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Tier</span>
+                <span className={styles.reviewKey}>{t("fundraise.reviewTier")}</span>
                 <span className={styles.reviewValue}>
                   {selectedTier ? `${selectedTier.name} — €${selectedTier.price}` : "—"}
                 </span>
               </div>
               <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Full name</span>
+                <span className={styles.reviewKey}>{t("fundraise.reviewFullName")}</span>
                 <span className={styles.reviewValue}>{data.fullName}</span>
               </div>
               <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Email</span>
+                <span className={styles.reviewKey}>{t("fundraise.reviewEmail")}</span>
                 <span className={styles.reviewValue}>{data.email}</span>
               </div>
               <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>T-shirt</span>
+                <span className={styles.reviewKey}>{t("fundraise.reviewTshirt")}</span>
                 <span className={styles.reviewValue}>{data.tshirtSize}</span>
               </div>
               <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Country</span>
+                <span className={styles.reviewKey}>{t("fundraise.reviewCountry")}</span>
                 <span className={styles.reviewValue}>{data.country}</span>
               </div>
             </div>
@@ -494,7 +528,7 @@ export function FundraiseForm() {
 
           <div className={styles.actions}>
             <button type="button" className={styles.ghostButton} onClick={handleBack}>
-              ← Back
+              {t("fundraise.back")}
             </button>
             <button
               type="button"
@@ -502,7 +536,9 @@ export function FundraiseForm() {
               onClick={handleSubmit}
               disabled={submitting}
             >
-              {submitting ? "Creating…" : `Create page and register — €${selectedTier?.price ?? "—"}`}
+              {submitting
+                ? t("fundraise.submitting")
+                : t("fundraise.submitButton", { price: String(selectedTier?.price ?? "—") })}
             </button>
           </div>
         </div>

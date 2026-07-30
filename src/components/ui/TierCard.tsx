@@ -1,4 +1,5 @@
 import type { Tier } from "@/data/event";
+import { t } from "@/locales";
 import { FeeBreakdownBar } from "@/components/ui/FeeBreakdownBar";
 import type { ParticipationType } from "./registerTypes";
 import styles from "./TierCard.module.css";
@@ -35,7 +36,9 @@ export function TierCard({
     <article
       className={`${styles.card} ${tier.highlighted ? styles.highlighted : ""} ${isSelected ? styles.selected : ""}`}
     >
-      {tier.highlighted && <span className={styles.badge}>Most chosen</span>}
+      {tier.highlighted && (
+        <span className={styles.badge}>{t("tierCard.badge")}</span>
+      )}
       <span className={styles.overline}>{tier.name}</span>
       <p className={styles.price}>€{tier.price}</p>
       <FeeBreakdownBar
@@ -55,7 +58,7 @@ export function TierCard({
         onClick={onSelect}
         aria-pressed={isSelected}
       >
-        {isSelected ? "Selected" : "Select"}
+        {isSelected ? t("tierCard.selected") : t("tierCard.select")}
       </button>
     </article>
   );

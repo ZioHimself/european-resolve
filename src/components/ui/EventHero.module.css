@@ -54,4 +54,17 @@
       text-decoration: underline;
     }
   }
+
+  .heroCompleted {
+    text-align: center;
+  }
+
+  .thankYou {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-primary);
+    max-width: var(--max-width-prose);
+    margin: 0 auto;
+    font-style: italic;
+  }
 }

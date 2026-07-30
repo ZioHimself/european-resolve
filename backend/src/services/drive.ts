@@ -3,7 +3,10 @@ import sharp from "sharp";
 import { Readable } from "node:stream";
 import { config } from "../config.js";
 
-const SCOPES = ["https://www.googleapis.com/auth/drive.file"];
+const SCOPES = [
+  "https://www.googleapis.com/auth/drive.file",
+  "https://www.googleapis.com/auth/drive.readonly",
+];
 
 export class DriveService {
   private drive: drive_v3.Drive;
@@ -45,5 +48,22 @@ export class DriveService {
 
   getPhotoUrl(fileId: string): string {
     return `https://drive.google.com/uc?id=${fileId}&export=view`;
+  }
+
+  async listGalleryPhotos(folderId: string): Promise<{ id: string; name: string; url: string }[]> {
+    if (!folderId) return [];
+
+    const res = await this.drive.files.list({
+      q: `'${folderId}' in parents and mimeType contains 'image/' and trashed = false`,
+      fields: "files(id, name)",
+      orderBy: "name",
+      pageSize: 50,
+    });
+
+    return (res.data.files ?? []).map((f) => ({
+      id: f.id!,
+      name: f.name ?? "photo",
+      url: this.getPhotoUrl(f.id!),
+    }));
   }
 }

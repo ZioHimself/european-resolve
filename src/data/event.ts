@@ -13,6 +13,18 @@ export type CoOrganiser = {
   name: string;
 };
 
+export type PostEventData = {
+  thankYouMessage: string;
+  impactStatement: string;
+  galleryFolderId: string;
+  finalStats: {
+    raised: number;
+    participants: number;
+    donors: number;
+    chargingStations: number;
+  };
+};
+
 export type EventDetails = {
   title: string;
   date: string;
@@ -24,6 +36,7 @@ export type EventDetails = {
     url: string;
   };
   goalEur: number;
+  postEvent: PostEventData;
 };
 
 export const tiers = [
@@ -89,4 +102,17 @@ export const eventDetails = {
     url: "https://hurkit.org/",
   },
   goalEur: 3_000,
+  postEvent: {
+    thankYouMessage:
+      "Thank you to every runner, supporter, and donor who made Run for Ukraine 2026 possible. Together we powered hope on the front line.",
+    impactStatement:
+      "Every euro raised went directly to Hurkit, providing portable charging stations that keep defenders connected and operational in the field.",
+    galleryFolderId: "",
+    finalStats: {
+      raised: 0,
+      participants: 0,
+      donors: 0,
+      chargingStations: 0,
+    },
+  },
 } satisfies EventDetails;

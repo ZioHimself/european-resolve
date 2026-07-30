@@ -8,6 +8,7 @@ import { registerRoute } from "./routes/register.js";
 import { fundraiserRoute } from "./routes/fundraiser.js";
 import { progressRoute } from "./routes/progress.js";
 import { donorsRoute } from "./routes/donors.js";
+import { galleryRoute } from "./routes/gallery.js";
 import { errorHandler } from "./middleware/error.js";
 
 const app = new Hono();
@@ -28,6 +29,7 @@ app.route("/api/register", registerRoute);
 app.route("/api/fundraiser", fundraiserRoute);
 app.route("/api/progress", progressRoute);
 app.route("/api/donors", donorsRoute);
+app.route("/api/gallery", galleryRoute);
 
 app.onError(errorHandler);
 

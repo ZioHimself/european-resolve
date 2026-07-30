@@ -42,6 +42,7 @@ export interface ConfirmPaymentResponse {
 export interface ValidationError {
   field: string;
   message: string;
+  code?: string;
 }
 
 export type ApiResponse<T> =

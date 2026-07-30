@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { t } from "@/locales";
+import { useEventStatus } from "@/hooks/useEventStatus";
 import { WhyDonateWidget } from "@/components/ui/WhyDonateWidget";
 import { SocialShareButtons } from "@/components/ui/SocialShareButtons";
 import { DonorWall } from "@/components/ui/DonorWall";
@@ -34,6 +36,7 @@ function FundraiserContent() {
   const searchParams = useSearchParams();
   const slug = searchParams.get("by");
   const editToken = searchParams.get("edit");
+  const isCompleted = useEventStatus() === "completed";
 
   const [fundraiser, setFundraiser] = useState<FundraiserData | null>(null);
   const [progress, setProgress] = useState<ProgressData | null>(null);
@@ -121,7 +124,7 @@ function FundraiserContent() {
   if (loading) {
     return (
       <div className={styles.loading}>
-        <div className={styles.spinner} aria-label="Loading" />
+        <div className={styles.spinner} aria-label={t("common.loading")} />
       </div>
     );
   }
@@ -129,12 +132,10 @@ function FundraiserContent() {
   if (notFound || !fundraiser) {
     return (
       <div className={styles.notFound}>
-        <h1 className={styles.notFoundHeading}>Fundraiser not found</h1>
-        <p className={styles.notFoundText}>
-          This fundraiser doesn&apos;t exist or may have been removed.
-        </p>
+        <h1 className={styles.notFoundHeading}>{t("fundraiser.notFoundHeading")}</h1>
+        <p className={styles.notFoundText}>{t("fundraiser.notFoundText")}</p>
         <a href="/events/2026-run-for-ukraine/fundraise" className={styles.backLink}>
-          Create your own fundraiser →
+          {t("fundraiser.createOwn")}
         </a>
       </div>
     );
@@ -143,9 +144,7 @@ function FundraiserContent() {
   return (
     <article className={styles.page}>
       {fundraiser.status === "draft" && (
-        <div className={styles.draftBanner}>
-          This page is a draft — only the creator can see it
-        </div>
+        <div className={styles.draftBanner}>{t("fundraiser.draftBanner")}</div>
       )}
 
       <header className={styles.header}>
@@ -162,7 +161,9 @@ function FundraiserContent() {
             </span>
           )}
         </div>
-        <h1 className={styles.name}>{fundraiser.displayName}&apos;s page</h1>
+        <h1 className={styles.name}>
+          {fundraiser.displayName}{t("fundraiser.nameSuffix")}
+        </h1>
       </header>
 
       <div className={styles.message}>
@@ -171,22 +172,32 @@ function FundraiserContent() {
 
       <div className={styles.goalInfo}>
         <span className={styles.goalPersonal}>
-          Personal goal: €{fundraiser.goalEur.toLocaleString("en-GB")}
+          {t("fundraiser.personalGoal", {
+            goal: fundraiser.goalEur.toLocaleString("en-GB"),
+          })}
         </span>
         {progress && (
           <span className={styles.goalCollective}>
-            Collective total: €{progress.totalRaisedEur.toLocaleString("en-GB")}
+            {t("fundraiser.collectiveTotal", {
+              total: progress.totalRaisedEur.toLocaleString("en-GB"),
+            })}
           </span>
         )}
       </div>
 
-      <div className={styles.donateSection}>
-        <h2 className={styles.donateHeading}>Donate</h2>
-        <WhyDonateWidget shortcode="nudW7" />
-      </div>
+      {isCompleted ? (
+        <div className={styles.donateSection}>
+          <p className={styles.donationsClosed}>{t("closed.donationsClosed")}</p>
+        </div>
+      ) : (
+        <div className={styles.donateSection}>
+          <h2 className={styles.donateHeading}>{t("fundraiser.donateHeading")}</h2>
+          <WhyDonateWidget shortcode="nudW7" />
+        </div>
+      )}
 
       <div className={styles.shareSection}>
-        <h2 className={styles.shareSectionHeading}>Share this page</h2>
+        <h2 className={styles.shareSectionHeading}>{t("fundraiser.shareHeading")}</h2>
         <SocialShareButtons
           url={`https://european-resolve.org/events/2026-run-for-ukraine/fundraiser?by=${fundraiser.slug}`}
           title={fundraiser.displayName}
@@ -200,11 +211,13 @@ function FundraiserContent() {
             entries={wallEntries}
             onEntriesLoaded={handleEntriesLoaded}
           />
-          <DonorWallForm slug={slug} onEntryAdded={handleEntryAdded} />
+          {!isCompleted && (
+            <DonorWallForm slug={slug} onEntryAdded={handleEntryAdded} />
+          )}
         </div>
       )}
 
-      {editToken && fundraiser.status === "draft" && (
+      {!isCompleted && editToken && fundraiser.status === "draft" && (
         <div className={styles.editControls}>
           <button
             type="button"
@@ -212,7 +225,7 @@ function FundraiserContent() {
             onClick={handlePublish}
             disabled={publishing}
           >
-            {publishing ? "Publishing…" : "Publish this page"}
+            {publishing ? t("fundraiser.publishing") : t("fundraiser.publish")}
           </button>
         </div>
       )}
@@ -225,7 +238,7 @@ export function FundraiserPage() {
     <Suspense
       fallback={
         <div className={styles.loading}>
-          <div className={styles.spinner} aria-label="Loading" />
+          <div className={styles.spinner} aria-label={t("common.loading")} />
         </div>
       }
     >

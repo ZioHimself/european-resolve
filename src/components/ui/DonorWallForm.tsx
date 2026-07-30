@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { t } from "@/locales";
+import { useEventStatus } from "@/hooks/useEventStatus";
 import styles from "./DonorWallForm.module.css";
 
 interface DonorEntry {
@@ -15,6 +17,7 @@ interface DonorWallFormProps {
 }
 
 export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
+  const isCompleted = useEventStatus() === "completed";
   const [revealed, setRevealed] = useState(false);
   const [donorName, setDonorName] = useState("");
   const [message, setMessage] = useState("");
@@ -22,13 +25,15 @@ export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<{ donorName?: string; message?: string; global?: string }>({});
 
+  if (isCompleted) return null;
+
   function validate() {
     const errs: typeof errors = {};
     if (donorName.trim().length < 2 || donorName.trim().length > 50) {
-      errs.donorName = "Name must be 2-50 characters";
+      errs.donorName = t("donorWall.errorName");
     }
     if (message.trim().length < 5 || message.trim().length > 200) {
-      errs.message = "Message must be 5-200 characters";
+      errs.message = t("donorWall.errorMessage");
     }
     return errs;
   }
@@ -68,7 +73,7 @@ export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
             apiErrors.global = err.message;
           }
         }
-        setErrors(Object.keys(apiErrors).length > 0 ? apiErrors : { global: "Something went wrong." });
+        setErrors(Object.keys(apiErrors).length > 0 ? apiErrors : { global: t("donorWall.globalError") });
         return;
       }
 
@@ -80,7 +85,7 @@ export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
 
       setSubmitted(true);
     } catch {
-      setErrors({ global: "Network error. Please try again." });
+      setErrors({ global: t("donorWall.networkError") });
     } finally {
       setSubmitting(false);
     }
@@ -90,7 +95,7 @@ export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
     return (
       <div className={styles.thankYou}>
         <span className={styles.thankYouIcon}>❤️</span>
-        <p className={styles.thankYouText}>Thank you for your support!</p>
+        <p className={styles.thankYouText}>{t("donorWall.thankYou")}</p>
       </div>
     );
   }
@@ -102,7 +107,7 @@ export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
         className={styles.gateButton}
         onClick={() => setRevealed(true)}
       >
-        I&apos;ve donated — leave a message of support
+        {t("donorWall.gateButton")}
       </button>
     );
   }
@@ -111,7 +116,7 @@ export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.field}>
         <label className={styles.label} htmlFor="donor-name">
-          Your name
+          {t("donorWall.nameLabel")}
         </label>
         <input
           id="donor-name"
@@ -120,14 +125,14 @@ export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
           value={donorName}
           onChange={(e) => setDonorName(e.target.value)}
           maxLength={50}
-          placeholder="How you want to appear"
+          placeholder={t("donorWall.namePlaceholder")}
         />
         {errors.donorName && <p className={styles.error}>{errors.donorName}</p>}
       </div>
 
       <div className={styles.field}>
         <label className={styles.label} htmlFor="donor-message">
-          Your message
+          {t("donorWall.messageLabel")}
         </label>
         <textarea
           id="donor-message"
@@ -135,9 +140,11 @@ export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           maxLength={200}
-          placeholder="A word of encouragement..."
+          placeholder={t("donorWall.messagePlaceholder")}
         />
-        <span className={styles.charCount}>{message.length}/200</span>
+        <span className={styles.charCount}>
+          {t("common.charCount", { count: String(message.length), max: "200" })}
+        </span>
         {errors.message && <p className={styles.error}>{errors.message}</p>}
       </div>
 
@@ -148,7 +155,7 @@ export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
         className={styles.submitButton}
         disabled={submitting}
       >
-        {submitting ? "Posting…" : "Post to wall"}
+        {submitting ? t("donorWall.posting") : t("donorWall.postButton")}
       </button>
     </form>
   );
