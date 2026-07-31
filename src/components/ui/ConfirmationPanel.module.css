@@ -264,6 +264,10 @@
       line-height: var(--leading-relaxed);
       margin: 0;
     }
+
+    & .startOverLink {
+      margin-top: var(--space-3);
+    }
   }
 
   .widgetExpandTrigger {

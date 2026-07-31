@@ -218,6 +218,15 @@ export function ConfirmationPanel({ result, onPaymentConfirmed, onStartOver }: C
             <p>
               {t("register.interruptedSession")}
             </p>
+            {onStartOver && (
+              <button
+                type="button"
+                className={styles.startOverLink}
+                onClick={onStartOver}
+              >
+                {t("register.startOver")}
+              </button>
+            )}
           </div>
         )}
 
