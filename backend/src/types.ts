@@ -27,6 +27,7 @@ export interface RegisterRequest {
 export interface RegisterResponse {
   participantId: string;
   fullName: string;
+  email: string;
   tierId: TierId;
   tierName: string;
   participationType: ParticipationType;

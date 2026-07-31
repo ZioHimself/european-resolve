@@ -138,6 +138,7 @@ registerRoute.post("/", async (c) => {
     const response: RegisterResponse = {
       participantId: existing.participantId,
       fullName: existing.fullName,
+      email: existing.email,
       tierId: existing.tierId as TierId,
       tierName: tier.name,
       participationType,
@@ -154,6 +155,7 @@ registerRoute.post("/", async (c) => {
   const response: RegisterResponse = {
     participantId,
     fullName: data.fullName,
+    email: data.email,
     tierId: data.tierId,
     tierName: tier.name,
     participationType: data.participationType,
