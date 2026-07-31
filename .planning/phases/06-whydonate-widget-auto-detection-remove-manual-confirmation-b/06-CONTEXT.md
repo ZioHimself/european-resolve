@@ -61,7 +61,7 @@ Replace the manual "I've completed my donation" honour-system button with automa
 **Downstream agents MUST read these before planning or implementing.**
 
 ### Phase Research (Widget DOM Investigation)
-- `.planning/phases/06-whydonate-widget-auto-detection-remove-manual-confirmation-b/RESEARCH.md` — Complete widget DOM reverse-engineering: shadow root structure, step IDs, state keys, MutationObserver strategy, pre-fill approach, localStorage signals, risks
+- `.planning/phases/06-whydonate-widget-auto-detection-remove-manual-confirmation-b/06-RESEARCH.md` — Complete widget DOM reverse-engineering: shadow root structure, step IDs, state keys, MutationObserver strategy, pre-fill approach, localStorage signals, risks
 
 ### Phase 02.1 Context (WhyDonate Integration Decisions)
 - `.planning/phases/02.1-replace-monobank-jar-with-whydonate/02.1-CONTEXT.md` — Original WhyDonate integration decisions (D-01 through D-14), widget embed model, payment token flow
