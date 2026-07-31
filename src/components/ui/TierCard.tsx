@@ -1,6 +1,5 @@
 import type { Tier } from "@/data/event";
 import { t } from "@/locales";
-import { FeeBreakdownBar } from "@/components/ui/FeeBreakdownBar";
 import type { ParticipationType } from "./registerTypes";
 import styles from "./TierCard.module.css";
 

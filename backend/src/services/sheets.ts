@@ -7,7 +7,6 @@ import type {
   FundraiserCreateRequest,
   FundraiserUpdateRequest,
   DonorWallEntry,
-  TierId,
   ParticipationType,
 } from "../types.js";
 
@@ -74,6 +73,35 @@ export class SheetsService {
     return null;
   }
 
+  async findByToken(token: string): Promise<ExistingRegistration | null> {
+    const res = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: `${SHEET_NAME}!A:Q`,
+    });
+
+    const rows = res.data.values;
+    if (!rows || rows.length <= 1) return null;
+
+    const normalised = token.toUpperCase().trim();
+
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      if (row[12] === normalised) {
+        return {
+          participantId: row[0] as string,
+          fullName: row[1] as string,
+          email: row[2] as string,
+          tierId: row[7] as string,
+          amountEur: Number(row[8]),
+          paymentToken: (row[12] as string) ?? "",
+          participationType: (row[16] as string) ?? "runner",
+        };
+      }
+    }
+
+    return null;
+  }
+
   async appendRegistration(
     data: RegisterRequest,
     fundraiserSlug?: string,
@@ -120,6 +148,9 @@ export class SheetsService {
     | {
         success: true;
         participantId: string;
+        fullName: string;
+        email: string;
+        language: string;
         tierName: string;
         amountEur: number;
         effectiveTierId: string;
@@ -180,6 +211,9 @@ export class SheetsService {
     return {
       success: true,
       participantId: row[0] as string,
+      fullName: row[1] as string,
+      email: row[2] as string,
+      language: (row[5] as string) ?? "English",
       tierName: row[7] as string,
       amountEur: recordedAmount,
       effectiveTierId,
