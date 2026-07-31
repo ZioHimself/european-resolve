@@ -1,12 +1,14 @@
 import { randomBytes } from "node:crypto";
 import { google, type sheets_v4 } from "googleapis";
 import { config } from "../config.js";
-import { getTierPrice } from "../tiers.js";
+import { getTierPrice, getEffectiveTier, TIER_DATA, filterRewards } from "../tiers.js";
 import type {
   RegisterRequest,
   FundraiserCreateRequest,
   FundraiserUpdateRequest,
   DonorWallEntry,
+  TierId,
+  ParticipationType,
 } from "../types.js";
 
 export interface ExistingRegistration {
@@ -113,8 +115,17 @@ export class SheetsService {
 
   async confirmPayment(
     token: string,
+    donatedAmount?: number,
   ): Promise<
-    | { success: true; participantId: string; tierName: string; amountEur: number }
+    | {
+        success: true;
+        participantId: string;
+        tierName: string;
+        amountEur: number;
+        effectiveTierId: string;
+        effectiveTierName: string;
+        rewards: string[];
+      }
     | { success: false; error: string }
   > {
     const res = await this.sheets.spreadsheets.values.get({
@@ -147,21 +158,33 @@ export class SheetsService {
       return { success: false, error: "already_confirmed" };
     }
 
+    const recordedAmount =
+      donatedAmount != null && donatedAmount > 0
+        ? donatedAmount
+        : Number(row[8]);
+
     const rowNumber = matchIndex + 1;
     await this.sheets.spreadsheets.values.update({
       spreadsheetId: config.spreadsheetId,
       range: `${SHEET_NAME}!M${rowNumber}:P${rowNumber}`,
       valueInputOption: "RAW",
       requestBody: {
-        values: [["", "paid", row[8], new Date().toISOString()]],
+        values: [["", "paid", String(recordedAmount), new Date().toISOString()]],
       },
     });
+
+    const effectiveTierId = getEffectiveTier(recordedAmount);
+    const effectiveTier = TIER_DATA[effectiveTierId];
+    const participationType = (row[16] as ParticipationType) ?? "runner";
 
     return {
       success: true,
       participantId: row[0] as string,
       tierName: row[7] as string,
-      amountEur: Number(row[8]),
+      amountEur: recordedAmount,
+      effectiveTierId,
+      effectiveTierName: effectiveTier.name,
+      rewards: filterRewards(effectiveTier.rewards, participationType),
     };
   }
 

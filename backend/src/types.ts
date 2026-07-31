@@ -38,6 +38,7 @@ export interface RegisterResponse {
 
 export interface ConfirmPaymentRequest {
   token: string;
+  amount?: number;
 }
 
 export interface ConfirmPaymentResponse {
@@ -45,6 +46,9 @@ export interface ConfirmPaymentResponse {
   participantId: string;
   tierName: string;
   amountEur: number;
+  effectiveTierId: string;
+  effectiveTierName: string;
+  rewards: string[];
 }
 
 export interface ValidationError {

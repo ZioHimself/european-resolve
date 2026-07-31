@@ -23,7 +23,11 @@ confirmPaymentRoute.post("/", async (c) => {
   }
 
   const token = (body.token as string).trim();
-  const result = await sheetsService.confirmPayment(token);
+  const amount =
+    typeof body.amount === "number" && body.amount > 0
+      ? body.amount
+      : undefined;
+  const result = await sheetsService.confirmPayment(token, amount);
 
   if (!result.success) {
     const errorMessages: Record<string, string> = {
@@ -50,6 +54,9 @@ confirmPaymentRoute.post("/", async (c) => {
     participantId: result.participantId,
     tierName: result.tierName,
     amountEur: result.amountEur,
+    effectiveTierId: result.effectiveTierId,
+    effectiveTierName: result.effectiveTierName,
+    rewards: result.rewards,
   };
 
   return c.json({
