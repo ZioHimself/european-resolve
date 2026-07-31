@@ -91,8 +91,8 @@ export const coOrganisers = [
 
 export const eventDetails = {
   title: "Run for Ukraine 2026",
-  date: "23 August 2026",
-  location: "Brussels",
+  date: "23 August 2026, 10:00",
+  location: "Place du Luxembourg, Brussels, Belgium",
   description:
     "Support Ukraine's defenders with reliable power in the field — every kilometre you run funds another hour of critical equipment operation on the front line.",
   beneficiary: {
