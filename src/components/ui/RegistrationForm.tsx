@@ -268,7 +268,10 @@ export function RegistrationForm({
               <strong>{t("register.gdprHeading")}</strong>.{" "}
               {isRunner
                 ? t("register.gdprRunner")
-                : t("register.gdprSupporter")}
+                : t("register.gdprSupporter")}{" "}
+              <a href="/privacy" target="_blank" rel="noopener noreferrer">
+                Privacy Policy →
+              </a>
             </span>
           </label>
           {fieldError("gdprConsent") && (

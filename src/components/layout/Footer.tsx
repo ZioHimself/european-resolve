@@ -21,7 +21,7 @@ export function Footer() {
             <Link href="/privacy">Privacy Policy</Link>
           </nav>
           <p className={styles.notice}>
-            We don&apos;t use cookies or collect personal data.
+            We don&apos;t use cookies or tracking.
           </p>
         </div>
       </div>

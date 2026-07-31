@@ -214,6 +214,8 @@ export const en = {
   "donorWall.posting": "Posting\u2026",
   "donorWall.postButton": "Post to wall",
   "donorWall.thankYou": "Thank you for your support!",
+  "donorWall.privacyNotice":
+    "Your name and message will be publicly visible.",
   "donorWall.errorName": "Name must be 2-50 characters",
   "donorWall.errorMessage": "Message must be 5-200 characters",
   "donorWall.networkError": "Network error. Please try again.",

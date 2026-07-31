@@ -150,6 +150,13 @@ export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
 
       {errors.global && <p className={styles.error}>{errors.global}</p>}
 
+      <p className={styles.privacyNotice}>
+        {t("donorWall.privacyNotice")}{" "}
+        <a href="/privacy" target="_blank" rel="noopener noreferrer">
+          Privacy Policy →
+        </a>
+      </p>
+
       <button
         type="submit"
         className={styles.submitButton}

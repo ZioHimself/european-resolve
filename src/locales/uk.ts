@@ -224,6 +224,8 @@ export const uk = {
   "donorWall.posting": "Публікація\u2026",
   "donorWall.postButton": "Опублікувати на стіні",
   "donorWall.thankYou": "Дякуємо за вашу підтримку!",
+  "donorWall.privacyNotice":
+    "Ваше ім'я та повідомлення будуть публічно видимі.",
   "donorWall.errorName": "Ім'я має містити від 2 до 50 символів",
   "donorWall.errorMessage":
     "Повідомлення має містити від 5 до 200 символів",

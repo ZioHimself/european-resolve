@@ -460,7 +460,10 @@ export function FundraiseForm() {
               />
               <span>
                 <strong>{t("fundraise.gdprHeading")}</strong>.{" "}
-                {t("fundraise.gdprText")}
+                {t("fundraise.gdprText")}{" "}
+                <a href="/privacy" target="_blank" rel="noopener noreferrer">
+                  Privacy Policy →
+                </a>
               </span>
             </label>
             {errors.gdprConsent && <p className={styles.error}>{errors.gdprConsent}</p>}

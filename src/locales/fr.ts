@@ -224,6 +224,8 @@ export const fr = {
   "donorWall.posting": "Publication\u2026",
   "donorWall.postButton": "Publier sur le mur",
   "donorWall.thankYou": "Merci pour votre soutien !",
+  "donorWall.privacyNotice":
+    "Votre nom et votre message seront visibles publiquement.",
   "donorWall.errorName": "Le nom doit contenir entre 2 et 50 caractères",
   "donorWall.errorMessage":
     "Le message doit contenir entre 5 et 200 caractères",

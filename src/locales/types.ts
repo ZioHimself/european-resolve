@@ -190,6 +190,7 @@ export interface Locale {
   "donorWall.posting": string;
   "donorWall.postButton": string;
   "donorWall.thankYou": string;
+  "donorWall.privacyNotice": string;
   "donorWall.errorName": string;
   "donorWall.errorMessage": string;
   "donorWall.networkError": string;

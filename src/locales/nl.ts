@@ -223,6 +223,8 @@ export const nl = {
   "donorWall.posting": "Plaatsen\u2026",
   "donorWall.postButton": "Plaats op de muur",
   "donorWall.thankYou": "Bedankt voor je steun!",
+  "donorWall.privacyNotice":
+    "Je naam en bericht worden publiek zichtbaar.",
   "donorWall.errorName": "Naam moet 2-50 tekens bevatten",
   "donorWall.errorMessage": "Bericht moet 5-200 tekens bevatten",
   "donorWall.networkError": "Netwerkfout. Probeer het opnieuw.",

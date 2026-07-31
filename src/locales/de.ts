@@ -229,6 +229,8 @@ export const de = {
   "donorWall.posting": "Posten\u2026",
   "donorWall.postButton": "An die Wand posten",
   "donorWall.thankYou": "Vielen Dank für Ihre Unterstützung!",
+  "donorWall.privacyNotice":
+    "Ihr Name und Ihre Nachricht werden öffentlich sichtbar sein.",
   "donorWall.errorName": "Name muss 2-50 Zeichen lang sein",
   "donorWall.errorMessage": "Nachricht muss 5-200 Zeichen lang sein",
   "donorWall.networkError":
