@@ -49,13 +49,18 @@ export function WhyDonateWidget({
   donorInfo,
 }: WhyDonateWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const loadedRef = useRef(false);
   const prefillDoneRef = useRef(false);
   const detectionDoneRef = useRef(false);
 
   useEffect(() => {
-    if (loadedRef.current) return;
-    loadedRef.current = true;
+    const el = containerRef.current?.querySelector(".widget-here") as HTMLElement | null;
+    if (!el) return;
+
+    // Already initialized with a shadow root — nothing to do
+    if (el.shadowRoot) return;
+
+    el.setAttribute("value", "donation-widget");
+    delete el.dataset.initialized;
 
     if (!document.querySelector('link[href*="wdplugin-style.css"]')) {
       const link = document.createElement("link");
@@ -64,19 +69,17 @@ export function WhyDonateWidget({
       document.head.appendChild(link);
     }
 
-    if (!document.querySelector('script[src*="wp_styling.js"]')) {
-      const script = document.createElement("script");
-      script.src = "https://plugin.whydonate.com/wp_styling.js";
-      script.type = "text/javascript";
-      document.body.appendChild(script);
-    }
-  }, []);
+    // The WhyDonate script only scans for .widget-here elements once on
+    // load, so if it already ran before this div existed, we must force
+    // a re-scan by removing and re-adding the script tag (browser cache
+    // prevents a network re-fetch).
+    const existing = document.querySelector('script[src*="wp_styling.js"]');
+    if (existing) existing.remove();
 
-  useEffect(() => {
-    const el = containerRef.current?.querySelector(".widget-here");
-    if (el) {
-      el.setAttribute("value", "donation-widget");
-    }
+    const script = document.createElement("script");
+    script.src = "https://plugin.whydonate.com/wp_styling.js";
+    script.type = "text/javascript";
+    document.body.appendChild(script);
   }, []);
 
   useEffect(() => {
