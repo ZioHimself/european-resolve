@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { t } from "@/locales";
+import { eventDetails } from "@/data/event";
 import type { RegisterResponse } from "./registerTypes";
 import { WhyDonateWidget } from "./WhyDonateWidget";
 import styles from "./ConfirmationPanel.module.css";
@@ -133,7 +134,7 @@ export function ConfirmationPanel({ result, onPaymentConfirmed }: ConfirmationPa
         </p>
 
         <div className={`${styles.widgetContainer} ${styles.widgetCollapsed}`}>
-          <WhyDonateWidget shortcode={process.env.NEXT_PUBLIC_WHYDONATE_SHORTCODE ?? ""} />
+          <WhyDonateWidget shortcode={eventDetails.whydonateShortcode} />
         </div>
         <button
           type="button"
@@ -212,7 +213,7 @@ export function ConfirmationPanel({ result, onPaymentConfirmed }: ConfirmationPa
 
         <div className={styles.widgetContainer} style={{ position: "relative" }}>
           <WhyDonateWidget
-            shortcode={process.env.NEXT_PUBLIC_WHYDONATE_SHORTCODE ?? ""}
+            shortcode={eventDetails.whydonateShortcode}
             onPaymentSuccess={handleAutoConfirm}
             onDetectionFailed={() => setDetectionActive(false)}
             donorInfo={{ fullName: result.fullName, email: result.email }}

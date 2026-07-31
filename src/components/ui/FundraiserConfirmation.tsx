@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { t } from "@/locales";
+import { eventDetails } from "@/data/event";
 import { SocialShareButtons } from "@/components/ui/SocialShareButtons";
 import { WhyDonateWidget } from "@/components/ui/WhyDonateWidget";
 import styles from "./FundraiserConfirmation.module.css";
@@ -234,7 +235,7 @@ export function FundraiserConfirmation({
 
               <div className={styles.widgetContainer} style={{ position: "relative" }}>
                 <WhyDonateWidget
-                  shortcode={process.env.NEXT_PUBLIC_WHYDONATE_SHORTCODE ?? ""}
+                  shortcode={eventDetails.whydonateShortcode}
                   onPaymentSuccess={handleAutoConfirm}
                   onDetectionFailed={() => setDetectionActive(false)}
                   donorInfo={registration.email ? { fullName: registration.fullName, email: registration.email } : undefined}

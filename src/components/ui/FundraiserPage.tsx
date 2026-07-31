@@ -6,6 +6,7 @@ import { t } from "@/locales";
 import { useEventStatus } from "@/hooks/useEventStatus";
 import { WhyDonateWidget } from "@/components/ui/WhyDonateWidget";
 import { SocialShareButtons } from "@/components/ui/SocialShareButtons";
+import { eventDetails } from "@/data/event";
 import { DonorWall } from "@/components/ui/DonorWall";
 import { DonorWallForm } from "@/components/ui/DonorWallForm";
 import styles from "./FundraiserPage.module.css";
@@ -192,7 +193,7 @@ function FundraiserContent() {
       ) : (
         <div className={styles.donateSection}>
           <h2 className={styles.donateHeading}>{t("fundraiser.donateHeading")}</h2>
-          <WhyDonateWidget shortcode={process.env.NEXT_PUBLIC_WHYDONATE_SHORTCODE ?? ""} />
+          <WhyDonateWidget shortcode={eventDetails.whydonateShortcode} />
         </div>
       )}
 
