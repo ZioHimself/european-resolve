@@ -185,14 +185,16 @@ Phases 1–6 (including 02.1 and 04.1) constitute **Milestone 1: Event Launch**.
 **Depends on:** Phase 02.1
 **UI hint:** yes
 
+**Completed:** 2026-07-31
+
 Plans:
 
 **Wave 1**
-- [ ] 01 — Backend: Amount-Based Payment Confirmation & Email Response
+- [x] 01 — Backend: Amount-Based Payment Confirmation & Email Response
 
 **Wave 2** *(blocked on Wave 1 completion)*
-- [ ] 02 — Frontend: WhyDonate Widget Payment Detection Hook & Pre-Fill
-- [ ] 03 — Frontend: Auto-Confirm UX in Confirmation Panels
+- [x] 02 — Frontend: WhyDonate Widget Payment Detection Hook & Pre-Fill
+- [x] 03 — Frontend: Auto-Confirm UX in Confirmation Panels
 
 **Success Criteria:**
 1. When a user completes payment in the WhyDonate widget, the system auto-detects success without manual button click
