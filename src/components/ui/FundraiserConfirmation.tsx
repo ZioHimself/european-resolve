@@ -227,8 +227,7 @@ export function FundraiserConfirmation({
               {interruptedSession && (
                 <div className={styles.interruptedNotice}>
                   <p>
-                    {t("confirmation.interruptedSession") ||
-                      "It looks like your session was interrupted. If you\u2019ve already completed your payment, please contact us at info@european-resolve.org with your payment confirmation and we\u2019ll update your registration."}
+                    {t("confirmation.interruptedSession")}
                   </p>
                 </div>
               )}
@@ -244,7 +243,7 @@ export function FundraiserConfirmation({
                   <div className={styles.verifyingOverlay}>
                     <div className={styles.verifyingSpinner} />
                     <p className={styles.verifyingText}>
-                      {t("confirmation.verifyingPayment") || "Verifying payment..."}
+                      {t("confirmation.verifyingPayment")}
                     </p>
                     {confirmError && <p className={styles.confirmError}>{confirmError}</p>}
                   </div>

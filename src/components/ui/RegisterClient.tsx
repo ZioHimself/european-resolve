@@ -48,12 +48,21 @@ export function RegisterClient() {
     } catch { /* storage unavailable */ }
   }
 
+  function handleStartOver() {
+    try {
+      sessionStorage.removeItem(STORAGE_KEY);
+    } catch { /* storage unavailable */ }
+    setRegistrationResult(null);
+    setSelectedTierId(null);
+  }
+
   return (
     <div className={styles.wrapper}>
       {registrationResult ? (
         <ConfirmationPanel
           result={registrationResult}
           onPaymentConfirmed={handlePaymentConfirmed}
+          onStartOver={handleStartOver}
         />
       ) : (
         <>

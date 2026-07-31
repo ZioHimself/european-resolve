@@ -96,6 +96,11 @@ export const de = {
   "register.confirmFailed": "Bestätigung fehlgeschlagen",
   "register.confirmNetworkError":
     "Zahlung konnte nicht bestätigt werden. Bitte versuchen Sie es erneut.",
+  "register.interruptedSession":
+    "Es sieht so aus, als wäre Ihre Sitzung unterbrochen worden. Wenn Sie Ihre Zahlung bereits abgeschlossen haben, kontaktieren Sie uns bitte unter info@european-resolve.org mit Ihrer Zahlungsbestätigung und wir aktualisieren Ihre Anmeldung.",
+  "register.verifyingPayment": "Zahlung wird überprüft\u2026",
+  "register.needInvoice": "Rechnung benötigt?",
+  "register.startOver": "Erneut anmelden",
 
   // tierCard
   "tierCard.badge": "Am häufigsten gewählt",
@@ -198,6 +203,9 @@ export const de = {
   "confirmation.confirmError":
     "Zahlung konnte nicht bestätigt werden. Bitte versuchen Sie es erneut.",
   "confirmation.confirmFailed": "Bestätigung fehlgeschlagen",
+  "confirmation.interruptedSession":
+    "Es sieht so aus, als wäre Ihre Sitzung unterbrochen worden. Wenn Sie Ihre Zahlung bereits abgeschlossen haben, kontaktieren Sie uns bitte unter info@european-resolve.org mit Ihrer Zahlungsbestätigung und wir aktualisieren Ihre Anmeldung.",
+  "confirmation.verifyingPayment": "Zahlung wird überprüft\u2026",
   "confirmation.viewPage": "Ihre Seite ansehen →",
   "confirmation.shareHeading": "Teilen Sie Ihre Seite",
 

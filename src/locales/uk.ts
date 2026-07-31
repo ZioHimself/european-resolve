@@ -93,6 +93,11 @@ export const uk = {
   "register.confirmFailed": "Підтвердження не вдалося",
   "register.confirmNetworkError":
     "Не вдалося підтвердити оплату. Будь ласка, спробуйте ще раз.",
+  "register.interruptedSession":
+    "Схоже, вашу сесію було перервано. Якщо ви вже завершили оплату, зв\u2019яжіться з нами за адресою info@european-resolve.org з підтвердженням оплати, і ми оновимо вашу реєстрацію.",
+  "register.verifyingPayment": "Перевірка оплати\u2026",
+  "register.needInvoice": "Потрібен рахунок?",
+  "register.startOver": "Зареєструватися знову",
 
   // tierCard
   "tierCard.badge": "Найпопулярніший",
@@ -193,6 +198,9 @@ export const uk = {
   "confirmation.confirmError":
     "Не вдалося підтвердити оплату. Будь ласка, спробуйте ще раз.",
   "confirmation.confirmFailed": "Підтвердження не вдалося",
+  "confirmation.interruptedSession":
+    "Схоже, вашу сесію було перервано. Якщо ви вже завершили оплату, зв\u2019яжіться з нами за адресою info@european-resolve.org з підтвердженням оплати, і ми оновимо вашу реєстрацію.",
+  "confirmation.verifyingPayment": "Перевірка оплати\u2026",
   "confirmation.viewPage": "Переглянути вашу сторінку →",
   "confirmation.shareHeading": "Поділіться вашою сторінкою",
 

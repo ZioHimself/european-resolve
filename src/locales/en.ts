@@ -90,6 +90,11 @@ export const en = {
   "register.confirmFailed": "Confirmation failed",
   "register.confirmNetworkError":
     "Could not confirm payment. Please try again.",
+  "register.interruptedSession":
+    "It looks like your session was interrupted. If you\u2019ve already completed your payment, please contact us at info@european-resolve.org with your payment confirmation and we\u2019ll update your registration.",
+  "register.verifyingPayment": "Verifying payment\u2026",
+  "register.needInvoice": "Need your invoice?",
+  "register.startOver": "Register again",
 
   // tierCard
   "tierCard.badge": "Most chosen",
@@ -184,6 +189,9 @@ export const en = {
   "confirmation.confirmError":
     "Could not confirm payment. Please try again.",
   "confirmation.confirmFailed": "Confirmation failed",
+  "confirmation.interruptedSession":
+    "It looks like your session was interrupted. If you\u2019ve already completed your payment, please contact us at info@european-resolve.org with your payment confirmation and we\u2019ll update your registration.",
+  "confirmation.verifyingPayment": "Verifying payment\u2026",
   "confirmation.viewPage": "View your page →",
   "confirmation.shareHeading": "Share your page",
 

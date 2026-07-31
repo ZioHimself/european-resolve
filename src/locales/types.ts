@@ -77,6 +77,10 @@ export interface Locale {
   "register.confirmedSupporter": string;
   "register.confirmFailed": string;
   "register.confirmNetworkError": string;
+  "register.interruptedSession": string;
+  "register.verifyingPayment": string;
+  "register.needInvoice": string;
+  "register.startOver": string;
 
   // tierCard.* — TierCard
   "tierCard.badge": string;
@@ -162,6 +166,8 @@ export interface Locale {
   "confirmation.confirmed": string;
   "confirmation.confirmError": string;
   "confirmation.confirmFailed": string;
+  "confirmation.interruptedSession": string;
+  "confirmation.verifyingPayment": string;
   "confirmation.viewPage": string;
   "confirmation.shareHeading": string;
 

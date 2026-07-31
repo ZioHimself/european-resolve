@@ -10,9 +10,10 @@ import styles from "./ConfirmationPanel.module.css";
 interface ConfirmationPanelProps {
   result: RegisterResponse;
   onPaymentConfirmed?: () => void;
+  onStartOver?: () => void;
 }
 
-export function ConfirmationPanel({ result, onPaymentConfirmed }: ConfirmationPanelProps) {
+export function ConfirmationPanel({ result, onPaymentConfirmed, onStartOver }: ConfirmationPanelProps) {
   const [confirming, setConfirming] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -144,8 +145,18 @@ export function ConfirmationPanel({ result, onPaymentConfirmed }: ConfirmationPa
             container?.classList.toggle(styles.widgetCollapsed);
           }}
         >
-          {t("register.needInvoice") || "Need your invoice?"}
+          {t("register.needInvoice")}
         </button>
+
+        {onStartOver && (
+          <button
+            type="button"
+            className={styles.startOverLink}
+            onClick={onStartOver}
+          >
+            {t("register.startOver")}
+          </button>
+        )}
       </section>
     );
   }
@@ -205,8 +216,7 @@ export function ConfirmationPanel({ result, onPaymentConfirmed }: ConfirmationPa
         {interruptedSession && (
           <div className={styles.interruptedNotice}>
             <p>
-              {t("register.interruptedSession") ||
-                "It looks like your session was interrupted. If you\u2019ve already completed your payment, please contact us at info@european-resolve.org with your payment confirmation and we\u2019ll update your registration."}
+              {t("register.interruptedSession")}
             </p>
           </div>
         )}
@@ -222,7 +232,7 @@ export function ConfirmationPanel({ result, onPaymentConfirmed }: ConfirmationPa
             <div className={styles.verifyingOverlay}>
               <div className={styles.verifyingSpinner} />
               <p className={styles.verifyingText}>
-                {t("register.verifyingPayment") || "Verifying payment..."}
+                {t("register.verifyingPayment")}
               </p>
               {error && <p className={styles.confirmError}>{error}</p>}
             </div>

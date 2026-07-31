@@ -93,6 +93,11 @@ export const nl = {
   "register.confirmFailed": "Bevestiging mislukt",
   "register.confirmNetworkError":
     "Kan betaling niet bevestigen. Probeer het opnieuw.",
+  "register.interruptedSession":
+    "Het lijkt erop dat je sessie werd onderbroken. Als je je betaling al hebt voltooid, neem dan contact met ons op via info@european-resolve.org met je betalingsbevestiging en we werken je inschrijving bij.",
+  "register.verifyingPayment": "Betaling verifi\u00ebren\u2026",
+  "register.needInvoice": "Factuur nodig?",
+  "register.startOver": "Opnieuw inschrijven",
 
   // tierCard
   "tierCard.badge": "Meest gekozen",
@@ -192,6 +197,9 @@ export const nl = {
   "confirmation.confirmError":
     "Kan betaling niet bevestigen. Probeer het opnieuw.",
   "confirmation.confirmFailed": "Bevestiging mislukt",
+  "confirmation.interruptedSession":
+    "Het lijkt erop dat je sessie werd onderbroken. Als je je betaling al hebt voltooid, neem dan contact met ons op via info@european-resolve.org met je betalingsbevestiging en we werken je inschrijving bij.",
+  "confirmation.verifyingPayment": "Betaling verifi\u00ebren\u2026",
   "confirmation.viewPage": "Bekijk je pagina →",
   "confirmation.shareHeading": "Deel je pagina",
 
