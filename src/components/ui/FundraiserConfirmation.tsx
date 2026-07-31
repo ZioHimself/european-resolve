@@ -9,6 +9,7 @@ import styles from "./FundraiserConfirmation.module.css";
 interface RegistrationData {
   participantId: string;
   fullName: string;
+  email?: string;
   tierId: string;
   tierName: string;
   amountEur: number;
@@ -40,6 +41,10 @@ export function FundraiserConfirmation({
   const [confirming, setConfirming] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [confirmError, setConfirmError] = useState<string | null>(null);
+  const [detectionActive, setDetectionActive] = useState(true);
+  const [verifying, setVerifying] = useState(false);
+  const [effectiveTierName, setEffectiveTierName] = useState<string | null>(null);
+  const [effectiveRewards, setEffectiveRewards] = useState<string[] | null>(null);
 
   async function copyToClipboard(text: string, type: "share" | "edit") {
     try {
@@ -56,7 +61,38 @@ export function FundraiserConfirmation({
     }
   }
 
-  async function handleConfirmPayment() {
+  async function handleAutoConfirm(amount: number) {
+    if (!registration) return;
+    setVerifying(true);
+    setConfirmError(null);
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
+
+    try {
+      const res = await fetch(`${apiUrl}/api/register/confirm-payment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: registration.paymentToken, amount }),
+      });
+      const data = await res.json();
+
+      if (data.success && data.data?.confirmed) {
+        setConfirmed(true);
+        setEffectiveTierName(data.data.effectiveTierName ?? null);
+        setEffectiveRewards(data.data.rewards ?? null);
+        onPaymentConfirmed?.();
+      } else {
+        const firstErr = data.errors?.[0];
+        setConfirmError(firstErr?.code ? t(`errors.${firstErr.code}`) || firstErr.message : firstErr?.message ?? t("confirmation.confirmFailed"));
+      }
+    } catch {
+      setConfirmError(t("confirmation.confirmError"));
+    } finally {
+      setVerifying(false);
+    }
+  }
+
+  async function handleManualConfirm() {
     if (!registration) return;
     setConfirming(true);
     setConfirmError(null);
@@ -73,6 +109,8 @@ export function FundraiserConfirmation({
 
       if (data.success && data.data?.confirmed) {
         setConfirmed(true);
+        setEffectiveTierName(data.data.effectiveTierName ?? null);
+        setEffectiveRewards(data.data.rewards ?? null);
         onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
@@ -84,6 +122,9 @@ export function FundraiserConfirmation({
       setConfirming(false);
     }
   }
+
+  const displayTierName = effectiveTierName ?? registration?.tierName;
+  const displayRewards = effectiveRewards ?? registration?.rewards;
 
   return (
     <section className={styles.panel}>
@@ -138,7 +179,7 @@ export function FundraiserConfirmation({
           <div className={styles.summary}>
             <div className={styles.summaryRow}>
               <span className={styles.summaryKey}>{t("confirmation.tier")}</span>
-              <span className={styles.summaryValue}>{registration.tierName}</span>
+              <span className={styles.summaryValue}>{confirmed ? displayTierName : registration.tierName}</span>
             </div>
             <div className={styles.summaryRow}>
               <span className={styles.summaryKey}>{t("confirmation.amount")}</span>
@@ -149,7 +190,7 @@ export function FundraiserConfirmation({
           <div className={styles.rewards}>
             <h4 className={styles.rewardsHeading}>{t("confirmation.rewardsHeading")}</h4>
             <ul className={styles.rewardsList}>
-              {registration.rewards.map((reward) => (
+              {(confirmed && displayRewards ? displayRewards : registration.rewards).map((reward) => (
                 <li key={reward} className={styles.reward}>
                   <span className={styles.check}>✓</span> {reward}
                 </li>
@@ -171,24 +212,40 @@ export function FundraiserConfirmation({
                 })}
               </p>
 
-              <div className={styles.widgetContainer}>
-                <WhyDonateWidget shortcode={process.env.NEXT_PUBLIC_WHYDONATE_SHORTCODE ?? ""} />
+              <div className={styles.widgetContainer} style={{ position: "relative" }}>
+                <WhyDonateWidget
+                  shortcode={process.env.NEXT_PUBLIC_WHYDONATE_SHORTCODE ?? ""}
+                  onPaymentSuccess={handleAutoConfirm}
+                  onDetectionFailed={() => setDetectionActive(false)}
+                  donorInfo={registration.email ? { fullName: registration.fullName, email: registration.email } : undefined}
+                />
+                {verifying && (
+                  <div className={styles.verifyingOverlay}>
+                    <div className={styles.verifyingSpinner} />
+                    <p className={styles.verifyingText}>
+                      {t("confirmation.verifyingPayment") || "Verifying payment..."}
+                    </p>
+                    {confirmError && <p className={styles.confirmError}>{confirmError}</p>}
+                  </div>
+                )}
               </div>
 
-              <div className={styles.confirmSection}>
-                <p className={styles.confirmLabel}>{t("confirmation.afterDonation")}</p>
-                <button
-                  type="button"
-                  className={styles.confirmButton}
-                  onClick={handleConfirmPayment}
-                  disabled={confirming}
-                >
-                  {confirming
-                    ? t("confirmation.confirming")
-                    : t("confirmation.confirmButton")}
-                </button>
-                {confirmError && <p className={styles.confirmError}>{confirmError}</p>}
-              </div>
+              {!detectionActive && (
+                <div className={styles.confirmSection}>
+                  <p className={styles.confirmLabel}>{t("confirmation.afterDonation")}</p>
+                  <button
+                    type="button"
+                    className={styles.confirmButton}
+                    onClick={handleManualConfirm}
+                    disabled={confirming}
+                  >
+                    {confirming
+                      ? t("confirmation.confirming")
+                      : t("confirmation.confirmButton")}
+                  </button>
+                  {confirmError && <p className={styles.confirmError}>{confirmError}</p>}
+                </div>
+              )}
             </div>
           ) : (
             <div className={styles.confirmedBanner}>
