@@ -192,7 +192,7 @@ function FundraiserContent() {
       ) : (
         <div className={styles.donateSection}>
           <h2 className={styles.donateHeading}>{t("fundraiser.donateHeading")}</h2>
-          <WhyDonateWidget shortcode="nudW7" />
+          <WhyDonateWidget shortcode={process.env.NEXT_PUBLIC_WHYDONATE_SHORTCODE ?? ""} />
         </div>
       )}
 

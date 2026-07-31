@@ -172,7 +172,7 @@ export function FundraiserConfirmation({
               </p>
 
               <div className={styles.widgetContainer}>
-                <WhyDonateWidget shortcode="nudW7" />
+                <WhyDonateWidget shortcode={process.env.NEXT_PUBLIC_WHYDONATE_SHORTCODE ?? ""} />
               </div>
 
               <div className={styles.confirmSection}>
