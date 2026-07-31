@@ -104,7 +104,7 @@ describe("Footer", () => {
   it("renders no-cookies notice", () => {
     render(<Footer />);
     expect(
-      screen.getByText("We don't use cookies or collect personal data."),
+      screen.getByText("We don't use cookies or tracking."),
     ).toBeInTheDocument();
   });
 
