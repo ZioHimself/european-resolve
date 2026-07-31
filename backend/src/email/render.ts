@@ -99,7 +99,7 @@ export function renderConfirmationEmail(
               <!-- Event details -->
               <h2 style="margin:0 0 8px;font-size:16px;color:#0a1628;">${escapeHtml(l.eventDetailsHeading)}</h2>
               <p style="margin:0 0 4px;font-size:14px;color:#333;">📅 ${escapeHtml(l.eventDate)}</p>
-              <p style="margin:0 0 24px;font-size:14px;color:#333;">📍 ${escapeHtml(l.eventLocation)}</p>
+              <p style="margin:0 0 24px;font-size:14px;color:#333;">📍 <a href="https://maps.google.com/?q=Place+du+Luxembourg,+Brussels,+Belgium" style="color:#0057b8;text-decoration:underline;">${escapeHtml(l.eventLocation)}</a></p>
             </td>
           </tr>
 
@@ -229,7 +229,7 @@ export function renderFundraiserEmail(
               <!-- Event details -->
               <h2 style="margin:0 0 8px;font-size:16px;color:#0a1628;">${escapeHtml(l.eventDetailsHeading)}</h2>
               <p style="margin:0 0 4px;font-size:14px;color:#333;">📅 ${escapeHtml(l.eventDate)}</p>
-              <p style="margin:0 0 24px;font-size:14px;color:#333;">📍 ${escapeHtml(l.eventLocation)}</p>
+              <p style="margin:0 0 24px;font-size:14px;color:#333;">📍 <a href="https://maps.google.com/?q=Place+du+Luxembourg,+Brussels,+Belgium" style="color:#0057b8;text-decoration:underline;">${escapeHtml(l.eventLocation)}</a></p>
             </td>
           </tr>
 

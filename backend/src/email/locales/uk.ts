@@ -14,8 +14,8 @@ export const uk: EmailLocale = {
     "Щоб завершити реєстрацію на рівні {tierName}, будь ласка, зробіть донат €{amount} за посиланням нижче.",
   donationButton: "Задонатити €{amount}",
   eventDetailsHeading: "Деталі події",
-  eventDate: "23 серпня 2026",
-  eventLocation: "Брюссель, Бельгія",
+  eventDate: "23 серпня 2026, 10:00",
+  eventLocation: "Place du Luxembourg, Брюссель, Бельгія",
   footerText:
     "Цей лист надіслано European Resolve VZW як підтвердження вашої реєстрації на Run for Ukraine 2026.",
   footerUnsubscribe:

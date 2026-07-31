@@ -14,8 +14,8 @@ export const de: EmailLocale = {
     "Um deine {tierName}-Anmeldung abzuschließen, tätige bitte deine Spende von €{amount} über den untenstehenden Link.",
   donationButton: "€{amount} spenden",
   eventDetailsHeading: "Veranstaltungsdetails",
-  eventDate: "23. August 2026",
-  eventLocation: "Brüssel, Belgien",
+  eventDate: "23. August 2026, 10:00",
+  eventLocation: "Place du Luxembourg, Brüssel, Belgien",
   footerText:
     "Diese E-Mail wurde von European Resolve VZW als Bestätigung deiner Anmeldung zu Run for Ukraine 2026 gesendet.",
   footerUnsubscribe:
