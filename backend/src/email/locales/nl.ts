@@ -9,6 +9,9 @@ export const nl: EmailLocale = {
   tierLabel: "Formule",
   amountLabel: "Bedrag",
   rewardsLabel: "Jouw beloningen",
+  rewardsLabelPending: "Je gekozen formule bevat",
+  rewardsDisclaimer:
+    "De uiteindelijke beloningen zijn afhankelijk van je donatiebedrag.",
   donationHeading: "Rond je donatie af",
   donationInstructions:
     "Om je {tierName}-inschrijving te voltooien, gelieve je donatie van €{amount} te doen via onderstaande link.",
@@ -20,6 +23,8 @@ export const nl: EmailLocale = {
     "Deze e-mail is verzonden door European Resolve VZW als bevestiging van je inschrijving voor Run for Ukraine 2026.",
   footerUnsubscribe:
     "Je ontvangt dit bericht omdat je je hebt ingeschreven voor het evenement. Er worden geen verdere e-mails verstuurd tenzij je hebt ingestemd met communicatie.",
+  footerPaymentEmail:
+    "Je ontvangt nog één e-mail wanneer je betaling is bevestigd.",
   fundraiserSubject:
     "Run for Ukraine 2026 — Je actiepagina staat online!",
   fundraiserIntro:
@@ -31,4 +36,12 @@ export const nl: EmailLocale = {
     "Bewaar deze link — het is de enige manier om je actiepagina te bewerken. Deel deze niet publiekelijk.",
   fundraiserDisplayNameLabel: "Weergavenaam",
   fundraiserGoalLabel: "Persoonlijk doel",
+  paymentSubject: "Run for Ukraine 2026 — Betaling bevestigd!",
+  paymentIntro:
+    "Je donatie is ontvangen. Hier is je bevestigde inschrijving:",
+  paymentRewardsLabel: "Jouw beloningen",
+  paymentThankYou:
+    "Bedankt voor je steun aan de verdedigers van Oekraïne! Elke euro financiert laadstations aan het front.",
+  paymentFooter:
+    "Dit is je betalingsbewijs van European Resolve VZW voor Run for Ukraine 2026.",
 };

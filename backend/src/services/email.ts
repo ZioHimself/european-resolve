@@ -4,8 +4,10 @@ import { LANGUAGE_TO_LOCALE, type Language } from "../types.js";
 import {
   renderConfirmationEmail,
   renderFundraiserEmail,
+  renderPaymentConfirmationEmail,
   type RegistrationEmailData,
   type FundraiserEmailData,
+  type PaymentConfirmationEmailData,
 } from "../email/render.js";
 
 let transporter: Transporter | null = null;
@@ -77,5 +79,30 @@ export async function sendFundraiserEmail(
 
   console.info(
     `[email] Fundraiser confirmation sent to ${data.email} (locale: ${localeCode})`,
+  );
+}
+
+export async function sendPaymentConfirmationEmail(
+  data: PaymentConfirmationEmailData,
+  language: Language,
+): Promise<void> {
+  const transport = getTransporter();
+  if (!transport) {
+    console.warn("[email] SMTP not configured, skipping payment confirmation email");
+    return;
+  }
+
+  const localeCode = LANGUAGE_TO_LOCALE[language] ?? "en";
+  const { subject, html } = renderPaymentConfirmationEmail(data, localeCode);
+
+  await transport.sendMail({
+    from: config.smtp.from,
+    to: data.email,
+    subject,
+    html,
+  });
+
+  console.info(
+    `[email] Payment confirmation sent to ${data.email} (locale: ${localeCode})`,
   );
 }

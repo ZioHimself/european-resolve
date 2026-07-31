@@ -130,7 +130,7 @@ registerRoute.post("/", async (c) => {
       tierName: tier.name,
       amountEur: tier.price,
       rewards: filterRewards(tier.rewards, data.participationType),
-      donationUrl: config.donationUrl,
+      donationUrl: `${config.corsOrigins[0] ?? "https://european-resolve.org"}/events/2026-run-for-ukraine/register?token=${paymentToken}`,
     },
     data.language,
   ).catch((err) => console.error("[email] Failed to send confirmation:", err));

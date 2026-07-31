@@ -9,6 +9,7 @@ import { fundraiserRoute } from "./routes/fundraiser.js";
 import { progressRoute } from "./routes/progress.js";
 import { donorsRoute } from "./routes/donors.js";
 import { galleryRoute } from "./routes/gallery.js";
+import { lookupRoute } from "./routes/lookup.js";
 import { errorHandler } from "./middleware/error.js";
 
 const app = new Hono();
@@ -25,6 +26,7 @@ app.use(
 
 app.route("/health", healthRoute);
 app.route("/api/register/confirm-payment", confirmPaymentRoute);
+app.route("/api/register/by-token", lookupRoute);
 app.route("/api/register", registerRoute);
 app.route("/api/fundraiser", fundraiserRoute);
 app.route("/api/progress", progressRoute);

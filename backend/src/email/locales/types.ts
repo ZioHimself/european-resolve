@@ -6,6 +6,8 @@ export interface EmailLocale {
   tierLabel: string;
   amountLabel: string;
   rewardsLabel: string;
+  rewardsLabelPending: string;
+  rewardsDisclaimer: string;
   donationHeading: string;
   donationInstructions: string;
   donationButton: string;
@@ -14,6 +16,7 @@ export interface EmailLocale {
   eventLocation: string;
   footerText: string;
   footerUnsubscribe: string;
+  footerPaymentEmail: string;
   fundraiserSubject: string;
   fundraiserIntro: string;
   fundraiserHeading: string;
@@ -22,4 +25,9 @@ export interface EmailLocale {
   fundraiserEditHint: string;
   fundraiserDisplayNameLabel: string;
   fundraiserGoalLabel: string;
+  paymentSubject: string;
+  paymentIntro: string;
+  paymentRewardsLabel: string;
+  paymentThankYou: string;
+  paymentFooter: string;
 }

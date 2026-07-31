@@ -9,6 +9,9 @@ export const uk: EmailLocale = {
   tierLabel: "Рівень",
   amountLabel: "Сума",
   rewardsLabel: "Ваші нагороди",
+  rewardsLabelPending: "Обраний рівень включає",
+  rewardsDisclaimer:
+    "Остаточні нагороди залежать від суми вашого донату.",
   donationHeading: "Завершіть донат",
   donationInstructions:
     "Щоб завершити реєстрацію на рівні {tierName}, будь ласка, зробіть донат €{amount} за посиланням нижче.",
@@ -20,6 +23,8 @@ export const uk: EmailLocale = {
     "Цей лист надіслано European Resolve VZW як підтвердження вашої реєстрації на Run for Ukraine 2026.",
   footerUnsubscribe:
     "Ви отримали цей лист, тому що зареєструвались на подію. Інших листів не буде надіслано, якщо ви не погодились на розсилку.",
+  footerPaymentEmail:
+    "Ви отримаєте ще один лист, коли ваш платіж буде підтверджено.",
   fundraiserSubject:
     "Run for Ukraine 2026 — Вашу сторінку збору коштів створено!",
   fundraiserIntro:
@@ -31,4 +36,12 @@ export const uk: EmailLocale = {
     "Збережіть це посилання — це єдиний спосіб редагувати вашу сторінку збору коштів. Не поширюйте його публічно.",
   fundraiserDisplayNameLabel: "Відображуване ім'я",
   fundraiserGoalLabel: "Особиста мета",
+  paymentSubject: "Run for Ukraine 2026 — Платіж підтверджено!",
+  paymentIntro:
+    "Ваш донат отримано. Ось ваша підтверджена реєстрація:",
+  paymentRewardsLabel: "Ваші нагороди",
+  paymentThankYou:
+    "Дякуємо за підтримку захисників України! Кожне євро фінансує зарядні станції на передовій.",
+  paymentFooter:
+    "Це ваше підтвердження платежу від European Resolve VZW за Run for Ukraine 2026.",
 };

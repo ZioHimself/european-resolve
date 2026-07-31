@@ -340,7 +340,7 @@ fundraiserRoute.post("/register", async (c) => {
       tierName: tier.name,
       amountEur: tier.price,
       rewards: tier.rewards,
-      donationUrl: config.donationUrl,
+      donationUrl: `${config.corsOrigins[0] ?? "https://european-resolve.org"}/events/2026-run-for-ukraine/register?token=${paymentToken}`,
       slug,
       editToken,
       displayName: displayName!.trim(),

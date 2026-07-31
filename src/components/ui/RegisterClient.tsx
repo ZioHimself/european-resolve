@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Tier } from "@/data/event";
 import { tiers } from "@/data/event";
 import { TierGrid } from "@/components/ui/TierGrid";
@@ -29,6 +29,27 @@ export function RegisterClient() {
     useState<ParticipationType>("runner");
   const [registrationResult, setRegistrationResult] =
     useState<RegisterResponse | null>(readSavedResult);
+  const [tokenLoading, setTokenLoading] = useState(false);
+
+  useEffect(() => {
+    if (registrationResult) return;
+
+    const token = new URLSearchParams(window.location.search).get("token");
+    if (!token) return;
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
+    setTokenLoading(true);
+
+    fetch(`${apiUrl}/api/register/by-token/${encodeURIComponent(token)}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.success && data.data) {
+          setRegistrationResult(data.data as RegisterResponse);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setTokenLoading(false));
+  }, [registrationResult]);
 
   const selectedTier: Tier | null =
     selectedTierId
@@ -54,6 +75,10 @@ export function RegisterClient() {
     } catch { /* storage unavailable */ }
     setRegistrationResult(null);
     setSelectedTierId(null);
+  }
+
+  if (tokenLoading) {
+    return <div className={styles.wrapper} />;
   }
 
   return (

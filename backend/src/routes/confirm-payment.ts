@@ -1,8 +1,10 @@
 import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
+import { sendPaymentConfirmationEmail } from "../services/email.js";
 import type {
   ConfirmPaymentResponse,
   ApiResponse,
+  Language,
 } from "../types.js";
 
 export const confirmPaymentRoute = new Hono();
@@ -58,6 +60,18 @@ confirmPaymentRoute.post("/", async (c) => {
     effectiveTierName: result.effectiveTierName,
     rewards: result.rewards,
   };
+
+  sendPaymentConfirmationEmail(
+    {
+      name: result.fullName,
+      email: result.email,
+      participantId: result.participantId,
+      tierName: result.effectiveTierName,
+      amountEur: result.amountEur,
+      rewards: result.rewards,
+    },
+    result.language as Language,
+  ).catch((err) => console.error("[email] Failed to send payment confirmation:", err));
 
   return c.json({
     success: true,

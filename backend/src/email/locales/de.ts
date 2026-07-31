@@ -9,6 +9,9 @@ export const de: EmailLocale = {
   tierLabel: "Kategorie",
   amountLabel: "Betrag",
   rewardsLabel: "Deine Belohnungen",
+  rewardsLabelPending: "Deine gewählte Kategorie beinhaltet",
+  rewardsDisclaimer:
+    "Die endgültigen Belohnungen richten sich nach deinem Spendenbetrag.",
   donationHeading: "Spende abschließen",
   donationInstructions:
     "Um deine {tierName}-Anmeldung abzuschließen, tätige bitte deine Spende von €{amount} über den untenstehenden Link.",
@@ -20,6 +23,8 @@ export const de: EmailLocale = {
     "Diese E-Mail wurde von European Resolve VZW als Bestätigung deiner Anmeldung zu Run for Ukraine 2026 gesendet.",
   footerUnsubscribe:
     "Du erhältst diese Nachricht, weil du dich für die Veranstaltung angemeldet hast. Es werden keine weiteren E-Mails gesendet, es sei denn, du hast der Kommunikation zugestimmt.",
+  footerPaymentEmail:
+    "Du erhältst eine weitere E-Mail, sobald deine Zahlung bestätigt ist.",
   fundraiserSubject:
     "Run for Ukraine 2026 — Deine Spendenseite ist online!",
   fundraiserIntro:
@@ -31,4 +36,12 @@ export const de: EmailLocale = {
     "Speichere diesen Link — er ist der einzige Weg, deine Spendenseite zu bearbeiten. Teile ihn nicht öffentlich.",
   fundraiserDisplayNameLabel: "Anzeigename",
   fundraiserGoalLabel: "Persönliches Ziel",
+  paymentSubject: "Run for Ukraine 2026 — Zahlung bestätigt!",
+  paymentIntro:
+    "Deine Spende ist eingegangen. Hier ist deine bestätigte Anmeldung:",
+  paymentRewardsLabel: "Deine Belohnungen",
+  paymentThankYou:
+    "Danke, dass du die Verteidiger der Ukraine unterstützt! Jeder Euro finanziert Ladestationen an der Front.",
+  paymentFooter:
+    "Dies ist deine Zahlungsbestätigung von European Resolve VZW für Run for Ukraine 2026.",
 };
