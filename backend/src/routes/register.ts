@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
 import { sendConfirmationEmail } from "../services/email.js";
 import { config } from "../config.js";
+import { TIER_DATA, filterRewards } from "../tiers.js";
 import type {
   RegisterRequest,
   RegisterResponse,
@@ -18,44 +19,6 @@ const VALID_TSHIRT_SIZES: TshirtSize[] = ["XS", "S", "M", "L", "XL", "XXL"];
 const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian", "Dutch", "German"];
 const VALID_PARTICIPATION_TYPES: ParticipationType[] = ["runner", "supporter"];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const RUNNER_ONLY_REWARDS = new Set([
-  "Race bib",
-  "Technical race t-shirt",
-]);
-
-const TIER_DATA: Record<TierId, { name: string; price: number; rewards: string[] }> = {
-  supporter: {
-    name: "Supporter",
-    price: 10,
-    rewards: ["Race bib", "Digital certificate", "Hurkit keychain"],
-  },
-  champion: {
-    name: "Champion",
-    price: 35,
-    rewards: [
-      "Race bib",
-      "Digital certificate",
-      "Technical race t-shirt",
-      "Name on digital wall",
-      "Hurkit military branch coin",
-      "Hurkit branded sports socks",
-    ],
-  },
-  patron: {
-    name: "Patron",
-    price: 95,
-    rewards: [
-      "Race bib",
-      "Digital certificate",
-      "Technical race t-shirt",
-      "Name on digital wall",
-      "Hurkit military branch coin",
-      "Hurkit branded sports socks",
-      "Hurkit silk scarf",
-    ],
-  },
-};
 
 function validate(body: Record<string, unknown>): ValidationError[] {
   const errors: ValidationError[] = [];
@@ -110,11 +73,6 @@ function validate(body: Record<string, unknown>): ValidationError[] {
   }
 
   return errors;
-}
-
-function filterRewards(rewards: string[], participationType: ParticipationType): string[] {
-  if (participationType === "runner") return rewards;
-  return rewards.filter((r) => !RUNNER_ONLY_REWARDS.has(r));
 }
 
 export const registerRoute = new Hono();

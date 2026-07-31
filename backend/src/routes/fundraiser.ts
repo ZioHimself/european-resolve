@@ -3,6 +3,7 @@ import { SheetsService } from "../services/sheets.js";
 import { DriveService } from "../services/drive.js";
 import { sendFundraiserEmail } from "../services/email.js";
 import { config } from "../config.js";
+import { TIER_DATA } from "../tiers.js";
 import type {
   FundraiserResponse,
   FundraiserRegisterResponse,
@@ -26,37 +27,6 @@ const VALID_TIER_IDS: TierId[] = ["supporter", "champion", "patron"];
 const VALID_TSHIRT_SIZES: TshirtSize[] = ["XS", "S", "M", "L", "XL", "XXL"];
 const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian", "Dutch", "German"];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const TIER_DATA: Record<TierId, { name: string; price: number; rewards: string[] }> = {
-  supporter: {
-    name: "Supporter",
-    price: 10,
-    rewards: ["Race bib", "Digital certificate", "Hurkit keychain"],
-  },
-  champion: {
-    name: "Champion",
-    price: 35,
-    rewards: [
-      "Race bib",
-      "Digital certificate",
-      "Technical race t-shirt",
-      "Name on digital wall",
-      "Hurkit military branch coin",
-      "Hurkit branded sports socks",
-    ],
-  },
-  patron: {
-    name: "Patron",
-    price: 95,
-    rewards: [
-      "Race bib",
-      "Digital certificate",
-      "Technical race t-shirt",
-      "Name on digital wall",
-      "Hurkit silk scarf",
-    ],
-  },
-};
 
 fundraiserRoute.post("/", async (c) => {
   const formData = await c.req.formData();

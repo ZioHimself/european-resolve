@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { google, type sheets_v4 } from "googleapis";
 import { config } from "../config.js";
+import { getTierPrice } from "../tiers.js";
 import type {
   RegisterRequest,
   FundraiserCreateRequest,
@@ -88,7 +89,7 @@ export class SheetsService {
       data.language,
       data.country,
       data.tierId,
-      String(this.getTierPrice(data.tierId)),
+      String(getTierPrice(data.tierId)),
       String(data.gdprConsent),
       String(data.commsOptin ?? false),
       new Date().toISOString(),
@@ -173,15 +174,6 @@ export class SheetsService {
     const rows = res.data.values;
     if (!rows || rows.length <= 1) return 1;
     return rows.length;
-  }
-
-  private getTierPrice(tierId: string): number {
-    const prices: Record<string, number> = {
-      supporter: 10,
-      champion: 35,
-      patron: 95,
-    };
-    return prices[tierId] ?? 0;
   }
 
   async generateSlug(displayName: string): Promise<string> {
