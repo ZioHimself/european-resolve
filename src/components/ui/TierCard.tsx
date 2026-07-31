@@ -36,10 +36,10 @@ export function TierCard({
       )}
       <span className={styles.overline}>{tier.name}</span>
       <p className={styles.price}>€{tier.price}</p>
-      <FeeBreakdownBar
+      {/*<FeeBreakdownBar
         causeFee={tier.causeFee}
         logisticsFee={tier.logisticsFee}
-      />
+      />*/}
       <ul className={styles.rewards}>
         {visibleRewards.map((reward) => (
           <li key={reward} className={styles.reward}>
