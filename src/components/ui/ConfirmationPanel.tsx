@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { t } from "@/locales";
 import type { RegisterResponse } from "./registerTypes";
 import { WhyDonateWidget } from "./WhyDonateWidget";
@@ -19,6 +19,17 @@ export function ConfirmationPanel({ result, onPaymentConfirmed }: ConfirmationPa
   const [verifying, setVerifying] = useState(false);
   const [effectiveTierName, setEffectiveTierName] = useState<string | null>(null);
   const [effectiveRewards, setEffectiveRewards] = useState<string[] | null>(null);
+  const [interruptedSession, setInterruptedSession] = useState(false);
+
+  useEffect(() => {
+    const hasRegistration = sessionStorage.getItem("r4u:registration");
+    const hasOrderId = new URLSearchParams(window.location.search).has("orderId");
+    if (hasRegistration && !hasOrderId) {
+      setInterruptedSession(true);
+      const timer = setTimeout(() => setInterruptedSession(false), 10 * 60 * 1000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   async function handleAutoConfirm(amount: number) {
     setVerifying(true);
@@ -189,6 +200,15 @@ export function ConfirmationPanel({ result, onPaymentConfirmed }: ConfirmationPa
             tierName: result.tierName,
           })}
         </p>
+
+        {interruptedSession && (
+          <div className={styles.interruptedNotice}>
+            <p>
+              {t("register.interruptedSession") ||
+                "It looks like your session was interrupted. If you\u2019ve already completed your payment, please contact us at info@european-resolve.org with your payment confirmation and we\u2019ll update your registration."}
+            </p>
+          </div>
+        )}
 
         <div className={styles.widgetContainer} style={{ position: "relative" }}>
           <WhyDonateWidget

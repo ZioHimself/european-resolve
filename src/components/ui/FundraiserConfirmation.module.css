@@ -363,6 +363,22 @@
     }
   }
 
+  .interruptedNotice {
+    width: 100%;
+    background: var(--color-amber-20, #fef3c7);
+    border: 1px solid var(--color-amber-40, #fbbf24);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-6);
+    text-align: left;
+
+    & p {
+      font-size: var(--text-sm);
+      color: var(--color-text-primary);
+      line-height: var(--leading-relaxed);
+      margin: 0;
+    }
+  }
+
   .widgetExpandTrigger {
     background: none;
     border: none;
