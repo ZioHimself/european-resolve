@@ -5,7 +5,7 @@ milestone_name: milestone
 status: executing
 last_updated: "2026-07-30T05:51:12.270Z"
 progress:
-  total_phases: 7
+  total_phases: 8
   completed_phases: 0
   total_plans: 25
   completed_plans: 0
@@ -75,3 +75,4 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 
 - Phase 02.1 inserted after Phase 2: Replace Monobank jar with WhyDonate (URGENT)
 - Phase 04.1 inserted after Phase 4: Registration Confirmation Emails (URGENT)
+- Phase 6 added: WhyDonate Widget Auto-Detection — replace honour-system confirm button with DOM-based payment detection

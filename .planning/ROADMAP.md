@@ -159,6 +159,9 @@ Plans:
 ```
 Phase 1 (Static Pages) ──→ Phase 2 (Backend + Registration)
                                     │
+                                    ├──→ Phase 02.1 (WhyDonate Integration)
+                                    │           │
+                                    │           └──→ Phase 6 (Widget Auto-Detection)
                                     ▼
                            Phase 3 (Fundraising + Live Progress)
                                     │
@@ -173,7 +176,27 @@ Phase 1 (Static Pages) ──→ Phase 2 (Backend + Registration)
 
 ## Milestone Boundary
 
-Phases 1–5 (including 04.1) constitute **Milestone 1: Event Launch**. After Phase 5 and Phase 04.1, the event page is fully multilingual and ready for public launch ahead of 23 August 2026.
+Phases 1–6 (including 02.1 and 04.1) constitute **Milestone 1: Event Launch**. After Phase 5, Phase 04.1, and Phase 6, the event page is fully multilingual with automated payment detection, ready for public launch ahead of 23 August 2026.
+
+### Phase 6: WhyDonate Widget Auto-Detection
+
+**Goal:** Replace the manual "I've completed my donation" honour-system button with automatic payment detection by observing the WhyDonate widget's DOM state transitions inside its open Shadow DOM — enabling auto-confirmation and actual amount capture.
+**Requirements**: REGA-06
+**Depends on:** Phase 02.1
+**UI hint:** yes
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 6 to break down)
+
+**Success Criteria:**
+1. When a user completes payment in the WhyDonate widget, the system auto-detects success without manual button click
+2. The donated amount is read from the widget DOM and passed to the confirm-payment API
+3. Backend accepts optional `amount` field in confirm-payment and records actual donated amount (with tier minimum validation)
+4. Widget donor fields (first name, last name, email) are pre-filled from registration data
+5. Backend registration response includes `email` field for downstream pre-fill
+6. Fallback: if auto-detection fails (timeout), the manual confirm button is shown
+7. Shortcode is fully parameterized via env config (no hardcoded campaign IDs)
+8. Build succeeds with `npm run build`
 
 ---
 *Created: 2026-07-28*
