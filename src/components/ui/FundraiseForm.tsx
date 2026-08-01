@@ -84,6 +84,9 @@ export function FundraiseForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<CombinedResult | null>(readSavedResult);
+  const [isRestoredSession, setIsRestoredSession] = useState(
+    () => readSavedResult() !== null,
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function update(fields: Partial<FormData>) {
@@ -215,6 +218,7 @@ export function FundraiseForm() {
       }
 
       setResult(json.data);
+      setIsRestoredSession(false);
       try {
         sessionStorage.setItem(STORAGE_KEY, JSON.stringify(json.data));
       } catch { /* storage unavailable */ }
@@ -238,6 +242,7 @@ export function FundraiseForm() {
         editToken={result.fundraiser.editToken}
         displayName={result.fundraiser.displayName}
         registration={result.registration}
+        isRestoredSession={isRestoredSession}
         onPaymentConfirmed={handlePaymentConfirmed}
       />
     );

@@ -23,6 +23,7 @@ interface FundraiserConfirmationProps {
   editToken: string;
   displayName: string;
   registration?: RegistrationData;
+  isRestoredSession?: boolean;
   onPaymentConfirmed?: () => void;
 }
 
@@ -31,6 +32,7 @@ export function FundraiserConfirmation({
   editToken,
   displayName,
   registration,
+  isRestoredSession,
   onPaymentConfirmed,
 }: FundraiserConfirmationProps) {
   const baseUrl = "european-resolve.org/events/2026-run-for-ukraine/fundraiser";
@@ -49,14 +51,14 @@ export function FundraiserConfirmation({
   const [interruptedSession, setInterruptedSession] = useState(false);
 
   useEffect(() => {
-    const hasRegistration = sessionStorage.getItem("r4u:registration");
+    if (!isRestoredSession) return;
     const hasOrderId = new URLSearchParams(window.location.search).has("orderId");
-    if (hasRegistration && !hasOrderId) {
+    if (!hasOrderId) {
       setInterruptedSession(true);
       const timer = setTimeout(() => setInterruptedSession(false), 10 * 60 * 1000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [isRestoredSession]);
 
   async function copyToClipboard(text: string, type: "share" | "edit") {
     try {

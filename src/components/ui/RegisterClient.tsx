@@ -29,6 +29,9 @@ export function RegisterClient() {
     useState<ParticipationType>("runner");
   const [registrationResult, setRegistrationResult] =
     useState<RegisterResponse | null>(readSavedResult);
+  const [isRestoredSession, setIsRestoredSession] = useState(
+    () => readSavedResult() !== null,
+  );
   const [tokenLoading, setTokenLoading] = useState(false);
 
   useEffect(() => {
@@ -58,6 +61,7 @@ export function RegisterClient() {
 
   function handleRegistrationSuccess(result: RegisterResponse) {
     setRegistrationResult(result);
+    setIsRestoredSession(false);
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(result));
     } catch { /* storage unavailable */ }
@@ -86,6 +90,7 @@ export function RegisterClient() {
       {registrationResult ? (
         <ConfirmationPanel
           result={registrationResult}
+          isRestoredSession={isRestoredSession}
           onPaymentConfirmed={handlePaymentConfirmed}
           onStartOver={handleStartOver}
         />

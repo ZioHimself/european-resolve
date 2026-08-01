@@ -9,11 +9,12 @@ import styles from "./ConfirmationPanel.module.css";
 
 interface ConfirmationPanelProps {
   result: RegisterResponse;
+  isRestoredSession?: boolean;
   onPaymentConfirmed?: () => void;
   onStartOver?: () => void;
 }
 
-export function ConfirmationPanel({ result, onPaymentConfirmed, onStartOver }: ConfirmationPanelProps) {
+export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirmed, onStartOver }: ConfirmationPanelProps) {
   const [confirming, setConfirming] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -24,14 +25,14 @@ export function ConfirmationPanel({ result, onPaymentConfirmed, onStartOver }: C
   const [interruptedSession, setInterruptedSession] = useState(false);
 
   useEffect(() => {
-    const hasRegistration = sessionStorage.getItem("r4u:registration");
+    if (!isRestoredSession) return;
     const hasOrderId = new URLSearchParams(window.location.search).has("orderId");
-    if (hasRegistration && !hasOrderId) {
+    if (!hasOrderId) {
       setInterruptedSession(true);
       const timer = setTimeout(() => setInterruptedSession(false), 10 * 60 * 1000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [isRestoredSession]);
 
   async function handleAutoConfirm(amount: number) {
     setVerifying(true);
