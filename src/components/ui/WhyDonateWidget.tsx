@@ -17,11 +17,26 @@ function readAmount(shadow: ShadowRoot, id: string): number {
   return parseFloat(input?.value || "0");
 }
 
+const nativeInputValueSetter =
+  typeof window !== "undefined"
+    ? Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value")?.set
+    : undefined;
+
+function setInputValue(input: HTMLInputElement, value: string): void {
+  if (nativeInputValueSetter) {
+    nativeInputValueSetter.call(input, value);
+  } else {
+    input.value = value;
+  }
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+  input.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
 function prefillDonorFields(
   shadow: ShadowRoot,
   id: string,
   info: { fullName: string; email: string },
-): void {
+): boolean {
   const parts = info.fullName.trim().split(/\s+/);
   const firstName = parts[0] || "";
   const lastName = parts.slice(1).join(" ") || "";
@@ -32,13 +47,16 @@ function prefillDonorFields(
     [`donor-email-${id}`, info.email],
   ];
 
+  let filledCount = 0;
   for (const [fieldId, value] of fields) {
     const input = shadow.getElementById(fieldId) as HTMLInputElement | null;
     if (input) {
-      input.value = value;
-      input.dispatchEvent(new Event("input", { bubbles: true }));
+      setInputValue(input, value);
+      filledCount++;
     }
   }
+
+  return filledCount > 0;
 }
 
 export function WhyDonateWidget({
@@ -51,6 +69,8 @@ export function WhyDonateWidget({
   const containerRef = useRef<HTMLDivElement>(null);
   const prefillDoneRef = useRef(false);
   const detectionDoneRef = useRef(false);
+  const donorInfoRef = useRef(donorInfo);
+  donorInfoRef.current = donorInfo;
 
   useEffect(() => {
     const el = containerRef.current?.querySelector(".widget-here") as HTMLElement | null;
@@ -94,30 +114,56 @@ export function WhyDonateWidget({
     function handleShadowRoot(shadow: ShadowRoot) {
       if (cancelled) return;
 
-      // Pre-fill donor fields (once)
-      if (donorInfo && !prefillDoneRef.current) {
-        prefillDoneRef.current = true;
-        prefillDonorFields(shadow, id, donorInfo);
+      const currentDonorInfo = donorInfoRef.current;
+
+      // Pre-fill donor fields — attempt immediately, retry on DOM changes
+      if (currentDonorInfo && !prefillDoneRef.current) {
+        const filled = prefillDonorFields(shadow, id, currentDonorInfo);
+        if (filled) {
+          prefillDoneRef.current = true;
+        }
       }
 
-      if (!onPaymentSuccess || detectionDoneRef.current) return;
+      const needsPaymentDetection = onPaymentSuccess && !detectionDoneRef.current;
+      const needsPrefillRetry = currentDonorInfo && !prefillDoneRef.current;
 
-      // Check if already at step 4 (redirect return case)
-      const stepFour = shadow.getElementById(`step-four-container-${id}`);
-      if (stepFour && stepFour.style.display !== "none" && stepFour.style.display !== "") {
-        detectionDoneRef.current = true;
-        const amount = readAmount(shadow, id);
-        onPaymentSuccess(amount);
-        return;
+      if (!needsPaymentDetection && !needsPrefillRetry) return;
+
+      if (needsPaymentDetection) {
+        // Check if already at step 4 (redirect return case)
+        const stepFour = shadow.getElementById(`step-four-container-${id}`);
+        if (stepFour && stepFour.style.display !== "none" && stepFour.style.display !== "") {
+          detectionDoneRef.current = true;
+          const amount = readAmount(shadow, id);
+          onPaymentSuccess(amount);
+          if (!needsPrefillRetry) return;
+        }
       }
 
       observer = new MutationObserver(() => {
-        if (detectionDoneRef.current) return;
+        const info = donorInfoRef.current;
+        // Retry prefill when the widget renders new steps
+        if (info && !prefillDoneRef.current) {
+          const filled = prefillDonorFields(shadow, id, info);
+          if (filled) {
+            prefillDoneRef.current = true;
+          }
+        }
+
+        if (!onPaymentSuccess || detectionDoneRef.current) {
+          if (prefillDoneRef.current) {
+            observer?.disconnect();
+            observer = null;
+          }
+          return;
+        }
         const el = shadow.getElementById(`step-four-container-${id}`);
         if (el && el.style.display !== "none" && el.style.display !== "") {
           detectionDoneRef.current = true;
-          observer?.disconnect();
-          observer = null;
+          if (prefillDoneRef.current || !donorInfoRef.current) {
+            observer?.disconnect();
+            observer = null;
+          }
           const amount = readAmount(shadow, id);
           onPaymentSuccess(amount);
         }
