@@ -206,12 +206,19 @@ export function FundraiseForm() {
       if (!res.ok || !json.success) {
         const apiErrors: FormErrors = {};
         for (const err of (json.errors ?? []) as { field: string; message: string; code?: string }[]) {
-          apiErrors[err.field] = err.code ? t(`errors.${err.code}`) || err.message : err.message;
+          const key = err.field === "_global" ? "global" : err.field;
+          apiErrors[key] = err.code ? t(`errors.${err.code}`) || err.message : err.message;
         }
         setErrors(Object.keys(apiErrors).length > 0 ? apiErrors : { global: t("fundraise.globalError") });
-        if (apiErrors.displayName || apiErrors.message || apiErrors.goalEur || apiErrors.photo) {
+
+        const step1Fields = ["displayName", "message", "goalEur", "photo"];
+        const step2Fields = ["fullName", "email", "country", "tierId", "gdprConsent", "tshirtSize", "language", "phone"];
+        const hasStep1Error = step1Fields.some((f) => apiErrors[f]);
+        const hasStep2Error = step2Fields.some((f) => apiErrors[f]);
+
+        if (hasStep1Error) {
           setStep(1);
-        } else if (Object.keys(apiErrors).length > 0) {
+        } else if (hasStep2Error) {
           setStep(2);
         }
         return;
