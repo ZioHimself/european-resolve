@@ -80,3 +80,6 @@ jobs:
             SMTP_USER=${{ vars.SMTP_USER }}
             SMTP_PASS=${{ secrets.SMTP_PASS }}
             SMTP_FROM=${{ vars.SMTP_FROM }}
+            DRIVE_OAUTH_CLIENT_ID=${{ secrets.DRIVE_OAUTH_CLIENT_ID }}
+            DRIVE_OAUTH_CLIENT_SECRET=${{ secrets.DRIVE_OAUTH_CLIENT_SECRET }}
+            DRIVE_OAUTH_REFRESH_TOKEN=${{ secrets.DRIVE_OAUTH_REFRESH_TOKEN }}

@@ -24,6 +24,11 @@ export const config = Object.freeze({
     .map((o) => o.trim())
     .filter(Boolean),
   donationUrl: process.env.WHYDONATE_WIDGET_URL ?? "",
+  driveOAuth: {
+    clientId: process.env.DRIVE_OAUTH_CLIENT_ID ?? "",
+    clientSecret: process.env.DRIVE_OAUTH_CLIENT_SECRET ?? "",
+    refreshToken: process.env.DRIVE_OAUTH_REFRESH_TOKEN ?? "",
+  },
   smtp: {
     host: process.env.SMTP_HOST ?? "",
     port: Number(process.env.SMTP_PORT) || 465,

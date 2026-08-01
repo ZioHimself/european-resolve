@@ -12,8 +12,16 @@ export class DriveService {
   private drive: drive_v3.Drive;
 
   constructor() {
-    const auth = new google.auth.GoogleAuth({ scopes: SCOPES });
-    this.drive = google.drive({ version: "v3", auth });
+    const { clientId, clientSecret, refreshToken } = config.driveOAuth;
+
+    if (clientId && clientSecret && refreshToken) {
+      const oauth2 = new google.auth.OAuth2(clientId, clientSecret);
+      oauth2.setCredentials({ refresh_token: refreshToken });
+      this.drive = google.drive({ version: "v3", auth: oauth2 });
+    } else {
+      const auth = new google.auth.GoogleAuth({ scopes: SCOPES });
+      this.drive = google.drive({ version: "v3", auth });
+    }
   }
 
   async uploadPhoto(buffer: Buffer, filename: string): Promise<string> {
