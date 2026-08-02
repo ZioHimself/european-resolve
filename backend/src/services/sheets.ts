@@ -208,6 +208,11 @@ export class SheetsService {
     const effectiveTier = TIER_DATA[effectiveTierId];
     const participationType = (row[16] as ParticipationType) ?? "runner";
 
+    const fundraiserSlug = (row[17] as string) ?? "";
+    if (fundraiserSlug) {
+      await this.publishFundraiserBySlug(fundraiserSlug);
+    }
+
     return {
       success: true,
       participantId: row[0] as string,
@@ -371,6 +376,31 @@ export class SheetsService {
       status: (updatedRow[6] as "draft" | "published") ?? "draft",
       createdAt: updatedRow[7] as string,
     };
+  }
+
+  async publishFundraiserBySlug(slug: string): Promise<void> {
+    if (!slug) return;
+
+    const res = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: `${FUNDRAISER_SHEET}!A:H`,
+    });
+
+    const rows = res.data.values;
+    if (!rows || rows.length <= 1) return;
+
+    for (let i = 1; i < rows.length; i++) {
+      if (rows[i][0] === slug && rows[i][6] !== "published") {
+        const rowNumber = i + 1;
+        await this.sheets.spreadsheets.values.update({
+          spreadsheetId: config.spreadsheetId,
+          range: `${FUNDRAISER_SHEET}!G${rowNumber}`,
+          valueInputOption: "RAW",
+          requestBody: { values: [["published"]] },
+        });
+        break;
+      }
+    }
   }
 
   async listPublishedFundraisers(): Promise<FundraiserRow[]> {

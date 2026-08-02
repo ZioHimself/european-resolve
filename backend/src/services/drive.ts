@@ -55,7 +55,7 @@ export class DriveService {
   }
 
   getPhotoUrl(fileId: string): string {
-    return `https://drive.google.com/uc?id=${fileId}&export=view`;
+    return `https://lh3.googleusercontent.com/d/${fileId}`;
   }
 
   async listGalleryPhotos(folderId: string): Promise<{ id: string; name: string; url: string }[]> {
