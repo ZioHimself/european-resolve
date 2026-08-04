@@ -101,7 +101,7 @@ export const eventDetails = {
     url: "https://hurkit.org/",
   },
   goalEur: 3_000,
-  whydonateShortcode: "nudW7",
+  whydonateShortcode: "KvhGb",
   postEvent: {
     thankYouMessage:
       "Thank you to every runner, supporter, and donor who made Run for Ukraine 2026 possible. Together we powered hope on the front line.",
