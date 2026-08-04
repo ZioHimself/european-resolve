@@ -14,11 +14,12 @@ interface DonorEntry {
 interface DonorWallFormProps {
   slug: string;
   onEntryAdded: (entry: DonorEntry) => void;
+  skipGate?: boolean;
 }
 
-export function DonorWallForm({ slug, onEntryAdded }: DonorWallFormProps) {
+export function DonorWallForm({ slug, onEntryAdded, skipGate }: DonorWallFormProps) {
   const isCompleted = useEventStatus() === "completed";
-  const [revealed, setRevealed] = useState(false);
+  const [revealed, setRevealed] = useState(skipGate ?? false);
   const [donorName, setDonorName] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);

@@ -10,7 +10,7 @@ import styles from "./FundraiserConfirmation.module.css";
 interface RegistrationData {
   participantId: string;
   fullName: string;
-  email?: string;
+  email: string;
   tierId: string;
   tierName: string;
   amountEur: number;
@@ -239,7 +239,7 @@ export function FundraiserConfirmation({
                   shortcode={eventDetails.whydonateShortcode}
                   onPaymentSuccess={handleAutoConfirm}
                   onDetectionFailed={() => setDetectionActive(false)}
-                  donorInfo={registration.email ? { fullName: registration.fullName, email: registration.email } : undefined}
+                  donorInfo={{ fullName: registration.fullName, email: registration.email }}
                 />
                 {verifying && (
                   <div className={styles.verifyingOverlay}>

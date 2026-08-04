@@ -221,6 +221,11 @@ export const de = {
   "fundraiser.collectiveTotal": "Gesamtsumme: €{total}",
   "fundraiser.donateHeading": "Spenden",
   "fundraiser.shareHeading": "Diese Seite teilen",
+  "fundraiser.ctaButton": "{name} unterstützen",
+  "fundraiser.thankYouDonation": "Vielen Dank für Ihre Spende!",
+  "fundraiser.leaveMessage": "Hinterlassen Sie eine Nachricht",
+  "fundraiser.verifying": "Zahlung wird überprüft\u2026",
+  "fundraiser.manualConfirm": "Ich habe meine Spende abgeschlossen",
   "fundraiser.publishing": "Veröffentlichen\u2026",
   "fundraiser.publish": "Diese Seite veröffentlichen",
 

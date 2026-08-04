@@ -41,6 +41,7 @@ interface CombinedResult {
   registration: {
     participantId: string;
     fullName: string;
+    email: string;
     tierId: TierId;
     tierName: string;
     amountEur: number;
@@ -224,6 +225,9 @@ export function FundraiseForm() {
         return;
       }
 
+      if (!json.data.registration.email) {
+        json.data.registration.email = data.email.trim().toLowerCase();
+      }
       setResult(json.data);
       setIsRestoredSession(false);
       try {

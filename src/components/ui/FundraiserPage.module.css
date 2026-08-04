@@ -159,6 +159,136 @@
     text-align: center;
   }
 
+  .ctaButton {
+    display: block;
+    width: 100%;
+    background: var(--color-ua-blue);
+    color: var(--color-white);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    font-family: inherit;
+    line-height: var(--leading-normal);
+    padding: var(--space-4) var(--space-8);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+
+  .widgetContainer {
+    width: 100%;
+    min-height: 200px;
+  }
+
+  .verifyingOverlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    background: color-mix(in srgb, var(--color-background, #fff) 90%, transparent);
+    z-index: 10;
+    border-radius: var(--radius-lg);
+  }
+
+  .verifyingSpinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-ua-blue);
+    border-radius: 50%;
+    animation: fundraiserSpin 0.8s linear infinite;
+  }
+
+  @keyframes fundraiserSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .verifyingSpinner {
+      animation: none;
+    }
+  }
+
+  .verifyingText {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .fallbackSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .fallbackLabel {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .fallbackButton {
+    display: inline-block;
+    background: var(--color-ua-yellow);
+    color: var(--color-black);
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    font-family: inherit;
+    line-height: var(--leading-normal);
+    padding: var(--space-3) var(--space-8);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: opacity 0.15s;
+
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  .thankYouBanner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    text-align: center;
+  }
+
+  .thankYouIcon {
+    font-size: var(--text-h1);
+  }
+
+  .thankYouText {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .thankYouSubtext {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
   .editControls {
     display: flex;
     justify-content: center;

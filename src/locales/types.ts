@@ -181,6 +181,11 @@ export interface Locale {
   "fundraiser.collectiveTotal": string;
   "fundraiser.donateHeading": string;
   "fundraiser.shareHeading": string;
+  "fundraiser.ctaButton": string;
+  "fundraiser.thankYouDonation": string;
+  "fundraiser.leaveMessage": string;
+  "fundraiser.verifying": string;
+  "fundraiser.manualConfirm": string;
   "fundraiser.publishing": string;
   "fundraiser.publish": string;
 

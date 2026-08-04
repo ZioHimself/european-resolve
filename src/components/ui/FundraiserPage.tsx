@@ -33,11 +33,27 @@ interface DonorEntry {
   createdAt: string;
 }
 
+const STORAGE_KEY = "r4u:fundraiser-slug";
+
 function FundraiserContent() {
   const searchParams = useSearchParams();
-  const slug = searchParams.get("by");
   const editToken = searchParams.get("edit");
+  const redirectStatus = searchParams.get("redirect_status");
   const isCompleted = useEventStatus() === "completed";
+
+  // Resolve slug: prefer query param, fall back to sessionStorage on WhyDonate redirect
+  const slug = (() => {
+    const fromUrl = searchParams.get("by");
+    if (fromUrl) return fromUrl;
+    if (typeof window === "undefined") return null;
+    if (redirectStatus || searchParams.has("payment_intent")) {
+      try { return sessionStorage.getItem(STORAGE_KEY); } catch { return null; }
+    }
+    return null;
+  })();
+
+  // If returning from WhyDonate redirect with a successful payment, start in completed state
+  const isPaymentReturn = redirectStatus === "succeeded";
 
   const [fundraiser, setFundraiser] = useState<FundraiserData | null>(null);
   const [progress, setProgress] = useState<ProgressData | null>(null);
@@ -45,6 +61,10 @@ function FundraiserContent() {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [publishing, setPublishing] = useState(false);
+  const [widgetVisible, setWidgetVisible] = useState(false);
+  const [donationCompleted, setDonationCompleted] = useState(isPaymentReturn);
+  const [detectionActive, setDetectionActive] = useState(true);
+  const [verifying, setVerifying] = useState(false);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
 
@@ -190,10 +210,70 @@ function FundraiserContent() {
         <div className={styles.donateSection}>
           <p className={styles.donationsClosed}>{t("closed.donationsClosed")}</p>
         </div>
+      ) : donationCompleted ? (
+        <div className={styles.donateSection}>
+          <div className={styles.thankYouBanner}>
+            <span className={styles.thankYouIcon} aria-hidden="true">✓</span>
+            <p className={styles.thankYouText}>
+              {t("fundraiser.thankYouDonation")}
+            </p>
+            <p className={styles.thankYouSubtext}>
+              {t("fundraiser.leaveMessage")}
+            </p>
+          </div>
+        </div>
+      ) : !widgetVisible ? (
+        <div className={styles.donateSection}>
+          <h2 className={styles.donateHeading}>{t("fundraiser.donateHeading")}</h2>
+          <button
+            type="button"
+            className={styles.ctaButton}
+            onClick={() => {
+              try { sessionStorage.setItem(STORAGE_KEY, slug!); } catch { /* unavailable */ }
+              setWidgetVisible(true);
+            }}
+          >
+            {t("fundraiser.ctaButton", { name: fundraiser.displayName })}
+          </button>
+        </div>
       ) : (
         <div className={styles.donateSection}>
           <h2 className={styles.donateHeading}>{t("fundraiser.donateHeading")}</h2>
-          <WhyDonateWidget shortcode={eventDetails.whydonateShortcode} />
+          <div className={styles.widgetContainer} style={{ position: "relative" }}>
+            <WhyDonateWidget
+              shortcode={eventDetails.whydonateShortcode}
+              onPaymentSuccess={() => {
+                setVerifying(true);
+                setTimeout(() => {
+                  setVerifying(false);
+                  setDonationCompleted(true);
+                }, 1500);
+              }}
+              onDetectionFailed={() => setDetectionActive(false)}
+            />
+            {verifying && (
+              <div className={styles.verifyingOverlay}>
+                <div className={styles.verifyingSpinner} />
+                <p className={styles.verifyingText}>
+                  {t("fundraiser.verifying")}
+                </p>
+              </div>
+            )}
+          </div>
+          {!detectionActive && (
+            <div className={styles.fallbackSection}>
+              <p className={styles.fallbackLabel}>
+                {t("confirmation.afterDonation")}
+              </p>
+              <button
+                type="button"
+                className={styles.fallbackButton}
+                onClick={() => setDonationCompleted(true)}
+              >
+                {t("fundraiser.manualConfirm")}
+              </button>
+            </div>
+          )}
         </div>
       )}
 
@@ -212,8 +292,12 @@ function FundraiserContent() {
             entries={wallEntries}
             onEntriesLoaded={handleEntriesLoaded}
           />
-          {!isCompleted && (
-            <DonorWallForm slug={slug} onEntryAdded={handleEntryAdded} />
+          {!isCompleted && donationCompleted && (
+            <DonorWallForm
+              slug={slug}
+              onEntryAdded={handleEntryAdded}
+              skipGate
+            />
           )}
         </div>
       )}

@@ -215,6 +215,11 @@ export const nl = {
   "fundraiser.collectiveTotal": "Collectief totaal: €{total}",
   "fundraiser.donateHeading": "Doneren",
   "fundraiser.shareHeading": "Deel deze pagina",
+  "fundraiser.ctaButton": "Steun {name}",
+  "fundraiser.thankYouDonation": "Bedankt voor uw donatie!",
+  "fundraiser.leaveMessage": "Laat een steunbericht achter",
+  "fundraiser.verifying": "Betaling wordt geverifieerd\u2026",
+  "fundraiser.manualConfirm": "Ik heb mijn donatie voltooid",
   "fundraiser.publishing": "Publiceren\u2026",
   "fundraiser.publish": "Publiceer deze pagina",
 
