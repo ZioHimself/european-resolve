@@ -223,6 +223,13 @@ export const fr = {
   "fundraiser.manualConfirm": "J\u2019ai effectué mon don",
   "fundraiser.publishing": "Publication en cours\u2026",
   "fundraiser.publish": "Publier cette page",
+  "fundraiser.edit": "Modifier la collecte",
+  "fundraiser.editMessage": "Votre message",
+  "fundraiser.editGoal": "Objectif de collecte (€)",
+  "fundraiser.save": "Enregistrer",
+  "fundraiser.saving": "Enregistrement…",
+  "fundraiser.saveFailed": "Échec de l'enregistrement",
+  "fundraiser.cancel": "Annuler",
 
   // donorWall
   "donorWall.heading": "Soutiens",

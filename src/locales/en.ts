@@ -213,6 +213,13 @@ export const en = {
   "fundraiser.manualConfirm": "I\u2019ve completed my donation",
   "fundraiser.publishing": "Publishing\u2026",
   "fundraiser.publish": "Publish this page",
+  "fundraiser.edit": "Edit fundraiser",
+  "fundraiser.editMessage": "Your message",
+  "fundraiser.editGoal": "Fundraising goal (€)",
+  "fundraiser.save": "Save changes",
+  "fundraiser.saving": "Saving…",
+  "fundraiser.saveFailed": "Failed to save changes",
+  "fundraiser.cancel": "Cancel",
 
   // donorWall
   "donorWall.heading": "Supporters",

@@ -65,6 +65,12 @@ function FundraiserContent() {
   const [widgetVisible, setWidgetVisible] = useState(false);
   const [donationCompleted, setDonationCompleted] = useState(isPaymentReturn);
   const [detectionActive, setDetectionActive] = useState(true);
+  const [canEdit, setCanEdit] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editMessage, setEditMessage] = useState("");
+  const [editGoal, setEditGoal] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
 
@@ -92,6 +98,8 @@ function FundraiserContent() {
         const fundData = await fundRes.json();
         if (fundData.success) {
           setFundraiser(fundData.data);
+          setEditMessage(fundData.data.message);
+          setEditGoal(String(fundData.data.goalEur));
         } else {
           setNotFound(true);
         }
@@ -100,6 +108,22 @@ function FundraiserContent() {
           const progData = await progRes.json();
           if (progData.success) {
             setProgress(progData.data);
+          }
+        }
+
+        if (editToken && fundData.success && !isCompleted) {
+          try {
+            const verifyRes = await fetch(`${apiUrl}/api/fundraiser/${slug}`, {
+              method: "PUT",
+              headers: { Authorization: `Bearer ${editToken}` },
+              body: new FormData(),
+            });
+            if (verifyRes.ok) {
+              setCanEdit(true);
+              setEditing(true);
+            }
+          } catch {
+            setCanEdit(false);
           }
         }
 
@@ -174,6 +198,41 @@ function FundraiserContent() {
     }
   }
 
+  async function handleSave() {
+    if (!slug || !editToken || !fundraiser) return;
+    setSaving(true);
+    setSaveError(null);
+
+    try {
+      const formData = new FormData();
+      if (editMessage.trim() !== fundraiser.message) {
+        formData.append("message", editMessage.trim());
+      }
+      const newGoal = Number(editGoal);
+      if (!isNaN(newGoal) && newGoal !== fundraiser.goalEur) {
+        formData.append("goalEur", String(newGoal));
+      }
+
+      const res = await fetch(`${apiUrl}/api/fundraiser/${slug}`, {
+        method: "PUT",
+        headers: { Authorization: `Bearer ${editToken}` },
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setFundraiser(data.data);
+        setEditing(false);
+      } else {
+        setSaveError(data.errors?.[0]?.message ?? t("fundraiser.saveFailed"));
+      }
+    } catch {
+      setSaveError(t("fundraiser.saveFailed"));
+    } finally {
+      setSaving(false);
+    }
+  }
+
   const handleEntriesLoaded = useCallback((entries: DonorEntry[]) => {
     setWallEntries(entries);
   }, []);
@@ -227,33 +286,80 @@ function FundraiserContent() {
         </h1>
       </header>
 
-      <div className={styles.message}>
-        <p>{fundraiser.message}</p>
-      </div>
+      {editing ? (
+        <div className={styles.editForm}>
+          <label className={styles.editLabel}>
+            {t("fundraiser.editMessage")}
+            <textarea
+              className={styles.editTextarea}
+              value={editMessage}
+              onChange={(e) => setEditMessage(e.target.value)}
+              maxLength={500}
+              rows={4}
+            />
+          </label>
+          <label className={styles.editLabel}>
+            {t("fundraiser.editGoal")}
+            <input
+              type="number"
+              className={styles.editInput}
+              value={editGoal}
+              onChange={(e) => setEditGoal(e.target.value)}
+              min={10}
+              max={100000}
+            />
+          </label>
+          {saveError && <p className={styles.saveError}>{saveError}</p>}
+          <div className={styles.editActions}>
+            <button
+              type="button"
+              className={styles.ctaButton}
+              onClick={handleSave}
+              disabled={saving}
+            >
+              {saving ? t("fundraiser.saving") : t("fundraiser.save")}
+            </button>
+            <button
+              type="button"
+              className={styles.editCancelButton}
+              onClick={() => setEditing(false)}
+              disabled={saving}
+            >
+              {t("fundraiser.cancel")}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className={styles.message}>
+            <p>{fundraiser.message}</p>
+          </div>
 
-      <div className={styles.goalInfo}>
-        <span className={styles.goalPersonal}>
-          {t("fundraiser.personalGoal", {
-            goal: fundraiser.goalEur.toLocaleString("en-GB"),
-          })}
-        </span>
-        {(fundraiser.raisedEur ?? 0) > 0 && (
-          <span className={styles.goalRaised}>
-            {t("fundraiser.raisedSoFar", {
-              raised: (fundraiser.raisedEur ?? 0).toLocaleString("en-GB"),
-            })}
-          </span>
-        )}
-        {progress && (
-          <span className={styles.goalCollective}>
-            {t("fundraiser.collectiveTotal", {
-              total: progress.totalRaisedEur.toLocaleString("en-GB"),
-            })}
-          </span>
-        )}
-      </div>
+          <div className={styles.goalInfo}>
+            <span className={styles.goalPersonal}>
+              {t("fundraiser.personalGoal", {
+                goal: fundraiser.goalEur.toLocaleString("en-GB"),
+              })}
+            </span>
+            {(fundraiser.raisedEur ?? 0) > 0 && (
+              <span className={styles.goalRaised}>
+                {t("fundraiser.raisedSoFar", {
+                  raised: (fundraiser.raisedEur ?? 0).toLocaleString("en-GB"),
+                })}
+              </span>
+            )}
+            {progress && (
+              <span className={styles.goalCollective}>
+                {t("fundraiser.collectiveTotal", {
+                  total: progress.totalRaisedEur.toLocaleString("en-GB"),
+                })}
+              </span>
+            )}
+          </div>
+        </>
+      )}
 
-      {isCompleted ? (
+      {!editing && (isCompleted ? (
         <div className={styles.donateSection}>
           <p className={styles.donationsClosed}>{t("closed.donationsClosed")}</p>
         </div>
@@ -341,7 +447,7 @@ function FundraiserContent() {
             </div>
           )}
         </div>
-      )}
+      ))}
 
       <div className={styles.shareSection}>
         <h2 className={styles.shareSectionHeading}>{t("fundraiser.shareHeading")}</h2>
@@ -361,7 +467,7 @@ function FundraiserContent() {
         </div>
       )}
 
-      {!isCompleted && editToken && fundraiser.status === "draft" && (
+      {!isCompleted && canEdit && fundraiser.status === "draft" && (
         <div className={styles.editControls}>
           <button
             type="button"

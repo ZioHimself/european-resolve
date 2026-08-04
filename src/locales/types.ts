@@ -187,6 +187,13 @@ export interface Locale {
   "fundraiser.manualConfirm": string;
   "fundraiser.publishing": string;
   "fundraiser.publish": string;
+  "fundraiser.edit": string;
+  "fundraiser.editMessage": string;
+  "fundraiser.editGoal": string;
+  "fundraiser.save": string;
+  "fundraiser.saving": string;
+  "fundraiser.saveFailed": string;
+  "fundraiser.cancel": string;
 
   // donorWall.* — DonorWall, DonorWallForm
   "donorWall.heading": string;

@@ -221,6 +221,13 @@ export const nl = {
   "fundraiser.manualConfirm": "Ik heb mijn donatie voltooid",
   "fundraiser.publishing": "Publiceren\u2026",
   "fundraiser.publish": "Publiceer deze pagina",
+  "fundraiser.edit": "Fondsenwerving bewerken",
+  "fundraiser.editMessage": "Je bericht",
+  "fundraiser.editGoal": "Fondsenwervingsdoel (€)",
+  "fundraiser.save": "Wijzigingen opslaan",
+  "fundraiser.saving": "Opslaan\u2026",
+  "fundraiser.saveFailed": "Wijzigingen konden niet worden opgeslagen",
+  "fundraiser.cancel": "Annuleren",
 
   // donorWall
   "donorWall.heading": "Supporters",

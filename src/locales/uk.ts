@@ -222,6 +222,13 @@ export const uk = {
   "fundraiser.manualConfirm": "Я завершив донат",
   "fundraiser.publishing": "Публікація\u2026",
   "fundraiser.publish": "Опублікувати цю сторінку",
+  "fundraiser.edit": "Редагувати збір",
+  "fundraiser.editMessage": "Ваше повідомлення",
+  "fundraiser.editGoal": "Мета збору (€)",
+  "fundraiser.save": "Зберегти зміни",
+  "fundraiser.saving": "Збереження…",
+  "fundraiser.saveFailed": "Не вдалося зберегти зміни",
+  "fundraiser.cancel": "Скасувати",
 
   // donorWall
   "donorWall.heading": "Підтримка",

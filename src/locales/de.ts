@@ -227,6 +227,13 @@ export const de = {
   "fundraiser.manualConfirm": "Ich habe meine Spende abgeschlossen",
   "fundraiser.publishing": "Veröffentlichen\u2026",
   "fundraiser.publish": "Diese Seite veröffentlichen",
+  "fundraiser.edit": "Spendenaktion bearbeiten",
+  "fundraiser.editMessage": "Ihre Nachricht",
+  "fundraiser.editGoal": "Spendenziel (€)",
+  "fundraiser.save": "Änderungen speichern",
+  "fundraiser.saving": "Speichern…",
+  "fundraiser.saveFailed": "Änderungen konnten nicht gespeichert werden",
+  "fundraiser.cancel": "Abbrechen",
 
   // donorWall
   "donorWall.heading": "Unterstützer",

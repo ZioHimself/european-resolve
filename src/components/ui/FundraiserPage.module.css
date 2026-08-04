@@ -146,6 +146,97 @@
     color: var(--color-ua-blue);
   }
 
+  .editButton {
+    align-self: center;
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2) var(--space-6);
+    font-family: inherit;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+
+    &:hover {
+      border-color: var(--color-ua-blue);
+      color: var(--color-ua-blue);
+    }
+  }
+
+  .editForm {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .editLabel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+  }
+
+  .editInput,
+  .editTextarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: var(--text-base);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md, 8px);
+    background: var(--color-background);
+    color: var(--color-text-primary);
+
+    &:focus {
+      outline: 2px solid var(--color-amber);
+      outline-offset: 2px;
+    }
+  }
+
+  .editTextarea {
+    resize: vertical;
+    min-height: 5rem;
+  }
+
+  .editActions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+
+  .editCancelButton {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-8);
+    font-family: inherit;
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: opacity 0.15s;
+
+    &:hover:not(:disabled) {
+      opacity: 0.7;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .saveError {
+    font-size: var(--text-sm);
+    color: var(--color-red, #c41e3a);
+    text-align: center;
+    margin: 0;
+  }
+
   .donateSection {
     display: flex;
     flex-direction: column;
