@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 interface WhyDonateWidgetProps {
   shortcode: string;
   lang?: string;
-  onPaymentSuccess?: (amount: number) => void;
+  onPaymentSuccess?: (amount: number, donorName?: string) => void;
   onDetectionFailed?: () => void;
   donorInfo?: { fullName: string; email: string };
 }
@@ -15,6 +15,13 @@ function readAmount(shadow: ShadowRoot, id: string): number {
     `other-amount-number-${id}`,
   ) as HTMLInputElement | null;
   return parseFloat(input?.value || "0");
+}
+
+function readDonorName(shadow: ShadowRoot, id: string): string | undefined {
+  const fname = (shadow.getElementById(`donor-fname-${id}`) as HTMLInputElement | null)?.value?.trim() ?? "";
+  const lname = (shadow.getElementById(`donor-lname-${id}`) as HTMLInputElement | null)?.value?.trim() ?? "";
+  const full = [fname, lname].filter(Boolean).join(" ");
+  return full || undefined;
 }
 
 const nativeInputValueSetter =
@@ -135,7 +142,7 @@ export function WhyDonateWidget({
         if (stepFour && stepFour.style.display !== "none" && stepFour.style.display !== "") {
           detectionDoneRef.current = true;
           const amount = readAmount(shadow, id);
-          onPaymentSuccess(amount);
+          onPaymentSuccess(amount, readDonorName(shadow, id));
           if (!needsPrefillRetry) return;
         }
       }
@@ -165,7 +172,7 @@ export function WhyDonateWidget({
             observer = null;
           }
           const amount = readAmount(shadow, id);
-          onPaymentSuccess(amount);
+          onPaymentSuccess(amount, readDonorName(shadow, id));
         }
       });
 

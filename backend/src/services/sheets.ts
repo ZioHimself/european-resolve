@@ -469,6 +469,25 @@ export class SheetsService {
     return { totalRaisedEur, participantCount, donorCount };
   }
 
+  async getFundraiserRaised(slug: string): Promise<number> {
+    try {
+      const res = await this.sheets.spreadsheets.values.get({
+        spreadsheetId: config.spreadsheetId,
+        range: `${DONOR_WALL_SHEET}!A:E`,
+      });
+      const rows = res.data.values ?? [];
+      let total = 0;
+      for (let i = 1; i < rows.length; i++) {
+        if (rows[i][0] === slug) {
+          total += Number(rows[i][4]) || 0;
+        }
+      }
+      return total;
+    } catch {
+      return 0;
+    }
+  }
+
   async addDonorWallEntry(
     slug: string,
     name: string,

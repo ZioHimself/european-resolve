@@ -15,6 +15,7 @@ interface FundraiserData {
   displayName: string;
   message: string;
   goalEur: number;
+  raisedEur?: number;
   photoUrl: string | null;
   status: "draft" | "published";
   createdAt: string;
@@ -62,13 +63,7 @@ function FundraiserContent() {
   const [publishing, setPublishing] = useState(false);
   const [widgetVisible, setWidgetVisible] = useState(false);
   const [donationCompleted, setDonationCompleted] = useState(isPaymentReturn);
-  const [wallPosted, setWallPosted] = useState(false);
   const [detectionActive, setDetectionActive] = useState(true);
-  const [verifying, setVerifying] = useState(false);
-  const [detectedAmount, setDetectedAmount] = useState(0);
-  const [donorName, setDonorName] = useState("");
-  const [donorMessage, setDonorMessage] = useState("");
-  const [postingWall, setPostingWall] = useState(false);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
 
@@ -201,6 +196,13 @@ function FundraiserContent() {
             goal: fundraiser.goalEur.toLocaleString("en-GB"),
           })}
         </span>
+        {(fundraiser.raisedEur ?? 0) > 0 && (
+          <span className={styles.goalRaised}>
+            {t("fundraiser.raisedSoFar", {
+              raised: (fundraiser.raisedEur ?? 0).toLocaleString("en-GB"),
+            })}
+          </span>
+        )}
         {progress && (
           <span className={styles.goalCollective}>
             {t("fundraiser.collectiveTotal", {
@@ -216,70 +218,12 @@ function FundraiserContent() {
         </div>
       ) : donationCompleted ? (
         <div className={styles.donateSection}>
-          {wallPosted ? (
-            <div className={styles.thankYouBanner}>
-              <span className={styles.thankYouIcon} aria-hidden="true">✓</span>
-              <p className={styles.thankYouText}>
-                {t("fundraiser.thankYouDonation")}
-              </p>
-            </div>
-          ) : (
-            <div className={styles.wallInlineForm}>
-              <span className={styles.thankYouIcon} aria-hidden="true">✓</span>
-              <p className={styles.thankYouText}>
-                {t("fundraiser.thankYouDonation")}
-              </p>
-              <p className={styles.thankYouSubtext}>
-                {t("fundraiser.leaveMessage")}
-              </p>
-              <input
-                type="text"
-                className={styles.wallInput}
-                placeholder={t("donorWall.namePlaceholder")}
-                value={donorName}
-                onChange={(e) => setDonorName(e.target.value)}
-                maxLength={50}
-              />
-              <textarea
-                className={`${styles.wallInput} ${styles.wallTextarea}`}
-                placeholder={t("donorWall.messagePlaceholder")}
-                value={donorMessage}
-                onChange={(e) => setDonorMessage(e.target.value)}
-                maxLength={200}
-              />
-              <button
-                type="button"
-                className={styles.ctaButton}
-                disabled={postingWall}
-                onClick={async () => {
-                  setPostingWall(true);
-                  try {
-                    const res = await fetch(`${apiUrl}/api/donation/${slug}`, {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({
-                        amount: detectedAmount,
-                        donorName: donorName.trim() || undefined,
-                        message: donorMessage.trim() || undefined,
-                      }),
-                    });
-                    const data = await res.json();
-                    if (data.success && data.data) {
-                      handleEntryAdded({
-                        donorName: data.data.donorName,
-                        message: data.data.message,
-                        createdAt: data.data.createdAt,
-                      });
-                    }
-                  } catch { /* best-effort */ }
-                  setWallPosted(true);
-                  setPostingWall(false);
-                }}
-              >
-                {postingWall ? t("donorWall.posting") : t("donorWall.postButton")}
-              </button>
-            </div>
-          )}
+          <div className={styles.thankYouBanner}>
+            <span className={styles.thankYouIcon} aria-hidden="true">✓</span>
+            <p className={styles.thankYouText}>
+              {t("fundraiser.thankYouDonation")}
+            </p>
+          </div>
         </div>
       ) : !widgetVisible ? (
         <div className={styles.donateSection}>
@@ -301,20 +245,30 @@ function FundraiserContent() {
           <div className={styles.widgetContainer} style={{ position: "relative" }}>
             <WhyDonateWidget
               shortcode={eventDetails.whydonateShortcode}
-              onPaymentSuccess={(amount) => {
-                setDetectedAmount(amount);
+              onPaymentSuccess={(amount, widgetDonorName) => {
                 setDonationCompleted(true);
+                fetch(`${apiUrl}/api/donation/${slug}`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    amount,
+                    donorName: widgetDonorName,
+                  }),
+                })
+                  .then((r) => r.json())
+                  .then((data) => {
+                    if (data.success && data.data) {
+                      handleEntryAdded({
+                        donorName: data.data.donorName,
+                        message: data.data.message,
+                        createdAt: data.data.createdAt,
+                      });
+                    }
+                  })
+                  .catch(() => { /* best-effort */ });
               }}
               onDetectionFailed={() => setDetectionActive(false)}
             />
-            {verifying && (
-              <div className={styles.verifyingOverlay}>
-                <div className={styles.verifyingSpinner} />
-                <p className={styles.verifyingText}>
-                  {t("fundraiser.verifying")}
-                </p>
-              </div>
-            )}
           </div>
           {!detectionActive && (
             <div className={styles.fallbackSection}>

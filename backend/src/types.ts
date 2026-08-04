@@ -72,6 +72,7 @@ export interface FundraiserResponse {
   displayName: string;
   message: string;
   goalEur: number;
+  raisedEur?: number;
   photoUrl: string | null;
   status: "draft" | "published";
   createdAt: string;

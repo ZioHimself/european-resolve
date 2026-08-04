@@ -91,7 +91,10 @@ fundraiserRoute.post("/", async (c) => {
 
 fundraiserRoute.get("/:slug", async (c) => {
   const slug = c.req.param("slug");
-  const fundraiser = await sheetsService.getFundraiser(slug);
+  const [fundraiser, raisedEur] = await Promise.all([
+    sheetsService.getFundraiser(slug),
+    sheetsService.getFundraiserRaised(slug),
+  ]);
 
   if (!fundraiser) {
     return c.json(
@@ -105,6 +108,7 @@ fundraiserRoute.get("/:slug", async (c) => {
     displayName: fundraiser.displayName,
     message: fundraiser.message,
     goalEur: fundraiser.goalEur,
+    raisedEur,
     photoUrl: fundraiser.photoFileId ? driveService.getPhotoUrl(fundraiser.photoFileId) : null,
     status: fundraiser.status,
     createdAt: fundraiser.createdAt,
