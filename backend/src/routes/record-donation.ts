@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
-import type { ApiResponse } from "../types.js";
+import type { ApiResponse, DonorWallEntry } from "../types.js";
 
 export const recordDonationRoute = new Hono();
 
@@ -32,10 +32,23 @@ recordDonationRoute.post("/:slug", async (c) => {
     );
   }
 
-  await sheetsService.addDonorWallEntry(slug, "", "", amount);
+  const rawName = typeof body.donorName === "string" ? body.donorName.trim() : "";
+  const rawMessage = typeof body.message === "string" ? body.message.trim() : "";
+
+  const donorName = rawName || "Anonymous";
+  const message = rawMessage || `supports "${fundraiser.displayName}" for €${amount}`;
+
+  await sheetsService.addDonorWallEntry(slug, donorName, message, amount);
+
+  const entry: DonorWallEntry = {
+    fundraiserSlug: slug,
+    donorName,
+    message,
+    createdAt: new Date().toISOString(),
+  };
 
   return c.json({
     success: true,
-    data: { recorded: true },
-  } satisfies ApiResponse<{ recorded: boolean }>, 201);
+    data: entry,
+  } satisfies ApiResponse<DonorWallEntry>, 201);
 });
