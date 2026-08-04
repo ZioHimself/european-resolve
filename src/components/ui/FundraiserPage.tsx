@@ -111,6 +111,7 @@ function FundraiserContent() {
             storedDonor = sessionStorage.getItem(STORAGE_DONOR_KEY) ?? "";
             sessionStorage.removeItem(STORAGE_AMOUNT_KEY);
             sessionStorage.removeItem(STORAGE_DONOR_KEY);
+            sessionStorage.removeItem(STORAGE_KEY);
           } catch { /* unavailable */ }
 
           console.log("[FundraiserPage] redirect return — recording donation", {
@@ -310,7 +311,14 @@ function FundraiserContent() {
                       });
                     }
                   })
-                  .catch(() => { /* best-effort */ });
+                  .catch(() => { /* best-effort */ })
+                  .finally(() => {
+                    try {
+                      sessionStorage.removeItem(STORAGE_AMOUNT_KEY);
+                      sessionStorage.removeItem(STORAGE_DONOR_KEY);
+                      sessionStorage.removeItem(STORAGE_KEY);
+                    } catch { /* unavailable */ }
+                  });
               }}
               onDetectionFailed={() => {
                 console.log("[FundraiserPage] widget detection failed");
