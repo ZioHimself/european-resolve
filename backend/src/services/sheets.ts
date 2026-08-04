@@ -455,10 +455,13 @@ export class SheetsService {
     try {
       const donorRes = await this.sheets.spreadsheets.values.get({
         spreadsheetId: config.spreadsheetId,
-        range: `${DONOR_WALL_SHEET}!A:A`,
+        range: `${DONOR_WALL_SHEET}!A:E`,
       });
       const donorRows = donorRes.data.values ?? [];
       donorCount = Math.max(0, donorRows.length - 1);
+      for (let i = 1; i < donorRows.length; i++) {
+        totalRaisedEur += Number(donorRows[i][4]) || 0;
+      }
     } catch {
       // Donor Wall sheet may not exist yet — default to 0
     }
@@ -470,8 +473,9 @@ export class SheetsService {
     slug: string,
     name: string,
     message: string,
+    amount?: number,
   ): Promise<void> {
-    const row = [slug, name, message, new Date().toISOString()];
+    const row = [slug, name, message, new Date().toISOString(), amount ? String(amount) : ""];
 
     await this.sheets.spreadsheets.values.append({
       spreadsheetId: config.spreadsheetId,
@@ -484,7 +488,7 @@ export class SheetsService {
   async getDonorWallEntries(slug: string): Promise<DonorWallEntry[]> {
     const res = await this.sheets.spreadsheets.values.get({
       spreadsheetId: config.spreadsheetId,
-      range: `${DONOR_WALL_SHEET}!A:D`,
+      range: `${DONOR_WALL_SHEET}!A:E`,
     });
 
     const rows = res.data.values;
@@ -492,7 +496,7 @@ export class SheetsService {
 
     return rows
       .slice(1)
-      .filter((row) => row[0] === slug)
+      .filter((row) => row[0] === slug && row[1])
       .map((row) => ({
         fundraiserSlug: row[0] as string,
         donorName: row[1] as string,

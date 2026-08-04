@@ -242,12 +242,16 @@ function FundraiserContent() {
           <div className={styles.widgetContainer} style={{ position: "relative" }}>
             <WhyDonateWidget
               shortcode={eventDetails.whydonateShortcode}
-              onPaymentSuccess={() => {
+              onPaymentSuccess={(amount) => {
                 setVerifying(true);
-                setTimeout(() => {
+                fetch(`${apiUrl}/api/donation/${slug}`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ amount }),
+                }).finally(() => {
                   setVerifying(false);
                   setDonationCompleted(true);
-                }, 1500);
+                });
               }}
               onDetectionFailed={() => setDetectionActive(false)}
             />
