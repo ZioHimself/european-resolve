@@ -137,12 +137,17 @@ export function WhyDonateWidget({
       if (!needsPaymentDetection && !needsPrefillRetry) return;
 
       if (needsPaymentDetection) {
-        // Check if already at step 4 (redirect return case)
         const stepFour = shadow.getElementById(`step-four-container-${id}`);
+        console.log("[WhyDonateWidget] checking step-four on mount", {
+          found: !!stepFour,
+          display: stepFour?.style.display,
+        });
         if (stepFour && stepFour.style.display !== "none" && stepFour.style.display !== "") {
           detectionDoneRef.current = true;
           const amount = readAmount(shadow, id);
-          onPaymentSuccess(amount, readDonorName(shadow, id));
+          const name = readDonorName(shadow, id);
+          console.log("[WhyDonateWidget] step-four detected on mount", { amount, name });
+          onPaymentSuccess(amount, name);
           if (!needsPrefillRetry) return;
         }
       }
@@ -172,7 +177,9 @@ export function WhyDonateWidget({
             observer = null;
           }
           const amount = readAmount(shadow, id);
-          onPaymentSuccess(amount, readDonorName(shadow, id));
+          const name = readDonorName(shadow, id);
+          console.log("[WhyDonateWidget] step-four detected via observer", { amount, name });
+          onPaymentSuccess(amount, name);
         }
       });
 

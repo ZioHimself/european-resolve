@@ -10,8 +10,13 @@ recordDonationRoute.post("/:slug", async (c) => {
   const slug = c.req.param("slug");
   const body = (await c.req.json()) as Record<string, unknown>;
 
-  const amount = Number(body.amount);
-  if (!amount || amount <= 0) {
+  const isRedirect = body.redirect === true;
+  const amount = Number(body.amount) || 0;
+
+  console.log("[record-donation] POST", slug, { amount, isRedirect, body });
+
+  if (!isRedirect && amount <= 0) {
+    console.log("[record-donation] rejected: no amount and not a redirect");
     return c.json(
       {
         success: false,
@@ -23,6 +28,7 @@ recordDonationRoute.post("/:slug", async (c) => {
 
   const fundraiser = await sheetsService.getFundraiser(slug);
   if (!fundraiser) {
+    console.log("[record-donation] fundraiser not found:", slug);
     return c.json(
       {
         success: false,
@@ -36,9 +42,13 @@ recordDonationRoute.post("/:slug", async (c) => {
   const rawMessage = typeof body.message === "string" ? body.message.trim() : "";
 
   const donorName = rawName || "Anonymous";
-  const message = rawMessage || `supports "${fundraiser.displayName}" for €${amount}`;
+  const message = rawMessage || (
+    amount > 0
+      ? `supports "${fundraiser.displayName}" for €${amount}`
+      : `supports "${fundraiser.displayName}"`
+  );
 
-  await sheetsService.addDonorWallEntry(slug, donorName, message, amount);
+  await sheetsService.addDonorWallEntry(slug, donorName, message, amount || undefined);
 
   const entry: DonorWallEntry = {
     fundraiserSlug: slug,
@@ -46,6 +56,8 @@ recordDonationRoute.post("/:slug", async (c) => {
     message,
     createdAt: new Date().toISOString(),
   };
+
+  console.log("[record-donation] recorded:", entry);
 
   return c.json({
     success: true,

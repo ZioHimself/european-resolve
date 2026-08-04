@@ -34,6 +34,8 @@ interface DonorEntry {
 }
 
 const STORAGE_KEY = "r4u:fundraiser-slug";
+const STORAGE_AMOUNT_KEY = "r4u:donation-amount";
+const STORAGE_DONOR_KEY = "r4u:donation-donor";
 
 function FundraiserContent() {
   const searchParams = useSearchParams();
@@ -52,7 +54,6 @@ function FundraiserContent() {
     return null;
   })();
 
-  // If returning from WhyDonate redirect with a successful payment, start in completed state
   const isPaymentReturn = redirectStatus === "succeeded";
 
   const [fundraiser, setFundraiser] = useState<FundraiserData | null>(null);
@@ -73,6 +74,8 @@ function FundraiserContent() {
       setNotFound(true);
       return;
     }
+
+    console.log("[FundraiserPage] init", { slug, isPaymentReturn, redirectStatus });
 
     async function fetchData() {
       try {
@@ -99,6 +102,43 @@ function FundraiserContent() {
             setProgress(progData.data);
           }
         }
+
+        if (isPaymentReturn) {
+          let storedAmount = 0;
+          let storedDonor = "";
+          try {
+            storedAmount = Number(sessionStorage.getItem(STORAGE_AMOUNT_KEY)) || 0;
+            storedDonor = sessionStorage.getItem(STORAGE_DONOR_KEY) ?? "";
+            sessionStorage.removeItem(STORAGE_AMOUNT_KEY);
+            sessionStorage.removeItem(STORAGE_DONOR_KEY);
+          } catch { /* unavailable */ }
+
+          console.log("[FundraiserPage] redirect return — recording donation", {
+            slug, amount: storedAmount, donor: storedDonor,
+          });
+
+          fetch(`${apiUrl}/api/donation/${slug}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              amount: storedAmount || undefined,
+              donorName: storedDonor || undefined,
+              redirect: true,
+            }),
+          })
+            .then((r) => r.json())
+            .then((data) => {
+              console.log("[FundraiserPage] donation record response", data);
+              if (data.success && data.data) {
+                handleEntryAdded({
+                  donorName: data.data.donorName,
+                  message: data.data.message,
+                  createdAt: data.data.createdAt,
+                });
+              }
+            })
+            .catch((err) => console.error("[FundraiserPage] donation record failed", err));
+        }
       } catch {
         setNotFound(true);
       } finally {
@@ -107,7 +147,7 @@ function FundraiserContent() {
     }
 
     fetchData();
-  }, [slug, apiUrl]);
+  }, [slug, apiUrl]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function handlePublish() {
     if (!slug || !editToken || !fundraiser) return;
@@ -246,6 +286,11 @@ function FundraiserContent() {
             <WhyDonateWidget
               shortcode={eventDetails.whydonateShortcode}
               onPaymentSuccess={(amount, widgetDonorName) => {
+                console.log("[FundraiserPage] in-page payment detected", { amount, widgetDonorName, slug });
+                try {
+                  sessionStorage.setItem(STORAGE_AMOUNT_KEY, String(amount));
+                  if (widgetDonorName) sessionStorage.setItem(STORAGE_DONOR_KEY, widgetDonorName);
+                } catch { /* unavailable */ }
                 setDonationCompleted(true);
                 fetch(`${apiUrl}/api/donation/${slug}`, {
                   method: "POST",
@@ -267,7 +312,10 @@ function FundraiserContent() {
                   })
                   .catch(() => { /* best-effort */ });
               }}
-              onDetectionFailed={() => setDetectionActive(false)}
+              onDetectionFailed={() => {
+                console.log("[FundraiserPage] widget detection failed");
+                setDetectionActive(false);
+              }}
             />
           </div>
           {!detectionActive && (
