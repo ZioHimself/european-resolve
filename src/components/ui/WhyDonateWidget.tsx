@@ -18,6 +18,11 @@ function readAmount(shadow: ShadowRoot, id: string): number {
 }
 
 function readDonorName(shadow: ShadowRoot, id: string): string | undefined {
+  // Respect the anonymous donation checkbox if the widget has one
+  const anonCheckbox = shadow.getElementById(`donate-anonymously-${id}`) as HTMLInputElement | null
+    ?? shadow.querySelector(`[id*="anonymous"][id*="${id}"]`) as HTMLInputElement | null;
+  if (anonCheckbox?.checked) return undefined;
+
   const fname = (shadow.getElementById(`donor-fname-${id}`) as HTMLInputElement | null)?.value?.trim() ?? "";
   const lname = (shadow.getElementById(`donor-lname-${id}`) as HTMLInputElement | null)?.value?.trim() ?? "";
   const full = [fname, lname].filter(Boolean).join(" ");
