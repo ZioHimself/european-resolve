@@ -10,11 +10,11 @@
     "test:smtp": "node --env-file=.env --import tsx src/test-smtp.ts"
   },
   "dependencies": {
-    "@hono/node-server": "^1.14.0",
-    "googleapis": "^146.0.0",
+    "@hono/node-server": "^2.0.12",
+    "googleapis": "^174.0.0",
     "hono": "^4.12.0",
     "nodemailer": "^9.0.3",
-    "sharp": "^0.34.0"
+    "sharp": "^0.35.3"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
