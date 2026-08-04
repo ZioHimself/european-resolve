@@ -470,22 +470,37 @@ export class SheetsService {
   }
 
   async getFundraiserRaised(slug: string): Promise<number> {
+    let total = 0;
+
+    // Sum registration payments linked to this fundraiser (col R = slug, col O = amount, col N = status)
     try {
-      const res = await this.sheets.spreadsheets.values.get({
+      const regRes = await this.sheets.spreadsheets.values.get({
+        spreadsheetId: config.spreadsheetId,
+        range: `${SHEET_NAME}!A:R`,
+      });
+      const regRows = regRes.data.values ?? [];
+      for (let i = 1; i < regRows.length; i++) {
+        if (regRows[i][17] === slug && regRows[i][13] === "paid") {
+          total += Number(regRows[i][14]) || 0;
+        }
+      }
+    } catch { /* registrations sheet may not exist */ }
+
+    // Sum donations from the Donor Wall sheet
+    try {
+      const dwRes = await this.sheets.spreadsheets.values.get({
         spreadsheetId: config.spreadsheetId,
         range: `${DONOR_WALL_SHEET}!A:E`,
       });
-      const rows = res.data.values ?? [];
-      let total = 0;
-      for (let i = 1; i < rows.length; i++) {
-        if (rows[i][0] === slug) {
-          total += Number(rows[i][4]) || 0;
+      const dwRows = dwRes.data.values ?? [];
+      for (let i = 1; i < dwRows.length; i++) {
+        if (dwRows[i][0] === slug) {
+          total += Number(dwRows[i][4]) || 0;
         }
       }
-      return total;
-    } catch {
-      return 0;
-    }
+    } catch { /* donor wall sheet may not exist */ }
+
+    return total;
   }
 
   async addDonorWallEntry(
