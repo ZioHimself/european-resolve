@@ -63,7 +63,7 @@ function clickBack() {
   fireEvent.click(screen.getByText(/← Back/));
 }
 
-function selectTier(name: "Supporter" | "Champion" | "Patron" | "Hero") {
+function selectTier(name: "Supporter" | "Champion" | "Patron") {
   const tierArticle = screen
     .getByText(name)
     .closest("article") as HTMLElement;
@@ -73,7 +73,7 @@ function selectTier(name: "Supporter" | "Champion" | "Patron" | "Hero") {
 
 function fillStep2(
   overrides: {
-    tier?: "Supporter" | "Champion" | "Patron" | "Hero";
+    tier?: "Supporter" | "Champion" | "Patron";
     fullName?: string;
     email?: string;
     country?: string;
@@ -130,8 +130,8 @@ function mockFetchSuccess(data: Record<string, unknown> = {}) {
             fullName: "Jane Doe",
             tierId: "supporter",
             tierName: "Supporter",
-            amountEur: 15,
-            rewards: ["Running", "Sticker pack"],
+            amountEur: 10,
+            rewards: ["Race bib", "Digital certificate"],
             paymentToken: "pay_xyz",
           },
           ...data,
@@ -285,7 +285,6 @@ describe("FundraiseForm", () => {
       expect(screen.getByText("Supporter")).toBeInTheDocument();
       expect(screen.getByText("Champion")).toBeInTheDocument();
       expect(screen.getByText("Patron")).toBeInTheDocument();
-      expect(screen.getByText("Hero")).toBeInTheDocument();
       expect(screen.getByLabelText(/full name/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/phone/i)).toBeInTheDocument();
@@ -443,7 +442,7 @@ describe("FundraiseForm", () => {
       expect(screen.getByText("Jane Doe")).toBeInTheDocument();
       expect(screen.getByText("jane@example.com")).toBeInTheDocument();
       expect(screen.getByText("Belgium")).toBeInTheDocument();
-      expect(screen.getByText(/Supporter — €15/)).toBeInTheDocument();
+      expect(screen.getByText(/Supporter — €10/)).toBeInTheDocument();
     });
 
     it("shows photo status as None when no photo uploaded", () => {
@@ -453,7 +452,7 @@ describe("FundraiseForm", () => {
     it("shows submit button with price", () => {
       expect(
         screen.getByRole("button", {
-          name: /create page and register — €15/i,
+          name: /create page and register — €10/i,
         }),
       ).toBeInTheDocument();
     });
@@ -589,7 +588,7 @@ describe("FundraiseForm", () => {
                 fullName: "X",
                 tierId: "supporter",
                 tierName: "Supporter",
-                amountEur: 15,
+                amountEur: 10,
                 rewards: [],
                 paymentToken: "p",
               },
@@ -799,7 +798,7 @@ describe("FundraiseForm", () => {
       expect(screen.getByText("Serhiy K")).toBeInTheDocument();
       expect(screen.getByText("s@test.com")).toBeInTheDocument();
       expect(screen.getByText("Ukraine")).toBeInTheDocument();
-      expect(screen.getByText(/Champion — €30/)).toBeInTheDocument();
+      expect(screen.getByText(/Champion — €35/)).toBeInTheDocument();
 
       clickBack();
       expect(screen.getByLabelText(/full name/i)).toHaveValue("Serhiy K");
@@ -924,11 +923,10 @@ describe("FundraiseForm", () => {
       advanceToStep2();
     });
 
-    it("shows all four tiers with prices", () => {
-      expect(screen.getByText("€15")).toBeInTheDocument();
-      expect(screen.getByText("€30")).toBeInTheDocument();
-      expect(screen.getByText("€60")).toBeInTheDocument();
-      expect(screen.getByText("€100")).toBeInTheDocument();
+    it("shows all three tiers with prices", () => {
+      expect(screen.getByText("€10")).toBeInTheDocument();
+      expect(screen.getByText("€35")).toBeInTheDocument();
+      expect(screen.getByText("€95")).toBeInTheDocument();
     });
 
     it("marks selected tier with aria-pressed", () => {
@@ -945,7 +943,7 @@ describe("FundraiseForm", () => {
       clickNext();
       expect(
         screen.getByRole("button", {
-          name: /create page and register — €60/i,
+          name: /create page and register — €95/i,
         }),
       ).toBeInTheDocument();
     });

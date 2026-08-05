@@ -13,7 +13,7 @@ export const de = {
   "tracks.trackATitle": "Spenden oder Laufen",
   "tracks.trackADescription":
     "Wählen Sie eine Stufe und tragen Sie direkt bei — laufen Sie am Tag selbst mit oder unterstützen Sie einfach von überall. Ihr Beitrag finanziert Ladestationen für Verteidiger.",
-  "tracks.trackAFeatures": "Laufen · Stickerpaket · Socken · Tombola-Lose",
+  "tracks.trackAFeatures": "Startnummer · Finisher-Medaille · T-Shirt",
   "tracks.trackACta": "Stufen ansehen →",
   "tracks.trackBOverline": "Strecke B",
   "tracks.trackBTitle": "Spenden sammeln und Laufen",

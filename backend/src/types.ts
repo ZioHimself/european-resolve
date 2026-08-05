@@ -1,4 +1,4 @@
-export type TierId = "supporter" | "champion" | "patron" | "hero";
+export type TierId = "supporter" | "champion" | "patron";
 export type TshirtSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
 export type Language = "English" | "French" | "Ukrainian" | "Dutch" | "German";
 

@@ -13,7 +13,7 @@ export const nl = {
   "tracks.trackATitle": "Doneren of Lopen",
   "tracks.trackADescription":
     "Kies een niveau en draag rechtstreeks bij — loop mee op de dag zelf of steun gewoon vanuit om het even waar. Jouw bijdrage financiert oplaadstations voor verdedigers.",
-  "tracks.trackAFeatures": "Lopen · Stickerpakket · Sokken · Loterijtickets",
+  "tracks.trackAFeatures": "Startnummer · Finishersmedaille · T-shirt",
   "tracks.trackACta": "Bekijk de niveaus →",
   "tracks.trackBOverline": "Parcours B",
   "tracks.trackBTitle": "Fondsen werven en Lopen",

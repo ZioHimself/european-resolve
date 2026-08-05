@@ -1,12 +1,10 @@
-import type { TierId } from "@/data/event";
-
 export type ParticipationType = "runner" | "supporter";
 
 export interface RegisterResponse {
   participantId: string;
   fullName: string;
   email: string;
-  tierId: TierId;
+  tierId: "supporter" | "champion" | "patron";
   tierName: string;
   participationType: ParticipationType;
   amountEur: number;

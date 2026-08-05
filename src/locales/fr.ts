@@ -13,7 +13,7 @@ export const fr = {
   "tracks.trackATitle": "Donner ou Courir",
   "tracks.trackADescription":
     "Choisissez un palier et contribuez directement — courez le jour J ou soutenez simplement depuis n'importe où. Votre contribution finance des stations de recharge pour les défenseurs.",
-  "tracks.trackAFeatures": "Course · Pack d'autocollants · Chaussettes · Tickets de tombola",
+  "tracks.trackAFeatures": "Dossard · Médaille d'arrivée · T-shirt",
   "tracks.trackACta": "Voir les paliers →",
   "tracks.trackBOverline": "Parcours B",
   "tracks.trackBTitle": "Collecter et Courir",

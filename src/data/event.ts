@@ -1,7 +1,5 @@
-export type TierId = "supporter" | "champion" | "patron" | "hero";
-
 export type Tier = {
-  id: TierId;
+  id: "supporter" | "champion" | "patron";
   name: string;
   price: number;
   causeFee: number;
@@ -46,53 +44,40 @@ export const tiers = [
   {
     id: "supporter",
     name: "Supporter",
-    price: 15,
-    causeFee: 10,
-    logisticsFee: 5,
-    rewards: ["Running", "Sticker pack"],
+    price: 10,
+    causeFee: 6,
+    logisticsFee: 4,
+    rewards: ["Race bib", "Digital certificate", "Hurkit keychain"],
     highlighted: false,
   },
   {
     id: "champion",
     name: "Champion",
-    price: 30,
-    causeFee: 22,
-    logisticsFee: 8,
+    price: 35,
+    causeFee: 25,
+    logisticsFee: 10,
     rewards: [
-      "Running",
-      "Sticker pack",
-      "Running socks",
-      "1 raffle ticket",
+      "Race bib",
+      "Digital certificate",
+      "Technical race t-shirt",
+      "Name on digital wall",
+      "Hurkit military branch coin",
+      "Hurkit branded sports socks",
     ],
     highlighted: true,
   },
   {
     id: "patron",
     name: "Patron",
-    price: 60,
-    causeFee: 48,
-    logisticsFee: 12,
+    price: 95,
+    causeFee: 80,
+    logisticsFee: 15,
     rewards: [
-      "Running",
-      "Sticker pack",
-      "Running t-shirt",
-      "Traditional Ukrainian meal",
-      "3 raffle tickets",
-    ],
-    highlighted: false,
-  },
-  {
-    id: "hero",
-    name: "Hero",
-    price: 100,
-    causeFee: 82,
-    logisticsFee: 18,
-    rewards: [
-      "Running",
-      "Sticker pack",
-      "Silk scarf from a Ukrainian designer brand",
-      "Traditional Ukrainian meal",
-      "5 raffle tickets",
+      "Race bib",
+      "Digital certificate",
+      "Technical race t-shirt",
+      "Name on digital wall",
+      "Hurkit silk scarf",
     ],
     highlighted: false,
   },

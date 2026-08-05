@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { Tier, TierId } from "@/data/event";
+import type { Tier } from "@/data/event";
 import { tiers } from "@/data/event";
 import { TierGrid } from "@/components/ui/TierGrid";
 import { RegistrationForm } from "@/components/ui/RegistrationForm";
 import { ConfirmationPanel } from "@/components/ui/ConfirmationPanel";
 import type { ParticipationType, RegisterResponse } from "./registerTypes";
 import styles from "./RegisterClient.module.css";
+
+type TierId = "supporter" | "champion" | "patron";
 
 const STORAGE_KEY = "r4u:registration";
 

@@ -2,11 +2,12 @@
 
 import { useState, useRef } from "react";
 import { TierGrid } from "@/components/ui/TierGrid";
-import { tiers, type TierId } from "@/data/event";
+import { tiers } from "@/data/event";
 import { t } from "@/locales";
 import { FundraiserConfirmation } from "@/components/ui/FundraiserConfirmation";
 import styles from "./FundraiseForm.module.css";
 
+type TierId = "supporter" | "champion" | "patron";
 type Step = 1 | 2 | 3;
 
 interface FormData {

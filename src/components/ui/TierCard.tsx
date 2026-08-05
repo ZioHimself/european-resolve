@@ -3,7 +3,10 @@ import { t } from "@/locales";
 import type { ParticipationType } from "./registerTypes";
 import styles from "./TierCard.module.css";
 
-const RUNNER_ONLY_REWARDS = new Set(["Running", "Running t-shirt"]);
+const RUNNER_ONLY_REWARDS = new Set([
+  "Race bib",
+  "Technical race t-shirt",
+]);
 
 interface TierCardProps {
   tier: Tier;
