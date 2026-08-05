@@ -1,9 +1,7 @@
-import { tiers } from "@/data/event";
+import { tiers, type TierId } from "@/data/event";
 import { TierCard } from "@/components/ui/TierCard";
 import type { ParticipationType } from "./registerTypes";
 import styles from "./TierGrid.module.css";
-
-type TierId = "supporter" | "champion" | "patron";
 
 interface TierGridProps {
   selectedTierId: TierId | null;

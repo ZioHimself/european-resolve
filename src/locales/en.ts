@@ -12,7 +12,7 @@ export const en = {
   "tracks.trackATitle": "Donate or Run",
   "tracks.trackADescription":
     "Pick a tier and contribute directly — run on the day or simply support from anywhere. Your fee funds charging stations for defenders.",
-  "tracks.trackAFeatures": "Race bib · Finisher medal · T-shirt",
+  "tracks.trackAFeatures": "Running · Sticker pack · Socks · Raffle tickets",
   "tracks.trackACta": "See tiers →",
   "tracks.trackBOverline": "Track B",
   "tracks.trackBTitle": "Fundraise and Run",

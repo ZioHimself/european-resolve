@@ -13,7 +13,7 @@ export const uk = {
   "tracks.trackATitle": "Донат або Біг",
   "tracks.trackADescription":
     "Оберіть рівень і зробіть внесок напряму — біжіть у день події або просто підтримайте з будь-якого місця. Ваш внесок фінансує зарядні станції для захисників.",
-  "tracks.trackAFeatures": "Стартовий номер · Медаль фінішера · Футболка",
+  "tracks.trackAFeatures": "Біг · Набір наліпок · Шкарпетки · Лотерейні квитки",
   "tracks.trackACta": "Переглянути рівні →",
   "tracks.trackBOverline": "Напрямок B",
   "tracks.trackBTitle": "Збір коштів і Біг",

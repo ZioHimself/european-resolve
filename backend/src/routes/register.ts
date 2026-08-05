@@ -14,7 +14,7 @@ import type {
   ParticipationType,
 } from "../types.js";
 
-const VALID_TIER_IDS: TierId[] = ["supporter", "champion", "patron"];
+const VALID_TIER_IDS: TierId[] = ["supporter", "champion", "patron", "hero"];
 const VALID_TSHIRT_SIZES: TshirtSize[] = ["XS", "S", "M", "L", "XL", "XXL"];
 const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian", "Dutch", "German"];
 const VALID_PARTICIPATION_TYPES: ParticipationType[] = ["runner", "supporter"];
