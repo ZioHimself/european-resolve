@@ -14,7 +14,7 @@ export function EventHero({ isCompleted = false }: EventHeroProps) {
       <span className={styles.overline}>
         {isCompleted ? t("closed.eventCompleted") : t("hero.overline")}
       </span>
-      <h1 className={styles.title}>{eventDetails.title}</h1>
+      <h1 className={styles.title}>{t("hero.title")}</h1>
       <p className={styles.meta}>
         {eventDetails.date} · {eventDetails.location}
       </p>
@@ -22,7 +22,7 @@ export function EventHero({ isCompleted = false }: EventHeroProps) {
         <p className={styles.thankYou}>{eventDetails.postEvent.thankYouMessage}</p>
       ) : (
         <>
-          <p className={styles.description}>{eventDetails.description}</p>
+          <p className={styles.description}>{t("hero.description")}</p>
           <p className={styles.beneficiary}>
             {t("hero.beneficiary")}{" "}
             <a

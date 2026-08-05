@@ -1,15 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Tier } from "@/data/event";
 import { tiers } from "@/data/event";
 import { TierGrid } from "@/components/ui/TierGrid";
 import { RegistrationForm } from "@/components/ui/RegistrationForm";
 import { ConfirmationPanel } from "@/components/ui/ConfirmationPanel";
-import type { ParticipationType, RegisterResponse } from "./registerTypes";
+import type { RegisterResponse } from "./registerTypes";
 import styles from "./RegisterClient.module.css";
 
-type TierId = "supporter" | "champion" | "patron";
+type TierId = "supporter" | "sprinter" | "relay-runner" | "marathoner" | "ultramarathoner";
+
+export type RegisterStep = "pick-tier" | "registration" | "confirmation";
 
 const STORAGE_KEY = "r4u:registration";
 
@@ -23,16 +25,38 @@ function readSavedResult(): RegisterResponse | null {
   }
 }
 
-export function RegisterClient() {
+interface RegisterClientProps {
+  onStepChange?: (step: RegisterStep) => void;
+}
+
+export function RegisterClient({ onStepChange }: RegisterClientProps) {
   const [selectedTierId, setSelectedTierId] = useState<TierId | null>(null);
-  const [participationType, setParticipationType] =
-    useState<ParticipationType>("runner");
   const [registrationResult, setRegistrationResult] =
     useState<RegisterResponse | null>(readSavedResult);
   const [isRestoredSession, setIsRestoredSession] = useState(
     () => readSavedResult() !== null,
   );
   const [tokenLoading, setTokenLoading] = useState(false);
+  const [paymentJustConfirmed, setPaymentJustConfirmed] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
+
+  const step: RegisterStep = registrationResult
+    ? registrationResult.status === "paid" || paymentJustConfirmed
+      ? "confirmation"
+      : "registration"
+    : selectedTierId
+      ? "registration"
+      : "pick-tier";
+
+  useEffect(() => {
+    onStepChange?.(step);
+  }, [step, onStepChange]);
+
+  useEffect(() => {
+    if (selectedTierId) {
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [selectedTierId]);
 
   useEffect(() => {
     if (registrationResult) return;
@@ -68,6 +92,7 @@ export function RegisterClient() {
   }
 
   function handlePaymentConfirmed() {
+    setPaymentJustConfirmed(true);
     try {
       sessionStorage.removeItem(STORAGE_KEY);
     } catch { /* storage unavailable */ }
@@ -79,6 +104,7 @@ export function RegisterClient() {
     } catch { /* storage unavailable */ }
     setRegistrationResult(null);
     setSelectedTierId(null);
+    setPaymentJustConfirmed(false);
   }
 
   if (tokenLoading) {
@@ -99,15 +125,17 @@ export function RegisterClient() {
           <TierGrid
             selectedTierId={selectedTierId}
             onSelectTier={setSelectedTierId}
-            participationType={participationType}
+            participationType={selectedTierId === "supporter" ? "supporter" : "runner"}
           />
 
-          <RegistrationForm
-            selectedTier={selectedTier}
-            participationType={participationType}
-            onParticipationTypeChange={setParticipationType}
-            onSuccess={handleRegistrationSuccess}
-          />
+          {selectedTier && (
+            <div ref={formRef} className={styles.formAnchor}>
+              <RegistrationForm
+                selectedTier={selectedTier}
+                onSuccess={handleRegistrationSuccess}
+              />
+            </div>
+          )}
         </>
       )}
     </div>

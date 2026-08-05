@@ -1,5 +1,6 @@
-export type TierId = "supporter" | "champion" | "patron";
+export type TierId = "supporter" | "sprinter" | "relay-runner" | "marathoner" | "ultramarathoner";
 export type TshirtSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
+export type SocksSize = "36-39" | "40-42" | "43-46";
 export type Language = "English" | "French" | "Ukrainian" | "Dutch" | "German";
 
 export const LANGUAGE_TO_LOCALE: Record<Language, string> = {
@@ -12,12 +13,14 @@ export const LANGUAGE_TO_LOCALE: Record<Language, string> = {
 export type ParticipationType = "runner" | "supporter";
 
 export interface RegisterRequest {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone?: string;
   tshirtSize?: TshirtSize;
+  socksSize?: SocksSize;
   language: Language;
-  country: string;
+  country?: string;
   tierId: TierId;
   participationType: ParticipationType;
   gdprConsent: boolean;
@@ -27,6 +30,8 @@ export interface RegisterRequest {
 export interface RegisterResponse {
   participantId: string;
   fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   tierId: TierId;
   tierName: string;
@@ -34,11 +39,15 @@ export interface RegisterResponse {
   amountEur: number;
   rewards: string[];
   paymentToken: string;
+  status?: "pending" | "paid";
 }
 
 export interface ConfirmPaymentRequest {
   token: string;
   amount?: number;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 export interface ConfirmPaymentResponse {
@@ -46,8 +55,6 @@ export interface ConfirmPaymentResponse {
   participantId: string;
   tierName: string;
   amountEur: number;
-  effectiveTierId: string;
-  effectiveTierName: string;
   rewards: string[];
 }
 
@@ -117,6 +124,8 @@ export interface FundraiserRegisterResponse {
   registration: {
     participantId: string;
     fullName: string;
+    firstName: string;
+    lastName: string;
     tierId: TierId;
     tierName: string;
     amountEur: number;

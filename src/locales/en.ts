@@ -3,19 +3,22 @@ import type { Locale } from "./types";
 export const en = {
   // hero
   "hero.overline": "Charity run · Brussels",
+  "hero.title": "35 Years of 🇺🇦 Independence: Charity and Run",
+  "hero.description":
+    "On Sunday, 23 August, join us to celebrate 35 years of Ukrainian independence! We'll unfold the flag, run 5 or 8 kilometres together, and gather after at the community village for food, friends, and a charity raffle. Our bigger goal: raise €3,000 with Hurkit to equip Ukraine's defenders with reliable power in the field — check your support options below and bring your mates and family along.",
   "hero.beneficiary": "Beneficiary:",
 
   // tracks
   "tracks.heading": "Choose your track",
-  "tracks.subtitle": "Two ways to support, one goal. Pick one\u00a0track.",
+  "tracks.subtitle": "Two ways to support, one goal. Pick your\u00a0track.",
   "tracks.trackAOverline": "Track A",
-  "tracks.trackATitle": "Donate or Run",
+  "tracks.trackATitle": "Join the Campaign",
   "tracks.trackADescription":
     "Pick a tier and contribute directly — run on the day or simply support from anywhere. Your fee funds charging stations for defenders.",
-  "tracks.trackAFeatures": "Race bib · Finisher medal · T-shirt",
+  "tracks.trackAFeatures": "Choose your tier · Rewards vary · Run optional",
   "tracks.trackACta": "See tiers →",
   "tracks.trackBOverline": "Track B",
-  "tracks.trackBTitle": "Fundraise and Run",
+  "tracks.trackBTitle": "Fundraise for the Team",
   "tracks.trackBDescription":
     "Create a personal fundraising page and rally your network. Every donation counts toward the collective goal — then show up and run.",
   "tracks.trackBFeatures": "Personal page · Shareable link · Live stats",
@@ -32,22 +35,23 @@ export const en = {
   "progress.finalResults": "Final results",
 
   // register
-  "register.overline": "Track A · Donate or Run",
+  "register.overline": "Track A · Join the Campaign",
   "register.title": "Pick a tier",
+  "register.titleRegistration": "Registration",
+  "register.titleConfirmation": "Confirmation",
   "register.subtitle":
     "Every tier directly funds charging stations for Ukraine's defenders. Run on the day or simply support from anywhere.",
   "register.heading": "Your details",
-  "register.howParticipate": "How will you participate?",
-  "register.runOnDay": "I'll run on the day",
-  "register.supportAnywhere": "I'll support from anywhere",
+  "register.descriptionSupporter":
+    "Select the donation amount on the next page.",
+  "register.descriptionRunner":
+    "Run 5 or 8 kilometres with us on 23 August. We will keep you updated with the event information via email.",
   "register.errorSummary": "Please fix the following:",
-  "register.fullName": "Full name",
+  "register.firstName": "First name",
+  "register.lastName": "Last name",
   "register.email": "Email",
-  "register.phone": "Phone",
   "register.tshirtSize": "T-shirt size",
-  "register.language": "Language",
-  "register.country": "Country",
-  "register.optional": "(optional)",
+  "register.socksSize": "Socks size",
   "register.gdprHeading": "GDPR consent (required)",
   "register.gdprRunner":
     "I agree to my data being processed for the purpose of race registration and safety, in line with the privacy notice.",
@@ -56,29 +60,26 @@ export const en = {
   "register.commsHeading": "Ongoing communications (optional)",
   "register.commsText":
     "Send me news about future editions and the beneficiary's work. I can unsubscribe at any time.",
-  "register.total": "Total: €{price}",
-  "register.totalEmpty": "Total: €—",
-  "register.submitRunner": "Register — €{price}",
-  "register.submitSupporter": "Support — €{price}",
+  "register.continue": "Continue",
   "register.submitting": "Registering...",
-  "register.selectTier": "Select a tier to register",
   "register.failedFallback": "Registration failed. Please try again.",
   "register.networkError":
     "Could not connect to the registration server. Please try again later.",
-  "register.errorFullName": "Full name is required",
+  "register.errorFirstName": "First name is required",
+  "register.errorLastName": "Last name is required",
   "register.errorEmail": "Valid email address is required",
   "register.errorTshirt": "T-shirt size is required",
-  "register.errorCountry": "Country is required",
+  "register.errorSocks": "Socks size is required",
   "register.errorGdpr": "GDPR consent is required to register",
-  "register.confirmHeading": "Registration confirmed!",
+  "register.confirmHeading": "Your entry has been recorded!",
   "register.confirmParticipantId": "Your ID: {id}",
   "register.confirmName": "Name",
   "register.confirmTier": "Tier",
   "register.confirmAmount": "Amount",
   "register.confirmRewardsHeading": "Your rewards",
-  "register.confirmDonationHeading": "Complete your €{amount} donation",
+  "register.confirmDonationHeading": "Complete your registration",
   "register.confirmDonationInstructions":
-    "Please select the €{amount} option below to complete your {tierName} registration.",
+    "Please confirm the amount of €{amount} or more below to complete your {tierName} registration.",
   "register.confirmAfterDonation": "After completing your donation above:",
   "register.confirmButton": "I\u2019ve completed my donation",
   "register.confirmingPayment": "Confirming\u2026",
@@ -95,14 +96,19 @@ export const en = {
   "register.verifyingPayment": "Verifying payment\u2026",
   "register.needInvoice": "Need your invoice?",
   "register.startOver": "Register again",
+  "register.abandonRegistration": "Abandon and restart registration",
+  "register.alreadyPaidHeading": "Thank you for joining our campaign!",
+  "register.alreadyPaidMessage":
+    "We've received your payment and will keep you posted with campaign and event updates.",
+  "register.alreadyPaidCta": "Back to event page",
 
   // tierCard
   "tierCard.badge": "Most chosen",
   "tierCard.selected": "Selected",
-  "tierCard.select": "Select",
+  "tierCard.select": "Select {tierName}",
 
   // fundraise
-  "fundraise.overline": "Track B · Fundraise and Run",
+  "fundraise.overline": "Track B · Fundraise for the Team",
   "fundraise.title": "Your fundraising page",
   "fundraise.subtitle":
     "Takes about a minute. Share your page with friends and family to help reach the collective goal — then show up and run.",
@@ -118,7 +124,8 @@ export const en = {
   "fundraise.goalLabel": "Personal goal (€)",
   "fundraise.nextRunner": "Next: Runner details →",
   "fundraise.step2Heading": "Your runner registration",
-  "fundraise.fullName": "Full name",
+  "fundraise.firstName": "First name",
+  "fundraise.lastName": "Last name",
   "fundraise.email": "Email",
   "fundraise.phone": "Phone",
   "fundraise.tshirtSize": "T-shirt size",
@@ -154,10 +161,10 @@ export const en = {
   "fundraise.errorDisplayName": "Display name must be 2-50 characters",
   "fundraise.errorMessageRequired": "Message is required",
   "fundraise.errorMessageLength": "Message must be under 500 characters",
-  "fundraise.errorGoal":
-    "Goal must be a whole number between 10 and 100,000",
+  "fundraise.errorGoal": "Goal must be a whole number between 10 and 100,000",
   "fundraise.errorTier": "Please select a tier",
-  "fundraise.errorFullName": "Full name is required",
+  "fundraise.errorFirstName": "First name is required",
+  "fundraise.errorLastName": "Last name is required",
   "fundraise.errorEmail": "Valid email address is required",
   "fundraise.errorCountry": "Country is required",
   "fundraise.errorGdpr": "GDPR consent is required to register",
@@ -166,8 +173,7 @@ export const en = {
 
   // confirmation (FundraiserConfirmation)
   "confirmation.heading": "Your fundraising page is ready!",
-  "confirmation.subheading":
-    "Share your page with friends and family — {name}",
+  "confirmation.subheading": "Share your page with friends and family — {name}",
   "confirmation.shareableLink": "Your shareable link",
   "confirmation.copy": "Copy",
   "confirmation.copied": "Copied!",
@@ -186,8 +192,7 @@ export const en = {
   "confirmation.confirmButton": "I\u2019ve completed my donation",
   "confirmation.confirming": "Confirming\u2026",
   "confirmation.confirmed": "Payment confirmed — you're all set!",
-  "confirmation.confirmError":
-    "Could not confirm payment. Please try again.",
+  "confirmation.confirmError": "Could not confirm payment. Please try again.",
   "confirmation.confirmFailed": "Confirmation failed",
   "confirmation.interruptedSession":
     "It looks like your session was interrupted. If you\u2019ve already completed your payment, please contact us at info@european-resolve.org with your payment confirmation and we\u2019ll update your registration.",
@@ -205,7 +210,8 @@ export const en = {
   "fundraiser.nameSuffix": "'s page",
   "fundraiser.personalGoal": "Personal goal: €{goal}",
   "fundraiser.raisedSoFar": "Raised so far: €{raised}",
-  "fundraiser.collectiveTotal": "Collective total: €{total}",
+  "fundraiser.collectiveTotal":
+    "Part of one shared campaign — €{total} raised together so far",
   "fundraiser.donateHeading": "Donate",
   "fundraiser.shareHeading": "Share this page",
   "fundraiser.ctaButton": "Support {name}",
@@ -233,8 +239,7 @@ export const en = {
   "donorWall.posting": "Posting\u2026",
   "donorWall.postButton": "Post to wall",
   "donorWall.thankYou": "Thank you for your support!",
-  "donorWall.privacyNotice":
-    "Your name and message will be publicly visible.",
+  "donorWall.privacyNotice": "Your name and message will be publicly visible.",
   "donorWall.errorName": "Name must be 2-50 characters",
   "donorWall.errorMessage": "Message must be 5-200 characters",
   "donorWall.networkError": "Network error. Please try again.",
@@ -251,7 +256,7 @@ export const en = {
   "social.shareEmail": "Share via Email",
   "social.copyLink": "Copy link",
   "social.shareMessage":
-    "Support {title}'s fundraiser for Run for Ukraine 2026! Every euro funds charging stations for Ukraine's defenders.",
+    "Support {title}'s fundraiser for 35 Years of 🇺🇦 Independence: Charity and Run! Every euro funds charging stations for Ukraine's defenders.",
 
   // common
   "common.loading": "Loading",
@@ -275,14 +280,15 @@ export const en = {
     "Every euro raised went directly to Hurkit, providing charging stations for Ukraine's defenders.",
 
   // errors (backend error code mappings)
-  "errors.VALIDATION_FULLNAME_REQUIRED": "Full name is required",
+  "errors.VALIDATION_FIRSTNAME_REQUIRED": "First name is required",
+  "errors.VALIDATION_LASTNAME_REQUIRED": "Last name is required",
   "errors.VALIDATION_EMAIL_INVALID": "Please enter a valid email address",
   "errors.VALIDATION_TSHIRT_INVALID": "Valid t-shirt size is required",
+  "errors.VALIDATION_SOCKS_INVALID": "Valid socks size is required",
   "errors.VALIDATION_LANGUAGE_INVALID": "Valid language is required",
   "errors.VALIDATION_COUNTRY_REQUIRED": "Country is required",
   "errors.VALIDATION_TIER_INVALID": "Valid tier is required",
-  "errors.VALIDATION_GDPR_REQUIRED":
-    "GDPR consent is required to register",
+  "errors.VALIDATION_GDPR_REQUIRED": "GDPR consent is required to register",
   "errors.VALIDATION_PARTICIPATION_TYPE_REQUIRED":
     "Participation type is required",
   "errors.VALIDATION_DISPLAYNAME_LENGTH":
@@ -297,8 +303,7 @@ export const en = {
   "errors.VALIDATION_AUTH_REQUIRED": "Authentication is required",
   "errors.VALIDATION_AUTH_INVALID": "Invalid authentication token",
   "errors.VALIDATION_DONOR_NAME_LENGTH": "Name must be 2-50 characters",
-  "errors.VALIDATION_DONOR_MESSAGE_LENGTH":
-    "Message must be 5-200 characters",
+  "errors.VALIDATION_DONOR_MESSAGE_LENGTH": "Message must be 5-200 characters",
   "errors.VALIDATION_SLUG_REQUIRED": "Fundraiser slug is required",
   "errors.VALIDATION_SLUG_NOT_FOUND": "Fundraiser not found",
   "errors.INTERNAL_ERROR": "An unexpected error occurred. Please try again.",

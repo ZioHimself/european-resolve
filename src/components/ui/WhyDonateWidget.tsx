@@ -2,12 +2,30 @@
 
 import { useEffect, useRef } from "react";
 
+type DonorInfo =
+  | { firstName: string; lastName: string; email: string }
+  | { fullName: string; email: string };
+
 interface WhyDonateWidgetProps {
   shortcode: string;
   lang?: string;
   onPaymentSuccess?: (amount: number, donorName?: string) => void;
   onDetectionFailed?: () => void;
-  donorInfo?: { fullName: string; email: string };
+  donorInfo?: DonorInfo;
+}
+
+function normalizeDonorInfo(
+  info: DonorInfo,
+): { firstName: string; lastName: string; email: string } {
+  if ("fullName" in info) {
+    const parts = info.fullName.trim().split(/\s+/);
+    return {
+      firstName: parts[0] || "",
+      lastName: parts.slice(1).join(" "),
+      email: info.email,
+    };
+  }
+  return info;
 }
 
 function readAmount(shadow: ShadowRoot, id: string): number {
@@ -47,16 +65,14 @@ function setInputValue(input: HTMLInputElement, value: string): void {
 function prefillDonorFields(
   shadow: ShadowRoot,
   id: string,
-  info: { fullName: string; email: string },
+  info: DonorInfo,
 ): boolean {
-  const parts = info.fullName.trim().split(/\s+/);
-  const firstName = parts[0] || "";
-  const lastName = parts.slice(1).join(" ") || "";
+  const { firstName, lastName, email } = normalizeDonorInfo(info);
 
   const fields: [string, string][] = [
     [`donor-fname-${id}`, firstName],
     [`donor-lname-${id}`, lastName],
-    [`donor-email-${id}`, info.email],
+    [`donor-email-${id}`, email],
   ];
 
   let filledCount = 0;

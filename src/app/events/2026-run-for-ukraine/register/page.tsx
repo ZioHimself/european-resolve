@@ -1,15 +1,24 @@
 "use client";
 
+import { useState } from "react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { RegisterClient } from "@/components/ui/RegisterClient";
+import type { RegisterStep } from "@/components/ui/RegisterClient";
 import { useEventStatus } from "@/hooks/useEventStatus";
 import { useLocale } from "@/components/ui/LocaleProvider";
 import { t } from "@/locales";
 import styles from "./page.module.css";
 
+const TITLE_KEY: Record<RegisterStep, "register.title" | "register.titleRegistration" | "register.titleConfirmation"> = {
+  "pick-tier": "register.title",
+  registration: "register.titleRegistration",
+  confirmation: "register.titleConfirmation",
+};
+
 export default function RegisterPage() {
   useLocale();
   const isCompleted = useEventStatus() === "completed";
+  const [step, setStep] = useState<RegisterStep>("pick-tier");
 
   return (
     <>
@@ -17,7 +26,7 @@ export default function RegisterPage() {
         items={[
           { label: t("nav.events"), href: "/events" },
           {
-            label: "Run for Ukraine 2026",
+            label: t("hero.title"),
             href: "/events/2026-run-for-ukraine",
           },
           { label: t("nav.register") },
@@ -49,12 +58,12 @@ export default function RegisterPage() {
               <span className={styles.overline}>
                 {t("register.overline")}
               </span>
-              <h1 className={styles.title}>{t("register.title")}</h1>
+              <h1 className={styles.title}>{t(TITLE_KEY[step])}</h1>
               <p className={styles.subtitle}>{t("register.subtitle")}</p>
             </div>
 
             <div className={styles.sections}>
-              <RegisterClient />
+              <RegisterClient onStepChange={setStep} />
             </div>
           </>
         )}

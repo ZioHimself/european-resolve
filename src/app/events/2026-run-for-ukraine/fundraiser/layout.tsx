@@ -5,13 +5,13 @@ const PAGE_URL = `${BASE_URL}/events/2026-run-for-ukraine/fundraiser`;
 const OG_IMAGE = `${BASE_URL}/og/run-for-ukraine-2026.png`;
 
 export const metadata: Metadata = {
-  title: "Fundraiser — Run for Ukraine 2026",
+  title: "Fundraiser — 35 Years of 🇺🇦 Independence: Charity and Run",
   description:
-    "Support a fundraiser for the Run for Ukraine 2026 charity run. All donations go to charging stations for Ukraine's defenders.",
+    "Support a fundraiser for 35 Years of 🇺🇦 Independence: Charity and Run. All donations go to charging stations for Ukraine's defenders.",
   openGraph: {
-    title: "Fundraiser — Run for Ukraine 2026",
+    title: "Fundraiser — 35 Years of 🇺🇦 Independence: Charity and Run",
     description:
-      "Support a fundraiser for the Run for Ukraine 2026 charity run. All donations go to charging stations for Ukraine's defenders.",
+      "Support a fundraiser for 35 Years of 🇺🇦 Independence: Charity and Run. All donations go to charging stations for Ukraine's defenders.",
     url: PAGE_URL,
     siteName: "European Resolve",
     locale: "en_BE",
@@ -22,15 +22,15 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "Run for Ukraine 2026 — Brussels charity run",
+        alt: "35 Years of 🇺🇦 Independence: Charity and Run — Brussels",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fundraiser — Run for Ukraine 2026",
+    title: "Fundraiser — 35 Years of 🇺🇦 Independence: Charity and Run",
     description:
-      "Support a fundraiser for the Run for Ukraine 2026 charity run. All donations go to charging stations for defenders.",
+      "Support a fundraiser for 35 Years of 🇺🇦 Independence: Charity and Run. All donations go to charging stations for defenders.",
     images: [OG_IMAGE],
   },
   alternates: {

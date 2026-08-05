@@ -1,11 +1,23 @@
 @layer components {
   .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: var(--space-8);
+    width: 100vw;
+    max-width: 1440px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-inline: var(--space-6);
 
     @media (max-width: 1023px) {
       grid-template-columns: 1fr;
+      width: auto;
+      max-width: none;
+      position: static;
+      left: auto;
+      transform: none;
+      padding-inline: 0;
     }
   }
 }

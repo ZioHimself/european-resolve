@@ -1,39 +1,46 @@
 import type { TierId, ParticipationType } from "./types.js";
 
 export const RUNNER_ONLY_REWARDS = new Set([
-  "Race bib",
-  "Technical race t-shirt",
+  "Running",
+  "Running t-shirt",
 ]);
 
 export const TIER_DATA: Record<TierId, { name: string; price: number; rewards: string[] }> = {
   supporter: {
     name: "Supporter",
     price: 10,
-    rewards: ["Race bib", "Digital certificate", "Hurkit keychain"],
+    rewards: ["Hear how your donation helped"],
   },
-  champion: {
-    name: "Champion",
-    price: 35,
+  sprinter: {
+    name: "Sprinter",
+    price: 15,
+    rewards: ["Running", "Sticker pack"],
+  },
+  "relay-runner": {
+    name: "Relay runner",
+    price: 30,
+    rewards: ["Running", "Sticker pack", "Running socks", "1 raffle ticket"],
+  },
+  marathoner: {
+    name: "Marathoner",
+    price: 60,
     rewards: [
-      "Race bib",
-      "Digital certificate",
-      "Technical race t-shirt",
-      "Name on digital wall",
-      "Hurkit military branch coin",
-      "Hurkit branded sports socks",
+      "Running",
+      "Sticker pack",
+      "Running t-shirt",
+      "Traditional Ukrainian meal",
+      "3 raffle tickets",
     ],
   },
-  patron: {
-    name: "Patron",
-    price: 95,
+  ultramarathoner: {
+    name: "Ultramarathoner",
+    price: 100,
     rewards: [
-      "Race bib",
-      "Digital certificate",
-      "Technical race t-shirt",
-      "Name on digital wall",
-      "Hurkit military branch coin",
-      "Hurkit branded sports socks",
-      "Hurkit silk scarf",
+      "Running",
+      "Sticker pack",
+      "Silk scarf by a Ukrainian designer brand",
+      "Traditional Ukrainian meal",
+      "5 raffle tickets",
     ],
   },
 };
@@ -46,15 +53,4 @@ export function filterRewards(rewards: string[], participationType: Participatio
 export function getTierPrice(tierId: string): number {
   const tier = TIER_DATA[tierId as TierId];
   return tier?.price ?? 0;
-}
-
-/**
- * Determine effective tier from actual donated amount.
- * Thresholds: supporter=10, champion=35, patron=95.
- * Amounts below 10 still map to supporter (minimum tier floor).
- */
-export function getEffectiveTier(amount: number): TierId {
-  if (amount >= 95) return "patron";
-  if (amount >= 35) return "champion";
-  return "supporter";
 }

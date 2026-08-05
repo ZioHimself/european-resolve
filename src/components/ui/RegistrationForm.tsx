@@ -1,11 +1,8 @@
 import { useState } from "react";
 import type { Tier } from "@/data/event";
 import { t } from "@/locales";
-import type {
-  ParticipationType,
-  RegisterResponse,
-  ValidationError,
-} from "./registerTypes";
+import { useLocale } from "@/components/ui/LocaleProvider";
+import type { RegisterResponse, ValidationError } from "./registerTypes";
 import styles from "./RegistrationForm.module.css";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -13,46 +10,57 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8080";
 
+const LOCALE_TO_LANGUAGE: Record<string, string> = {
+  en: "English",
+  fr: "French",
+  uk: "Ukrainian",
+  nl: "Dutch",
+  de: "German",
+};
+
 interface RegistrationFormProps {
-  selectedTier: Tier | null;
-  participationType: ParticipationType;
-  onParticipationTypeChange: (type: ParticipationType) => void;
+  selectedTier: Tier;
   onSuccess: (result: RegisterResponse) => void;
 }
 
 export function RegistrationForm({
   selectedTier,
-  participationType,
-  onParticipationTypeChange,
   onSuccess,
 }: RegistrationFormProps) {
-  const [fullName, setFullName] = useState("");
+  const { locale } = useLocale();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [socksSize, setSocksSize] = useState("36-39");
   const [tshirtSize, setTshirtSize] = useState("M");
-  const [language, setLanguage] = useState("English");
-  const [country, setCountry] = useState("");
   const [gdprConsent, setGdprConsent] = useState(false);
   const [commsOptin, setCommsOptin] = useState(false);
   const [errors, setErrors] = useState<ValidationError[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const isRunner = participationType === "runner";
+  const isSupporter = selectedTier.id === "supporter";
+  const isRunner = !isSupporter;
+  const needsSocksSize = selectedTier.id === "relay-runner";
+  const needsTshirtSize = selectedTier.id === "marathoner";
+  const participationType = isSupporter ? "supporter" : "runner";
 
   function validateForm(): ValidationError[] {
     const errs: ValidationError[] = [];
 
-    if (!fullName.trim()) {
-      errs.push({ field: "fullName", message: t("register.errorFullName") });
+    if (!firstName.trim()) {
+      errs.push({ field: "firstName", message: t("register.errorFirstName") });
+    }
+    if (!lastName.trim()) {
+      errs.push({ field: "lastName", message: t("register.errorLastName") });
     }
     if (!email.trim() || !EMAIL_REGEX.test(email)) {
       errs.push({ field: "email", message: t("register.errorEmail") });
     }
-    if (isRunner && !tshirtSize) {
-      errs.push({ field: "tshirtSize", message: t("register.errorTshirt") });
+    if (needsSocksSize && !socksSize) {
+      errs.push({ field: "socksSize", message: t("register.errorSocks") });
     }
-    if (!country.trim()) {
-      errs.push({ field: "country", message: t("register.errorCountry") });
+    if (needsTshirtSize && !tshirtSize) {
+      errs.push({ field: "tshirtSize", message: t("register.errorTshirt") });
     }
     if (!gdprConsent) {
       errs.push({ field: "gdprConsent", message: t("register.errorGdpr") });
@@ -74,8 +82,6 @@ export function RegistrationForm({
       return;
     }
 
-    if (!selectedTier) return;
-
     setErrors([]);
     setIsSubmitting(true);
 
@@ -84,12 +90,12 @@ export function RegistrationForm({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          fullName: fullName.trim(),
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
           email: email.trim().toLowerCase(),
-          phone: phone.trim() || undefined,
-          ...(isRunner ? { tshirtSize } : {}),
-          language,
-          country: country.trim(),
+          ...(needsTshirtSize ? { tshirtSize } : {}),
+          ...(needsSocksSize ? { socksSize } : {}),
+          language: LOCALE_TO_LANGUAGE[locale] ?? "English",
           tierId: selectedTier.id,
           participationType,
           gdprConsent,
@@ -118,30 +124,11 @@ export function RegistrationForm({
     <section className={styles.section}>
       <form className={styles.card} onSubmit={handleSubmit} noValidate>
         <h2 className={styles.heading}>{t("register.heading")}</h2>
-
-        <fieldset className={styles.toggleFieldset}>
-          <legend className={styles.toggleLegend}>
-            {t("register.howParticipate")}
-          </legend>
-          <div className={styles.toggle}>
-            <button
-              type="button"
-              className={`${styles.toggleOption} ${isRunner ? styles.toggleActive : ""}`}
-              onClick={() => onParticipationTypeChange("runner")}
-              aria-pressed={isRunner}
-            >
-              {t("register.runOnDay")}
-            </button>
-            <button
-              type="button"
-              className={`${styles.toggleOption} ${!isRunner ? styles.toggleActive : ""}`}
-              onClick={() => onParticipationTypeChange("supporter")}
-              aria-pressed={!isRunner}
-            >
-              {t("register.supportAnywhere")}
-            </button>
-          </div>
-        </fieldset>
+        <p className={styles.description}>
+          {isSupporter
+            ? t("register.descriptionSupporter")
+            : t("register.descriptionRunner")}
+        </p>
 
         {errors.length > 0 && (
           <div className={styles.errorSummary} role="alert">
@@ -156,19 +143,35 @@ export function RegistrationForm({
 
         <div className={styles.grid}>
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="reg-name">
-              {t("register.fullName")}
+            <label className={styles.label} htmlFor="reg-first-name">
+              {t("register.firstName")}
             </label>
             <input
-              id="reg-name"
+              id="reg-first-name"
               type="text"
               className={styles.input}
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              aria-invalid={!!fieldError("fullName")}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              aria-invalid={!!fieldError("firstName")}
             />
-            {fieldError("fullName") && (
-              <span className={styles.fieldError}>{fieldError("fullName")}</span>
+            {fieldError("firstName") && (
+              <span className={styles.fieldError}>{fieldError("firstName")}</span>
+            )}
+          </div>
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="reg-last-name">
+              {t("register.lastName")}
+            </label>
+            <input
+              id="reg-last-name"
+              type="text"
+              className={styles.input}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              aria-invalid={!!fieldError("lastName")}
+            />
+            {fieldError("lastName") && (
+              <span className={styles.fieldError}>{fieldError("lastName")}</span>
             )}
           </div>
           <div className={styles.field}>
@@ -187,20 +190,28 @@ export function RegistrationForm({
               <span className={styles.fieldError}>{fieldError("email")}</span>
             )}
           </div>
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="reg-phone">
-              {t("register.phone")}{" "}
-              <span className={styles.optional}>{t("register.optional")}</span>
-            </label>
-            <input
-              id="reg-phone"
-              type="tel"
-              className={styles.input}
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-          {isRunner && (
+          {needsSocksSize && (
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="reg-socks">
+                {t("register.socksSize")}
+              </label>
+              <select
+                id="reg-socks"
+                className={styles.input}
+                value={socksSize}
+                onChange={(e) => setSocksSize(e.target.value)}
+                aria-invalid={!!fieldError("socksSize")}
+              >
+                <option value="36-39">36–39</option>
+                <option value="40-42">40–42</option>
+                <option value="43-46">43–46</option>
+              </select>
+              {fieldError("socksSize") && (
+                <span className={styles.fieldError}>{fieldError("socksSize")}</span>
+              )}
+            </div>
+          )}
+          {needsTshirtSize && (
             <div className={styles.field}>
               <label className={styles.label} htmlFor="reg-tshirt">
                 {t("register.tshirtSize")}
@@ -210,49 +221,18 @@ export function RegistrationForm({
                 className={styles.input}
                 value={tshirtSize}
                 onChange={(e) => setTshirtSize(e.target.value)}
+                aria-invalid={!!fieldError("tshirtSize")}
               >
-                <option value="XS">XS</option>
                 <option value="S">S</option>
                 <option value="M">M</option>
                 <option value="L">L</option>
                 <option value="XL">XL</option>
-                <option value="XXL">XXL</option>
               </select>
+              {fieldError("tshirtSize") && (
+                <span className={styles.fieldError}>{fieldError("tshirtSize")}</span>
+              )}
             </div>
           )}
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="reg-language">
-              {t("register.language")}
-            </label>
-            <select
-              id="reg-language"
-              className={styles.input}
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-            >
-              <option value="English">English</option>
-              <option value="French">French</option>
-              <option value="Ukrainian">Ukrainian</option>
-              <option value="Dutch">Dutch</option>
-              <option value="German">German</option>
-            </select>
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="reg-country">
-              {t("register.country")}
-            </label>
-            <input
-              id="reg-country"
-              type="text"
-              className={styles.input}
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              aria-invalid={!!fieldError("country")}
-            />
-            {fieldError("country") && (
-              <span className={styles.fieldError}>{fieldError("country")}</span>
-            )}
-          </div>
         </div>
 
         <div className={styles.checkboxes}>
@@ -294,23 +274,12 @@ export function RegistrationForm({
         </div>
 
         <div className={styles.footer}>
-          <span className={styles.total}>
-            {selectedTier
-              ? t("register.total", { price: String(selectedTier.price) })
-              : t("register.totalEmpty")}
-          </span>
           <button
             type="submit"
             className={styles.submitButton}
-            disabled={!selectedTier || isSubmitting}
+            disabled={isSubmitting}
           >
-            {isSubmitting
-              ? t("register.submitting")
-              : selectedTier
-                ? isRunner
-                  ? t("register.submitRunner", { price: String(selectedTier.price) })
-                  : t("register.submitSupporter", { price: String(selectedTier.price) })
-                : t("register.selectTier")}
+            {isSubmitting ? t("register.submitting") : t("register.continue")}
           </button>
         </div>
       </form>

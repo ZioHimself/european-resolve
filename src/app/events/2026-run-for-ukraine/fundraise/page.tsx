@@ -17,7 +17,7 @@ export default function FundraisePage() {
         items={[
           { label: t("nav.events"), href: "/events" },
           {
-            label: "Run for Ukraine 2026",
+            label: t("hero.title"),
             href: "/events/2026-run-for-ukraine",
           },
           { label: t("nav.fundraise") },

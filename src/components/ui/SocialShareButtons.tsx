@@ -55,7 +55,7 @@ export function SocialShareButtons({ url, title, message }: SocialShareButtonsPr
     },
     {
       label: t("social.shareEmail"),
-      href: `mailto:?subject=${encodeURIComponent(title + " — Run for Ukraine 2026")}&body=${encodeURIComponent(shareMessage + "\n\n" + url)}`,
+      href: `mailto:?subject=${encodeURIComponent(title + " — 35 Years of 🇺🇦 Independence: Charity and Run")}&body=${encodeURIComponent(shareMessage + "\n\n" + url)}`,
       icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <rect x="2" y="4" width="20" height="16" rx="2" />

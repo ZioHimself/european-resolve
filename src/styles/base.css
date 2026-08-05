@@ -16,16 +16,24 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     hanging-punctuation: first last;
+    background-color: var(--color-background);
   }
 
   body {
     min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
     font-family: var(--font-sans);
     font-size: var(--text-base);
     font-weight: var(--font-book);
     line-height: var(--leading-relaxed);
     color: var(--color-text-primary);
     background-color: var(--color-background);
+  }
+
+  #main {
+    flex: 1 0 auto;
+    background-color: var(--color-surface);
   }
 
   img,
