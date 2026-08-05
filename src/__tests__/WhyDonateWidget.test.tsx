@@ -239,7 +239,7 @@ describe("WhyDonateWidget", () => {
       // MutationObserver callbacks are async in jsdom
       await act(async () => { await Promise.resolve(); });
 
-      expect(onPaymentSuccess).toHaveBeenCalledWith(25);
+      expect(onPaymentSuccess).toHaveBeenCalledWith(25, "Payer Test");
     });
 
     it("calls onDetectionFailed after poll timeout", () => {
