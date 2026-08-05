@@ -13,6 +13,8 @@ export const de: EmailLocale = {
   rewardsDisclaimer:
     "Die endgültigen Belohnungen richten sich nach deinem Spendenbetrag.",
   donationHeading: "Spende abschließen",
+  alreadyPaidNotice:
+    "Falls du bereits bezahlt hast, senden wir dir die Quittung, sobald wir deine Zahlung verarbeitet haben.",
   donationInstructions:
     "Um deine {tierName}-Anmeldung abzuschließen, tätige bitte deine Spende von €{amount} über den untenstehenden Link.",
   donationButton: "€{amount} spenden",

@@ -13,6 +13,8 @@ export const fr: EmailLocale = {
   rewardsDisclaimer:
     "Les récompenses finales dépendent du montant de votre don.",
   donationHeading: "Complétez votre don",
+  alreadyPaidNotice:
+    "Si vous avez déjà payé, nous vous enverrons le reçu dès que votre paiement sera traité.",
   donationInstructions:
     "Pour finaliser votre inscription {tierName}, veuillez effectuer votre don de €{amount} via le lien ci-dessous.",
   donationButton: "Donner €{amount}",

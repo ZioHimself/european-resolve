@@ -54,7 +54,8 @@ export interface ConfirmPaymentResponse {
   confirmed: boolean;
   participantId: string;
   tierName: string;
-  amountEur: number;
+  /** Absent when the actually-paid amount couldn't be determined — never assumed. */
+  amountEur?: number;
   rewards: string[];
 }
 

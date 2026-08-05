@@ -9,6 +9,7 @@ export interface EmailLocale {
   rewardsLabelPending: string;
   rewardsDisclaimer: string;
   donationHeading: string;
+  alreadyPaidNotice: string;
   donationInstructions: string;
   donationButton: string;
   eventDetailsHeading: string;

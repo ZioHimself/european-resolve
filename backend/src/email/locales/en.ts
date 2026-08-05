@@ -13,6 +13,8 @@ export const en: EmailLocale = {
   rewardsLabelPending: "Your selected tier includes",
   rewardsDisclaimer: "Final rewards are based on your donation amount.",
   donationHeading: "Complete your donation",
+  alreadyPaidNotice:
+    "If you have already paid, we will send you the receipt as soon as we process your payment.",
   donationInstructions:
     "To finalise your {tierName} registration, please complete your €{amount} donation using the link below.",
   donationButton: "Donate €{amount}",

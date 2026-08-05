@@ -12,6 +12,7 @@ afterEach(() => {
   document.body.innerHTML = "";
   document.head.querySelectorAll('link[href*="wdplugin"]').forEach((el) => el.remove());
   document.querySelectorAll('script[src*="wp_styling"]').forEach((el) => el.remove());
+  sessionStorage.clear();
 });
 
 /**
@@ -33,6 +34,8 @@ function simulateWidgetInit(shortcode: string) {
       <input id="donor-fname-${id}" type="text" placeholder=" " />
       <input id="donor-lname-${id}" type="text" placeholder=" " />
       <input id="donor-email-${id}" type="text" placeholder=" " />
+      <textarea id="public-message-${id}"></textarea>
+      <input id="anonymous-toggle-${id}" type="checkbox" />
     </div>
     <div id="step-three-container-${id}" style="display: none"></div>
     <div id="step-four-container-${id}" style="display: none"></div>
@@ -239,7 +242,10 @@ describe("WhyDonateWidget", () => {
       // MutationObserver callbacks are async in jsdom
       await act(async () => { await Promise.resolve(); });
 
-      expect(onPaymentSuccess).toHaveBeenCalledWith(25);
+      expect(onPaymentSuccess).toHaveBeenCalledWith(25, {
+        donorName: "Payer Test",
+        message: undefined,
+      });
     });
 
     it("calls onDetectionFailed after poll timeout", () => {
@@ -258,6 +264,90 @@ describe("WhyDonateWidget", () => {
       act(() => { vi.advanceTimersByTime(3100); });
 
       expect(onDetectionFailed).toHaveBeenCalled();
+    });
+
+    it("reports the amount actually in the field at payment success, not an earlier value the donor changed their mind about", async () => {
+      // Regression for a real incident: donor picked €15, changed the field
+      // to €5, and paid €5 — but €15 was recorded as paid and emailed as a
+      // receipt. The widget must never report a stale first-entered amount.
+      const shortcode = "chng1";
+      const onPaymentSuccess = vi.fn();
+      render(
+        <WhyDonateWidget
+          shortcode={shortcode}
+          donorInfo={{ fullName: "Amount Changer", email: "changer@test.com" }}
+          onPaymentSuccess={onPaymentSuccess}
+          onDetectionFailed={vi.fn()}
+        />,
+      );
+
+      act(() => { simulateWidgetInit(shortcode); });
+      act(() => { vi.advanceTimersByTime(200); });
+
+      const host = document.getElementById(`widget-here-${shortcode}`)!;
+      const shadow = host.shadowRoot!;
+      const id = `${shortcode}-1`;
+      const amountInput = shadow.getElementById(`other-amount-number-${id}`) as HTMLInputElement;
+
+      // Donor first enters €15 ...
+      act(() => {
+        amountInput.value = "15";
+        amountInput.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+
+      // ... then changes their mind and pays €5 instead.
+      act(() => {
+        amountInput.value = "5";
+        amountInput.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+
+      act(() => {
+        const stepFour = shadow.getElementById(`step-four-container-${id}`)!;
+        stepFour.style.display = "block";
+      });
+
+      await act(async () => { await Promise.resolve(); });
+
+      expect(onPaymentSuccess).toHaveBeenCalledTimes(1);
+      expect(onPaymentSuccess).not.toHaveBeenCalledWith(15, expect.anything());
+      expect(onPaymentSuccess).toHaveBeenCalledWith(5, expect.anything());
+    });
+
+    it("persists the changed amount to sessionStorage, not the first value entered — this is what a real redirect return would read", () => {
+      // If WhyDonate takes the donor through an actual page redirect for
+      // payment, onPaymentSuccess never fires on this page load — the app
+      // relies entirely on whatever was last persisted to sessionStorage
+      // before navigation. That stash must reflect the final amount too.
+      const shortcode = "chng2";
+      const AMOUNT_KEY = "test:chng2:amount";
+      render(
+        <WhyDonateWidget
+          shortcode={shortcode}
+          donationStorageKeys={{ amount: AMOUNT_KEY }}
+        />,
+      );
+
+      act(() => { simulateWidgetInit(shortcode); });
+      act(() => { vi.advanceTimersByTime(200); });
+
+      const host = document.getElementById(`widget-here-${shortcode}`)!;
+      const shadow = host.shadowRoot!;
+      const id = `${shortcode}-1`;
+      const amountInput = shadow.getElementById(`other-amount-number-${id}`) as HTMLInputElement;
+
+      act(() => {
+        amountInput.value = "15";
+        amountInput.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+      expect(sessionStorage.getItem(AMOUNT_KEY)).toBe("15");
+
+      act(() => {
+        amountInput.value = "5";
+        amountInput.dispatchEvent(new Event("input", { bubbles: true }));
+      });
+
+      expect(sessionStorage.getItem(AMOUNT_KEY)).toBe("5");
+      expect(sessionStorage.getItem(AMOUNT_KEY)).not.toBe("15");
     });
   });
 

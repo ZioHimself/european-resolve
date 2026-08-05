@@ -6,12 +6,23 @@ type DonorInfo =
   | { firstName: string; lastName: string; email: string }
   | { fullName: string; email: string };
 
+export interface DonationStorageKeys {
+  amount: string;
+  donor?: string;
+  message?: string;
+}
+
 interface WhyDonateWidgetProps {
   shortcode: string;
   lang?: string;
-  onPaymentSuccess?: (amount: number, donorName?: string) => void;
+  onPaymentSuccess?: (
+    amount: number,
+    details?: { donorName?: string; message?: string },
+  ) => void;
   onDetectionFailed?: () => void;
   donorInfo?: DonorInfo;
+  /** Persist amount/name/message to sessionStorage as the donor fills the form. */
+  donationStorageKeys?: DonationStorageKeys;
 }
 
 function normalizeDonorInfo(
@@ -45,6 +56,38 @@ function readDonorName(shadow: ShadowRoot, id: string): string | undefined {
   const lname = (shadow.getElementById(`donor-lname-${id}`) as HTMLInputElement | null)?.value?.trim() ?? "";
   const full = [fname, lname].filter(Boolean).join(" ");
   return full || undefined;
+}
+
+function readDonorMessage(shadow: ShadowRoot, id: string): string | undefined {
+  const message =
+    (shadow.getElementById(`public-message-${id}`) as HTMLTextAreaElement | null)?.value?.trim() ??
+    "";
+  return message || undefined;
+}
+
+function readDonationDetails(shadow: ShadowRoot, id: string) {
+  return {
+    amount: readAmount(shadow, id),
+    donorName: readDonorName(shadow, id),
+    message: readDonorMessage(shadow, id),
+  };
+}
+
+function persistDonationDetails(keys: DonationStorageKeys, shadow: ShadowRoot, id: string) {
+  try {
+    const { amount, donorName, message } = readDonationDetails(shadow, id);
+    if (amount > 0) sessionStorage.setItem(keys.amount, String(amount));
+    if (keys.donor) {
+      if (donorName) sessionStorage.setItem(keys.donor, donorName);
+      else sessionStorage.removeItem(keys.donor);
+    }
+    if (keys.message) {
+      if (message) sessionStorage.setItem(keys.message, message);
+      else sessionStorage.removeItem(keys.message);
+    }
+  } catch {
+    /* storage unavailable */
+  }
 }
 
 const nativeInputValueSetter =
@@ -87,18 +130,53 @@ function prefillDonorFields(
   return filledCount > 0;
 }
 
+function attachDonationPersistence(
+  shadow: ShadowRoot,
+  id: string,
+  keys: DonationStorageKeys,
+): () => void {
+  const fieldIds = [`other-amount-number-${id}`];
+  if (keys.donor) {
+    fieldIds.push(`donor-fname-${id}`, `donor-lname-${id}`, `donate-anonymously-${id}`);
+  }
+  if (keys.message) {
+    fieldIds.push(`public-message-${id}`);
+  }
+
+  const persist = () => persistDonationDetails(keys, shadow, id);
+
+  for (const fieldId of fieldIds) {
+    const el = shadow.getElementById(fieldId);
+    el?.addEventListener("input", persist);
+    el?.addEventListener("change", persist);
+  }
+
+  persist();
+
+  return () => {
+    for (const fieldId of fieldIds) {
+      const el = shadow.getElementById(fieldId);
+      el?.removeEventListener("input", persist);
+      el?.removeEventListener("change", persist);
+    }
+  };
+}
+
 export function WhyDonateWidget({
   shortcode,
   lang = "auto",
   onPaymentSuccess,
   onDetectionFailed,
   donorInfo,
+  donationStorageKeys,
 }: WhyDonateWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefillDoneRef = useRef(false);
   const detectionDoneRef = useRef(false);
   const donorInfoRef = useRef(donorInfo);
+  const storageKeysRef = useRef(donationStorageKeys);
   donorInfoRef.current = donorInfo;
+  storageKeysRef.current = donationStorageKeys;
 
   useEffect(() => {
     const el = containerRef.current?.querySelector(".widget-here") as HTMLElement | null;
@@ -131,16 +209,33 @@ export function WhyDonateWidget({
   }, []);
 
   useEffect(() => {
-    if (!shortcode || (!onPaymentSuccess && !donorInfo)) return;
+    if (!shortcode || (!onPaymentSuccess && !donorInfo && !donationStorageKeys)) return;
 
     let observer: MutationObserver | null = null;
     let pollTimer: ReturnType<typeof setInterval> | null = null;
+    let detachPersistence: (() => void) | null = null;
     let cancelled = false;
 
     const id = `${shortcode}-1`;
 
+    function firePaymentSuccess(shadow: ShadowRoot) {
+      if (!onPaymentSuccess) return;
+      const details = readDonationDetails(shadow, id);
+      console.log("[WhyDonateWidget] payment detected", details);
+      onPaymentSuccess(details.amount, {
+        donorName: details.donorName,
+        message: details.message,
+      });
+    }
+
     function handleShadowRoot(shadow: ShadowRoot) {
       if (cancelled) return;
+
+      const keys = storageKeysRef.current;
+      if (keys) {
+        detachPersistence?.();
+        detachPersistence = attachDonationPersistence(shadow, id, keys);
+      }
 
       const currentDonorInfo = donorInfoRef.current;
 
@@ -165,10 +260,7 @@ export function WhyDonateWidget({
         });
         if (stepFour && stepFour.style.display !== "none" && stepFour.style.display !== "") {
           detectionDoneRef.current = true;
-          const amount = readAmount(shadow, id);
-          const name = readDonorName(shadow, id);
-          console.log("[WhyDonateWidget] step-four detected on mount", { amount, name });
-          onPaymentSuccess(amount, name);
+          firePaymentSuccess(shadow);
           if (!needsPrefillRetry) return;
         }
       }
@@ -181,6 +273,10 @@ export function WhyDonateWidget({
           if (filled) {
             prefillDoneRef.current = true;
           }
+        }
+
+        if (keys) {
+          persistDonationDetails(keys, shadow, id);
         }
 
         if (!onPaymentSuccess || detectionDoneRef.current) {
@@ -197,10 +293,7 @@ export function WhyDonateWidget({
             observer?.disconnect();
             observer = null;
           }
-          const amount = readAmount(shadow, id);
-          const name = readDonorName(shadow, id);
-          console.log("[WhyDonateWidget] step-four detected via observer", { amount, name });
-          onPaymentSuccess(amount, name);
+          firePaymentSuccess(shadow);
         }
       });
 
@@ -208,7 +301,7 @@ export function WhyDonateWidget({
         childList: true,
         subtree: true,
         attributes: true,
-        attributeFilter: ["style", "class"],
+        attributeFilter: ["style", "class", "data-wd-visible"],
       });
     }
 
@@ -244,8 +337,9 @@ export function WhyDonateWidget({
         observer.disconnect();
         observer = null;
       }
+      detachPersistence?.();
     };
-  }, [shortcode, onPaymentSuccess, onDetectionFailed, donorInfo]);
+  }, [shortcode, onPaymentSuccess, onDetectionFailed, donorInfo, donationStorageKeys]);
 
   return (
     <div ref={containerRef}>

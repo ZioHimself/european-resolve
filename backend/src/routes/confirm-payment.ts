@@ -71,17 +71,26 @@ confirmPaymentRoute.post("/", async (c) => {
     rewards: result.rewards,
   };
 
-  sendPaymentConfirmationEmail(
-    {
-      name: result.fullName,
-      email: result.email,
-      participantId: result.participantId,
-      tierName: result.tierName,
-      amountEur: result.amountEur,
-      rewards: result.rewards,
-    },
-    result.language as Language,
-  ).catch((err) => console.error("[email] Failed to send payment confirmation:", err));
+  // Don't send a receipt claiming a specific amount when we don't actually
+  // know what was paid — the registration is still marked paid and gets
+  // reconciled manually instead.
+  if (result.amountEur != null) {
+    sendPaymentConfirmationEmail(
+      {
+        name: result.fullName,
+        email: result.email,
+        participantId: result.participantId,
+        tierName: result.tierName,
+        amountEur: result.amountEur,
+        rewards: result.rewards,
+      },
+      result.language as Language,
+    ).catch((err) => console.error("[email] Failed to send payment confirmation:", err));
+  } else {
+    console.warn(
+      `[email] Skipping payment confirmation email for ${result.participantId} — amount unknown`,
+    );
+  }
 
   return c.json({
     success: true,

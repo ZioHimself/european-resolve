@@ -13,6 +13,8 @@ export const nl: EmailLocale = {
   rewardsDisclaimer:
     "De uiteindelijke beloningen zijn afhankelijk van je donatiebedrag.",
   donationHeading: "Rond je donatie af",
+  alreadyPaidNotice:
+    "Heb je al betaald? Dan sturen we je het betalingsbewijs zodra we je betaling hebben verwerkt.",
   donationInstructions:
     "Om je {tierName}-inschrijving te voltooien, gelieve je donatie van €{amount} te doen via onderstaande link.",
   donationButton: "Doneer €{amount}",

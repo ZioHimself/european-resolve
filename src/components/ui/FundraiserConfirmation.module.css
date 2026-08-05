@@ -319,7 +319,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-3);
-    background: color-mix(in srgb, var(--color-background, #fff) 90%, transparent);
+    background: var(--color-background, #fff);
     z-index: 10;
     border-radius: var(--radius-lg);
   }

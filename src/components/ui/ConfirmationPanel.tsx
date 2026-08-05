@@ -5,6 +5,11 @@ import { t } from "@/locales";
 import { eventDetails } from "@/data/event";
 import type { RegisterResponse } from "./registerTypes";
 import { WhyDonateWidget } from "./WhyDonateWidget";
+import {
+  PAYMENT_AMOUNT_STORAGE_KEY,
+  parseWhyDonatePaymentReturn,
+  clearPaymentAmountStorage,
+} from "@/lib/whydonatePaymentRedirect";
 import styles from "./ConfirmationPanel.module.css";
 
 interface ConfirmationPanelProps {
@@ -14,35 +19,27 @@ interface ConfirmationPanelProps {
   onStartOver?: () => void;
 }
 
-const AMOUNT_STORAGE_KEY = "r4u:donation-amount";
-
-function isWhyDonateReturn(): { isReturn: boolean; storedAmount: number } {
-  if (typeof window === "undefined") return { isReturn: false, storedAmount: 0 };
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("redirect_status") !== "succeeded") return { isReturn: false, storedAmount: 0 };
-  let storedAmount = 0;
-  try {
-    storedAmount = Number(sessionStorage.getItem(AMOUNT_STORAGE_KEY)) || 0;
-  } catch { /* unavailable */ }
-  return { isReturn: true, storedAmount };
-}
+const AMOUNT_STORAGE_KEY = PAYMENT_AMOUNT_STORAGE_KEY;
 
 export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirmed, onStartOver }: ConfirmationPanelProps) {
-  const [paymentReturn] = useState(() => isWhyDonateReturn());
+  const [paymentReturn] = useState(() => parseWhyDonatePaymentReturn());
   const [confirming, setConfirming] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [detectionActive, setDetectionActive] = useState(true);
-  const [verifying, setVerifying] = useState(paymentReturn.isReturn && paymentReturn.storedAmount > 0);
+  const [verifying, setVerifying] = useState(() => paymentReturn.isReturn);
   const [interruptedSession, setInterruptedSession] = useState(false);
+  const [invoiceOpen, setInvoiceOpen] = useState(false);
 
   useEffect(() => {
     if (!isRestoredSession) return;
 
-    if (paymentReturn.isReturn && paymentReturn.storedAmount > 0) {
-      try { sessionStorage.removeItem(AMOUNT_STORAGE_KEY); } catch { /* unavailable */ }
-      console.log("[ConfirmationPanel] redirect return — auto-confirming with stored amount", paymentReturn.storedAmount);
-      handleAutoConfirm(paymentReturn.storedAmount);
+    if (paymentReturn.isReturn) {
+      clearPaymentAmountStorage();
+      console.log("[ConfirmationPanel] redirect return — auto-confirming", {
+        amount: paymentReturn.amount,
+      });
+      handleAutoConfirm(paymentReturn.amount);
       return;
     }
 
@@ -52,9 +49,9 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
       const timer = setTimeout(() => setInterruptedSession(false), 10 * 60 * 1000);
       return () => clearTimeout(timer);
     }
-  }, [isRestoredSession]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isRestoredSession]);
 
-  async function handleAutoConfirm(amount: number) {
+  async function handleAutoConfirm(amount?: number) {
     setVerifying(true);
     setError(null);
 
@@ -66,7 +63,7 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           token: result.paymentToken,
-          amount,
+          ...(amount != null ? { amount } : {}),
           email: result.email,
           firstName: result.firstName,
           lastName: result.lastName,
@@ -179,16 +176,15 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
             : t("register.confirmedSupporter")}
         </p>
 
-        <div className={`${styles.widgetContainer} ${styles.widgetCollapsed}`}>
-          <WhyDonateWidget shortcode={eventDetails.whydonateShortcode} />
+        <div className={`${styles.widgetContainer} ${invoiceOpen ? "" : styles.widgetCollapsed}`}>
+          {invoiceOpen && (
+            <WhyDonateWidget shortcode={eventDetails.whydonateShortcode} />
+          )}
         </div>
         <button
           type="button"
           className={styles.widgetExpandTrigger}
-          onClick={(e) => {
-            const container = (e.currentTarget as HTMLElement).previousElementSibling as HTMLElement;
-            container?.classList.toggle(styles.widgetCollapsed);
-          }}
+          onClick={() => setInvoiceOpen((open) => !open)}
         >
           {t("register.needInvoice")}
         </button>
@@ -278,13 +274,12 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
         <div className={styles.widgetContainer} style={{ position: "relative" }}>
           <WhyDonateWidget
             shortcode={eventDetails.whydonateShortcode}
+            donationStorageKeys={{ amount: AMOUNT_STORAGE_KEY }}
             onPaymentSuccess={(amount) => {
               try {
                 sessionStorage.setItem(AMOUNT_STORAGE_KEY, String(amount));
               } catch { /* unavailable */ }
-              handleAutoConfirm(amount).finally(() => {
-                try { sessionStorage.removeItem(AMOUNT_STORAGE_KEY); } catch { /* unavailable */ }
-              });
+              handleAutoConfirm(amount).finally(clearPaymentAmountStorage);
             }}
             onDetectionFailed={() => setDetectionActive(false)}
             donorInfo={{ firstName: result.firstName, lastName: result.lastName, email: result.email }}

@@ -154,7 +154,7 @@ export class SheetsService {
         email: string;
         language: string;
         tierName: string;
-        amountEur: number;
+        amountEur?: number;
         rewards: string[];
       }
     | { success: false; error: string }
@@ -210,10 +210,13 @@ export class SheetsService {
       return { success: false, error: "already_confirmed" };
     }
 
+    // The amount actually paid can differ from what was registered for
+    // (e.g. the donor lowers it in the widget before paying) — never
+    // substitute the registered tier price as if it were the paid amount.
+    // Leave it blank rather than assume; it's simply excluded from the
+    // public raised total until reconciled.
     const recordedAmount =
-      donatedAmount != null && donatedAmount > 0
-        ? donatedAmount
-        : Number(row[8]);
+      donatedAmount != null && donatedAmount > 0 ? donatedAmount : undefined;
 
     const rowNumber = matchIndex + 1;
     await this.sheets.spreadsheets.values.update({
@@ -221,7 +224,14 @@ export class SheetsService {
       range: `${SHEET_NAME}!M${rowNumber}:P${rowNumber}`,
       valueInputOption: "RAW",
       requestBody: {
-        values: [["", "paid", String(recordedAmount), new Date().toISOString()]],
+        values: [
+          [
+            "",
+            "paid",
+            recordedAmount != null ? String(recordedAmount) : "",
+            new Date().toISOString(),
+          ],
+        ],
       },
     });
 

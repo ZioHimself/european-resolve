@@ -59,10 +59,8 @@ export function RegisterClient({ onStepChange }: RegisterClientProps) {
   }, [selectedTierId]);
 
   useEffect(() => {
-    if (registrationResult) return;
-
     const token = new URLSearchParams(window.location.search).get("token");
-    if (!token) return;
+    if (!token || token === registrationResult?.paymentToken) return;
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
     setTokenLoading(true);
