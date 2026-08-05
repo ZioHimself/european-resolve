@@ -5,20 +5,14 @@ import { t } from "@/locales";
 import { eventDetails } from "@/data/event";
 import { SocialShareButtons } from "@/components/ui/SocialShareButtons";
 import { WhyDonateWidget } from "@/components/ui/WhyDonateWidget";
+import {
+  PAYMENT_AMOUNT_STORAGE_KEY,
+  parseWhyDonatePaymentReturn,
+  clearPaymentAmountStorage,
+} from "@/lib/whydonatePaymentRedirect";
 import styles from "./FundraiserConfirmation.module.css";
 
-const AMOUNT_STORAGE_KEY = "r4u:donation-amount";
-
-function isWhyDonateReturn(): { isReturn: boolean; storedAmount: number } {
-  if (typeof window === "undefined") return { isReturn: false, storedAmount: 0 };
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("redirect_status") !== "succeeded") return { isReturn: false, storedAmount: 0 };
-  let storedAmount = 0;
-  try {
-    storedAmount = Number(sessionStorage.getItem(AMOUNT_STORAGE_KEY)) || 0;
-  } catch { /* unavailable */ }
-  return { isReturn: true, storedAmount };
-}
+const AMOUNT_STORAGE_KEY = PAYMENT_AMOUNT_STORAGE_KEY;
 
 interface RegistrationData {
   participantId: string;
@@ -52,14 +46,18 @@ export function FundraiserConfirmation({
   const shareableUrl = `https://${baseUrl}?by=${slug}`;
   const editUrl = `${shareableUrl}&edit=${editToken}`;
 
-  const [paymentReturn] = useState(() => isWhyDonateReturn());
+  const [paymentReturn] = useState(() =>
+    parseWhyDonatePaymentReturn(registration?.amountEur ?? 0),
+  );
   const [copiedShare, setCopiedShare] = useState(false);
   const [copiedEdit, setCopiedEdit] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [confirmError, setConfirmError] = useState<string | null>(null);
   const [detectionActive, setDetectionActive] = useState(true);
-  const [verifying, setVerifying] = useState(paymentReturn.isReturn && paymentReturn.storedAmount > 0);
+  const [verifying, setVerifying] = useState(
+    () => paymentReturn.isReturn && paymentReturn.amount > 0,
+  );
   const [effectiveTierName, setEffectiveTierName] = useState<string | null>(null);
   const [effectiveRewards, setEffectiveRewards] = useState<string[] | null>(null);
   const [interruptedSession, setInterruptedSession] = useState(false);
@@ -67,10 +65,14 @@ export function FundraiserConfirmation({
   useEffect(() => {
     if (!isRestoredSession) return;
 
-    if (paymentReturn.isReturn && paymentReturn.storedAmount > 0 && registration) {
-      try { sessionStorage.removeItem(AMOUNT_STORAGE_KEY); } catch { /* unavailable */ }
-      console.log("[FundraiserConfirmation] redirect return — auto-confirming with stored amount", paymentReturn.storedAmount);
-      handleAutoConfirm(paymentReturn.storedAmount);
+    if (paymentReturn.isReturn && paymentReturn.amount > 0 && registration) {
+      clearPaymentAmountStorage();
+      console.log("[FundraiserConfirmation] redirect return — auto-confirming", {
+        amount: paymentReturn.amount,
+        storedAmount: paymentReturn.storedAmount,
+        tierAmount: registration.amountEur,
+      });
+      handleAutoConfirm(paymentReturn.amount);
       return;
     }
 
@@ -259,13 +261,12 @@ export function FundraiserConfirmation({
               <div className={styles.widgetContainer} style={{ position: "relative" }}>
                 <WhyDonateWidget
                   shortcode={eventDetails.whydonateShortcode}
+                  donationStorageKeys={{ amount: AMOUNT_STORAGE_KEY }}
                   onPaymentSuccess={(amount) => {
                     try {
                       sessionStorage.setItem(AMOUNT_STORAGE_KEY, String(amount));
                     } catch { /* unavailable */ }
-                    handleAutoConfirm(amount).finally(() => {
-                      try { sessionStorage.removeItem(AMOUNT_STORAGE_KEY); } catch { /* unavailable */ }
-                    });
+                    handleAutoConfirm(amount).finally(clearPaymentAmountStorage);
                   }}
                   onDetectionFailed={() => setDetectionActive(false)}
                   donorInfo={{ fullName: registration.fullName, email: registration.email }}

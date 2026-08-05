@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 
 export interface DonationStorageKeys {
   amount: string;
-  donor: string;
-  message: string;
+  donor?: string;
+  message?: string;
 }
 
 interface WhyDonateWidgetProps {
@@ -61,10 +61,14 @@ function persistDonationDetails(keys: DonationStorageKeys, shadow: ShadowRoot, i
   try {
     const { amount, donorName, message } = readDonationDetails(shadow, id);
     if (amount > 0) sessionStorage.setItem(keys.amount, String(amount));
-    if (donorName) sessionStorage.setItem(keys.donor, donorName);
-    else sessionStorage.removeItem(keys.donor);
-    if (message) sessionStorage.setItem(keys.message, message);
-    else sessionStorage.removeItem(keys.message);
+    if (keys.donor) {
+      if (donorName) sessionStorage.setItem(keys.donor, donorName);
+      else sessionStorage.removeItem(keys.donor);
+    }
+    if (keys.message) {
+      if (message) sessionStorage.setItem(keys.message, message);
+      else sessionStorage.removeItem(keys.message);
+    }
   } catch {
     /* storage unavailable */
   }
@@ -117,13 +121,13 @@ function attachDonationPersistence(
   id: string,
   keys: DonationStorageKeys,
 ): () => void {
-  const fieldIds = [
-    `other-amount-number-${id}`,
-    `donor-fname-${id}`,
-    `donor-lname-${id}`,
-    `public-message-${id}`,
-    `anonymous-toggle-${id}`,
-  ];
+  const fieldIds = [`other-amount-number-${id}`];
+  if (keys.donor) {
+    fieldIds.push(`donor-fname-${id}`, `donor-lname-${id}`, `anonymous-toggle-${id}`);
+  }
+  if (keys.message) {
+    fieldIds.push(`public-message-${id}`);
+  }
 
   const persist = () => persistDonationDetails(keys, shadow, id);
 
