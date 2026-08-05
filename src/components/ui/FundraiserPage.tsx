@@ -195,7 +195,7 @@ function FundraiserContent() {
     }
 
     fetchData();
-  }, [slug, apiUrl]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [slug, apiUrl]);
 
   async function handlePublish() {
     if (!slug || !editToken || !fundraiser) return;

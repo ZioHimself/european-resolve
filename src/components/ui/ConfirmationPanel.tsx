@@ -54,7 +54,7 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
       const timer = setTimeout(() => setInterruptedSession(false), 10 * 60 * 1000);
       return () => clearTimeout(timer);
     }
-  }, [isRestoredSession]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isRestoredSession]);
 
   async function handleAutoConfirm(amount: number) {
     setVerifying(true);

@@ -82,7 +82,7 @@ export function FundraiserConfirmation({
       const timer = setTimeout(() => setInterruptedSession(false), 10 * 60 * 1000);
       return () => clearTimeout(timer);
     }
-  }, [isRestoredSession]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isRestoredSession]);
 
   async function copyToClipboard(text: string, type: "share" | "edit") {
     try {
