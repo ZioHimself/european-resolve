@@ -110,3 +110,12 @@ export const members = [ ... ] satisfies Member[];
 - `alt` text on all images
 - Focus ring: amber, 2px solid, 2px offset
 - `prefers-reduced-motion` respected (animations disabled)
+
+## Localization Copy
+
+- **Ukrainian (`uk`) locale uses informal register (`ти`), never formal (`ви`)** — applies to `backend/src/email/locales/uk.ts` and any other Ukrainian-facing copy. Verbs and possessives must agree: informal singular imperatives (`заверши`, not `завершіть`), `твій/твоя/твоє/твої` not `ваш/ваша/ваше/ваші`.
+- Prefer impersonal/passive constructions (`тебе зареєстровано`, `оплата вже здійснена`) over a 2nd-person past-tense verb when addressing the reader informally — Ukrainian past tense agrees with gender (`зареєстрований` vs `зареєстрована`) and the recipient's gender is unknown, so a gendered verb can't be used. Non-past tense (present/future) doesn't have this problem and can address `ти` directly (e.g. `ти отримаєш`).
+- **Never assume the reader is male.** When a gendered form can't be avoided (e.g. a short button label where the impersonal/passive rephrase doesn't fit), use one of two forms:
+  - Compact: common stem + `_` + feminine ending — `ти зроби_ла`, `ти взя_ла`.
+  - Full: both forms separated by a slash — `ти зробив/зробила`, `ти взяв/взяла`.
+- **Ukraine's defenders include servicewomen** — always use both forms, e.g. `для військовослужбовиць і військовослужбовців`, `для захисниць і захисників`. Never write `захисників`/`військовослужбовців` alone when referring to Ukraine's defenders collectively.

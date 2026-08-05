@@ -93,6 +93,7 @@ export function renderConfirmationEmail(
               <!-- Donation CTA -->
               <div style="margin-bottom:24px;padding:20px;background-color:#fff8e1;border-radius:6px;border:1px solid #ffd700;">
                 <h2 style="margin:0 0 8px;font-size:16px;color:#0a1628;">${escapeHtml(l.donationHeading)}</h2>
+                <p style="margin:0 0 12px;font-size:13px;color:#666;font-style:italic;">${escapeHtml(l.alreadyPaidNotice)}</p>
                 <p style="margin:0 0 16px;font-size:14px;color:#333;">${escapeHtml(donationInstructions)}</p>
                 <a href="${escapeHtml(data.donationUrl)}" style="display:inline-block;padding:12px 24px;background-color:#0057b8;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;border-radius:6px;">${escapeHtml(donationButton)}</a>
               </div>
@@ -225,6 +226,7 @@ export function renderFundraiserEmail(
               <!-- Donation CTA -->
               <div style="margin-bottom:24px;padding:20px;background-color:#fff8e1;border-radius:6px;border:1px solid #ffd700;">
                 <h2 style="margin:0 0 8px;font-size:16px;color:#0a1628;">${escapeHtml(l.donationHeading)}</h2>
+                <p style="margin:0 0 12px;font-size:13px;color:#666;font-style:italic;">${escapeHtml(l.alreadyPaidNotice)}</p>
                 <p style="margin:0 0 16px;font-size:14px;color:#333;">${escapeHtml(donationInstructions)}</p>
                 <a href="${escapeHtml(data.donationUrl)}" style="display:inline-block;padding:12px 24px;background-color:#0057b8;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;border-radius:6px;">${escapeHtml(donationButton)}</a>
               </div>
@@ -259,7 +261,8 @@ export interface PaymentConfirmationEmailData {
   email: string;
   participantId: string;
   tierName: string;
-  amountEur: number;
+  /** Absent when the actually-paid amount couldn't be determined — never assumed. */
+  amountEur?: number;
   rewards: string[];
 }
 
@@ -271,7 +274,6 @@ export function renderPaymentConfirmationEmail(
   const params = {
     name: data.name,
     tierName: data.tierName,
-    amount: data.amountEur,
   };
 
   const subject = interpolate(l.paymentSubject, params);
@@ -314,13 +316,17 @@ export function renderPaymentConfirmationEmail(
                   <td style="padding:12px 16px;background-color:#f9f9f9;border-bottom:1px solid #e5e5e5;font-size:14px;font-weight:600;color:#0a1628;">${escapeHtml(data.participantId)}</td>
                 </tr>
                 <tr>
-                  <td style="padding:12px 16px;border-bottom:1px solid #e5e5e5;font-size:14px;color:#666;">${escapeHtml(l.tierLabel)}</td>
-                  <td style="padding:12px 16px;border-bottom:1px solid #e5e5e5;font-size:14px;color:#0a1628;">${escapeHtml(data.tierName)}</td>
+                  <td style="padding:12px 16px;${data.amountEur != null ? "border-bottom:1px solid #e5e5e5;" : ""}font-size:14px;color:#666;">${escapeHtml(l.tierLabel)}</td>
+                  <td style="padding:12px 16px;${data.amountEur != null ? "border-bottom:1px solid #e5e5e5;" : ""}font-size:14px;color:#0a1628;">${escapeHtml(data.tierName)}</td>
                 </tr>
-                <tr>
+                ${
+                  data.amountEur != null
+                    ? `<tr>
                   <td style="padding:12px 16px;font-size:14px;color:#666;">${escapeHtml(l.amountLabel)}</td>
                   <td style="padding:12px 16px;font-size:14px;color:#0a1628;">&euro;${data.amountEur}</td>
-                </tr>
+                </tr>`
+                    : ""
+                }
               </table>
 
               <!-- Rewards -->
