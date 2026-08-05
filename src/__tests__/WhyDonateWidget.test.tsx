@@ -33,6 +33,8 @@ function simulateWidgetInit(shortcode: string) {
       <input id="donor-fname-${id}" type="text" placeholder=" " />
       <input id="donor-lname-${id}" type="text" placeholder=" " />
       <input id="donor-email-${id}" type="text" placeholder=" " />
+      <textarea id="public-message-${id}"></textarea>
+      <input id="anonymous-toggle-${id}" type="checkbox" />
     </div>
     <div id="step-three-container-${id}" style="display: none"></div>
     <div id="step-four-container-${id}" style="display: none"></div>
@@ -239,7 +241,10 @@ describe("WhyDonateWidget", () => {
       // MutationObserver callbacks are async in jsdom
       await act(async () => { await Promise.resolve(); });
 
-      expect(onPaymentSuccess).toHaveBeenCalledWith(25, "Payer Test");
+      expect(onPaymentSuccess).toHaveBeenCalledWith(25, {
+        donorName: "Payer Test",
+        message: undefined,
+      });
     });
 
     it("calls onDetectionFailed after poll timeout", () => {
