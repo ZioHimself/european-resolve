@@ -57,7 +57,7 @@ export function renderConfirmationEmail(
           <!-- Header -->
           <tr>
             <td style="background-color:#0057b8;padding:24px 32px;">
-              <h1 style="margin:0;color:#ffd700;font-size:20px;font-weight:700;">Run for Ukraine 2026</h1>
+              <h1 style="margin:0;color:#ffd700;font-size:20px;font-weight:700;">35 Years of 🇺🇦 Independence: Charity and Run</h1>
             </td>
           </tr>
 
@@ -169,7 +169,7 @@ export function renderFundraiserEmail(
           <!-- Header -->
           <tr>
             <td style="background-color:#0057b8;padding:24px 32px;">
-              <h1 style="margin:0;color:#ffd700;font-size:20px;font-weight:700;">Run for Ukraine 2026</h1>
+              <h1 style="margin:0;color:#ffd700;font-size:20px;font-weight:700;">35 Years of 🇺🇦 Independence: Charity and Run</h1>
             </td>
           </tr>
 
@@ -297,7 +297,7 @@ export function renderPaymentConfirmationEmail(
           <!-- Header -->
           <tr>
             <td style="background-color:#0057b8;padding:24px 32px;">
-              <h1 style="margin:0;color:#ffd700;font-size:20px;font-weight:700;">Run for Ukraine 2026</h1>
+              <h1 style="margin:0;color:#ffd700;font-size:20px;font-weight:700;">35 Years of 🇺🇦 Independence: Charity and Run</h1>
             </td>
           </tr>
 

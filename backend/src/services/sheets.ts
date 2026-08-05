@@ -1,23 +1,27 @@
 import { randomBytes } from "node:crypto";
 import { google, type sheets_v4 } from "googleapis";
 import { config } from "../config.js";
-import { getTierPrice, getEffectiveTier, TIER_DATA, filterRewards } from "../tiers.js";
+import { getTierPrice, TIER_DATA, filterRewards } from "../tiers.js";
 import type {
   RegisterRequest,
   FundraiserCreateRequest,
   FundraiserUpdateRequest,
   DonorWallEntry,
   ParticipationType,
+  TierId,
 } from "../types.js";
 
 export interface ExistingRegistration {
   participantId: string;
   fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   tierId: string;
   amountEur: number;
   paymentToken: string;
   participationType: string;
+  status: string;
 }
 
 export interface FundraiserRow {
@@ -36,6 +40,24 @@ const FUNDRAISER_SHEET = "Fundraisers";
 const DONOR_WALL_SHEET = "Donor Wall";
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
+// Custom epoch keeps the encoded number small (and not recognizable as a
+// raw Unix timestamp) for the lifetime of this campaign.
+const PARTICIPANT_ID_EPOCH = Date.UTC(2026, 7, 1); // 1 August 2026 UTC
+
+/**
+ * Base-36 centiseconds since a campaign-specific epoch, not a row count —
+ * avoids a read before every write and doesn't reveal the total number of
+ * entries. Six digits covers ~252 days from the epoch (until ~9 April 2027),
+ * well past this event. Collisions need two submissions within the same
+ * 10ms window; this is a human-facing reference number only, never used to
+ * look anything up.
+ */
+function generateParticipantId(): string {
+  const centiseconds = Math.floor((Date.now() - PARTICIPANT_ID_EPOCH) / 10);
+  const base36 = centiseconds.toString(36).toUpperCase();
+  return `R4U-${base36.padStart(6, "0").slice(-6)}`;
+}
+
 export class SheetsService {
   private sheets: sheets_v4.Sheets;
 
@@ -44,39 +66,10 @@ export class SheetsService {
     this.sheets = google.sheets({ version: "v4", auth });
   }
 
-  async findByEmail(email: string): Promise<ExistingRegistration | null> {
-    const res = await this.sheets.spreadsheets.values.get({
-      spreadsheetId: config.spreadsheetId,
-      range: `${SHEET_NAME}!A:Q`,
-    });
-
-    const rows = res.data.values;
-    if (!rows || rows.length <= 1) return null;
-
-    const normalised = email.toLowerCase().trim();
-
-    for (let i = 1; i < rows.length; i++) {
-      const row = rows[i];
-      if (row[2]?.toLowerCase().trim() === normalised) {
-        return {
-          participantId: row[0] as string,
-          fullName: row[1] as string,
-          email: row[2] as string,
-          tierId: row[7] as string,
-          amountEur: Number(row[8]),
-          paymentToken: (row[12] as string) ?? "",
-          participationType: (row[16] as string) ?? "runner",
-        };
-      }
-    }
-
-    return null;
-  }
-
   async findByToken(token: string): Promise<ExistingRegistration | null> {
     const res = await this.sheets.spreadsheets.values.get({
       spreadsheetId: config.spreadsheetId,
-      range: `${SHEET_NAME}!A:Q`,
+      range: `${SHEET_NAME}!A:U`,
     });
 
     const rows = res.data.values;
@@ -95,6 +88,9 @@ export class SheetsService {
           amountEur: Number(row[8]),
           paymentToken: (row[12] as string) ?? "",
           participationType: (row[16] as string) ?? "runner",
+          status: (row[13] as string) ?? "pending",
+          firstName: (row[19] as string) ?? "",
+          lastName: (row[20] as string) ?? "",
         };
       }
     }
@@ -106,18 +102,18 @@ export class SheetsService {
     data: RegisterRequest,
     fundraiserSlug?: string,
   ): Promise<{ participantId: string; paymentToken: string }> {
-    const rowCount = await this.getRowCount();
-    const participantId = `R4U-${rowCount}`;
+    const participantId = generateParticipantId();
     const paymentToken = randomBytes(4).toString("hex").toUpperCase();
+    const fullName = `${data.firstName} ${data.lastName}`.trim();
 
     const row = [
       participantId,
-      data.fullName,
+      fullName,
       data.email,
       data.phone ?? "",
       data.tshirtSize ?? "",
       data.language,
-      data.country,
+      data.country ?? "",
       data.tierId,
       String(getTierPrice(data.tierId)),
       String(data.gdprConsent),
@@ -129,6 +125,9 @@ export class SheetsService {
       "",
       data.participationType,
       fundraiserSlug ?? "",
+      data.socksSize ?? "",
+      data.firstName,
+      data.lastName,
     ];
 
     await this.sheets.spreadsheets.values.append({
@@ -144,6 +143,9 @@ export class SheetsService {
   async confirmPayment(
     token: string,
     donatedAmount?: number,
+    email?: string,
+    firstName?: string,
+    lastName?: string,
   ): Promise<
     | {
         success: true;
@@ -153,34 +155,53 @@ export class SheetsService {
         language: string;
         tierName: string;
         amountEur: number;
-        effectiveTierId: string;
-        effectiveTierName: string;
         rewards: string[];
       }
     | { success: false; error: string }
   > {
     const res = await this.sheets.spreadsheets.values.get({
       spreadsheetId: config.spreadsheetId,
-      range: `${SHEET_NAME}!A:Q`,
+      range: `${SHEET_NAME}!A:S`,
     });
 
-    const rows = res.data.values;
-    if (!rows || rows.length <= 1) {
-      return { success: false, error: "invalid_token" };
-    }
+    const rows = res.data.values ?? [];
 
-    const normalised = token.toUpperCase().trim();
+    // 1. Exact match — the token the frontend already holds from registering.
+    const normalisedToken = token.toUpperCase().trim();
     let matchIndex = -1;
     for (let i = 1; i < rows.length; i++) {
-      const row = rows[i];
-      if (row[12] === normalised) {
+      if (rows[i][12] === normalisedToken) {
         matchIndex = i;
         break;
       }
     }
 
+    // 2. Fallback — same email, still pending, and the amount matches one of
+    // their attempts. No webhook exists today, so this only matters if the
+    // token ever fails to resolve; picks the most recent matching attempt.
+    if (matchIndex === -1 && email && donatedAmount) {
+      const normalisedEmail = email.toLowerCase().trim();
+      for (let i = rows.length - 1; i >= 1; i--) {
+        const row = rows[i];
+        if (
+          row[2]?.toLowerCase().trim() === normalisedEmail &&
+          row[13] === "pending" &&
+          Number(row[8]) === donatedAmount
+        ) {
+          matchIndex = i;
+          break;
+        }
+      }
+    }
+
+    // 3. Nothing on file at all — record the payment anyway rather than
+    // losing it (e.g. a donation with no prior registration attempt). No
+    // tier is guessed from the amount; it's left unset.
     if (matchIndex === -1) {
-      return { success: false, error: "invalid_token" };
+      if (!email || !donatedAmount) {
+        return { success: false, error: "invalid_token" };
+      }
+      return this.createPaidRegistration(email, firstName ?? "", lastName ?? "", donatedAmount);
     }
 
     const row = rows[matchIndex];
@@ -204,8 +225,11 @@ export class SheetsService {
       },
     });
 
-    const effectiveTierId = getEffectiveTier(recordedAmount);
-    const effectiveTier = TIER_DATA[effectiveTierId];
+    // Tier is whatever was selected at registration, regardless of how much
+    // was actually paid — paying more than the selected tier's price never
+    // upgrades it.
+    const tierId = row[7] as string;
+    const tier = TIER_DATA[tierId as TierId];
     const participationType = (row[16] as ParticipationType) ?? "runner";
 
     const fundraiserSlug = (row[17] as string) ?? "";
@@ -219,23 +243,78 @@ export class SheetsService {
       fullName: row[1] as string,
       email: row[2] as string,
       language: (row[5] as string) ?? "English",
-      tierName: row[7] as string,
+      tierName: tier?.name ?? (row[7] as string),
       amountEur: recordedAmount,
-      effectiveTierId,
-      effectiveTierName: effectiveTier.name,
-      rewards: filterRewards(effectiveTier.rewards, participationType),
+      rewards: tier ? filterRewards(tier.rewards, participationType) : [],
     };
   }
 
-  private async getRowCount(): Promise<number> {
-    const res = await this.sheets.spreadsheets.values.get({
+  /**
+   * A payment that matches no pending registration at all (e.g. a donation
+   * made with no prior form submission). Recorded directly as paid so the
+   * money is never silently dropped. No tier is guessed from the amount —
+   * there was no selection to honour, so it's simply left unset.
+   */
+  private async createPaidRegistration(
+    email: string,
+    firstName: string,
+    lastName: string,
+    amount: number,
+  ): Promise<{
+    success: true;
+    participantId: string;
+    fullName: string;
+    email: string;
+    language: string;
+    tierName: string;
+    amountEur: number;
+    rewards: string[];
+  }> {
+    const participantId = generateParticipantId();
+    const now = new Date().toISOString();
+    const fullName = `${firstName} ${lastName}`.trim();
+
+    const row = [
+      participantId,
+      fullName,
+      email,
+      "",
+      "",
+      "English",
+      "",
+      "",
+      String(amount),
+      "true",
+      "false",
+      now,
+      "",
+      "paid",
+      String(amount),
+      now,
+      "",
+      "",
+      "",
+      firstName,
+      lastName,
+    ];
+
+    await this.sheets.spreadsheets.values.append({
       spreadsheetId: config.spreadsheetId,
-      range: `${SHEET_NAME}!A:A`,
+      range: `${SHEET_NAME}!A1`,
+      valueInputOption: "RAW",
+      requestBody: { values: [row] },
     });
 
-    const rows = res.data.values;
-    if (!rows || rows.length <= 1) return 1;
-    return rows.length;
+    return {
+      success: true,
+      participantId,
+      fullName,
+      email,
+      language: "English",
+      tierName: "",
+      amountEur: amount,
+      rewards: [],
+    };
   }
 
   async generateSlug(displayName: string): Promise<string> {

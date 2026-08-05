@@ -7,7 +7,7 @@ import { t } from "@/locales";
 import { FundraiserConfirmation } from "@/components/ui/FundraiserConfirmation";
 import styles from "./FundraiseForm.module.css";
 
-type TierId = "supporter" | "champion" | "patron";
+type TierId = "supporter" | "sprinter" | "relay-runner" | "marathoner" | "ultramarathoner";
 type Step = 1 | 2 | 3;
 
 interface FormData {
@@ -16,7 +16,8 @@ interface FormData {
   goalEur: string;
   photoFile: File | null;
   photoPreview: string | null;
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   tshirtSize: string;
@@ -41,6 +42,8 @@ interface CombinedResult {
   registration: {
     participantId: string;
     fullName: string;
+    firstName: string;
+    lastName: string;
     email: string;
     tierId: TierId;
     tierName: string;
@@ -72,7 +75,8 @@ export function FundraiseForm() {
     goalEur: "",
     photoFile: null,
     photoPreview: null,
-    fullName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     tshirtSize: "M",
@@ -116,8 +120,11 @@ export function FundraiseForm() {
     if (!data.tierId) {
       errs.tierId = t("fundraise.errorTier");
     }
-    if (!data.fullName.trim()) {
-      errs.fullName = t("fundraise.errorFullName");
+    if (!data.firstName.trim()) {
+      errs.firstName = t("fundraise.errorFirstName");
+    }
+    if (!data.lastName.trim()) {
+      errs.lastName = t("fundraise.errorLastName");
     }
     if (!data.email.trim() || !EMAIL_REGEX.test(data.email)) {
       errs.email = t("fundraise.errorEmail");
@@ -186,7 +193,8 @@ export function FundraiseForm() {
     formData.append("goalEur", data.goalEur);
     if (data.photoFile) formData.append("photo", data.photoFile);
 
-    formData.append("fullName", data.fullName.trim());
+    formData.append("firstName", data.firstName.trim());
+    formData.append("lastName", data.lastName.trim());
     formData.append("email", data.email.trim().toLowerCase());
     if (data.phone.trim()) formData.append("phone", data.phone.trim());
     formData.append("tshirtSize", data.tshirtSize);
@@ -213,7 +221,7 @@ export function FundraiseForm() {
         setErrors(Object.keys(apiErrors).length > 0 ? apiErrors : { global: t("fundraise.globalError") });
 
         const step1Fields = ["displayName", "message", "goalEur", "photo"];
-        const step2Fields = ["fullName", "email", "country", "tierId", "gdprConsent", "tshirtSize", "language", "phone"];
+        const step2Fields = ["firstName", "lastName", "email", "country", "tierId", "gdprConsent", "tshirtSize", "language", "phone"];
         const hasStep1Error = step1Fields.some((f) => apiErrors[f]);
         const hasStep2Error = step2Fields.some((f) => apiErrors[f]);
 
@@ -378,17 +386,30 @@ export function FundraiseForm() {
 
           <div className={styles.grid}>
             <div className={styles.field}>
-              <label className={styles.label} htmlFor="reg-name">
-                {t("fundraise.fullName")}
+              <label className={styles.label} htmlFor="reg-first-name">
+                {t("fundraise.firstName")}
               </label>
               <input
-                id="reg-name"
+                id="reg-first-name"
                 type="text"
                 className={styles.input}
-                value={data.fullName}
-                onChange={(e) => update({ fullName: e.target.value })}
+                value={data.firstName}
+                onChange={(e) => update({ firstName: e.target.value })}
               />
-              {errors.fullName && <p className={styles.error}>{errors.fullName}</p>}
+              {errors.firstName && <p className={styles.error}>{errors.firstName}</p>}
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor="reg-last-name">
+                {t("fundraise.lastName")}
+              </label>
+              <input
+                id="reg-last-name"
+                type="text"
+                className={styles.input}
+                value={data.lastName}
+                onChange={(e) => update({ lastName: e.target.value })}
+              />
+              {errors.lastName && <p className={styles.error}>{errors.lastName}</p>}
             </div>
             <div className={styles.field}>
               <label className={styles.label} htmlFor="reg-email">
@@ -551,7 +572,7 @@ export function FundraiseForm() {
               </div>
               <div className={styles.reviewRow}>
                 <span className={styles.reviewKey}>{t("fundraise.reviewFullName")}</span>
-                <span className={styles.reviewValue}>{data.fullName}</span>
+                <span className={styles.reviewValue}>{`${data.firstName} ${data.lastName}`.trim()}</span>
               </div>
               <div className={styles.reviewRow}>
                 <span className={styles.reviewKey}>{t("fundraise.reviewEmail")}</span>

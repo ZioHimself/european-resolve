@@ -3,23 +3,28 @@ import type { Locale } from "./types";
 export const fr = {
   // hero
   "hero.overline": "Course caritative · Bruxelles",
+  "hero.title": "35 ans d'Indépendance 🇺🇦 : Charité et Course",
+  "hero.description":
+    "Le dimanche 23 août, rejoignez-nous pour célébrer 35 ans d'indépendance ukrainienne ! Nous déploierons le drapeau, courrons ensemble 5 ou 8 kilomètres, puis nous nous retrouverons au village communautaire pour un moment entre amis, avec de la nourriture et une tombola caritative. Notre objectif plus large : récolter 3 000 € avec Hurkit pour équiper les défenseurs de l'Ukraine en solutions d'alimentation fiables sur le terrain — découvrez nos options de soutien ci-dessous et emmenez vos copains et votre famille avec vous !",
   "hero.beneficiary": "Bénéficiaire :",
 
   // tracks
   "tracks.heading": "Choisissez votre parcours",
   "tracks.subtitle":
-    "Deux façons de soutenir, un seul objectif. Choisissez\u00a0un\u00a0parcours.",
+    "Deux façons de soutenir, un seul objectif. Choisissez\u00a0votre\u00a0parcours.",
   "tracks.trackAOverline": "Parcours A",
-  "tracks.trackATitle": "Donner ou Courir",
+  "tracks.trackATitle": "Rejoindre la Campagne",
   "tracks.trackADescription":
     "Choisissez un palier et contribuez directement — courez le jour J ou soutenez simplement depuis n'importe où. Votre contribution finance des stations de recharge pour les défenseurs.",
-  "tracks.trackAFeatures": "Dossard · Médaille d'arrivée · T-shirt",
+  "tracks.trackAFeatures":
+    "Palier au choix · Récompenses variables · Course optionnelle",
   "tracks.trackACta": "Voir les paliers →",
   "tracks.trackBOverline": "Parcours B",
-  "tracks.trackBTitle": "Collecter et Courir",
+  "tracks.trackBTitle": "Collecter pour l'Équipe",
   "tracks.trackBDescription":
     "Créez votre page de collecte personnelle et mobilisez votre réseau. Chaque don compte pour l'objectif collectif — puis venez courir.",
-  "tracks.trackBFeatures": "Page personnelle · Lien partageable · Stats en direct",
+  "tracks.trackBFeatures":
+    "Page personnelle · Lien partageable · Stats en direct",
   "tracks.trackBCta": "Créer ma page →",
 
   // progress
@@ -33,22 +38,23 @@ export const fr = {
   "progress.finalResults": "Résultats finaux",
 
   // register
-  "register.overline": "Parcours A · Donner ou Courir",
+  "register.overline": "Parcours A · Rejoindre la Campagne",
   "register.title": "Choisissez un palier",
+  "register.titleRegistration": "Inscription",
+  "register.titleConfirmation": "Confirmation",
   "register.subtitle":
     "Chaque palier finance directement des stations de recharge pour les défenseurs de l'Ukraine. Courez le jour J ou soutenez simplement depuis n'importe où.",
   "register.heading": "Vos coordonnées",
-  "register.howParticipate": "Comment allez-vous participer ?",
-  "register.runOnDay": "Je courrai le jour de l'événement",
-  "register.supportAnywhere": "Je soutiens depuis n'importe où",
+  "register.descriptionSupporter":
+    "Choisissez le montant du don sur la page suivante.",
+  "register.descriptionRunner":
+    "Courez 5 ou 8 kilomètres avec nous le 23 août. Nous vous tiendrons informé(e) des détails de l'événement par e-mail.",
   "register.errorSummary": "Veuillez corriger les éléments suivants :",
-  "register.fullName": "Nom complet",
+  "register.firstName": "Prénom",
+  "register.lastName": "Nom de famille",
   "register.email": "E-mail",
-  "register.phone": "Téléphone",
   "register.tshirtSize": "Taille de t-shirt",
-  "register.language": "Langue",
-  "register.country": "Pays",
-  "register.optional": "(facultatif)",
+  "register.socksSize": "Pointure de chaussettes",
   "register.gdprHeading": "Consentement RGPD (obligatoire)",
   "register.gdprRunner":
     "J'accepte que mes données soient traitées aux fins de l'inscription à la course et de la sécurité, conformément à la notice de confidentialité.",
@@ -57,33 +63,27 @@ export const fr = {
   "register.commsHeading": "Communications futures (facultatif)",
   "register.commsText":
     "Envoyez-moi des nouvelles des prochaines éditions et du travail du bénéficiaire. Je peux me désinscrire à tout moment.",
-  "register.total": "Total : €{price}",
-  "register.totalEmpty": "Total : €—",
-  "register.submitRunner": "S'inscrire — €{price}",
-  "register.submitSupporter": "Soutenir — €{price}",
+  "register.continue": "Continuer",
   "register.submitting": "Inscription en cours...",
-  "register.selectTier": "Sélectionnez un palier pour vous inscrire",
-  "register.failedFallback":
-    "L'inscription a échoué. Veuillez réessayer.",
+  "register.failedFallback": "L'inscription a échoué. Veuillez réessayer.",
   "register.networkError":
     "Impossible de se connecter au serveur d'inscription. Veuillez réessayer plus tard.",
-  "register.errorFullName": "Le nom complet est obligatoire",
+  "register.errorFirstName": "Le prénom est obligatoire",
+  "register.errorLastName": "Le nom de famille est obligatoire",
   "register.errorEmail": "Une adresse e-mail valide est obligatoire",
   "register.errorTshirt": "La taille de t-shirt est obligatoire",
-  "register.errorCountry": "Le pays est obligatoire",
-  "register.errorGdpr":
-    "Le consentement RGPD est obligatoire pour s'inscrire",
-  "register.confirmHeading": "Inscription confirmée !",
+  "register.errorSocks": "La pointure de chaussettes est obligatoire",
+  "register.errorGdpr": "Le consentement RGPD est obligatoire pour s'inscrire",
+  "register.confirmHeading": "Vos informations ont été enregistrées !",
   "register.confirmParticipantId": "Votre ID : {id}",
   "register.confirmName": "Nom",
   "register.confirmTier": "Palier",
   "register.confirmAmount": "Montant",
   "register.confirmRewardsHeading": "Vos récompenses",
-  "register.confirmDonationHeading": "Complétez votre don de €{amount}",
+  "register.confirmDonationHeading": "Complétez votre inscription",
   "register.confirmDonationInstructions":
-    "Veuillez sélectionner l'option à €{amount} ci-dessous pour compléter votre inscription {tierName}.",
-  "register.confirmAfterDonation":
-    "Après avoir complété votre don ci-dessus :",
+    "Veuillez confirmer le montant de €{amount} ou plus ci-dessous pour compléter votre inscription {tierName}.",
+  "register.confirmAfterDonation": "Après avoir complété votre don ci-dessus :",
   "register.confirmButton": "J'ai complété mon don",
   "register.confirmingPayment": "Confirmation en cours\u2026",
   "register.confirmedHeading": "Paiement reçu — merci !",
@@ -99,14 +99,19 @@ export const fr = {
   "register.verifyingPayment": "Vérification du paiement\u2026",
   "register.needInvoice": "Besoin de votre facture ?",
   "register.startOver": "S\u2019inscrire à nouveau",
+  "register.abandonRegistration": "Abandonner et recommencer l’inscription",
+  "register.alreadyPaidHeading": "Merci de rejoindre notre campagne !",
+  "register.alreadyPaidMessage":
+    "Nous avons bien reçu votre paiement et vous tiendrons informé(e) des actualités de la campagne et de l’événement.",
+  "register.alreadyPaidCta": "Retour à la page de l’événement",
 
   // tierCard
   "tierCard.badge": "Le plus choisi",
   "tierCard.selected": "Sélectionné",
-  "tierCard.select": "Sélectionner",
+  "tierCard.select": "Sélectionner {tierName}",
 
   // fundraise
-  "fundraise.overline": "Parcours B · Collecter et Courir",
+  "fundraise.overline": "Parcours B · Collecter pour l'Équipe",
   "fundraise.title": "Votre page de collecte",
   "fundraise.subtitle":
     "Cela prend environ une minute. Partagez votre page avec vos proches pour atteindre l'objectif collectif — puis venez courir.",
@@ -124,7 +129,8 @@ export const fr = {
   "fundraise.goalLabel": "Objectif personnel (€)",
   "fundraise.nextRunner": "Suivant : Détails coureur →",
   "fundraise.step2Heading": "Votre inscription coureur",
-  "fundraise.fullName": "Nom complet",
+  "fundraise.firstName": "Prénom",
+  "fundraise.lastName": "Nom de famille",
   "fundraise.email": "E-mail",
   "fundraise.phone": "Téléphone",
   "fundraise.tshirtSize": "Taille de t-shirt",
@@ -165,18 +171,17 @@ export const fr = {
   "fundraise.errorGoal":
     "L'objectif doit être un nombre entier entre 10 et 100 000",
   "fundraise.errorTier": "Veuillez sélectionner un palier",
-  "fundraise.errorFullName": "Le nom complet est obligatoire",
+  "fundraise.errorFirstName": "Le prénom est obligatoire",
+  "fundraise.errorLastName": "Le nom de famille est obligatoire",
   "fundraise.errorEmail": "Une adresse e-mail valide est obligatoire",
   "fundraise.errorCountry": "Le pays est obligatoire",
-  "fundraise.errorGdpr":
-    "Le consentement RGPD est obligatoire pour s'inscrire",
+  "fundraise.errorGdpr": "Le consentement RGPD est obligatoire pour s'inscrire",
   "fundraise.errorPhoto": "La photo doit faire moins de 5 Mo",
   "fundraise.errorPhotoType": "La photo doit être au format JPEG, PNG ou WebP",
 
   // confirmation (FundraiserConfirmation)
   "confirmation.heading": "Votre page de collecte est prête !",
-  "confirmation.subheading":
-    "Partagez votre page avec vos proches — {name}",
+  "confirmation.subheading": "Partagez votre page avec vos proches — {name}",
   "confirmation.shareableLink": "Votre lien partageable",
   "confirmation.copy": "Copier",
   "confirmation.copied": "Copié !",
@@ -191,8 +196,7 @@ export const fr = {
   "confirmation.paymentHeading": "Complétez votre don de €{amount}",
   "confirmation.paymentInstructions":
     "Sélectionnez l'option à €{amount} ci-dessous pour compléter votre inscription {tierName}.",
-  "confirmation.afterDonation":
-    "Après avoir complété votre don ci-dessus :",
+  "confirmation.afterDonation": "Après avoir complété votre don ci-dessus :",
   "confirmation.confirmButton": "J'ai complété mon don",
   "confirmation.confirming": "Confirmation en cours\u2026",
   "confirmation.confirmed": "Paiement confirmé — vous êtes prêt !",
@@ -215,7 +219,8 @@ export const fr = {
   "fundraiser.nameSuffix": " — page de collecte",
   "fundraiser.personalGoal": "Objectif personnel : €{goal}",
   "fundraiser.raisedSoFar": "Collecté : €{raised}",
-  "fundraiser.collectiveTotal": "Total collectif : €{total}",
+  "fundraiser.collectiveTotal":
+    "Fait partie d'une campagne commune — €{total} récoltés ensemble",
   "fundraiser.donateHeading": "Faire un don",
   "fundraiser.shareHeading": "Partager cette page",
   "fundraiser.ctaButton": "Soutenir {name}",
@@ -262,7 +267,7 @@ export const fr = {
   "social.shareEmail": "Partager par e-mail",
   "social.copyLink": "Copier le lien",
   "social.shareMessage":
-    "Soutenez la collecte de {title} pour Run for Ukraine 2026 ! Chaque euro finance des stations de recharge pour les défenseurs de l'Ukraine.",
+    "Soutenez la collecte de {title} pour 35 Years of 🇺🇦 Independence: Charity and Run ! Chaque euro finance des stations de recharge pour les défenseurs de l'Ukraine.",
 
   // common
   "common.loading": "Chargement",
@@ -286,11 +291,14 @@ export const fr = {
     "Chaque euro collecté est allé directement à Hurkit, fournissant des stations de recharge pour les défenseurs de l'Ukraine.",
 
   // errors (backend error code mappings)
-  "errors.VALIDATION_FULLNAME_REQUIRED": "Le nom complet est obligatoire",
+  "errors.VALIDATION_FIRSTNAME_REQUIRED": "Le prénom est obligatoire",
+  "errors.VALIDATION_LASTNAME_REQUIRED": "Le nom de famille est obligatoire",
   "errors.VALIDATION_EMAIL_INVALID":
     "Veuillez entrer une adresse e-mail valide",
   "errors.VALIDATION_TSHIRT_INVALID":
     "Une taille de t-shirt valide est obligatoire",
+  "errors.VALIDATION_SOCKS_INVALID":
+    "Une pointure de chaussettes valide est obligatoire",
   "errors.VALIDATION_LANGUAGE_INVALID": "Une langue valide est obligatoire",
   "errors.VALIDATION_COUNTRY_REQUIRED": "Le pays est obligatoire",
   "errors.VALIDATION_TIER_INVALID": "Un palier valide est obligatoire",

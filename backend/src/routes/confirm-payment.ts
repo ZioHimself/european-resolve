@@ -29,7 +29,19 @@ confirmPaymentRoute.post("/", async (c) => {
     typeof body.amount === "number" && body.amount > 0
       ? body.amount
       : undefined;
-  const result = await sheetsService.confirmPayment(token, amount);
+  const email =
+    typeof body.email === "string" && body.email.trim()
+      ? body.email.trim()
+      : undefined;
+  const firstName =
+    typeof body.firstName === "string" && body.firstName.trim()
+      ? body.firstName.trim()
+      : undefined;
+  const lastName =
+    typeof body.lastName === "string" && body.lastName.trim()
+      ? body.lastName.trim()
+      : undefined;
+  const result = await sheetsService.confirmPayment(token, amount, email, firstName, lastName);
 
   if (!result.success) {
     const errorMessages: Record<string, string> = {
@@ -56,8 +68,6 @@ confirmPaymentRoute.post("/", async (c) => {
     participantId: result.participantId,
     tierName: result.tierName,
     amountEur: result.amountEur,
-    effectiveTierId: result.effectiveTierId,
-    effectiveTierName: result.effectiveTierName,
     rewards: result.rewards,
   };
 
@@ -66,7 +76,7 @@ confirmPaymentRoute.post("/", async (c) => {
       name: result.fullName,
       email: result.email,
       participantId: result.participantId,
-      tierName: result.effectiveTierName,
+      tierName: result.tierName,
       amountEur: result.amountEur,
       rewards: result.rewards,
     },

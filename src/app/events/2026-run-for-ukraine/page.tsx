@@ -23,7 +23,7 @@ export default function RunForUkrainePage() {
       <Breadcrumbs
         items={[
           { label: t("nav.events"), href: "/events" },
-          { label: "Run for Ukraine 2026" },
+          { label: t("hero.title") },
         ]}
       />
       <EventHero isCompleted={isCompleted} />

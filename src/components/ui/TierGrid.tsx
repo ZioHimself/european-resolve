@@ -3,7 +3,7 @@ import { TierCard } from "@/components/ui/TierCard";
 import type { ParticipationType } from "./registerTypes";
 import styles from "./TierGrid.module.css";
 
-type TierId = "supporter" | "champion" | "patron";
+type TierId = "supporter" | "sprinter" | "relay-runner" | "marathoner" | "ultramarathoner";
 
 interface TierGridProps {
   selectedTierId: TierId | null;
@@ -23,6 +23,7 @@ export function TierGrid({
           key={tier.id}
           tier={tier}
           isSelected={tier.id === selectedTierId}
+          hasSelection={selectedTierId !== null}
           onSelect={() => onSelectTier(tier.id)}
           participationType={participationType}
         />

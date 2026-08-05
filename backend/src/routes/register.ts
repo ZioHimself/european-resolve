@@ -10,12 +10,14 @@ import type {
   ApiResponse,
   TierId,
   TshirtSize,
+  SocksSize,
   Language,
   ParticipationType,
 } from "../types.js";
 
-const VALID_TIER_IDS: TierId[] = ["supporter", "champion", "patron"];
-const VALID_TSHIRT_SIZES: TshirtSize[] = ["XS", "S", "M", "L", "XL", "XXL"];
+const VALID_TIER_IDS: TierId[] = ["supporter", "sprinter", "relay-runner", "marathoner", "ultramarathoner"];
+const VALID_TSHIRT_SIZES: TshirtSize[] = ["S", "M", "L", "XL"];
+const VALID_SOCKS_SIZES: SocksSize[] = ["36-39", "40-42", "43-46"];
 const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian", "Dutch", "German"];
 const VALID_PARTICIPATION_TYPES: ParticipationType[] = ["runner", "supporter"];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,8 +25,12 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 function validate(body: Record<string, unknown>): ValidationError[] {
   const errors: ValidationError[] = [];
 
-  if (!body.fullName || typeof body.fullName !== "string" || !body.fullName.trim()) {
-    errors.push({ field: "fullName", message: "Full name is required", code: "VALIDATION_FULLNAME_REQUIRED" });
+  if (!body.firstName || typeof body.firstName !== "string" || !body.firstName.trim()) {
+    errors.push({ field: "firstName", message: "First name is required", code: "VALIDATION_FIRSTNAME_REQUIRED" });
+  }
+
+  if (!body.lastName || typeof body.lastName !== "string" || !body.lastName.trim()) {
+    errors.push({ field: "lastName", message: "Last name is required", code: "VALIDATION_LASTNAME_REQUIRED" });
   }
 
   if (!body.email || typeof body.email !== "string" || !EMAIL_REGEX.test(body.email)) {
@@ -38,9 +44,9 @@ function validate(body: Record<string, unknown>): ValidationError[] {
     errors.push({ field: "participationType", message: "Participation type is required", code: "VALIDATION_PARTICIPATION_TYPE_REQUIRED" });
   }
 
-  const isRunner = body.participationType === "runner";
+  const tierId = body.tierId as TierId;
 
-  if (isRunner) {
+  if (tierId === "marathoner") {
     if (
       !body.tshirtSize ||
       !VALID_TSHIRT_SIZES.includes(body.tshirtSize as TshirtSize)
@@ -49,15 +55,20 @@ function validate(body: Record<string, unknown>): ValidationError[] {
     }
   }
 
+  if (tierId === "relay-runner") {
+    if (
+      !body.socksSize ||
+      !VALID_SOCKS_SIZES.includes(body.socksSize as SocksSize)
+    ) {
+      errors.push({ field: "socksSize", message: "Valid socks size is required", code: "VALIDATION_SOCKS_INVALID" });
+    }
+  }
+
   if (
     !body.language ||
     !VALID_LANGUAGES.includes(body.language as Language)
   ) {
     errors.push({ field: "language", message: "Valid language is required", code: "VALIDATION_LANGUAGE_INVALID" });
-  }
-
-  if (!body.country || typeof body.country !== "string" || !body.country.trim()) {
-    errors.push({ field: "country", message: "Country is required", code: "VALIDATION_COUNTRY_REQUIRED" });
   }
 
   if (!body.tierId || !VALID_TIER_IDS.includes(body.tierId as TierId)) {
@@ -89,30 +100,19 @@ registerRoute.post("/", async (c) => {
 
   const data = body as unknown as RegisterRequest;
 
-  const existing = await sheetsService.findByEmail(data.email);
-  if (existing) {
-    const tier = TIER_DATA[existing.tierId as TierId] ?? TIER_DATA.supporter;
-    const participationType = (existing.participationType || "runner") as ParticipationType;
-    const response: RegisterResponse = {
-      participantId: existing.participantId,
-      fullName: existing.fullName,
-      email: existing.email,
-      tierId: existing.tierId as TierId,
-      tierName: tier.name,
-      participationType,
-      amountEur: existing.amountEur,
-      rewards: filterRewards(tier.rewards, participationType),
-      paymentToken: existing.paymentToken,
-    };
-    return c.json({ success: true, data: response } satisfies ApiResponse<RegisterResponse>);
-  }
-
+  // Every submission is a fresh append — no read, no dedup check. If someone
+  // resubmits (e.g. picks a different tier before paying), the earlier
+  // pending row is simply abandoned; payment reconciliation is what decides
+  // which attempt actually counts (see confirmPayment).
   const { participantId, paymentToken } = await sheetsService.appendRegistration(data);
   const tier = TIER_DATA[data.tierId];
+  const fullName = `${data.firstName} ${data.lastName}`.trim();
 
   const response: RegisterResponse = {
     participantId,
-    fullName: data.fullName,
+    fullName,
+    firstName: data.firstName,
+    lastName: data.lastName,
     email: data.email,
     tierId: data.tierId,
     tierName: tier.name,
@@ -124,7 +124,7 @@ registerRoute.post("/", async (c) => {
 
   sendConfirmationEmail(
     {
-      name: data.fullName,
+      name: fullName,
       email: data.email,
       participantId,
       tierName: tier.name,

@@ -23,7 +23,7 @@ const driveService = new DriveService();
 const MAX_PHOTO_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
-const VALID_TIER_IDS: TierId[] = ["supporter", "champion", "patron"];
+const VALID_TIER_IDS: TierId[] = ["supporter", "sprinter", "relay-runner", "marathoner", "ultramarathoner"];
 const VALID_TSHIRT_SIZES: TshirtSize[] = ["XS", "S", "M", "L", "XL", "XXL"];
 const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian", "Dutch", "German"];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -213,7 +213,8 @@ fundraiserRoute.post("/register", async (c) => {
   const goalEurRaw = formData.get("goalEur") as string | null;
   const photo = formData.get("photo") as File | null;
 
-  const fullName = formData.get("fullName") as string | null;
+  const firstName = formData.get("firstName") as string | null;
+  const lastName = formData.get("lastName") as string | null;
   const email = formData.get("email") as string | null;
   const phone = formData.get("phone") as string | null;
   const tshirtSize = formData.get("tshirtSize") as string | null;
@@ -247,8 +248,12 @@ fundraiserRoute.post("/register", async (c) => {
     }
   }
 
-  if (!fullName || typeof fullName !== "string" || !fullName.trim()) {
-    errors.push({ field: "fullName", message: "Full name is required", code: "VALIDATION_FULLNAME_REQUIRED" });
+  if (!firstName || typeof firstName !== "string" || !firstName.trim()) {
+    errors.push({ field: "firstName", message: "First name is required", code: "VALIDATION_FIRSTNAME_REQUIRED" });
+  }
+
+  if (!lastName || typeof lastName !== "string" || !lastName.trim()) {
+    errors.push({ field: "lastName", message: "Last name is required", code: "VALIDATION_LASTNAME_REQUIRED" });
   }
 
   if (!email || typeof email !== "string" || !EMAIL_REGEX.test(email)) {
@@ -291,7 +296,8 @@ fundraiserRoute.post("/register", async (c) => {
   );
 
   const regData: RegisterRequest = {
-    fullName: fullName!.trim(),
+    firstName: firstName!.trim(),
+    lastName: lastName!.trim(),
     email: email!.trim().toLowerCase(),
     phone: phone?.trim() || undefined,
     tshirtSize: tshirtSize as TshirtSize,
@@ -303,20 +309,13 @@ fundraiserRoute.post("/register", async (c) => {
     commsOptin: commsOptin === "true",
   };
 
-  const existing = await sheetsService.findByEmail(regData.email);
-  let participantId: string;
-  let paymentToken: string;
-
-  if (existing) {
-    participantId = existing.participantId;
-    paymentToken = existing.paymentToken;
-  } else {
-    const result = await sheetsService.appendRegistration(regData, slug);
-    participantId = result.participantId;
-    paymentToken = result.paymentToken;
-  }
+  const { participantId, paymentToken } = await sheetsService.appendRegistration(
+    regData,
+    slug,
+  );
 
   const tier = TIER_DATA[tierId as TierId];
+  const fullName = `${regData.firstName} ${regData.lastName}`.trim();
 
   const response: FundraiserRegisterResponse = {
     fundraiser: {
@@ -327,7 +326,9 @@ fundraiserRoute.post("/register", async (c) => {
     },
     registration: {
       participantId,
-      fullName: fullName!.trim(),
+      fullName,
+      firstName: regData.firstName,
+      lastName: regData.lastName,
       tierId: tierId as TierId,
       tierName: tier.name,
       amountEur: tier.price,
@@ -338,7 +339,7 @@ fundraiserRoute.post("/register", async (c) => {
 
   sendFundraiserEmail(
     {
-      name: fullName!.trim(),
+      name: fullName,
       email: email!.trim().toLowerCase(),
       participantId,
       tierName: tier.name,

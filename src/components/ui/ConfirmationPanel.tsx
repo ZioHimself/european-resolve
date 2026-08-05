@@ -34,8 +34,6 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
   const [error, setError] = useState<string | null>(null);
   const [detectionActive, setDetectionActive] = useState(true);
   const [verifying, setVerifying] = useState(paymentReturn.isReturn && paymentReturn.storedAmount > 0);
-  const [effectiveTierName, setEffectiveTierName] = useState<string | null>(null);
-  const [effectiveRewards, setEffectiveRewards] = useState<string[] | null>(null);
   const [interruptedSession, setInterruptedSession] = useState(false);
 
   useEffect(() => {
@@ -66,14 +64,18 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
       const res = await fetch(`${apiUrl}/api/register/confirm-payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: result.paymentToken, amount }),
+        body: JSON.stringify({
+          token: result.paymentToken,
+          amount,
+          email: result.email,
+          firstName: result.firstName,
+          lastName: result.lastName,
+        }),
       });
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
         setConfirmed(true);
-        setEffectiveTierName(data.data.effectiveTierName ?? null);
-        setEffectiveRewards(data.data.rewards ?? null);
         onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
@@ -96,14 +98,17 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
       const res = await fetch(`${apiUrl}/api/register/confirm-payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: result.paymentToken }),
+        body: JSON.stringify({
+          token: result.paymentToken,
+          email: result.email,
+          firstName: result.firstName,
+          lastName: result.lastName,
+        }),
       });
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
         setConfirmed(true);
-        setEffectiveTierName(data.data.effectiveTierName ?? null);
-        setEffectiveRewards(data.data.rewards ?? null);
         onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
@@ -117,8 +122,25 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
   }
 
   const isRunner = result.participationType === "runner";
-  const displayRewards = effectiveRewards ?? result.rewards;
-  const displayTierName = effectiveTierName ?? result.tierName;
+
+  // Returning later (e.g. via the emailed link) to an already-paid
+  // registration — no tier/reward details to show, just confirmation.
+  if (result.status === "paid") {
+    return (
+      <section className={styles.panel}>
+        <div className={styles.confirmedIcon} aria-hidden="true">
+          ✓
+        </div>
+        <h2 className={styles.heading}>{t("register.alreadyPaidHeading")}</h2>
+        <p className={styles.confirmedMessage}>
+          {t("register.alreadyPaidMessage")}
+        </p>
+        <a href="/events/2026-run-for-ukraine" className={styles.startOverLink}>
+          {t("register.alreadyPaidCta")}
+        </a>
+      </section>
+    );
+  }
 
   if (confirmed) {
     return (
@@ -134,7 +156,7 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
         <div className={styles.summary}>
           <div className={styles.row}>
             <span className={styles.rowLabel}>{t("register.confirmTier")}</span>
-            <span className={styles.rowValue}>{displayTierName}</span>
+            <span className={styles.rowValue}>{result.tierName}</span>
           </div>
         </div>
 
@@ -143,7 +165,7 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
             {t("register.confirmRewardsHeading")}
           </h3>
           <ul className={styles.rewardsList}>
-            {displayRewards.map((reward) => (
+            {result.rewards.map((reward) => (
               <li key={reward} className={styles.reward}>
                 <span className={styles.check}>✓</span> {reward}
               </li>
@@ -265,7 +287,7 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
               });
             }}
             onDetectionFailed={() => setDetectionActive(false)}
-            donorInfo={{ fullName: result.fullName, email: result.email }}
+            donorInfo={{ firstName: result.firstName, lastName: result.lastName, email: result.email }}
           />
           {verifying && (
             <div className={styles.verifyingOverlay}>
@@ -295,6 +317,16 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
             </button>
             {error && <p className={styles.confirmError}>{error}</p>}
           </div>
+        )}
+
+        {onStartOver && (
+          <button
+            type="button"
+            className={styles.startOverLink}
+            onClick={onStartOver}
+          >
+            {t("register.abandonRegistration")}
+          </button>
         )}
       </div>
     </section>

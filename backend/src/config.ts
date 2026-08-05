@@ -1,16 +1,20 @@
-const nodeEnv = (process.env.NODE_ENV === "production" ? "production" : "development") as
-  | "development"
-  | "production";
+const nodeEnv = (
+  process.env.NODE_ENV === "production" ? "production" : "development"
+) as "development" | "production";
 
 const spreadsheetId = process.env.SPREADSHEET_ID ?? "";
 const googleDriveFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID ?? "";
 
 if (nodeEnv === "production" && !spreadsheetId) {
-  throw new Error("SPREADSHEET_ID environment variable is required in production");
+  throw new Error(
+    "SPREADSHEET_ID environment variable is required in production",
+  );
 }
 
 if (nodeEnv === "production" && !googleDriveFolderId) {
-  throw new Error("GOOGLE_DRIVE_FOLDER_ID environment variable is required in production");
+  throw new Error(
+    "GOOGLE_DRIVE_FOLDER_ID environment variable is required in production",
+  );
 }
 
 export const config = Object.freeze({
@@ -36,7 +40,7 @@ export const config = Object.freeze({
     pass: process.env.SMTP_PASS ?? "",
     from:
       process.env.SMTP_FROM ??
-      "Run for Ukraine 2026 <noreply@european-resolve.org>",
+      '"35 Years of 🇺🇦 Independence: Charity and Run" <noreply@european-resolve.org>',
   },
   nodeEnv,
 });

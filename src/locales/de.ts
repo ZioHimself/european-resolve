@@ -3,20 +3,24 @@ import type { Locale } from "./types";
 export const de = {
   // hero
   "hero.overline": "Wohltätigkeitslauf · Brüssel",
+  "hero.title": "35 Jahre 🇺🇦 Unabhängigkeit: Wohltätigkeit und Lauf",
+  "hero.description":
+    "Am Sonntag, den 23. August, feiern wir gemeinsam 35 Jahre ukrainische Unabhängigkeit! Wir entfalten die Flagge, laufen zusammen 5 oder 8 Kilometer und treffen uns danach im Gemeinschaftsdorf für Essen, Freunde und eine wohltätige Tombola. Unser größeres Ziel: gemeinsam mit Hurkit 3.000 € sammeln, um die Verteidiger der Ukraine mit zuverlässiger Energie im Feld auszustatten — schaut euch unten unsere Unterstützungsoptionen an und bringt eure Kumpels und Familie mit!",
   "hero.beneficiary": "Begünstigter:",
 
   // tracks
   "tracks.heading": "Wählen Sie Ihre Strecke",
   "tracks.subtitle":
-    "Zwei Wege zu unterstützen, ein Ziel. Wählen Sie\u00a0eine\u00a0Strecke.",
+    "Zwei Wege zu unterstützen, ein Ziel. Wählen Sie\u00a0Ihre\u00a0Strecke.",
   "tracks.trackAOverline": "Strecke A",
-  "tracks.trackATitle": "Spenden oder Laufen",
+  "tracks.trackATitle": "Kampagne Beitreten",
   "tracks.trackADescription":
     "Wählen Sie eine Stufe und tragen Sie direkt bei — laufen Sie am Tag selbst mit oder unterstützen Sie einfach von überall. Ihr Beitrag finanziert Ladestationen für Verteidiger.",
-  "tracks.trackAFeatures": "Startnummer · Finisher-Medaille · T-Shirt",
+  "tracks.trackAFeatures":
+    "Stufe nach Wahl · Prämien variieren · Laufen optional",
   "tracks.trackACta": "Stufen ansehen →",
   "tracks.trackBOverline": "Strecke B",
-  "tracks.trackBTitle": "Spenden sammeln und Laufen",
+  "tracks.trackBTitle": "Spenden sammeln fürs Team",
   "tracks.trackBDescription":
     "Erstellen Sie Ihre persönliche Spendenseite und mobilisieren Sie Ihr Netzwerk. Jede Spende zählt für das gemeinsame Ziel — dann kommen Sie selbst zum Laufen.",
   "tracks.trackBFeatures":
@@ -34,22 +38,23 @@ export const de = {
   "progress.finalResults": "Endergebnisse",
 
   // register
-  "register.overline": "Strecke A · Spenden oder Laufen",
+  "register.overline": "Strecke A · Kampagne Beitreten",
   "register.title": "Wählen Sie eine Stufe",
+  "register.titleRegistration": "Anmeldung",
+  "register.titleConfirmation": "Bestätigung",
   "register.subtitle":
     "Jede Stufe finanziert direkt Ladestationen für die Verteidiger der Ukraine. Laufen Sie am Tag selbst mit oder unterstützen Sie einfach von überall.",
   "register.heading": "Ihre Daten",
-  "register.howParticipate": "Wie möchten Sie teilnehmen?",
-  "register.runOnDay": "Ich laufe am Tag selbst mit",
-  "register.supportAnywhere": "Ich unterstütze von überall",
+  "register.descriptionSupporter":
+    "Wählen Sie den Spendenbetrag auf der nächsten Seite.",
+  "register.descriptionRunner":
+    "Laufen Sie am 23. August mit uns 5 oder 8 Kilometer. Wir halten Sie per E-Mail über die Veranstaltung auf dem Laufenden.",
   "register.errorSummary": "Bitte korrigieren Sie Folgendes:",
-  "register.fullName": "Vollständiger Name",
+  "register.firstName": "Vorname",
+  "register.lastName": "Nachname",
   "register.email": "E-Mail",
-  "register.phone": "Telefon",
   "register.tshirtSize": "T-Shirt-Größe",
-  "register.language": "Sprache",
-  "register.country": "Land",
-  "register.optional": "(optional)",
+  "register.socksSize": "Sockengröße",
   "register.gdprHeading": "DSGVO-Einwilligung (erforderlich)",
   "register.gdprRunner":
     "Ich stimme der Verarbeitung meiner Daten zum Zweck der Laufanmeldung und Sicherheit zu, gemäß der Datenschutzerklärung.",
@@ -58,34 +63,29 @@ export const de = {
   "register.commsHeading": "Zukünftige Kommunikation (optional)",
   "register.commsText":
     "Senden Sie mir Neuigkeiten über zukünftige Ausgaben und die Arbeit des Begünstigten. Ich kann mich jederzeit abmelden.",
-  "register.total": "Gesamt: €{price}",
-  "register.totalEmpty": "Gesamt: €—",
-  "register.submitRunner": "Anmelden — €{price}",
-  "register.submitSupporter": "Unterstützen — €{price}",
+  "register.continue": "Weiter",
   "register.submitting": "Anmeldung läuft...",
-  "register.selectTier": "Wählen Sie eine Stufe zur Anmeldung",
   "register.failedFallback":
     "Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.",
   "register.networkError":
     "Verbindung zum Anmeldeserver nicht möglich. Bitte versuchen Sie es später erneut.",
-  "register.errorFullName": "Vollständiger Name ist erforderlich",
+  "register.errorFirstName": "Vorname ist erforderlich",
+  "register.errorLastName": "Nachname ist erforderlich",
   "register.errorEmail": "Eine gültige E-Mail-Adresse ist erforderlich",
   "register.errorTshirt": "T-Shirt-Größe ist erforderlich",
-  "register.errorCountry": "Land ist erforderlich",
-  "register.errorGdpr":
-    "DSGVO-Einwilligung ist für die Anmeldung erforderlich",
-  "register.confirmHeading": "Anmeldung bestätigt!",
+  "register.errorSocks": "Sockengröße ist erforderlich",
+  "register.errorGdpr": "DSGVO-Einwilligung ist für die Anmeldung erforderlich",
+  "register.confirmHeading": "Ihre Einreichung wurde registriert!",
   "register.confirmParticipantId": "Ihre ID: {id}",
   "register.confirmName": "Name",
   "register.confirmTier": "Stufe",
   "register.confirmAmount": "Betrag",
   "register.confirmRewardsHeading": "Ihre Belohnungen",
   "register.confirmDonationHeading":
-    "Schließen Sie Ihre Spende von €{amount} ab",
+    "Schließen Sie Ihre Anmeldung ab",
   "register.confirmDonationInstructions":
-    "Bitte wählen Sie unten die Option €{amount}, um Ihre {tierName}-Anmeldung abzuschließen.",
-  "register.confirmAfterDonation":
-    "Nach Abschluss Ihrer Spende oben:",
+    "Bitte bestätigen Sie unten den Betrag von €{amount} oder mehr, um Ihre {tierName}-Anmeldung abzuschließen.",
+  "register.confirmAfterDonation": "Nach Abschluss Ihrer Spende oben:",
   "register.confirmButton": "Ich habe meine Spende abgeschlossen",
   "register.confirmingPayment": "Bestätigung\u2026",
   "register.confirmedHeading": "Zahlung erhalten — vielen Dank!",
@@ -101,14 +101,20 @@ export const de = {
   "register.verifyingPayment": "Zahlung wird überprüft\u2026",
   "register.needInvoice": "Rechnung benötigt?",
   "register.startOver": "Erneut anmelden",
+  "register.abandonRegistration": "Abbrechen und Anmeldung neu starten",
+  "register.alreadyPaidHeading":
+    "Danke, dass Sie an unserer Kampagne teilnehmen!",
+  "register.alreadyPaidMessage":
+    "Wir haben Ihre Zahlung erhalten und halten Sie über Neuigkeiten zur Kampagne und Veranstaltung auf dem Laufenden.",
+  "register.alreadyPaidCta": "Zurück zur Veranstaltungsseite",
 
   // tierCard
   "tierCard.badge": "Am häufigsten gewählt",
   "tierCard.selected": "Ausgewählt",
-  "tierCard.select": "Auswählen",
+  "tierCard.select": "{tierName} auswählen",
 
   // fundraise
-  "fundraise.overline": "Strecke B · Spenden sammeln und Laufen",
+  "fundraise.overline": "Strecke B · Spenden sammeln fürs Team",
   "fundraise.title": "Ihre Spendenseite",
   "fundraise.subtitle":
     "Das dauert etwa eine Minute. Teilen Sie Ihre Seite mit Freunden und Familie, um das gemeinsame Ziel zu erreichen — dann kommen Sie selbst zum Laufen.",
@@ -121,12 +127,12 @@ export const de = {
   "fundraise.displayNamePlaceholder":
     "Wie Sie auf Ihrer Seite erscheinen möchten",
   "fundraise.personalMessage": "Persönliche Nachricht",
-  "fundraise.messagePlaceholder":
-    "Warum laufen Sie? Was treibt Sie an?",
+  "fundraise.messagePlaceholder": "Warum laufen Sie? Was treibt Sie an?",
   "fundraise.goalLabel": "Persönliches Ziel (€)",
   "fundraise.nextRunner": "Weiter: Läuferdaten →",
   "fundraise.step2Heading": "Ihre Läuferanmeldung",
-  "fundraise.fullName": "Vollständiger Name",
+  "fundraise.firstName": "Vorname",
+  "fundraise.lastName": "Nachname",
   "fundraise.email": "E-Mail",
   "fundraise.phone": "Telefon",
   "fundraise.tshirtSize": "T-Shirt-Größe",
@@ -160,15 +166,15 @@ export const de = {
     "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
   "fundraise.globalError":
     "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
-  "fundraise.errorDisplayName":
-    "Anzeigename muss 2-50 Zeichen lang sein",
+  "fundraise.errorDisplayName": "Anzeigename muss 2-50 Zeichen lang sein",
   "fundraise.errorMessageRequired": "Nachricht ist erforderlich",
   "fundraise.errorMessageLength":
     "Nachricht muss weniger als 500 Zeichen lang sein",
   "fundraise.errorGoal":
     "Ziel muss eine ganze Zahl zwischen 10 und 100.000 sein",
   "fundraise.errorTier": "Bitte wählen Sie eine Stufe",
-  "fundraise.errorFullName": "Vollständiger Name ist erforderlich",
+  "fundraise.errorFirstName": "Vorname ist erforderlich",
+  "fundraise.errorLastName": "Nachname ist erforderlich",
   "fundraise.errorEmail": "Eine gültige E-Mail-Adresse ist erforderlich",
   "fundraise.errorCountry": "Land ist erforderlich",
   "fundraise.errorGdpr":
@@ -191,12 +197,10 @@ export const de = {
   "confirmation.tier": "Stufe",
   "confirmation.amount": "Betrag",
   "confirmation.rewardsHeading": "Ihre Belohnungen",
-  "confirmation.paymentHeading":
-    "Schließen Sie Ihre Spende von €{amount} ab",
+  "confirmation.paymentHeading": "Schließen Sie Ihre Spende von €{amount} ab",
   "confirmation.paymentInstructions":
     "Wählen Sie unten die Option €{amount}, um Ihre {tierName}-Anmeldung abzuschließen.",
-  "confirmation.afterDonation":
-    "Nach Abschluss Ihrer Spende oben:",
+  "confirmation.afterDonation": "Nach Abschluss Ihrer Spende oben:",
   "confirmation.confirmButton": "Ich habe meine Spende abgeschlossen",
   "confirmation.confirming": "Bestätigung\u2026",
   "confirmation.confirmed": "Zahlung bestätigt — alles erledigt!",
@@ -219,7 +223,8 @@ export const de = {
   "fundraiser.nameSuffix": "s Seite",
   "fundraiser.personalGoal": "Persönliches Ziel: €{goal}",
   "fundraiser.raisedSoFar": "Bisher gesammelt: €{raised}",
-  "fundraiser.collectiveTotal": "Gesamtsumme: €{total}",
+  "fundraiser.collectiveTotal":
+    "Teil einer gemeinsamen Kampagne — €{total} gemeinsam gesammelt",
   "fundraiser.donateHeading": "Spenden",
   "fundraiser.shareHeading": "Diese Seite teilen",
   "fundraiser.ctaButton": "{name} unterstützen",
@@ -252,8 +257,7 @@ export const de = {
     "Ihr Name und Ihre Nachricht werden öffentlich sichtbar sein.",
   "donorWall.errorName": "Name muss 2-50 Zeichen lang sein",
   "donorWall.errorMessage": "Nachricht muss 5-200 Zeichen lang sein",
-  "donorWall.networkError":
-    "Netzwerkfehler. Bitte versuchen Sie es erneut.",
+  "donorWall.networkError": "Netzwerkfehler. Bitte versuchen Sie es erneut.",
   "donorWall.globalError": "Etwas ist schiefgelaufen.",
 
   // event
@@ -267,7 +271,7 @@ export const de = {
   "social.shareEmail": "Per E-Mail teilen",
   "social.copyLink": "Link kopieren",
   "social.shareMessage":
-    "Unterstützen Sie die Spendenaktion von {title} für Run for Ukraine 2026! Jeder Euro finanziert Ladestationen für die Verteidiger der Ukraine.",
+    "Unterstützen Sie die Spendenaktion von {title} für 35 Years of 🇺🇦 Independence: Charity and Run! Jeder Euro finanziert Ladestationen für die Verteidiger der Ukraine.",
 
   // common
   "common.loading": "Laden",
@@ -291,14 +295,15 @@ export const de = {
     "Jeder gesammelte Euro ging direkt an Hurkit, um Ladestationen für die Verteidiger der Ukraine bereitzustellen.",
 
   // errors (backend error code mappings)
-  "errors.VALIDATION_FULLNAME_REQUIRED":
-    "Vollständiger Name ist erforderlich",
+  "errors.VALIDATION_FIRSTNAME_REQUIRED": "Vorname ist erforderlich",
+  "errors.VALIDATION_LASTNAME_REQUIRED": "Nachname ist erforderlich",
   "errors.VALIDATION_EMAIL_INVALID":
     "Bitte geben Sie eine gültige E-Mail-Adresse ein",
   "errors.VALIDATION_TSHIRT_INVALID":
     "Eine gültige T-Shirt-Größe ist erforderlich",
-  "errors.VALIDATION_LANGUAGE_INVALID":
-    "Eine gültige Sprache ist erforderlich",
+  "errors.VALIDATION_SOCKS_INVALID":
+    "Eine gültige Sockengröße ist erforderlich",
+  "errors.VALIDATION_LANGUAGE_INVALID": "Eine gültige Sprache ist erforderlich",
   "errors.VALIDATION_COUNTRY_REQUIRED": "Land ist erforderlich",
   "errors.VALIDATION_TIER_INVALID": "Eine gültige Stufe ist erforderlich",
   "errors.VALIDATION_GDPR_REQUIRED":
@@ -318,8 +323,7 @@ export const de = {
   "errors.VALIDATION_STATUS_INVALID": "Ungültiger Statuswert",
   "errors.VALIDATION_AUTH_REQUIRED": "Authentifizierung ist erforderlich",
   "errors.VALIDATION_AUTH_INVALID": "Ungültiges Authentifizierungstoken",
-  "errors.VALIDATION_DONOR_NAME_LENGTH":
-    "Name muss 2-50 Zeichen lang sein",
+  "errors.VALIDATION_DONOR_NAME_LENGTH": "Name muss 2-50 Zeichen lang sein",
   "errors.VALIDATION_DONOR_MESSAGE_LENGTH":
     "Nachricht muss 5-200 Zeichen lang sein",
   "errors.VALIDATION_SLUG_REQUIRED": "Spendenseiten-ID ist erforderlich",

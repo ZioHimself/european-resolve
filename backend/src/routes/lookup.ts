@@ -37,6 +37,27 @@ lookupRoute.get("/:token", async (c) => {
     );
   }
 
+  // Already paid — return just enough for the frontend to show a plain
+  // thank-you screen. Tier lookup isn't required here: a payment recorded
+  // with no matching registration attempt has no tier on file at all.
+  if (registration.status === "paid") {
+    const response: RegisterResponse = {
+      participantId: registration.participantId,
+      fullName: registration.fullName,
+      firstName: registration.firstName,
+      lastName: registration.lastName,
+      email: registration.email,
+      tierId: registration.tierId as TierId,
+      tierName: "",
+      participationType: registration.participationType as ParticipationType,
+      amountEur: registration.amountEur,
+      rewards: [],
+      paymentToken: registration.paymentToken,
+      status: "paid",
+    };
+    return c.json({ success: true, data: response } satisfies ApiResponse<RegisterResponse>);
+  }
+
   const tier = TIER_DATA[registration.tierId as TierId];
   if (!tier) {
     return c.json(
@@ -51,6 +72,8 @@ lookupRoute.get("/:token", async (c) => {
   const response: RegisterResponse = {
     participantId: registration.participantId,
     fullName: registration.fullName,
+    firstName: registration.firstName,
+    lastName: registration.lastName,
     email: registration.email,
     tierId: registration.tierId as TierId,
     tierName: tier.name,
@@ -58,6 +81,7 @@ lookupRoute.get("/:token", async (c) => {
     amountEur: registration.amountEur,
     rewards: filterRewards(tier.rewards, registration.participationType as ParticipationType),
     paymentToken: registration.paymentToken,
+    status: "pending",
   };
 
   return c.json({ success: true, data: response } satisfies ApiResponse<RegisterResponse>);

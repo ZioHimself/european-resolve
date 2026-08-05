@@ -1,10 +1,10 @@
 import type { EmailLocale } from "./types.js";
 
 export const fr: EmailLocale = {
-  subject: "Run for Ukraine 2026 — Inscription confirmée !",
+  subject: "35 Years of 🇺🇦 Independence: Charity and Run — Inscription confirmée !",
   greeting: "Bonjour {name},",
   confirmationIntro:
-    "Votre inscription à Run for Ukraine 2026 est confirmée. Voici vos détails :",
+    "Votre inscription à 35 Years of 🇺🇦 Independence: Charity and Run est confirmée. Voici vos détails :",
   participantIdLabel: "Numéro de participant",
   tierLabel: "Formule",
   amountLabel: "Montant",
@@ -20,13 +20,13 @@ export const fr: EmailLocale = {
   eventDate: "23 août 2026, 10:00",
   eventLocation: "Place du Luxembourg, Bruxelles, Belgique",
   footerText:
-    "Cet e-mail a été envoyé par European Resolve VZW pour confirmer votre inscription à Run for Ukraine 2026.",
+    "Cet e-mail a été envoyé par European Resolve VZW pour confirmer votre inscription à 35 Years of 🇺🇦 Independence: Charity and Run.",
   footerUnsubscribe:
     "Vous recevez ce message car vous vous êtes inscrit(e) à l'événement. Aucun autre e-mail ne sera envoyé sauf si vous avez accepté les communications.",
   footerPaymentEmail:
     "Vous recevrez un dernier e-mail lorsque votre paiement sera confirmé.",
   fundraiserSubject:
-    "Run for Ukraine 2026 — Votre page de collecte est en ligne !",
+    "35 Years of 🇺🇦 Independence: Charity and Run — Votre page de collecte est en ligne !",
   fundraiserIntro:
     "Bonne nouvelle, {name} ! Vous êtes inscrit(e) ET votre page de collecte personnelle est en ligne. Partagez-la avec vos proches pour atteindre votre objectif.",
   fundraiserHeading: "Votre page de collecte",
@@ -36,12 +36,12 @@ export const fr: EmailLocale = {
     "Conservez ce lien — c'est le seul moyen de modifier votre page de collecte. Ne le partagez pas publiquement.",
   fundraiserDisplayNameLabel: "Nom affiché",
   fundraiserGoalLabel: "Objectif personnel",
-  paymentSubject: "Run for Ukraine 2026 — Paiement confirmé !",
+  paymentSubject: "35 Years of 🇺🇦 Independence: Charity and Run — Paiement confirmé !",
   paymentIntro:
     "Votre don a été reçu. Voici votre inscription confirmée :",
   paymentRewardsLabel: "Vos récompenses",
   paymentThankYou:
     "Merci de soutenir les défenseurs de l'Ukraine ! Chaque euro finance des stations de recharge sur le front.",
   paymentFooter:
-    "Ceci est votre reçu de paiement d'European Resolve VZW pour Run for Ukraine 2026.",
+    "Ceci est votre reçu de paiement d'European Resolve VZW pour 35 Years of 🇺🇦 Independence: Charity and Run.",
 };

@@ -1,6 +1,8 @@
 export interface Locale {
   // hero.* — EventHero
   "hero.overline": string;
+  "hero.title": string;
+  "hero.description": string;
   "hero.beneficiary": string;
 
   // tracks.* — TrackCards
@@ -30,36 +32,32 @@ export interface Locale {
   // register.* — Registration page, RegistrationForm, ConfirmationPanel
   "register.overline": string;
   "register.title": string;
+  "register.titleRegistration": string;
+  "register.titleConfirmation": string;
   "register.subtitle": string;
   "register.heading": string;
-  "register.howParticipate": string;
-  "register.runOnDay": string;
-  "register.supportAnywhere": string;
+  "register.descriptionSupporter": string;
+  "register.descriptionRunner": string;
   "register.errorSummary": string;
-  "register.fullName": string;
+  "register.firstName": string;
+  "register.lastName": string;
   "register.email": string;
-  "register.phone": string;
   "register.tshirtSize": string;
-  "register.language": string;
-  "register.country": string;
-  "register.optional": string;
+  "register.socksSize": string;
   "register.gdprHeading": string;
   "register.gdprRunner": string;
   "register.gdprSupporter": string;
   "register.commsHeading": string;
   "register.commsText": string;
-  "register.total": string;
-  "register.totalEmpty": string;
-  "register.submitRunner": string;
-  "register.submitSupporter": string;
+  "register.continue": string;
   "register.submitting": string;
-  "register.selectTier": string;
   "register.failedFallback": string;
   "register.networkError": string;
-  "register.errorFullName": string;
+  "register.errorFirstName": string;
+  "register.errorLastName": string;
   "register.errorEmail": string;
   "register.errorTshirt": string;
-  "register.errorCountry": string;
+  "register.errorSocks": string;
   "register.errorGdpr": string;
   "register.confirmHeading": string;
   "register.confirmParticipantId": string;
@@ -81,6 +79,10 @@ export interface Locale {
   "register.verifyingPayment": string;
   "register.needInvoice": string;
   "register.startOver": string;
+  "register.abandonRegistration": string;
+  "register.alreadyPaidHeading": string;
+  "register.alreadyPaidMessage": string;
+  "register.alreadyPaidCta": string;
 
   // tierCard.* — TierCard
   "tierCard.badge": string;
@@ -103,7 +105,8 @@ export interface Locale {
   "fundraise.goalLabel": string;
   "fundraise.nextRunner": string;
   "fundraise.step2Heading": string;
-  "fundraise.fullName": string;
+  "fundraise.firstName": string;
+  "fundraise.lastName": string;
   "fundraise.email": string;
   "fundraise.phone": string;
   "fundraise.tshirtSize": string;
@@ -138,7 +141,8 @@ export interface Locale {
   "fundraise.errorMessageLength": string;
   "fundraise.errorGoal": string;
   "fundraise.errorTier": string;
-  "fundraise.errorFullName": string;
+  "fundraise.errorFirstName": string;
+  "fundraise.errorLastName": string;
   "fundraise.errorEmail": string;
   "fundraise.errorCountry": string;
   "fundraise.errorGdpr": string;
@@ -245,9 +249,11 @@ export interface Locale {
   "closed.impactStatement": string;
 
   // errors.* — Backend error code mappings
-  "errors.VALIDATION_FULLNAME_REQUIRED": string;
+  "errors.VALIDATION_FIRSTNAME_REQUIRED": string;
+  "errors.VALIDATION_LASTNAME_REQUIRED": string;
   "errors.VALIDATION_EMAIL_INVALID": string;
   "errors.VALIDATION_TSHIRT_INVALID": string;
+  "errors.VALIDATION_SOCKS_INVALID": string;
   "errors.VALIDATION_LANGUAGE_INVALID": string;
   "errors.VALIDATION_COUNTRY_REQUIRED": string;
   "errors.VALIDATION_TIER_INVALID": string;

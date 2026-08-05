@@ -63,7 +63,9 @@ function clickBack() {
   fireEvent.click(screen.getByText(/← Back/));
 }
 
-function selectTier(name: "Supporter" | "Champion" | "Patron") {
+function selectTier(
+  name: "Supporter" | "Sprinter" | "Relay runner" | "Marathoner" | "Ultramarathoner",
+) {
   const tierArticle = screen
     .getByText(name)
     .closest("article") as HTMLElement;
@@ -73,8 +75,9 @@ function selectTier(name: "Supporter" | "Champion" | "Patron") {
 
 function fillStep2(
   overrides: {
-    tier?: "Supporter" | "Champion" | "Patron";
-    fullName?: string;
+    tier?: "Supporter" | "Sprinter" | "Relay runner" | "Marathoner" | "Ultramarathoner";
+    firstName?: string;
+    lastName?: string;
     email?: string;
     country?: string;
     gdpr?: boolean;
@@ -82,8 +85,11 @@ function fillStep2(
 ) {
   selectTier(overrides.tier ?? "Supporter");
 
-  fireEvent.change(screen.getByLabelText(/full name/i), {
-    target: { value: overrides.fullName ?? "Jane Doe" },
+  fireEvent.change(screen.getByLabelText(/first name/i), {
+    target: { value: overrides.firstName ?? "Jane" },
+  });
+  fireEvent.change(screen.getByLabelText(/last name/i), {
+    target: { value: overrides.lastName ?? "Doe" },
   });
   fireEvent.change(screen.getByLabelText(/email/i), {
     target: { value: overrides.email ?? "jane@example.com" },
@@ -283,9 +289,12 @@ describe("FundraiseForm", () => {
 
     it("renders tier selection, name, email, phone, t-shirt, language, country fields", () => {
       expect(screen.getByText("Supporter")).toBeInTheDocument();
-      expect(screen.getByText("Champion")).toBeInTheDocument();
-      expect(screen.getByText("Patron")).toBeInTheDocument();
-      expect(screen.getByLabelText(/full name/i)).toBeInTheDocument();
+      expect(screen.getByText("Sprinter")).toBeInTheDocument();
+      expect(screen.getByText("Relay runner")).toBeInTheDocument();
+      expect(screen.getByText("Marathoner")).toBeInTheDocument();
+      expect(screen.getByText("Ultramarathoner")).toBeInTheDocument();
+      expect(screen.getByLabelText(/first name/i)).toBeInTheDocument();
+      expect(screen.getByLabelText(/last name/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/phone/i)).toBeInTheDocument();
       expect(screen.getByLabelText(/t-shirt size/i)).toBeInTheDocument();
@@ -299,8 +308,11 @@ describe("FundraiseForm", () => {
     });
 
     it("blocks navigation when no tier is selected", () => {
-      fireEvent.change(screen.getByLabelText(/full name/i), {
-        target: { value: "Jane Doe" },
+      fireEvent.change(screen.getByLabelText(/first name/i), {
+        target: { value: "Jane" },
+      });
+      fireEvent.change(screen.getByLabelText(/last name/i), {
+        target: { value: "Doe" },
       });
       fireEvent.change(screen.getByLabelText(/email/i), {
         target: { value: "jane@example.com" },
@@ -315,8 +327,11 @@ describe("FundraiseForm", () => {
       expect(screen.getByText(/please select a tier/i)).toBeInTheDocument();
     });
 
-    it("blocks navigation when full name is empty", () => {
+    it("blocks navigation when first name is empty", () => {
       selectTier("Supporter");
+      fireEvent.change(screen.getByLabelText(/last name/i), {
+        target: { value: "Doe" },
+      });
       fireEvent.change(screen.getByLabelText(/email/i), {
         target: { value: "jane@example.com" },
       });
@@ -327,13 +342,34 @@ describe("FundraiseForm", () => {
       fireEvent.click(gdprCheckbox);
 
       clickNext();
-      expect(screen.getByText(/full name is required/i)).toBeInTheDocument();
+      expect(screen.getByText(/first name is required/i)).toBeInTheDocument();
+    });
+
+    it("blocks navigation when last name is empty", () => {
+      selectTier("Supporter");
+      fireEvent.change(screen.getByLabelText(/first name/i), {
+        target: { value: "Jane" },
+      });
+      fireEvent.change(screen.getByLabelText(/email/i), {
+        target: { value: "jane@example.com" },
+      });
+      fireEvent.change(screen.getByLabelText(/country/i), {
+        target: { value: "Belgium" },
+      });
+      const gdprCheckbox = screen.getAllByRole("checkbox")[0];
+      fireEvent.click(gdprCheckbox);
+
+      clickNext();
+      expect(screen.getByText(/last name is required/i)).toBeInTheDocument();
     });
 
     it("blocks navigation when email is invalid", () => {
       selectTier("Supporter");
-      fireEvent.change(screen.getByLabelText(/full name/i), {
-        target: { value: "Jane Doe" },
+      fireEvent.change(screen.getByLabelText(/first name/i), {
+        target: { value: "Jane" },
+      });
+      fireEvent.change(screen.getByLabelText(/last name/i), {
+        target: { value: "Doe" },
       });
       fireEvent.change(screen.getByLabelText(/email/i), {
         target: { value: "not-an-email" },
@@ -352,8 +388,11 @@ describe("FundraiseForm", () => {
 
     it("blocks navigation when country is empty", () => {
       selectTier("Supporter");
-      fireEvent.change(screen.getByLabelText(/full name/i), {
-        target: { value: "Jane Doe" },
+      fireEvent.change(screen.getByLabelText(/first name/i), {
+        target: { value: "Jane" },
+      });
+      fireEvent.change(screen.getByLabelText(/last name/i), {
+        target: { value: "Doe" },
       });
       fireEvent.change(screen.getByLabelText(/email/i), {
         target: { value: "jane@example.com" },
@@ -367,8 +406,11 @@ describe("FundraiseForm", () => {
 
     it("blocks navigation when GDPR consent is unchecked", () => {
       selectTier("Supporter");
-      fireEvent.change(screen.getByLabelText(/full name/i), {
-        target: { value: "Jane Doe" },
+      fireEvent.change(screen.getByLabelText(/first name/i), {
+        target: { value: "Jane" },
+      });
+      fireEvent.change(screen.getByLabelText(/last name/i), {
+        target: { value: "Doe" },
       });
       fireEvent.change(screen.getByLabelText(/email/i), {
         target: { value: "jane@example.com" },
@@ -386,7 +428,8 @@ describe("FundraiseForm", () => {
     it("shows multiple validation errors simultaneously", () => {
       clickNext();
       expect(screen.getByText(/please select a tier/i)).toBeInTheDocument();
-      expect(screen.getByText(/full name is required/i)).toBeInTheDocument();
+      expect(screen.getByText(/first name is required/i)).toBeInTheDocument();
+      expect(screen.getByText(/last name is required/i)).toBeInTheDocument();
       expect(
         screen.getByText(/valid email address is required/i),
       ).toBeInTheDocument();
@@ -543,7 +586,8 @@ describe("FundraiseForm", () => {
       expect(body.get("displayName")).toBe("My Page");
       expect(body.get("message")).toBe("Running for a great cause");
       expect(body.get("goalEur")).toBe("100");
-      expect(body.get("fullName")).toBe("Jane Doe");
+      expect(body.get("firstName")).toBe("Jane");
+      expect(body.get("lastName")).toBe("Doe");
       expect(body.get("email")).toBe("jane@example.com");
       expect(body.get("country")).toBe("Belgium");
       expect(body.get("tierId")).toBe("supporter");
@@ -789,7 +833,7 @@ describe("FundraiseForm", () => {
       fillStep1({ displayName: "Serhiy", message: "For Ukraine", goalEur: "250" });
       clickNext();
 
-      fillStep2({ tier: "Champion", fullName: "Serhiy K", email: "s@test.com", country: "Ukraine" });
+      fillStep2({ tier: "Marathoner", firstName: "Serhiy", lastName: "K", email: "s@test.com", country: "Ukraine" });
       clickNext();
 
       expect(screen.getByText("Serhiy")).toBeInTheDocument();
@@ -798,10 +842,11 @@ describe("FundraiseForm", () => {
       expect(screen.getByText("Serhiy K")).toBeInTheDocument();
       expect(screen.getByText("s@test.com")).toBeInTheDocument();
       expect(screen.getByText("Ukraine")).toBeInTheDocument();
-      expect(screen.getByText(/Champion — €35/)).toBeInTheDocument();
+      expect(screen.getByText(/Marathoner — €60/)).toBeInTheDocument();
 
       clickBack();
-      expect(screen.getByLabelText(/full name/i)).toHaveValue("Serhiy K");
+      expect(screen.getByLabelText(/first name/i)).toHaveValue("Serhiy");
+      expect(screen.getByLabelText(/last name/i)).toHaveValue("K");
       expect(screen.getByLabelText(/email/i)).toHaveValue("s@test.com");
 
       clickBack();
@@ -841,8 +886,8 @@ describe("FundraiseForm", () => {
         registration: {
           participantId: "R-9999",
           fullName: "Restored User",
-          tierId: "patron",
-          tierName: "Patron",
+          tierId: "ultramarathoner",
+          tierName: "Ultramarathoner",
           amountEur: 100,
           rewards: ["All rewards"],
           paymentToken: "pay_restored",
@@ -923,27 +968,30 @@ describe("FundraiseForm", () => {
       advanceToStep2();
     });
 
-    it("shows all three tiers with prices", () => {
+    it("shows all five tiers with prices", () => {
+      expect(screen.getByText("or more")).toBeInTheDocument();
       expect(screen.getByText("€10")).toBeInTheDocument();
-      expect(screen.getByText("€35")).toBeInTheDocument();
-      expect(screen.getByText("€95")).toBeInTheDocument();
+      expect(screen.getByText("€15")).toBeInTheDocument();
+      expect(screen.getByText("€30")).toBeInTheDocument();
+      expect(screen.getByText("€60")).toBeInTheDocument();
+      expect(screen.getByText("€100")).toBeInTheDocument();
     });
 
     it("marks selected tier with aria-pressed", () => {
-      selectTier("Champion");
-      const championArticle = screen
-        .getByText("Champion")
+      selectTier("Relay runner");
+      const relayRunnerArticle = screen
+        .getByText("Relay runner")
         .closest("article") as HTMLElement;
-      const btn = within(championArticle).getByRole("button");
+      const btn = within(relayRunnerArticle).getByRole("button");
       expect(btn).toHaveAttribute("aria-pressed", "true");
     });
 
     it("updates submit button price on step 3 based on selected tier", () => {
-      fillStep2({ tier: "Patron" });
+      fillStep2({ tier: "Ultramarathoner" });
       clickNext();
       expect(
         screen.getByRole("button", {
-          name: /create page and register — €95/i,
+          name: /create page and register — €100/i,
         }),
       ).toBeInTheDocument();
     });

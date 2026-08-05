@@ -1,10 +1,10 @@
 import type { EmailLocale } from "./types.js";
 
 export const nl: EmailLocale = {
-  subject: "Run for Ukraine 2026 — Inschrijving bevestigd!",
+  subject: "35 Years of 🇺🇦 Independence: Charity and Run — Inschrijving bevestigd!",
   greeting: "Hallo {name},",
   confirmationIntro:
-    "Je inschrijving voor Run for Ukraine 2026 is bevestigd. Hier zijn je gegevens:",
+    "Je inschrijving voor 35 Years of 🇺🇦 Independence: Charity and Run is bevestigd. Hier zijn je gegevens:",
   participantIdLabel: "Deelnemersnummer",
   tierLabel: "Formule",
   amountLabel: "Bedrag",
@@ -20,13 +20,13 @@ export const nl: EmailLocale = {
   eventDate: "23 augustus 2026, 10:00",
   eventLocation: "Place du Luxembourg, Brussel, België",
   footerText:
-    "Deze e-mail is verzonden door European Resolve VZW als bevestiging van je inschrijving voor Run for Ukraine 2026.",
+    "Deze e-mail is verzonden door European Resolve VZW als bevestiging van je inschrijving voor 35 Years of 🇺🇦 Independence: Charity and Run.",
   footerUnsubscribe:
     "Je ontvangt dit bericht omdat je je hebt ingeschreven voor het evenement. Er worden geen verdere e-mails verstuurd tenzij je hebt ingestemd met communicatie.",
   footerPaymentEmail:
     "Je ontvangt nog één e-mail wanneer je betaling is bevestigd.",
   fundraiserSubject:
-    "Run for Ukraine 2026 — Je actiepagina staat online!",
+    "35 Years of 🇺🇦 Independence: Charity and Run — Je actiepagina staat online!",
   fundraiserIntro:
     "Goed nieuws, {name}! Je bent ingeschreven ÉN je persoonlijke actiepagina staat online. Deel de link met vrienden en familie om je doel te bereiken.",
   fundraiserHeading: "Je actiepagina",
@@ -36,12 +36,12 @@ export const nl: EmailLocale = {
     "Bewaar deze link — het is de enige manier om je actiepagina te bewerken. Deel deze niet publiekelijk.",
   fundraiserDisplayNameLabel: "Weergavenaam",
   fundraiserGoalLabel: "Persoonlijk doel",
-  paymentSubject: "Run for Ukraine 2026 — Betaling bevestigd!",
+  paymentSubject: "35 Years of 🇺🇦 Independence: Charity and Run — Betaling bevestigd!",
   paymentIntro:
     "Je donatie is ontvangen. Hier is je bevestigde inschrijving:",
   paymentRewardsLabel: "Jouw beloningen",
   paymentThankYou:
     "Bedankt voor je steun aan de verdedigers van Oekraïne! Elke euro financiert laadstations aan het front.",
   paymentFooter:
-    "Dit is je betalingsbewijs van European Resolve VZW voor Run for Ukraine 2026.",
+    "Dit is je betalingsbewijs van European Resolve VZW voor 35 Years of 🇺🇦 Independence: Charity and Run.",
 };

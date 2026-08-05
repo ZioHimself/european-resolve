@@ -23,6 +23,8 @@ function isWhyDonateReturn(): { isReturn: boolean; storedAmount: number } {
 interface RegistrationData {
   participantId: string;
   fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   tierId: string;
   tierName: string;
@@ -60,8 +62,6 @@ export function FundraiserConfirmation({
   const [confirmError, setConfirmError] = useState<string | null>(null);
   const [detectionActive, setDetectionActive] = useState(true);
   const [verifying, setVerifying] = useState(paymentReturn.isReturn && paymentReturn.storedAmount > 0);
-  const [effectiveTierName, setEffectiveTierName] = useState<string | null>(null);
-  const [effectiveRewards, setEffectiveRewards] = useState<string[] | null>(null);
   const [interruptedSession, setInterruptedSession] = useState(false);
 
   useEffect(() => {
@@ -108,14 +108,18 @@ export function FundraiserConfirmation({
       const res = await fetch(`${apiUrl}/api/register/confirm-payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: registration.paymentToken, amount }),
+        body: JSON.stringify({
+          token: registration.paymentToken,
+          amount,
+          email: registration.email,
+          firstName: registration.firstName,
+          lastName: registration.lastName,
+        }),
       });
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
         setConfirmed(true);
-        setEffectiveTierName(data.data.effectiveTierName ?? null);
-        setEffectiveRewards(data.data.rewards ?? null);
         onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
@@ -139,14 +143,17 @@ export function FundraiserConfirmation({
       const res = await fetch(`${apiUrl}/api/register/confirm-payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: registration.paymentToken }),
+        body: JSON.stringify({
+          token: registration.paymentToken,
+          email: registration.email,
+          firstName: registration.firstName,
+          lastName: registration.lastName,
+        }),
       });
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
         setConfirmed(true);
-        setEffectiveTierName(data.data.effectiveTierName ?? null);
-        setEffectiveRewards(data.data.rewards ?? null);
         onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
@@ -158,9 +165,6 @@ export function FundraiserConfirmation({
       setConfirming(false);
     }
   }
-
-  const displayTierName = effectiveTierName ?? registration?.tierName;
-  const displayRewards = effectiveRewards ?? registration?.rewards;
 
   return (
     <section className={styles.panel}>
@@ -215,7 +219,7 @@ export function FundraiserConfirmation({
           <div className={styles.summary}>
             <div className={styles.summaryRow}>
               <span className={styles.summaryKey}>{t("confirmation.tier")}</span>
-              <span className={styles.summaryValue}>{confirmed ? displayTierName : registration.tierName}</span>
+              <span className={styles.summaryValue}>{registration.tierName}</span>
             </div>
             <div className={styles.summaryRow}>
               <span className={styles.summaryKey}>{t("confirmation.amount")}</span>
@@ -226,7 +230,7 @@ export function FundraiserConfirmation({
           <div className={styles.rewards}>
             <h4 className={styles.rewardsHeading}>{t("confirmation.rewardsHeading")}</h4>
             <ul className={styles.rewardsList}>
-              {(confirmed && displayRewards ? displayRewards : registration.rewards).map((reward) => (
+              {registration.rewards.map((reward) => (
                 <li key={reward} className={styles.reward}>
                   <span className={styles.check}>✓</span> {reward}
                 </li>
@@ -268,7 +272,7 @@ export function FundraiserConfirmation({
                     });
                   }}
                   onDetectionFailed={() => setDetectionActive(false)}
-                  donorInfo={{ fullName: registration.fullName, email: registration.email }}
+                  donorInfo={{ firstName: registration.firstName, lastName: registration.lastName, email: registration.email }}
                 />
                 {verifying && (
                   <div className={styles.verifyingOverlay}>
