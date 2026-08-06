@@ -316,7 +316,7 @@ fundraiserRoute.post("/register", async (c) => {
 
   const tier = TIER_DATA[tierId as TierId];
   const fullName = `${regData.firstName} ${regData.lastName}`.trim();
-  const rewards = getLocalizedRewards(tierId as TierId, "runner", regData.language);
+  const rewards = getLocalizedRewards(tierId as TierId, regData.language);
 
   const response: FundraiserRegisterResponse = {
     fundraiser: {

@@ -101,12 +101,6 @@ export interface Locale {
   "tierCard.rewards.relay-runner": string;
   "tierCard.rewards.marathoner": string;
   "tierCard.rewards.ultramarathoner": string;
-  /** "·"-separated, runner-only rewards prepended to tierCard.rewards.* for participationType "runner". */
-  "tierCard.rewardsRunner.supporter": string;
-  "tierCard.rewardsRunner.sprinter": string;
-  "tierCard.rewardsRunner.relay-runner": string;
-  "tierCard.rewardsRunner.marathoner": string;
-  "tierCard.rewardsRunner.ultramarathoner": string;
 
   // fundraise.* — Fundraise page, FundraiseForm wizard
   "fundraise.overline": string;

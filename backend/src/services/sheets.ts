@@ -7,7 +7,6 @@ import type {
   FundraiserCreateRequest,
   FundraiserUpdateRequest,
   DonorWallEntry,
-  ParticipationType,
   TierId,
 } from "../types.js";
 
@@ -242,7 +241,6 @@ export class SheetsService {
     // upgrades it.
     const tierId = row[7] as string;
     const tier = TIER_DATA[tierId as TierId];
-    const participationType = (row[16] as ParticipationType) ?? "runner";
 
     const fundraiserSlug = (row[17] as string) ?? "";
     if (fundraiserSlug) {
@@ -259,7 +257,7 @@ export class SheetsService {
       language,
       tierName: tier?.name ?? (row[7] as string),
       amountEur: recordedAmount,
-      rewards: tier ? getLocalizedRewards(tierId as TierId, participationType, language) : [],
+      rewards: tier ? getLocalizedRewards(tierId as TierId, language) : [],
     };
   }
 

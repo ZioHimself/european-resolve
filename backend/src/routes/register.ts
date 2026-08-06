@@ -107,7 +107,7 @@ registerRoute.post("/", async (c) => {
   const { participantId, paymentToken } = await sheetsService.appendRegistration(data);
   const tier = TIER_DATA[data.tierId];
   const fullName = `${data.firstName} ${data.lastName}`.trim();
-  const rewards = getLocalizedRewards(data.tierId, data.participationType, data.language);
+  const rewards = getLocalizedRewards(data.tierId, data.language);
 
   const response: RegisterResponse = {
     participantId,

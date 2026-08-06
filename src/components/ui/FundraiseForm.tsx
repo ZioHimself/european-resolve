@@ -381,7 +381,6 @@ export function FundraiseForm() {
           <TierGrid
             selectedTierId={data.tierId}
             onSelectTier={(id) => update({ tierId: id })}
-            participationType="runner"
           />
 
           <div className={styles.grid}>

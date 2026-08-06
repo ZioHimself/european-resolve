@@ -149,7 +149,6 @@ export function RegisterClient({ onStepChange }: RegisterClientProps) {
           <TierGrid
             selectedTierId={selectedTierId}
             onSelectTier={setSelectedTierId}
-            participationType={selectedTierId === "supporter" ? "supporter" : "runner"}
           />
 
           {selectedTier && (

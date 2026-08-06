@@ -122,17 +122,13 @@ export const de = {
   "tierCard.tagline.ultramarathoner":
     "Tag oder Nacht, dein Einsatz kennt keine Grenzen 💫",
   "tierCard.rewards.supporter": "Erfahre, wie deine Spende geholfen hat",
-  "tierCard.rewards.sprinter": "Sticker-Set",
-  "tierCard.rewards.relay-runner": "Sticker-Set · Laufsocken · 1 Tombola-Los",
+  "tierCard.rewards.sprinter": "Laufen · Sticker-Set",
+  "tierCard.rewards.relay-runner":
+    "Laufen · Sticker-Set · Laufsocken · 1 Tombola-Los",
   "tierCard.rewards.marathoner":
-    "Sticker-Set · Traditionelles ukrainisches Essen · 3 Tombola-Lose",
+    "Laufen · Lauf-T-Shirt · Sticker-Set · Traditionelles ukrainisches Essen · 3 Tombola-Lose",
   "tierCard.rewards.ultramarathoner":
-    "Sticker-Set · Seidenschal einer ukrainischen Designermarke · Traditionelles ukrainisches Essen · 5 Tombola-Lose",
-  "tierCard.rewardsRunner.supporter": "",
-  "tierCard.rewardsRunner.sprinter": "Laufen",
-  "tierCard.rewardsRunner.relay-runner": "Laufen",
-  "tierCard.rewardsRunner.marathoner": "Laufen · Lauf-T-Shirt",
-  "tierCard.rewardsRunner.ultramarathoner": "Laufen",
+    "Laufen · Sticker-Set · Seidenschal einer ukrainischen Designermarke · Traditionelles ukrainisches Essen · 5 Tombola-Lose",
 
   // fundraise
   "fundraise.overline": "Strecke B · Spenden sammeln fürs Team",

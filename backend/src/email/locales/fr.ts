@@ -47,19 +47,13 @@ export const fr: EmailLocale = {
   paymentFooter:
     "Ceci est votre reçu de paiement d'European Resolve VZW pour 35 Years of 🇺🇦 Independence: Charity and Run.",
   tierRewards: {
-    supporter: { base: "Découvrez l'impact de votre don", runnerOnly: "" },
-    sprinter: { base: "Pack d'autocollants", runnerOnly: "Course" },
-    "relay-runner": {
-      base: "Pack d'autocollants · Chaussettes de course · 1 ticket de tombola",
-      runnerOnly: "Course",
-    },
-    marathoner: {
-      base: "Pack d'autocollants · Repas traditionnel ukrainien · 3 tickets de tombola",
-      runnerOnly: "Course · T-shirt de course",
-    },
-    ultramarathoner: {
-      base: "Pack d'autocollants · Foulard en soie d'une marque de créateur ukrainienne · Repas traditionnel ukrainien · 5 tickets de tombola",
-      runnerOnly: "Course",
-    },
+    supporter: "Découvrez l'impact de votre don",
+    sprinter: "Course · Pack d'autocollants",
+    "relay-runner":
+      "Course · Pack d'autocollants · Chaussettes de course · 1 ticket de tombola",
+    marathoner:
+      "Course · T-shirt de course · Pack d'autocollants · Repas traditionnel ukrainien · 3 tickets de tombola",
+    ultramarathoner:
+      "Course · Pack d'autocollants · Foulard en soie d'une marque de créateur ukrainienne · Repas traditionnel ukrainien · 5 tickets de tombola",
   },
 };

@@ -112,25 +112,20 @@ export const uk = {
   "tierCard.badge": "Найпопулярніший",
   "tierCard.selected": "Обрано",
   "tierCard.select": "Обрати {tierName}",
-  "tierCard.tagline.supporter": "Підтримай місію, не бігаючи 🪷",
-  "tierCard.tagline.sprinter": "Ти завжди береш участь першим/першою! 🙋",
-  "tierCard.tagline.relay-runner": "Візьми естафету та неси місію далі 💪",
-  "tierCard.tagline.marathoner": "Подолай дистанцію заради України 🚀",
+  "tierCard.tagline.supporter": "Підтримай місію без участі в пробіжці 🪷",
+  "tierCard.tagline.sprinter": "Ти завжди долучаєшся першою/першим! 🙋",
+  "tierCard.tagline.relay-runner": "Приймай естафету та продовжуй місію 💪",
+  "tierCard.tagline.marathoner": "Будь-яка дистанція заради України 🚀",
   "tierCard.tagline.ultramarathoner":
-    "Вдень чи вночі, твоя відданість не має меж 💫",
-  "tierCard.rewards.supporter": "Дізнайся, як твій донат допоміг",
-  "tierCard.rewards.sprinter": "Стікерпак",
+    "Вдень чи вночі, твоя наполегливість не знає втоми 💫",
+  "tierCard.rewards.supporter": "Дізнайся, як працює твій донат",
+  "tierCard.rewards.sprinter": "Біг · Стікерпак",
   "tierCard.rewards.relay-runner":
-    "Стікерпак · Бігові шкарпетки · 1 лотерейний квиток",
+    "Біг · Стікерпак · Бігові шкарпетки · 1 лотерейний квиток",
   "tierCard.rewards.marathoner":
-    "Стікерпак · Традиційний обід · 3 лотерейні квитки",
+    "Біг · Бігова футболка · Стікерпак · Традиційний обід · 3 лотерейні квитки",
   "tierCard.rewards.ultramarathoner":
-    "Стікерпак · Шовковий шарф від українського дизайнерського бренду · Традиційний обід · 5 лотерейних квитків",
-  "tierCard.rewardsRunner.supporter": "",
-  "tierCard.rewardsRunner.sprinter": "Біг",
-  "tierCard.rewardsRunner.relay-runner": "Біг",
-  "tierCard.rewardsRunner.marathoner": "Біг · Бігова футболка",
-  "tierCard.rewardsRunner.ultramarathoner": "Біг",
+    "Біг · Стікерпак · Шовковий шарф від українського дизайнерського бренду · Традиційний обід · 5 лотерейних квитків",
 
   // fundraise
   "fundraise.overline": "Напрямок B · Почни збір у нашій команді",

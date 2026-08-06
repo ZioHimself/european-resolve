@@ -116,18 +116,13 @@ export const en = {
   "tierCard.tagline.ultramarathoner":
     "Night or day, your commitment is endless 💫",
   "tierCard.rewards.supporter": "Hear how your donation helped",
-  "tierCard.rewards.sprinter": "Sticker pack",
+  "tierCard.rewards.sprinter": "Running · Sticker pack",
   "tierCard.rewards.relay-runner":
-    "Sticker pack · Running socks · 1 raffle ticket",
+    "Running · Sticker pack · Running socks · 1 raffle ticket",
   "tierCard.rewards.marathoner":
-    "Sticker pack · Traditional Ukrainian meal · 3 raffle tickets",
+    "Running · Running t-shirt · Sticker pack · Traditional Ukrainian meal · 3 raffle tickets",
   "tierCard.rewards.ultramarathoner":
-    "Sticker pack · Silk scarf by a Ukrainian designer brand · Traditional Ukrainian meal · 5 raffle tickets",
-  "tierCard.rewardsRunner.supporter": "",
-  "tierCard.rewardsRunner.sprinter": "Running",
-  "tierCard.rewardsRunner.relay-runner": "Running",
-  "tierCard.rewardsRunner.marathoner": "Running · Running t-shirt",
-  "tierCard.rewardsRunner.ultramarathoner": "Running",
+    "Running · Sticker pack · Silk scarf by a Ukrainian designer brand · Traditional Ukrainian meal · 5 raffle tickets",
 
   // fundraise
   "fundraise.overline": "Track B · Fundraise for the Team",

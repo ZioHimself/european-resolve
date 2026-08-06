@@ -79,11 +79,7 @@ lookupRoute.get("/:token", async (c) => {
     tierName: tier.name,
     participationType: registration.participationType as ParticipationType,
     amountEur: registration.amountEur,
-    rewards: getLocalizedRewards(
-      registration.tierId as TierId,
-      registration.participationType as ParticipationType,
-      registration.language,
-    ),
+    rewards: getLocalizedRewards(registration.tierId as TierId, registration.language),
     paymentToken: registration.paymentToken,
     status: "pending",
   };

@@ -34,11 +34,6 @@ export interface EmailLocale {
   paymentThankYou: string;
   paymentFooter: string;
 
-  /**
-   * Reward list per tier, as a single "·"-separated string per field so
-   * translators handle one sentence-like value instead of an array.
-   * `runnerOnly` items are shown only for participationType "runner" and
-   * are prepended before `base` when shown.
-   */
-  tierRewards: Record<TierId, { base: string; runnerOnly: string }>;
+  /** Reward list per tier, as a single "·"-separated string, split at render time. */
+  tierRewards: Record<TierId, string>;
 }

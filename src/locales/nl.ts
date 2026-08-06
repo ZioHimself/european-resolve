@@ -119,18 +119,13 @@ export const nl = {
   "tierCard.tagline.ultramarathoner":
     "Dag of nacht, jouw inzet kent geen grenzen 💫",
   "tierCard.rewards.supporter": "Hoor hoe je donatie heeft geholpen",
-  "tierCard.rewards.sprinter": "Stickerpakket",
+  "tierCard.rewards.sprinter": "Lopen · Stickerpakket",
   "tierCard.rewards.relay-runner":
-    "Stickerpakket · Hardloopsokken · 1 tombolalot",
+    "Lopen · Stickerpakket · Hardloopsokken · 1 tombolalot",
   "tierCard.rewards.marathoner":
-    "Stickerpakket · Traditionele Oekraïense maaltijd · 3 tombolaloten",
+    "Lopen · Hardloopshirt · Stickerpakket · Traditionele Oekraïense maaltijd · 3 tombolaloten",
   "tierCard.rewards.ultramarathoner":
-    "Stickerpakket · Zijden sjaal van een Oekraïens designmerk · Traditionele Oekraïense maaltijd · 5 tombolaloten",
-  "tierCard.rewardsRunner.supporter": "",
-  "tierCard.rewardsRunner.sprinter": "Lopen",
-  "tierCard.rewardsRunner.relay-runner": "Lopen",
-  "tierCard.rewardsRunner.marathoner": "Lopen · Hardloopshirt",
-  "tierCard.rewardsRunner.ultramarathoner": "Lopen",
+    "Lopen · Stickerpakket · Zijden sjaal van een Oekraïens designmerk · Traditionele Oekraïense maaltijd · 5 tombolaloten",
 
   // fundraise
   "fundraise.overline": "Parcours B · Fondsen Werven voor het Team",

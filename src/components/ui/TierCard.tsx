@@ -1,6 +1,5 @@
 import type { Tier } from "@/data/event";
 import { t } from "@/locales";
-import type { ParticipationType } from "./registerTypes";
 import styles from "./TierCard.module.css";
 
 interface TierCardProps {
@@ -8,7 +7,6 @@ interface TierCardProps {
   isSelected: boolean;
   hasSelection: boolean;
   onSelect: () => void;
-  participationType: ParticipationType;
 }
 
 function splitRewards(value: string): string[] {
@@ -23,13 +21,8 @@ export function TierCard({
   isSelected,
   hasSelection,
   onSelect,
-  participationType,
 }: TierCardProps) {
-  const baseRewards = splitRewards(t(`tierCard.rewards.${tier.id}`));
-  const visibleRewards =
-    participationType === "runner"
-      ? [...splitRewards(t(`tierCard.rewardsRunner.${tier.id}`)), ...baseRewards]
-      : baseRewards;
+  const visibleRewards = splitRewards(t(`tierCard.rewards.${tier.id}`));
 
   return (
     <article

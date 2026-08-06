@@ -48,19 +48,12 @@ export const en: EmailLocale = {
   paymentFooter:
     "This is your payment receipt from European Resolve VZW for 35 Years of 🇺🇦 Independence: Charity and Run.",
   tierRewards: {
-    supporter: { base: "Hear how your donation helped", runnerOnly: "" },
-    sprinter: { base: "Sticker pack", runnerOnly: "Running" },
-    "relay-runner": {
-      base: "Sticker pack · Running socks · 1 raffle ticket",
-      runnerOnly: "Running",
-    },
-    marathoner: {
-      base: "Sticker pack · Traditional Ukrainian meal · 3 raffle tickets",
-      runnerOnly: "Running · Running t-shirt",
-    },
-    ultramarathoner: {
-      base: "Sticker pack · Silk scarf by a Ukrainian designer brand · Traditional Ukrainian meal · 5 raffle tickets",
-      runnerOnly: "Running",
-    },
+    supporter: "Hear how your donation helped",
+    sprinter: "Running · Sticker pack",
+    "relay-runner": "Running · Sticker pack · Running socks · 1 raffle ticket",
+    marathoner:
+      "Running · Running t-shirt · Sticker pack · Traditional Ukrainian meal · 3 raffle tickets",
+    ultramarathoner:
+      "Running · Sticker pack · Silk scarf by a Ukrainian designer brand · Traditional Ukrainian meal · 5 raffle tickets",
   },
 };

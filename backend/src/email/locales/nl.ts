@@ -47,19 +47,12 @@ export const nl: EmailLocale = {
   paymentFooter:
     "Dit is je betalingsbewijs van European Resolve VZW voor 35 Years of 🇺🇦 Independence: Charity and Run.",
   tierRewards: {
-    supporter: { base: "Hoor hoe je donatie heeft geholpen", runnerOnly: "" },
-    sprinter: { base: "Stickerpakket", runnerOnly: "Lopen" },
-    "relay-runner": {
-      base: "Stickerpakket · Hardloopsokken · 1 tombolalot",
-      runnerOnly: "Lopen",
-    },
-    marathoner: {
-      base: "Stickerpakket · Traditionele Oekraïense maaltijd · 3 tombolaloten",
-      runnerOnly: "Lopen · Hardloopshirt",
-    },
-    ultramarathoner: {
-      base: "Stickerpakket · Zijden sjaal van een Oekraïens designmerk · Traditionele Oekraïense maaltijd · 5 tombolaloten",
-      runnerOnly: "Lopen",
-    },
+    supporter: "Hoor hoe je donatie heeft geholpen",
+    sprinter: "Lopen · Stickerpakket",
+    "relay-runner": "Lopen · Stickerpakket · Hardloopsokken · 1 tombolalot",
+    marathoner:
+      "Lopen · Hardloopshirt · Stickerpakket · Traditionele Oekraïense maaltijd · 3 tombolaloten",
+    ultramarathoner:
+      "Lopen · Stickerpakket · Zijden sjaal van een Oekraïens designmerk · Traditionele Oekraïense maaltijd · 5 tombolaloten",
   },
 };

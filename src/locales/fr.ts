@@ -120,18 +120,13 @@ export const fr = {
   "tierCard.tagline.ultramarathoner":
     "Jour ou nuit, votre engagement est sans limite 💫",
   "tierCard.rewards.supporter": "Découvrez l'impact de votre don",
-  "tierCard.rewards.sprinter": "Pack d'autocollants",
+  "tierCard.rewards.sprinter": "Course · Pack d'autocollants",
   "tierCard.rewards.relay-runner":
-    "Pack d'autocollants · Chaussettes de course · 1 ticket de tombola",
+    "Course · Pack d'autocollants · Chaussettes de course · 1 ticket de tombola",
   "tierCard.rewards.marathoner":
-    "Pack d'autocollants · Repas traditionnel ukrainien · 3 tickets de tombola",
+    "Course · T-shirt de course · Pack d'autocollants · Repas traditionnel ukrainien · 3 tickets de tombola",
   "tierCard.rewards.ultramarathoner":
-    "Pack d'autocollants · Foulard en soie d'une marque de créateur ukrainienne · Repas traditionnel ukrainien · 5 tickets de tombola",
-  "tierCard.rewardsRunner.supporter": "",
-  "tierCard.rewardsRunner.sprinter": "Course",
-  "tierCard.rewardsRunner.relay-runner": "Course",
-  "tierCard.rewardsRunner.marathoner": "Course · T-shirt de course",
-  "tierCard.rewardsRunner.ultramarathoner": "Course",
+    "Course · Pack d'autocollants · Foulard en soie d'une marque de créateur ukrainienne · Repas traditionnel ukrainien · 5 tickets de tombola",
 
   // fundraise
   "fundraise.overline": "Parcours B · Collecter pour l'Équipe",
