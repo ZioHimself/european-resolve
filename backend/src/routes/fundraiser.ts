@@ -340,7 +340,7 @@ fundraiserRoute.post("/register", async (c) => {
 
   sendFundraiserEmail(
     {
-      name: fullName,
+      name: regData.firstName,
       email: email!.trim().toLowerCase(),
       participantId,
       tierName: tier.name,

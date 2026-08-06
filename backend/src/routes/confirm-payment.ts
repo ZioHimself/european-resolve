@@ -77,7 +77,7 @@ confirmPaymentRoute.post("/", async (c) => {
   if (result.amountEur != null) {
     sendPaymentConfirmationEmail(
       {
-        name: result.fullName,
+        name: result.firstName,
         email: result.email,
         participantId: result.participantId,
         tierName: result.tierName,

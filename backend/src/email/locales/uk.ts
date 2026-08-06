@@ -40,7 +40,7 @@ export const uk: EmailLocale = {
   fundraiserGoalLabel: "Особиста мета",
   paymentSubject:
     "35 Years of 🇺🇦 Independence: Charity and Run | Платіж підтверджено!",
-  paymentIntro: "Твій донат отримано. Ось твоя підтверджена реєстрація:",
+  paymentIntro: "Твій донат отримано. Нижче - інформація про отриманий платіж:",
   paymentRewardsLabel: "Твої нагороди",
   paymentThankYou:
     "Дякуємо за підтримку захисників і захисниць України! Кожне євро фінансує зарядні станції на передовій.",

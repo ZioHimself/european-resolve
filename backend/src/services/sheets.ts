@@ -152,6 +152,7 @@ export class SheetsService {
         success: true;
         participantId: string;
         fullName: string;
+        firstName: string;
         email: string;
         language: string;
         tierName: string;
@@ -253,6 +254,7 @@ export class SheetsService {
       success: true,
       participantId: row[0] as string,
       fullName: row[1] as string,
+      firstName: row[19] as string,
       email: row[2] as string,
       language,
       tierName: tier?.name ?? (row[7] as string),
@@ -276,6 +278,7 @@ export class SheetsService {
     success: true;
     participantId: string;
     fullName: string;
+    firstName: string;
     email: string;
     language: string;
     tierName: string;
@@ -321,6 +324,7 @@ export class SheetsService {
       success: true,
       participantId,
       fullName,
+      firstName,
       email,
       language: "English",
       tierName: "",

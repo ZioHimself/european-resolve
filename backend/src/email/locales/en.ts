@@ -41,7 +41,7 @@ export const en: EmailLocale = {
   paymentSubject:
     "35 Years of 🇺🇦 Independence: Charity and Run | Payment confirmed!",
   paymentIntro:
-    "Your donation has been received. Here's your confirmed registration:",
+    "Your donation has been received. Here's the information about your payment:",
   paymentRewardsLabel: "Your rewards",
   paymentThankYou:
     "Thank you for supporting Ukraine's defenders! Every euro funds charging stations on the front line.",

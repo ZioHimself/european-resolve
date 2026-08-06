@@ -40,7 +40,7 @@ export const nl: EmailLocale = {
   fundraiserGoalLabel: "Persoonlijk doel",
   paymentSubject: "35 Years of 🇺🇦 Independence: Charity and Run | Betaling bevestigd!",
   paymentIntro:
-    "Je donatie is ontvangen. Hier is je bevestigde inschrijving:",
+    "Je donatie is ontvangen. Hier is de informatie over je betaling:",
   paymentRewardsLabel: "Jouw beloningen",
   paymentThankYou:
     "Bedankt voor je steun aan de verdedigers van Oekraïne! Elke euro financiert laadstations aan het front.",

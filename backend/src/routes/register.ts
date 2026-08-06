@@ -125,7 +125,7 @@ registerRoute.post("/", async (c) => {
 
   sendConfirmationEmail(
     {
-      name: fullName,
+      name: data.firstName,
       email: data.email,
       participantId,
       tierName: tier.name,
