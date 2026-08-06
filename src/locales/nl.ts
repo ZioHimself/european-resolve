@@ -3,7 +3,7 @@ import type { Locale } from "./types";
 export const nl = {
   // hero
   "hero.overline": "Liefdadigheidsloop · Brussel",
-  "hero.title": "35 Jaar 🇺🇦 Onafhankelijkheid: Liefdadigheid en Loop",
+  "hero.title": "35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop",
   "hero.description":
     "Op zondag 23 augustus vieren we samen 35 jaar Oekraïense onafhankelijkheid! We ontvouwen de vlag, lopen samen 5 of 8 kilometer, en verzamelen daarna in het gemeenschapsdorp voor eten, vrienden en een goededoelenverloting. Ons grotere doel: samen met Hurkit €3.000 inzamelen om Oekraïense verdedigers te voorzien van betrouwbare stroom in het veld. Bekijk hieronder je steunopties en neem je maten en familie mee!",
   "hero.beneficiary": "Begunstigde:",
@@ -277,7 +277,7 @@ export const nl = {
   "social.shareEmail": "Deel via e-mail",
   "social.copyLink": "Kopieer link",
   "social.shareMessage":
-    "Steun de fondsenwerving van {title} voor 35 Years of 🇺🇦 Independence: Charity and Run! Elke euro financiert oplaadstations voor de verdedigers van Oekraïne.",
+    "Steun de fondsenwerving van {title} voor 35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop! Elke euro financiert oplaadstations voor de verdedigers van Oekraïne.",
 
   // common
   "common.loading": "Laden",

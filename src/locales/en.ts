@@ -3,7 +3,7 @@ import type { Locale } from "./types";
 export const en = {
   // hero
   "hero.overline": "Charity run · Brussels",
-  "hero.title": "35 Years of 🇺🇦 Independence: Charity and Run",
+  "hero.title": "35 Years of Ukraine Independence: Charity and Run",
   "hero.description":
     "On Sunday, 23 August, join us to celebrate 35 years of Ukrainian independence! We'll unfold the flag, run 5 or 8 kilometres together, and gather after at the community village for food, friends, and a charity raffle. Our bigger goal: raise €3,000 with Hurkit to equip Ukraine's defenders with reliable power in the field. Check your support options below and bring your mates and family along.",
   "hero.beneficiary": "Beneficiary:",
@@ -273,7 +273,7 @@ export const en = {
   "social.shareEmail": "Share via Email",
   "social.copyLink": "Copy link",
   "social.shareMessage":
-    "Support {title}'s fundraiser for 35 Years of 🇺🇦 Independence: Charity and Run! Every euro funds charging stations for Ukraine's defenders.",
+    "Support {title}'s fundraiser for 35 Years of Ukraine Independence: Charity and Run! Every euro funds charging stations for Ukraine's defenders.",
 
   // common
   "common.loading": "Loading",

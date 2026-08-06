@@ -9,11 +9,11 @@ const EVENT_PATH = "/events/2026-run-for-ukraine";
 const OG_IMAGE = `${BASE_URL}/og/run-for-ukraine-2026.png`;
 
 export const metadata: Metadata = {
-  title: "35 Years of 🇺🇦 Independence: Charity and Run | European Resolve",
+  title: "35 Years of Ukraine Independence: Charity and Run | European Resolve",
   description:
     "Join the charity run in Brussels on 23 August 2026. Register, fundraise, and help provide charging stations for Ukraine's defenders.",
   openGraph: {
-    title: "35 Years of 🇺🇦 Independence: Charity and Run, Brussels",
+    title: "35 Years of Ukraine Independence: Charity and Run, Brussels",
     description:
       "Join the charity run in Brussels on 23 August 2026. Register, fundraise, and help provide charging stations for Ukraine's defenders.",
     url: `${BASE_URL}${EVENT_PATH}`,
@@ -26,13 +26,13 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "35 Years of 🇺🇦 Independence: Charity and Run, Brussels",
+        alt: "35 Years of Ukraine Independence: Charity and Run, Brussels",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "35 Years of 🇺🇦 Independence: Charity and Run, Brussels",
+    title: "35 Years of Ukraine Independence: Charity and Run, Brussels",
     description:
       "Join the charity run in Brussels on 23 August 2026. Register, fundraise, and help provide charging stations for Ukraine's defenders.",
     images: [OG_IMAGE],

@@ -3,7 +3,7 @@ import type { Locale } from "./types";
 export const fr = {
   // hero
   "hero.overline": "Course caritative · Bruxelles",
-  "hero.title": "35 ans d'Indépendance 🇺🇦 : Charité et Course",
+  "hero.title": "35 ans d'Indépendance de l'Ukraine : Charité et Course",
   "hero.description":
     "Le dimanche 23 août, rejoignez-nous pour célébrer 35 ans d'indépendance ukrainienne ! Nous déploierons le drapeau, courrons ensemble 5 ou 8 kilomètres, puis nous nous retrouverons au village communautaire pour un moment entre amis, avec de la nourriture et une tombola caritative. Notre objectif plus large : récolter 3 000 € avec Hurkit pour équiper les défenseurs de l'Ukraine en solutions d'alimentation fiables sur le terrain. Découvrez nos options de soutien ci-dessous et emmenez vos copains et votre famille avec vous !",
   "hero.beneficiary": "Bénéficiaire :",
@@ -285,7 +285,7 @@ export const fr = {
   "social.shareEmail": "Partager par e-mail",
   "social.copyLink": "Copier le lien",
   "social.shareMessage":
-    "Soutenez la collecte de {title} pour 35 Years of 🇺🇦 Independence: Charity and Run ! Chaque euro finance des stations de recharge pour les défenseurs de l'Ukraine.",
+    "Soutenez la collecte de {title} pour 35 ans d'Indépendance de l'Ukraine : Charité et Course ! Chaque euro finance des stations de recharge pour les défenseurs de l'Ukraine.",
 
   // common
   "common.loading": "Chargement",

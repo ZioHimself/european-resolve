@@ -40,7 +40,7 @@ export default function PrivacyPage() {
 
       <h2>3. Event registration data</h2>
       <p>
-        When you register for one of our events (e.g. 35 Years of 🇺🇦
+        When you register for one of our events (e.g. 35 Years of Ukraine
         Independence: Charity and Run), we collect:
       </p>
       <ul>

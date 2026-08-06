@@ -1,11 +1,12 @@
 import type { EmailLocale } from "./types.js";
 
 export const en: EmailLocale = {
+  eventName: "35 Years of Ukraine Independence: Charity and Run",
   subject:
-    "35 Years of 🇺🇦 Independence: Charity and Run | Registration confirmed!",
+    "35 Years of Ukraine Independence: Charity and Run | Registration confirmed!",
   greeting: "Hi {name},",
   confirmationIntro:
-    "Your registration for 35 Years of 🇺🇦 Independence: Charity and Run is confirmed. Here are your details:",
+    "Your registration for 35 Years of Ukraine Independence: Charity and Run is confirmed. Here are your details:",
   participantIdLabel: "Participant ID",
   tierLabel: "Tier",
   amountLabel: "Amount",
@@ -22,13 +23,13 @@ export const en: EmailLocale = {
   eventDate: "23 August 2026, 10:00",
   eventLocation: "Place du Luxembourg, Brussels, Belgium",
   footerText:
-    "This email was sent by European Resolve VZW as confirmation of your 35 Years of 🇺🇦 Independence: Charity and Run registration.",
+    "This email was sent by European Resolve VZW as confirmation of your 35 Years of Ukraine Independence: Charity and Run registration.",
   footerUnsubscribe:
     "You are receiving this because you registered for the event. No further emails will be sent unless you opted in to communications.",
   footerPaymentEmail:
     "You'll receive one more email when your payment is confirmed.",
   fundraiserSubject:
-    "35 Years of 🇺🇦 Independence: Charity and Run | Your fundraiser page is live!",
+    "35 Years of Ukraine Independence: Charity and Run | Your fundraiser page is live!",
   fundraiserIntro:
     "Great news, {name}! You're registered AND your personal fundraiser page is live. Share it with friends and family to help reach your goal.",
   fundraiserHeading: "Your fundraiser page",
@@ -39,14 +40,14 @@ export const en: EmailLocale = {
   fundraiserDisplayNameLabel: "Display name",
   fundraiserGoalLabel: "Personal goal",
   paymentSubject:
-    "35 Years of 🇺🇦 Independence: Charity and Run | Payment confirmed!",
+    "35 Years of Ukraine Independence: Charity and Run | Payment confirmed!",
   paymentIntro:
     "Your donation has been received. Here's the information about your payment:",
   paymentRewardsLabel: "Your rewards",
   paymentThankYou:
     "Thank you for supporting Ukraine's defenders! Every euro funds charging stations on the front line.",
   paymentFooter:
-    "This is your payment receipt from European Resolve VZW for 35 Years of 🇺🇦 Independence: Charity and Run.",
+    "This is your payment receipt from European Resolve VZW for 35 Years of Ukraine Independence: Charity and Run.",
   tierRewards: {
     donor: "Thank you for supporting Ukraine's defenders",
     supporter: "Hear how your donation helped",

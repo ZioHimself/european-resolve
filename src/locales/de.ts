@@ -3,7 +3,7 @@ import type { Locale } from "./types";
 export const de = {
   // hero
   "hero.overline": "Wohltätigkeitslauf · Brüssel",
-  "hero.title": "35 Jahre 🇺🇦 Unabhängigkeit: Wohltätigkeit und Lauf",
+  "hero.title": "35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf",
   "hero.description":
     "Am Sonntag, den 23. August, feiern wir gemeinsam 35 Jahre ukrainische Unabhängigkeit! Wir entfalten die Flagge, laufen zusammen 5 oder 8 Kilometer und treffen uns danach im Gemeinschaftsdorf für Essen, Freunde und eine wohltätige Tombola. Unser größeres Ziel: gemeinsam mit Hurkit 3.000 € sammeln, um die Verteidiger der Ukraine mit zuverlässiger Energie im Feld auszustatten. Schaut euch unten unsere Unterstützungsoptionen an und bringt eure Kumpels und Familie mit!",
   "hero.beneficiary": "Begünstigter:",
@@ -288,7 +288,7 @@ export const de = {
   "social.shareEmail": "Per E-Mail teilen",
   "social.copyLink": "Link kopieren",
   "social.shareMessage":
-    "Unterstützen Sie die Spendenaktion von {title} für 35 Years of 🇺🇦 Independence: Charity and Run! Jeder Euro finanziert Ladestationen für die Verteidiger der Ukraine.",
+    "Unterstützen Sie die Spendenaktion von {title} für 35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf! Jeder Euro finanziert Ladestationen für die Verteidiger der Ukraine.",
 
   // common
   "common.loading": "Laden",

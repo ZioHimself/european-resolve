@@ -82,7 +82,7 @@ export const coOrganisers = [
 ] satisfies CoOrganiser[];
 
 export const eventDetails = {
-  title: "35 Years of 🇺🇦 Independence: Charity and Run",
+  title: "35 Years of Ukraine Independence: Charity and Run",
   date: "23 August 2026, 10:00",
   location: "Place du Luxembourg, Brussels, Belgium",
   seoDescription:
@@ -96,7 +96,7 @@ export const eventDetails = {
   whydonateShortcode: "KvhGb",
   postEvent: {
     thankYouMessage:
-      "Thank you to every runner, supporter, and donor who made 35 Years of 🇺🇦 Independence: Charity and Run possible. Together we powered hope on the front line.",
+      "Thank you to every runner, supporter, and donor who made 35 Years of Ukraine Independence: Charity and Run possible. Together we powered hope on the front line.",
     impactStatement:
       "Every euro raised went directly to Hurkit, providing portable charging stations that keep defenders connected and operational in the field.",
     galleryFolderId: "",

@@ -5,13 +5,13 @@ const PAGE_URL = `${BASE_URL}/events/2026-run-for-ukraine/fundraise`;
 const OG_IMAGE = `${BASE_URL}/og/run-for-ukraine-2026.png`;
 
 export const metadata: Metadata = {
-  title: "Fundraise | 35 Years of 🇺🇦 Independence: Charity and Run",
+  title: "Fundraise | 35 Years of Ukraine Independence: Charity and Run",
   description:
-    "Create your personal fundraising page for 35 Years of 🇺🇦 Independence: Charity and Run in Brussels. Help fund charging stations for defenders.",
+    "Create your personal fundraising page for 35 Years of Ukraine Independence: Charity and Run in Brussels. Help fund charging stations for defenders.",
   openGraph: {
-    title: "Fundraise | 35 Years of 🇺🇦 Independence: Charity and Run",
+    title: "Fundraise | 35 Years of Ukraine Independence: Charity and Run",
     description:
-      "Create your personal fundraising page for 35 Years of 🇺🇦 Independence: Charity and Run in Brussels. Help fund charging stations for defenders.",
+      "Create your personal fundraising page for 35 Years of Ukraine Independence: Charity and Run in Brussels. Help fund charging stations for defenders.",
     url: PAGE_URL,
     siteName: "European Resolve",
     locale: "en_BE",
@@ -22,15 +22,15 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "35 Years of 🇺🇦 Independence: Charity and Run, Brussels",
+        alt: "35 Years of Ukraine Independence: Charity and Run, Brussels",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fundraise | 35 Years of 🇺🇦 Independence: Charity and Run",
+    title: "Fundraise | 35 Years of Ukraine Independence: Charity and Run",
     description:
-      "Create your personal fundraising page for 35 Years of 🇺🇦 Independence: Charity and Run. Help fund charging stations for defenders.",
+      "Create your personal fundraising page for 35 Years of Ukraine Independence: Charity and Run. Help fund charging stations for defenders.",
     images: [OG_IMAGE],
   },
   alternates: {

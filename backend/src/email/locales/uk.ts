@@ -1,11 +1,12 @@
 import type { EmailLocale } from "./types.js";
 
 export const uk: EmailLocale = {
+  eventName: "35 років Незалежності України: Благодійність і Забіг",
   subject:
-    "35 Years of 🇺🇦 Independence: Charity and Run | Реєстрацію підтверджено!",
+    "35 років Незалежності України: Благодійність і Забіг | Реєстрацію підтверджено!",
   greeting: "Вітаємо, {name}!",
   confirmationIntro:
-    "Твою реєстрацію на 35 Years of 🇺🇦 Independence: Charity and Run підтверджено. Ось твої дані:",
+    "Твою реєстрацію на 35 років Незалежності України: Благодійність і Забіг підтверджено. Ось твої дані:",
   participantIdLabel: "ID учасни_ці",
   tierLabel: "Рівень",
   amountLabel: "Сума",
@@ -22,13 +23,13 @@ export const uk: EmailLocale = {
   eventDate: "23 серпня 2026, 10:00",
   eventLocation: "Place du Luxembourg, Брюссель, Бельгія",
   footerText:
-    "Цей лист надіслано European Resolve VZW як підтвердження твоєї реєстрації на 35 Years of 🇺🇦 Independence: Charity and Run.",
+    "Цей лист надіслано European Resolve VZW як підтвердження твоєї реєстрації на 35 років Незалежності України: Благодійність і Забіг.",
   footerUnsubscribe:
     "Цей лист надіслано, оскільки тебе зареєстровано на подію. Інших листів не буде надіслано за відсутності твоєї згоди на розсилку.",
   footerPaymentEmail:
     "Ти отримаєш ще один лист, коли твій платіж буде підтверджено.",
   fundraiserSubject:
-    "35 Years of 🇺🇦 Independence: Charity and Run | Твою сторінку збору коштів створено!",
+    "35 років Незалежності України: Благодійність і Забіг | Твою сторінку збору коштів створено!",
   fundraiserIntro:
     "Чудові новини, {name}! Тебе зареєстровано, і твоя персональна сторінка збору коштів вже працює. Поділися нею з друзями та рідними, щоб досягти своєї мети.",
   fundraiserHeading: "Твоя сторінка збору коштів",
@@ -39,13 +40,13 @@ export const uk: EmailLocale = {
   fundraiserDisplayNameLabel: "Відображуване ім'я",
   fundraiserGoalLabel: "Особиста мета",
   paymentSubject:
-    "35 Years of 🇺🇦 Independence: Charity and Run | Платіж підтверджено!",
+    "35 років Незалежності України: Благодійність і Забіг | Платіж підтверджено!",
   paymentIntro: "Твій донат отримано. Нижче - інформація про отриманий платіж:",
   paymentRewardsLabel: "Твої нагороди",
   paymentThankYou:
     "Дякуємо за підтримку захисників і захисниць України! Кожне євро фінансує зарядні станції на передовій.",
   paymentFooter:
-    "Це твоє підтвердження платежу від European Resolve VZW за 35 Years of 🇺🇦 Independence: Charity and Run.",
+    "Це твоє підтвердження платежу від European Resolve VZW за 35 років Незалежності України: Благодійність і Забіг.",
   tierRewards: {
     donor: "Дякуємо за підтримку захисників і захисниць України",
     supporter: "Дізнайся, як твій донат допоміг",

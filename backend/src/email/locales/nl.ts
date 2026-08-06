@@ -1,10 +1,12 @@
 import type { EmailLocale } from "./types.js";
 
 export const nl: EmailLocale = {
-  subject: "35 Years of 🇺🇦 Independence: Charity and Run | Inschrijving bevestigd!",
+  eventName: "35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop",
+  subject:
+    "35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop | Inschrijving bevestigd!",
   greeting: "Hallo {name},",
   confirmationIntro:
-    "Je inschrijving voor 35 Years of 🇺🇦 Independence: Charity and Run is bevestigd. Hier zijn je gegevens:",
+    "Je inschrijving voor 35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop is bevestigd. Hier zijn je gegevens:",
   participantIdLabel: "Deelnemersnummer",
   tierLabel: "Formule",
   amountLabel: "Bedrag",
@@ -22,13 +24,13 @@ export const nl: EmailLocale = {
   eventDate: "23 augustus 2026, 10:00",
   eventLocation: "Place du Luxembourg, Brussel, België",
   footerText:
-    "Deze e-mail is verzonden door European Resolve VZW als bevestiging van je inschrijving voor 35 Years of 🇺🇦 Independence: Charity and Run.",
+    "Deze e-mail is verzonden door European Resolve VZW als bevestiging van je inschrijving voor 35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop.",
   footerUnsubscribe:
     "Je ontvangt dit bericht omdat je je hebt ingeschreven voor het evenement. Er worden geen verdere e-mails verstuurd tenzij je hebt ingestemd met communicatie.",
   footerPaymentEmail:
     "Je ontvangt nog één e-mail wanneer je betaling is bevestigd.",
   fundraiserSubject:
-    "35 Years of 🇺🇦 Independence: Charity and Run | Je actiepagina staat online!",
+    "35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop | Je actiepagina staat online!",
   fundraiserIntro:
     "Goed nieuws, {name}! Je bent ingeschreven ÉN je persoonlijke actiepagina staat online. Deel de link met vrienden en familie om je doel te bereiken.",
   fundraiserHeading: "Je actiepagina",
@@ -38,14 +40,15 @@ export const nl: EmailLocale = {
     "Bewaar deze link. Het is de enige manier om je actiepagina te bewerken. Deel deze niet publiekelijk.",
   fundraiserDisplayNameLabel: "Weergavenaam",
   fundraiserGoalLabel: "Persoonlijk doel",
-  paymentSubject: "35 Years of 🇺🇦 Independence: Charity and Run | Betaling bevestigd!",
+  paymentSubject:
+    "35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop | Betaling bevestigd!",
   paymentIntro:
     "Je donatie is ontvangen. Hier is de informatie over je betaling:",
   paymentRewardsLabel: "Jouw beloningen",
   paymentThankYou:
     "Bedankt voor je steun aan de verdedigers van Oekraïne! Elke euro financiert laadstations aan het front.",
   paymentFooter:
-    "Dit is je betalingsbewijs van European Resolve VZW voor 35 Years of 🇺🇦 Independence: Charity and Run.",
+    "Dit is je betalingsbewijs van European Resolve VZW voor 35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop.",
   tierRewards: {
     donor: "Bedankt voor je steun aan de verdedigers van Oekraïne",
     supporter: "Hoor hoe je donatie heeft geholpen",

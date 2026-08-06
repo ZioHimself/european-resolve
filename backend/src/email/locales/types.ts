@@ -1,6 +1,8 @@
 import type { TierId } from "../../types.js";
 
 export interface EmailLocale {
+  /** Localized event display name (email header and copy). */
+  eventName: string;
   subject: string;
   greeting: string;
   confirmationIntro: string;
