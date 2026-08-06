@@ -30,6 +30,11 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
   const [verifying, setVerifying] = useState(() => paymentReturn.isReturn);
   const [interruptedSession, setInterruptedSession] = useState(false);
   const [invoiceOpen, setInvoiceOpen] = useState(false);
+  const [effectivePayment, setEffectivePayment] = useState<{
+    tierName: string;
+    rewards: string[];
+    amountEur?: number;
+  } | null>(null);
 
   useEffect(() => {
     if (!isRestoredSession) return;
@@ -72,6 +77,11 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
+        setEffectivePayment({
+          tierName: data.data.tierName,
+          rewards: data.data.rewards ?? [],
+          amountEur: data.data.amountEur,
+        });
         setConfirmed(true);
         onPaymentConfirmed?.();
       } else {
@@ -105,6 +115,11 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
+        setEffectivePayment({
+          tierName: data.data.tierName,
+          rewards: data.data.rewards ?? [],
+          amountEur: data.data.amountEur,
+        });
         setConfirmed(true);
         onPaymentConfirmed?.();
       } else {
@@ -153,8 +168,16 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
         <div className={styles.summary}>
           <div className={styles.row}>
             <span className={styles.rowLabel}>{t("register.confirmTier")}</span>
-            <span className={styles.rowValue}>{result.tierName}</span>
+            <span className={styles.rowValue}>
+              {effectivePayment?.tierName ?? result.tierName}
+            </span>
           </div>
+          {effectivePayment?.amountEur != null && (
+            <div className={styles.row}>
+              <span className={styles.rowLabel}>{t("register.confirmAmount")}</span>
+              <span className={styles.rowValue}>€{effectivePayment.amountEur}</span>
+            </div>
+          )}
         </div>
 
         <div className={styles.rewards}>
@@ -162,7 +185,7 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
             {t("register.confirmRewardsHeading")}
           </h3>
           <ul className={styles.rewardsList}>
-            {result.rewards.map((reward) => (
+            {(effectivePayment?.rewards ?? result.rewards).map((reward) => (
               <li key={reward} className={styles.reward}>
                 <span className={styles.check}>✓</span> {reward}
               </li>
@@ -275,6 +298,8 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
           <WhyDonateWidget
             shortcode={eventDetails.whydonateShortcode}
             donationStorageKeys={{ amount: AMOUNT_STORAGE_KEY }}
+            minTierAmount={result.amountEur}
+            minTierName={result.tierName}
             onPaymentSuccess={(amount) => {
               try {
                 sessionStorage.setItem(AMOUNT_STORAGE_KEY, String(amount));

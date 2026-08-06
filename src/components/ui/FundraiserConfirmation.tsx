@@ -57,6 +57,11 @@ export function FundraiserConfirmation({
   const [detectionActive, setDetectionActive] = useState(true);
   const [verifying, setVerifying] = useState(paymentReturn.isReturn);
   const [interruptedSession, setInterruptedSession] = useState(false);
+  const [effectivePayment, setEffectivePayment] = useState<{
+    tierName: string;
+    rewards: string[];
+    amountEur?: number;
+  } | null>(null);
 
   useEffect(() => {
     if (!isRestoredSession) return;
@@ -115,6 +120,11 @@ export function FundraiserConfirmation({
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
+        setEffectivePayment({
+          tierName: data.data.tierName,
+          rewards: data.data.rewards ?? [],
+          amountEur: data.data.amountEur,
+        });
         setConfirmed(true);
         onPaymentConfirmed?.();
       } else {
@@ -149,6 +159,11 @@ export function FundraiserConfirmation({
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
+        setEffectivePayment({
+          tierName: data.data.tierName,
+          rewards: data.data.rewards ?? [],
+          amountEur: data.data.amountEur,
+        });
         setConfirmed(true);
         onPaymentConfirmed?.();
       } else {
@@ -260,6 +275,8 @@ export function FundraiserConfirmation({
                 <WhyDonateWidget
                   shortcode={eventDetails.whydonateShortcode}
                   donationStorageKeys={{ amount: AMOUNT_STORAGE_KEY }}
+                  minTierAmount={registration.amountEur}
+                  minTierName={registration.tierName}
                   onPaymentSuccess={(amount) => {
                     try {
                       sessionStorage.setItem(AMOUNT_STORAGE_KEY, String(amount));
@@ -298,9 +315,39 @@ export function FundraiserConfirmation({
               )}
             </div>
           ) : (
-            <div className={styles.confirmedBanner}>
-              <span className={styles.confirmedIcon}>✓</span>
-              {t("confirmation.confirmed")}
+            <div className={styles.confirmedSection}>
+              <div className={styles.confirmedBanner}>
+                <span className={styles.confirmedIcon}>✓</span>
+                {t("confirmation.confirmed")}
+              </div>
+
+              <div className={styles.summary}>
+                <div className={styles.summaryRow}>
+                  <span className={styles.summaryKey}>{t("confirmation.tier")}</span>
+                  <span className={styles.summaryValue}>
+                    {effectivePayment?.tierName ?? registration.tierName}
+                  </span>
+                </div>
+                {effectivePayment?.amountEur != null && (
+                  <div className={styles.summaryRow}>
+                    <span className={styles.summaryKey}>{t("confirmation.amount")}</span>
+                    <span className={styles.summaryValue}>
+                      €{effectivePayment.amountEur}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div className={styles.rewards}>
+                <h4 className={styles.rewardsHeading}>{t("confirmation.rewardsHeading")}</h4>
+                <ul className={styles.rewardsList}>
+                  {(effectivePayment?.rewards ?? registration.rewards).map((reward) => (
+                    <li key={reward} className={styles.reward}>
+                      <span className={styles.check}>✓</span> {reward}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           )}
         </div>

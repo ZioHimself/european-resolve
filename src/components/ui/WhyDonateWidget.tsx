@@ -23,6 +23,9 @@ interface WhyDonateWidgetProps {
   donorInfo?: DonorInfo;
   /** Persist amount/name/message to sessionStorage as the donor fills the form. */
   donationStorageKeys?: DonationStorageKeys;
+  /** Registration flows only — omit for visitor/donor-wall embeds (D-04) */
+  minTierAmount?: number;
+  minTierName?: string;
 }
 
 function normalizeDonorInfo(
@@ -162,6 +165,45 @@ function attachDonationPersistence(
   };
 }
 
+function attachTierAmountGate(
+  shadow: ShadowRoot,
+  id: string,
+  minAmount: number,
+  tierName: string,
+): () => void {
+  const nextButton = shadow.querySelector(".wd-part-step-one-next");
+  if (!nextButton) {
+    return () => {};
+  }
+
+  const handler = (event: Event) => {
+    const amount = readAmount(shadow, id);
+    const errorEl = shadow.getElementById(`donation-amount-error-${id}`);
+
+    if (amount < minAmount) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      if (errorEl) {
+        errorEl.textContent = `Minimum donation for ${tierName} is €${minAmount}. Please enter at least this amount to continue.`;
+        errorEl.style.display = "block";
+      }
+      return;
+    }
+
+    if (errorEl) {
+      errorEl.textContent = "";
+      errorEl.style.display = "none";
+    }
+  };
+
+  nextButton.addEventListener("click", handler, true);
+
+  return () => {
+    nextButton.removeEventListener("click", handler, true);
+  };
+}
+
 export function WhyDonateWidget({
   shortcode,
   lang = "auto",
@@ -169,14 +211,20 @@ export function WhyDonateWidget({
   onDetectionFailed,
   donorInfo,
   donationStorageKeys,
+  minTierAmount,
+  minTierName,
 }: WhyDonateWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefillDoneRef = useRef(false);
   const detectionDoneRef = useRef(false);
   const donorInfoRef = useRef(donorInfo);
   const storageKeysRef = useRef(donationStorageKeys);
+  const minTierAmountRef = useRef(minTierAmount);
+  const minTierNameRef = useRef(minTierName);
   donorInfoRef.current = donorInfo;
   storageKeysRef.current = donationStorageKeys;
+  minTierAmountRef.current = minTierAmount;
+  minTierNameRef.current = minTierName;
 
   useEffect(() => {
     const el = containerRef.current?.querySelector(".widget-here") as HTMLElement | null;
@@ -209,11 +257,18 @@ export function WhyDonateWidget({
   }, []);
 
   useEffect(() => {
-    if (!shortcode || (!onPaymentSuccess && !donorInfo && !donationStorageKeys)) return;
+    const hasTierGate =
+      minTierAmount != null && minTierAmount > 0 && Boolean(minTierName);
+    if (
+      !shortcode ||
+      (!onPaymentSuccess && !donorInfo && !donationStorageKeys && !hasTierGate)
+    )
+      return;
 
     let observer: MutationObserver | null = null;
     let pollTimer: ReturnType<typeof setInterval> | null = null;
     let detachPersistence: (() => void) | null = null;
+    let detachGate: (() => void) | null = null;
     let cancelled = false;
 
     const id = `${shortcode}-1`;
@@ -237,6 +292,23 @@ export function WhyDonateWidget({
         detachPersistence = attachDonationPersistence(shadow, id, keys);
       }
 
+      const tierMin = minTierAmountRef.current;
+      const tierName = minTierNameRef.current;
+      if (tierMin != null && tierMin > 0 && tierName) {
+        const amountInput = shadow.getElementById(
+          `other-amount-number-${id}`,
+        ) as HTMLInputElement | null;
+        if (amountInput) {
+          setInputValue(amountInput, String(tierMin));
+          if (keys) {
+            persistDonationDetails(keys, shadow, id);
+          }
+        }
+
+        detachGate?.();
+        detachGate = attachTierAmountGate(shadow, id, tierMin, tierName);
+      }
+
       const currentDonorInfo = donorInfoRef.current;
 
       // Pre-fill donor fields — attempt immediately, retry on DOM changes
@@ -249,8 +321,10 @@ export function WhyDonateWidget({
 
       const needsPaymentDetection = onPaymentSuccess && !detectionDoneRef.current;
       const needsPrefillRetry = currentDonorInfo && !prefillDoneRef.current;
+      const needsGateRetry =
+        tierMin != null && tierMin > 0 && tierName && !shadow.querySelector(".wd-part-step-one-next");
 
-      if (!needsPaymentDetection && !needsPrefillRetry) return;
+      if (!needsPaymentDetection && !needsPrefillRetry && !needsGateRetry) return;
 
       if (needsPaymentDetection) {
         const stepFour = shadow.getElementById(`step-four-container-${id}`);
@@ -277,6 +351,20 @@ export function WhyDonateWidget({
 
         if (keys) {
           persistDonationDetails(keys, shadow, id);
+        }
+
+        const currentTierMin = minTierAmountRef.current;
+        const currentTierName = minTierNameRef.current;
+        if (currentTierMin != null && currentTierMin > 0 && currentTierName) {
+          if (shadow.querySelector(".wd-part-step-one-next")) {
+            detachGate?.();
+            detachGate = attachTierAmountGate(
+              shadow,
+              id,
+              currentTierMin,
+              currentTierName,
+            );
+          }
         }
 
         if (!onPaymentSuccess || detectionDoneRef.current) {
@@ -338,8 +426,17 @@ export function WhyDonateWidget({
         observer = null;
       }
       detachPersistence?.();
+      detachGate?.();
     };
-  }, [shortcode, onPaymentSuccess, onDetectionFailed, donorInfo, donationStorageKeys]);
+  }, [
+    shortcode,
+    onPaymentSuccess,
+    onDetectionFailed,
+    donorInfo,
+    donationStorageKeys,
+    minTierAmount,
+    minTierName,
+  ]);
 
   return (
     <div ref={containerRef}>

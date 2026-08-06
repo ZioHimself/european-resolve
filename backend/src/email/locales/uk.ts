@@ -47,6 +47,7 @@ export const uk: EmailLocale = {
   paymentFooter:
     "Це твоє підтвердження платежу від European Resolve VZW за 35 Years of 🇺🇦 Independence: Charity and Run.",
   tierRewards: {
+    donor: "Дякуємо за підтримку захисників і захисниць України",
     supporter: "Дізнайся, як твій донат допоміг",
     sprinter: "Біг · Стікерпак",
     "relay-runner": "Біг · Стікерпак · Бігові шкарпетки · 1 лотерейний квиток",

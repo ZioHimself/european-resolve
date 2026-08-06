@@ -1,4 +1,10 @@
-export type TierId = "supporter" | "sprinter" | "relay-runner" | "marathoner" | "ultramarathoner";
+export type TierId =
+  | "donor"
+  | "supporter"
+  | "sprinter"
+  | "relay-runner"
+  | "marathoner"
+  | "ultramarathoner";
 export type TshirtSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
 export type SocksSize = "36-39" | "40-42" | "43-46";
 export type Language = "English" | "French" | "Ukrainian" | "Dutch" | "German";

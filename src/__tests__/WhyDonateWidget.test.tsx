@@ -29,6 +29,8 @@ function simulateWidgetInit(shortcode: string) {
   shadow.innerHTML = `
     <div id="step-one-container-${id}" style="display: block">
       <input id="other-amount-number-${id}" type="number" placeholder="0" />
+      <div id="donation-amount-error-${id}" style="display: none"></div>
+      <button type="button" class="wd-part-step-one-next">Next</button>
     </div>
     <div id="step-two-container-${id}" style="display: none">
       <input id="donor-fname-${id}" type="text" placeholder=" " />
@@ -369,6 +371,139 @@ describe("WhyDonateWidget", () => {
 
       const host = document.getElementById(`widget-here-${shortcode}`);
       expect(host!.getAttribute("data-lang")).toBe("nl");
+    });
+  });
+
+  describe("tier amount gate", () => {
+    it("pre-fills tier price and writes sessionStorage immediately", () => {
+      const shortcode = "gate1";
+      const AMOUNT_KEY = "test:gate1:amount";
+      render(
+        <WhyDonateWidget
+          shortcode={shortcode}
+          donationStorageKeys={{ amount: AMOUNT_KEY }}
+          minTierAmount={30}
+          minTierName="Relay runner"
+        />,
+      );
+
+      act(() => { simulateWidgetInit(shortcode); });
+      act(() => { vi.advanceTimersByTime(200); });
+
+      const host = document.getElementById(`widget-here-${shortcode}`)!;
+      const shadow = host.shadowRoot!;
+      const id = `${shortcode}-1`;
+
+      expect(
+        (shadow.getElementById(`other-amount-number-${id}`) as HTMLInputElement).value,
+      ).toBe("30");
+      expect(sessionStorage.getItem(AMOUNT_KEY)).toBe("30");
+    });
+
+    it("blocks step-one Next when amount is below minimum", () => {
+      const shortcode = "gate2";
+      render(
+        <WhyDonateWidget
+          shortcode={shortcode}
+          minTierAmount={30}
+          minTierName="Relay runner"
+        />,
+      );
+
+      act(() => { simulateWidgetInit(shortcode); });
+      act(() => { vi.advanceTimersByTime(200); });
+
+      const host = document.getElementById(`widget-here-${shortcode}`)!;
+      const shadow = host.shadowRoot!;
+      const id = `${shortcode}-1`;
+      const amountInput = shadow.getElementById(
+        `other-amount-number-${id}`,
+      ) as HTMLInputElement;
+      const nextButton = shadow.querySelector(
+        ".wd-part-step-one-next",
+      ) as HTMLButtonElement;
+      const errorEl = shadow.getElementById(`donation-amount-error-${id}`)!;
+
+      amountInput.value = "20";
+
+      const nativeHandler = vi.fn();
+      nextButton.addEventListener("click", nativeHandler);
+
+      act(() => {
+        nextButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      });
+
+      expect(nativeHandler).not.toHaveBeenCalled();
+      expect(errorEl.textContent).toContain("Minimum donation");
+      expect(errorEl.style.display).toBe("block");
+    });
+
+    it("allows step-one Next when amount meets minimum", () => {
+      const shortcode = "gate3";
+      render(
+        <WhyDonateWidget
+          shortcode={shortcode}
+          minTierAmount={30}
+          minTierName="Relay runner"
+        />,
+      );
+
+      act(() => { simulateWidgetInit(shortcode); });
+      act(() => { vi.advanceTimersByTime(200); });
+
+      const host = document.getElementById(`widget-here-${shortcode}`)!;
+      const shadow = host.shadowRoot!;
+      const id = `${shortcode}-1`;
+      const amountInput = shadow.getElementById(
+        `other-amount-number-${id}`,
+      ) as HTMLInputElement;
+      const nextButton = shadow.querySelector(
+        ".wd-part-step-one-next",
+      ) as HTMLButtonElement;
+      const errorEl = shadow.getElementById(`donation-amount-error-${id}`)!;
+
+      amountInput.value = "30";
+
+      const nativeHandler = vi.fn();
+      nextButton.addEventListener("click", nativeHandler);
+
+      act(() => {
+        nextButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      });
+
+      expect(nativeHandler).toHaveBeenCalled();
+      expect(errorEl.style.display).toBe("none");
+    });
+
+    it("does not attach gate when minTierAmount is omitted", () => {
+      const shortcode = "gate4";
+      render(<WhyDonateWidget shortcode={shortcode} />);
+
+      act(() => { simulateWidgetInit(shortcode); });
+      act(() => { vi.advanceTimersByTime(200); });
+
+      const host = document.getElementById(`widget-here-${shortcode}`)!;
+      const shadow = host.shadowRoot!;
+      const id = `${shortcode}-1`;
+      const amountInput = shadow.getElementById(
+        `other-amount-number-${id}`,
+      ) as HTMLInputElement;
+      const nextButton = shadow.querySelector(
+        ".wd-part-step-one-next",
+      ) as HTMLButtonElement;
+      const errorEl = shadow.getElementById(`donation-amount-error-${id}`)!;
+
+      amountInput.value = "1";
+
+      const nativeHandler = vi.fn();
+      nextButton.addEventListener("click", nativeHandler);
+
+      act(() => {
+        nextButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      });
+
+      expect(nativeHandler).toHaveBeenCalled();
+      expect(errorEl.textContent).toBe("");
     });
   });
 });

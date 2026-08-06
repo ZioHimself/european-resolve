@@ -1,7 +1,12 @@
 import { randomBytes } from "node:crypto";
 import { google, type sheets_v4 } from "googleapis";
 import { config } from "../config.js";
-import { getTierPrice, TIER_DATA, getLocalizedRewards } from "../tiers.js";
+import {
+  getTierPrice,
+  TIER_DATA,
+  getEffectiveTier,
+  getCumulativeRewards,
+} from "../tiers.js";
 import type {
   RegisterRequest,
   FundraiserCreateRequest,
@@ -237,18 +242,24 @@ export class SheetsService {
       },
     });
 
-    // Tier is whatever was selected at registration, regardless of how much
-    // was actually paid — paying more than the selected tier's price never
-    // upgrades it.
-    const tierId = row[7] as string;
-    const tier = TIER_DATA[tierId as TierId];
-
     const fundraiserSlug = (row[17] as string) ?? "";
     if (fundraiserSlug) {
       await this.publishFundraiserBySlug(fundraiserSlug);
     }
 
     const language = (row[5] as string) ?? "English";
+
+    let tierName: string;
+    let rewards: string[];
+    if (recordedAmount != null) {
+      const effectiveTierId = getEffectiveTier(recordedAmount);
+      tierName = TIER_DATA[effectiveTierId].name;
+      rewards = getCumulativeRewards(effectiveTierId, language);
+    } else {
+      const registeredTierId = row[7] as TierId;
+      tierName = TIER_DATA[registeredTierId]?.name ?? String(row[7]);
+      rewards = [];
+    }
 
     return {
       success: true,
@@ -257,9 +268,9 @@ export class SheetsService {
       firstName: row[19] as string,
       email: row[2] as string,
       language,
-      tierName: tier?.name ?? (row[7] as string),
+      tierName,
       amountEur: recordedAmount,
-      rewards: tier ? getLocalizedRewards(tierId as TierId, language) : [],
+      rewards,
     };
   }
 

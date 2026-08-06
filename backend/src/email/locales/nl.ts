@@ -47,6 +47,7 @@ export const nl: EmailLocale = {
   paymentFooter:
     "Dit is je betalingsbewijs van European Resolve VZW voor 35 Years of 🇺🇦 Independence: Charity and Run.",
   tierRewards: {
+    donor: "Bedankt voor je steun aan de verdedigers van Oekraïne",
     supporter: "Hoor hoe je donatie heeft geholpen",
     sprinter: "Lopen · Stickerpakket",
     "relay-runner": "Lopen · Stickerpakket · Hardloopsokken · 1 tombolalot",

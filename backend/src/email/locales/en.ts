@@ -48,6 +48,7 @@ export const en: EmailLocale = {
   paymentFooter:
     "This is your payment receipt from European Resolve VZW for 35 Years of 🇺🇦 Independence: Charity and Run.",
   tierRewards: {
+    donor: "Thank you for supporting Ukraine's defenders",
     supporter: "Hear how your donation helped",
     sprinter: "Running · Sticker pack",
     "relay-runner": "Running · Sticker pack · Running socks · 1 raffle ticket",
