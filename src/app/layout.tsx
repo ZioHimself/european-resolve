@@ -17,7 +17,7 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "European Resolve — European Security & Democracy",
+  title: "European Resolve | European Security & Democracy",
   description:
     "Research, dialogue, and civic action to reinforce European security and democracy.",
   robots: "index, follow",

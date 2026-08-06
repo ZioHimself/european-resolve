@@ -5,7 +5,7 @@ export const nl = {
   "hero.overline": "Liefdadigheidsloop · Brussel",
   "hero.title": "35 Jaar 🇺🇦 Onafhankelijkheid: Liefdadigheid en Loop",
   "hero.description":
-    "Op zondag 23 augustus vieren we samen 35 jaar Oekraïense onafhankelijkheid! We ontvouwen de vlag, lopen samen 5 of 8 kilometer, en verzamelen daarna in het gemeenschapsdorp voor eten, vrienden en een goededoelenverloting. Ons grotere doel: samen met Hurkit €3.000 inzamelen om Oekraïense verdedigers te voorzien van betrouwbare stroom in het veld — bekijk hieronder je steunopties en neem je maten en familie mee!",
+    "Op zondag 23 augustus vieren we samen 35 jaar Oekraïense onafhankelijkheid! We ontvouwen de vlag, lopen samen 5 of 8 kilometer, en verzamelen daarna in het gemeenschapsdorp voor eten, vrienden en een goededoelenverloting. Ons grotere doel: samen met Hurkit €3.000 inzamelen om Oekraïense verdedigers te voorzien van betrouwbare stroom in het veld. Bekijk hieronder je steunopties en neem je maten en familie mee!",
   "hero.beneficiary": "Begunstigde:",
 
   // tracks
@@ -15,14 +15,14 @@ export const nl = {
   "tracks.trackAOverline": "Parcours A",
   "tracks.trackATitle": "Doe Mee aan de Campagne",
   "tracks.trackADescription":
-    "Kies een niveau en draag rechtstreeks bij — loop mee op de dag zelf of steun gewoon vanuit om het even waar. Jouw bijdrage financiert oplaadstations voor verdedigers.",
+    "Kies een niveau en draag rechtstreeks bij: loop mee op de dag zelf of steun gewoon vanuit om het even waar. Jouw bijdrage financiert oplaadstations voor verdedigers.",
   "tracks.trackAFeatures":
     "Niveau naar keuze · Beloningen variëren · Lopen optioneel",
   "tracks.trackACta": "Bekijk de niveaus →",
   "tracks.trackBOverline": "Parcours B",
   "tracks.trackBTitle": "Fondsen Werven voor het Team",
   "tracks.trackBDescription":
-    "Maak je persoonlijke fondsenwervingspagina en mobiliseer je netwerk. Elke donatie telt mee voor het collectieve doel — kom dan zelf lopen.",
+    "Maak je persoonlijke fondsenwervingspagina en mobiliseer je netwerk. Elke donatie telt mee voor het collectieve doel, kom dan zelf lopen.",
   "tracks.trackBFeatures":
     "Persoonlijke pagina · Deelbare link · Live statistieken",
   "tracks.trackBCta": "Maak mijn pagina →",
@@ -86,7 +86,7 @@ export const nl = {
   "register.confirmAfterDonation": "Na het voltooien van je donatie hierboven:",
   "register.confirmButton": "Ik heb mijn donatie voltooid",
   "register.confirmingPayment": "Bevestigen\u2026",
-  "register.confirmedHeading": "Betaling ontvangen — bedankt!",
+  "register.confirmedHeading": "Betaling ontvangen, bedankt!",
   "register.confirmedRunner":
     "Je inschrijving is nu compleet. Je ontvangt je loopmateriaal op het evenement.",
   "register.confirmedSupporter":
@@ -104,17 +104,39 @@ export const nl = {
   "register.alreadyPaidMessage":
     "We hebben je betaling ontvangen en houden je op de hoogte van nieuws over de campagne en het evenement.",
   "register.alreadyPaidCta": "Terug naar de evenementpagina",
+  "register.paymentReceivedHeading": "Bedankt, je betaling is ontvangen!",
+  "register.paymentReceivedMessage": "We houden je op de hoogte via e-mail.",
 
   // tierCard
   "tierCard.badge": "Meest gekozen",
   "tierCard.selected": "Geselecteerd",
   "tierCard.select": "{tierName} selecteren",
+  "tierCard.tagline.supporter": "Steun de missie zonder te lopen 🪷",
+  "tierCard.tagline.sprinter": "Jij doet altijd als eerste mee! 🙋",
+  "tierCard.tagline.relay-runner":
+    "Pak het stokje en draag de missie verder 💪",
+  "tierCard.tagline.marathoner": "Ga de afstand aan voor Oekraïne 🚀",
+  "tierCard.tagline.ultramarathoner":
+    "Dag of nacht, jouw inzet kent geen grenzen 💫",
+  "tierCard.rewards.supporter": "Hoor hoe je donatie heeft geholpen",
+  "tierCard.rewards.sprinter": "Stickerpakket",
+  "tierCard.rewards.relay-runner":
+    "Stickerpakket · Hardloopsokken · 1 tombolalot",
+  "tierCard.rewards.marathoner":
+    "Stickerpakket · Traditionele Oekraïense maaltijd · 3 tombolaloten",
+  "tierCard.rewards.ultramarathoner":
+    "Stickerpakket · Zijden sjaal van een Oekraïens designmerk · Traditionele Oekraïense maaltijd · 5 tombolaloten",
+  "tierCard.rewardsRunner.supporter": "",
+  "tierCard.rewardsRunner.sprinter": "Lopen",
+  "tierCard.rewardsRunner.relay-runner": "Lopen",
+  "tierCard.rewardsRunner.marathoner": "Lopen · Hardloopshirt",
+  "tierCard.rewardsRunner.ultramarathoner": "Lopen",
 
   // fundraise
   "fundraise.overline": "Parcours B · Fondsen Werven voor het Team",
   "fundraise.title": "Je fondsenwervingspagina",
   "fundraise.subtitle":
-    "Dit duurt ongeveer een minuut. Deel je pagina met vrienden en familie om het collectieve doel te bereiken — kom dan zelf lopen.",
+    "Dit duurt ongeveer een minuut. Deel je pagina met vrienden en familie om het collectieve doel te bereiken, kom dan zelf lopen.",
   "fundraise.step1": "1. Je pagina",
   "fundraise.step2": "2. Lopergegevens",
   "fundraise.step3": "3. Controleren",
@@ -156,7 +178,7 @@ export const nl = {
   "fundraise.reviewEmail": "E-mail",
   "fundraise.reviewTshirt": "T-shirt",
   "fundraise.reviewCountry": "Land",
-  "fundraise.submitButton": "Pagina aanmaken en inschrijven — €{price}",
+  "fundraise.submitButton": "Pagina aanmaken en inschrijven (€{price})",
   "fundraise.submitting": "Aanmaken\u2026",
   "fundraise.networkError":
     "Netwerkfout. Controleer je verbinding en probeer het opnieuw.",
@@ -176,11 +198,11 @@ export const nl = {
 
   // confirmation (FundraiserConfirmation)
   "confirmation.heading": "Je fondsenwervingspagina is klaar!",
-  "confirmation.subheading": "Deel je pagina met vrienden en familie — {name}",
+  "confirmation.subheading": "Deel je pagina met vrienden en familie, {name}",
   "confirmation.shareableLink": "Je deelbare link",
   "confirmation.copy": "Kopiëren",
   "confirmation.copied": "Gekopieerd!",
-  "confirmation.editLink": "Geheime bewerklink — bewaar deze!",
+  "confirmation.editLink": "Geheime bewerklink, bewaar deze!",
   "confirmation.editHint":
     "Met deze link kun je je pagina bewerken en publiceren. Houd hem privé.",
   "confirmation.registrationHeading": "Lopersinschrijving",
@@ -194,7 +216,7 @@ export const nl = {
   "confirmation.afterDonation": "Na het voltooien van je donatie hierboven:",
   "confirmation.confirmButton": "Ik heb mijn donatie voltooid",
   "confirmation.confirming": "Bevestigen\u2026",
-  "confirmation.confirmed": "Betaling bevestigd — je bent klaar!",
+  "confirmation.confirmed": "Betaling bevestigd, je bent klaar!",
   "confirmation.confirmError":
     "Kan betaling niet bevestigen. Probeer het opnieuw.",
   "confirmation.confirmFailed": "Bevestiging mislukt",
@@ -210,12 +232,12 @@ export const nl = {
     "Deze fondsenwervingspagina bestaat niet of is verwijderd.",
   "fundraiser.createOwn": "Maak je eigen fondsenwervingspagina →",
   "fundraiser.draftBanner":
-    "Deze pagina is een concept — alleen de maker kan hem zien",
+    "Deze pagina is een concept. Alleen de maker kan hem zien",
   "fundraiser.nameSuffix": "'s pagina",
   "fundraiser.personalGoal": "Persoonlijk doel: €{goal}",
   "fundraiser.raisedSoFar": "Tot nu toe opgehaald: €{raised}",
   "fundraiser.collectiveTotal":
-    "Onderdeel van één gezamenlijke campagne — €{total} samen opgehaald",
+    "Onderdeel van één gezamenlijke campagne: €{total} samen opgehaald",
   "fundraiser.donateHeading": "Doneren",
   "fundraiser.shareHeading": "Deel deze pagina",
   "fundraiser.ctaButton": "Steun {name}",
@@ -233,9 +255,9 @@ export const nl = {
 
   // donorWall
   "donorWall.heading": "Supporters",
-  "donorWall.empty": "Nog geen supporters — wees de eerste!",
+  "donorWall.empty": "Nog geen supporters, wees de eerste!",
   "donorWall.loading": "Laden\u2026",
-  "donorWall.gateButton": "Ik heb gedoneerd — laat een steunbericht achter",
+  "donorWall.gateButton": "Ik heb gedoneerd, laat een steunbericht achter",
   "donorWall.nameLabel": "Je naam",
   "donorWall.namePlaceholder": "Hoe je wilt verschijnen",
   "donorWall.messageLabel": "Je bericht",

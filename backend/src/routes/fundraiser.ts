@@ -3,7 +3,7 @@ import { SheetsService } from "../services/sheets.js";
 import { DriveService } from "../services/drive.js";
 import { sendFundraiserEmail } from "../services/email.js";
 import { config } from "../config.js";
-import { TIER_DATA } from "../tiers.js";
+import { TIER_DATA, getLocalizedRewards } from "../tiers.js";
 import type {
   FundraiserResponse,
   FundraiserRegisterResponse,
@@ -316,6 +316,7 @@ fundraiserRoute.post("/register", async (c) => {
 
   const tier = TIER_DATA[tierId as TierId];
   const fullName = `${regData.firstName} ${regData.lastName}`.trim();
+  const rewards = getLocalizedRewards(tierId as TierId, "runner", regData.language);
 
   const response: FundraiserRegisterResponse = {
     fundraiser: {
@@ -332,7 +333,7 @@ fundraiserRoute.post("/register", async (c) => {
       tierId: tierId as TierId,
       tierName: tier.name,
       amountEur: tier.price,
-      rewards: tier.rewards,
+      rewards,
       paymentToken,
     },
   };
@@ -344,7 +345,7 @@ fundraiserRoute.post("/register", async (c) => {
       participantId,
       tierName: tier.name,
       amountEur: tier.price,
-      rewards: tier.rewards,
+      rewards,
       donationUrl: `${config.corsOrigins[0] ?? "https://european-resolve.org"}/events/2026-run-for-ukraine/register?token=${paymentToken}`,
       slug,
       editToken,

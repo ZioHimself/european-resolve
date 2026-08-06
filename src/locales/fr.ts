@@ -5,7 +5,7 @@ export const fr = {
   "hero.overline": "Course caritative · Bruxelles",
   "hero.title": "35 ans d'Indépendance 🇺🇦 : Charité et Course",
   "hero.description":
-    "Le dimanche 23 août, rejoignez-nous pour célébrer 35 ans d'indépendance ukrainienne ! Nous déploierons le drapeau, courrons ensemble 5 ou 8 kilomètres, puis nous nous retrouverons au village communautaire pour un moment entre amis, avec de la nourriture et une tombola caritative. Notre objectif plus large : récolter 3 000 € avec Hurkit pour équiper les défenseurs de l'Ukraine en solutions d'alimentation fiables sur le terrain — découvrez nos options de soutien ci-dessous et emmenez vos copains et votre famille avec vous !",
+    "Le dimanche 23 août, rejoignez-nous pour célébrer 35 ans d'indépendance ukrainienne ! Nous déploierons le drapeau, courrons ensemble 5 ou 8 kilomètres, puis nous nous retrouverons au village communautaire pour un moment entre amis, avec de la nourriture et une tombola caritative. Notre objectif plus large : récolter 3 000 € avec Hurkit pour équiper les défenseurs de l'Ukraine en solutions d'alimentation fiables sur le terrain. Découvrez nos options de soutien ci-dessous et emmenez vos copains et votre famille avec vous !",
   "hero.beneficiary": "Bénéficiaire :",
 
   // tracks
@@ -15,14 +15,14 @@ export const fr = {
   "tracks.trackAOverline": "Parcours A",
   "tracks.trackATitle": "Rejoindre la Campagne",
   "tracks.trackADescription":
-    "Choisissez un palier et contribuez directement — courez le jour J ou soutenez simplement depuis n'importe où. Votre contribution finance des stations de recharge pour les défenseurs.",
+    "Choisissez un palier et contribuez directement : courez le jour J ou soutenez simplement depuis n'importe où. Votre contribution finance des stations de recharge pour les défenseurs.",
   "tracks.trackAFeatures":
     "Palier au choix · Récompenses variables · Course optionnelle",
   "tracks.trackACta": "Voir les paliers →",
   "tracks.trackBOverline": "Parcours B",
   "tracks.trackBTitle": "Collecter pour l'Équipe",
   "tracks.trackBDescription":
-    "Créez votre page de collecte personnelle et mobilisez votre réseau. Chaque don compte pour l'objectif collectif — puis venez courir.",
+    "Créez votre page de collecte personnelle et mobilisez votre réseau. Chaque don compte pour l'objectif collectif, puis venez courir.",
   "tracks.trackBFeatures":
     "Page personnelle · Lien partageable · Stats en direct",
   "tracks.trackBCta": "Créer ma page →",
@@ -86,7 +86,7 @@ export const fr = {
   "register.confirmAfterDonation": "Après avoir complété votre don ci-dessus :",
   "register.confirmButton": "J'ai complété mon don",
   "register.confirmingPayment": "Confirmation en cours\u2026",
-  "register.confirmedHeading": "Paiement reçu — merci !",
+  "register.confirmedHeading": "Paiement reçu, merci !",
   "register.confirmedRunner":
     "Votre inscription est maintenant complète. Vous recevrez votre matériel de course lors de l'événement.",
   "register.confirmedSupporter":
@@ -104,17 +104,40 @@ export const fr = {
   "register.alreadyPaidMessage":
     "Nous avons bien reçu votre paiement et vous tiendrons informé(e) des actualités de la campagne et de l’événement.",
   "register.alreadyPaidCta": "Retour à la page de l’événement",
+  "register.paymentReceivedHeading": "Merci, votre paiement a été reçu !",
+  "register.paymentReceivedMessage": "Nous vous tiendrons informé(e) par e-mail.",
 
   // tierCard
   "tierCard.badge": "Le plus choisi",
   "tierCard.selected": "Sélectionné",
   "tierCard.select": "Sélectionner {tierName}",
+  "tierCard.tagline.supporter": "Soutenez la mission sans courir 🪷",
+  "tierCard.tagline.sprinter":
+    "Vous êtes toujours le premier à participer ! 🙋",
+  "tierCard.tagline.relay-runner":
+    "Prenez le relais et portez la mission plus loin 💪",
+  "tierCard.tagline.marathoner": "Allez jusqu'au bout pour l'Ukraine 🚀",
+  "tierCard.tagline.ultramarathoner":
+    "Jour ou nuit, votre engagement est sans limite 💫",
+  "tierCard.rewards.supporter": "Découvrez l'impact de votre don",
+  "tierCard.rewards.sprinter": "Pack d'autocollants",
+  "tierCard.rewards.relay-runner":
+    "Pack d'autocollants · Chaussettes de course · 1 ticket de tombola",
+  "tierCard.rewards.marathoner":
+    "Pack d'autocollants · Repas traditionnel ukrainien · 3 tickets de tombola",
+  "tierCard.rewards.ultramarathoner":
+    "Pack d'autocollants · Foulard en soie d'une marque de créateur ukrainienne · Repas traditionnel ukrainien · 5 tickets de tombola",
+  "tierCard.rewardsRunner.supporter": "",
+  "tierCard.rewardsRunner.sprinter": "Course",
+  "tierCard.rewardsRunner.relay-runner": "Course",
+  "tierCard.rewardsRunner.marathoner": "Course · T-shirt de course",
+  "tierCard.rewardsRunner.ultramarathoner": "Course",
 
   // fundraise
   "fundraise.overline": "Parcours B · Collecter pour l'Équipe",
   "fundraise.title": "Votre page de collecte",
   "fundraise.subtitle":
-    "Cela prend environ une minute. Partagez votre page avec vos proches pour atteindre l'objectif collectif — puis venez courir.",
+    "Cela prend environ une minute. Partagez votre page avec vos proches pour atteindre l'objectif collectif, puis venez courir.",
   "fundraise.step1": "1. Votre page",
   "fundraise.step2": "2. Détails coureur",
   "fundraise.step3": "3. Vérification",
@@ -158,7 +181,7 @@ export const fr = {
   "fundraise.reviewEmail": "E-mail",
   "fundraise.reviewTshirt": "T-shirt",
   "fundraise.reviewCountry": "Pays",
-  "fundraise.submitButton": "Créer la page et s'inscrire — €{price}",
+  "fundraise.submitButton": "Créer la page et s'inscrire (€{price})",
   "fundraise.submitting": "Création en cours\u2026",
   "fundraise.networkError":
     "Erreur réseau. Veuillez vérifier votre connexion et réessayer.",
@@ -181,11 +204,11 @@ export const fr = {
 
   // confirmation (FundraiserConfirmation)
   "confirmation.heading": "Votre page de collecte est prête !",
-  "confirmation.subheading": "Partagez votre page avec vos proches — {name}",
+  "confirmation.subheading": "Partagez votre page avec vos proches, {name}",
   "confirmation.shareableLink": "Votre lien partageable",
   "confirmation.copy": "Copier",
   "confirmation.copied": "Copié !",
-  "confirmation.editLink": "Lien d'édition secret — conservez-le !",
+  "confirmation.editLink": "Lien d'édition secret, conservez-le !",
   "confirmation.editHint":
     "Ce lien vous permet de modifier et publier votre page. Gardez-le privé.",
   "confirmation.registrationHeading": "Inscription coureur",
@@ -199,7 +222,7 @@ export const fr = {
   "confirmation.afterDonation": "Après avoir complété votre don ci-dessus :",
   "confirmation.confirmButton": "J'ai complété mon don",
   "confirmation.confirming": "Confirmation en cours\u2026",
-  "confirmation.confirmed": "Paiement confirmé — vous êtes prêt !",
+  "confirmation.confirmed": "Paiement confirmé, vous êtes prêt !",
   "confirmation.confirmError":
     "Impossible de confirmer le paiement. Veuillez réessayer.",
   "confirmation.confirmFailed": "La confirmation a échoué",
@@ -215,12 +238,12 @@ export const fr = {
     "Cette page de collecte n'existe pas ou a été supprimée.",
   "fundraiser.createOwn": "Créer votre propre page de collecte →",
   "fundraiser.draftBanner":
-    "Cette page est un brouillon — seul le créateur peut la voir",
-  "fundraiser.nameSuffix": " — page de collecte",
+    "Cette page est un brouillon. Seul le créateur peut la voir",
+  "fundraiser.nameSuffix": " : page de collecte",
   "fundraiser.personalGoal": "Objectif personnel : €{goal}",
   "fundraiser.raisedSoFar": "Collecté : €{raised}",
   "fundraiser.collectiveTotal":
-    "Fait partie d'une campagne commune — €{total} récoltés ensemble",
+    "Fait partie d'une campagne commune : €{total} récoltés ensemble",
   "fundraiser.donateHeading": "Faire un don",
   "fundraiser.shareHeading": "Partager cette page",
   "fundraiser.ctaButton": "Soutenir {name}",
@@ -238,9 +261,9 @@ export const fr = {
 
   // donorWall
   "donorWall.heading": "Soutiens",
-  "donorWall.empty": "Pas encore de soutiens — soyez le premier !",
+  "donorWall.empty": "Pas encore de soutiens, soyez le premier !",
   "donorWall.loading": "Chargement\u2026",
-  "donorWall.gateButton": "J'ai fait un don — laisser un message de soutien",
+  "donorWall.gateButton": "J'ai fait un don, laisser un message de soutien",
   "donorWall.nameLabel": "Votre nom",
   "donorWall.namePlaceholder": "Comment vous souhaitez apparaître",
   "donorWall.messageLabel": "Votre message",

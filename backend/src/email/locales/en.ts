@@ -2,7 +2,7 @@ import type { EmailLocale } from "./types.js";
 
 export const en: EmailLocale = {
   subject:
-    "35 Years of 🇺🇦 Independence: Charity and Run — Registration confirmed!",
+    "35 Years of 🇺🇦 Independence: Charity and Run | Registration confirmed!",
   greeting: "Hi {name},",
   confirmationIntro:
     "Your registration for 35 Years of 🇺🇦 Independence: Charity and Run is confirmed. Here are your details:",
@@ -28,18 +28,18 @@ export const en: EmailLocale = {
   footerPaymentEmail:
     "You'll receive one more email when your payment is confirmed.",
   fundraiserSubject:
-    "35 Years of 🇺🇦 Independence: Charity and Run — Your fundraiser page is live!",
+    "35 Years of 🇺🇦 Independence: Charity and Run | Your fundraiser page is live!",
   fundraiserIntro:
     "Great news, {name}! You're registered AND your personal fundraiser page is live. Share it with friends and family to help reach your goal.",
   fundraiserHeading: "Your fundraiser page",
   fundraiserPageLabel: "Share this link",
   fundraiserEditLabel: "Edit your page",
   fundraiserEditHint:
-    "Save this link — it's the only way to edit your fundraiser page. Do not share it publicly.",
+    "Save this link. It's the only way to edit your fundraiser page. Do not share it publicly.",
   fundraiserDisplayNameLabel: "Display name",
   fundraiserGoalLabel: "Personal goal",
   paymentSubject:
-    "35 Years of 🇺🇦 Independence: Charity and Run — Payment confirmed!",
+    "35 Years of 🇺🇦 Independence: Charity and Run | Payment confirmed!",
   paymentIntro:
     "Your donation has been received. Here's your confirmed registration:",
   paymentRewardsLabel: "Your rewards",
@@ -47,4 +47,20 @@ export const en: EmailLocale = {
     "Thank you for supporting Ukraine's defenders! Every euro funds charging stations on the front line.",
   paymentFooter:
     "This is your payment receipt from European Resolve VZW for 35 Years of 🇺🇦 Independence: Charity and Run.",
+  tierRewards: {
+    supporter: { base: "Hear how your donation helped", runnerOnly: "" },
+    sprinter: { base: "Sticker pack", runnerOnly: "Running" },
+    "relay-runner": {
+      base: "Sticker pack · Running socks · 1 raffle ticket",
+      runnerOnly: "Running",
+    },
+    marathoner: {
+      base: "Sticker pack · Traditional Ukrainian meal · 3 raffle tickets",
+      runnerOnly: "Running · Running t-shirt",
+    },
+    ultramarathoner: {
+      base: "Sticker pack · Silk scarf by a Ukrainian designer brand · Traditional Ukrainian meal · 5 raffle tickets",
+      runnerOnly: "Running",
+    },
+  },
 };

@@ -1,3 +1,5 @@
+import type { TierId } from "../../types.js";
+
 export interface EmailLocale {
   subject: string;
   greeting: string;
@@ -31,4 +33,12 @@ export interface EmailLocale {
   paymentRewardsLabel: string;
   paymentThankYou: string;
   paymentFooter: string;
+
+  /**
+   * Reward list per tier, as a single "·"-separated string per field so
+   * translators handle one sentence-like value instead of an array.
+   * `runnerOnly` items are shown only for participationType "runner" and
+   * are prepended before `base` when shown.
+   */
+  tierRewards: Record<TierId, { base: string; runnerOnly: string }>;
 }

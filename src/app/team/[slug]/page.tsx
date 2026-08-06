@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!member) return {};
 
   return {
-    title: `${member.name} — European Resolve`,
+    title: `${member.name} | European Resolve`,
     description: `${member.name}, ${member.title} at European Resolve`,
   };
 }

@@ -86,7 +86,7 @@ export const uk = {
   "register.confirmAfterDonation": "Після завершення твого донату вище:",
   "register.confirmButton": "Донат надіслано",
   "register.confirmingPayment": "Підтвердження\u2026",
-  "register.confirmedHeading": "Оплату отримано — дякуємо!",
+  "register.confirmedHeading": "Оплату отримано, дякуємо!",
   "register.confirmedRunner":
     "Твою реєстрацію завершено. Ти отримаєш подарунки на фініші.",
   "register.confirmedSupporter":
@@ -104,11 +104,33 @@ export const uk = {
   "register.alreadyPaidMessage":
     "Ми отримали твою оплату і будемо інформувати тебе про новини кампанії та події.",
   "register.alreadyPaidCta": "Повернутися на сторінку події",
+  "register.paymentReceivedHeading": "Дякуємо, оплату отримано!",
+  "register.paymentReceivedMessage":
+    "Ми повідомлятимемо тебе електронною поштою.",
 
   // tierCard
   "tierCard.badge": "Найпопулярніший",
   "tierCard.selected": "Обрано",
   "tierCard.select": "Обрати {tierName}",
+  "tierCard.tagline.supporter": "Підтримай місію, не бігаючи 🪷",
+  "tierCard.tagline.sprinter": "Ти завжди береш участь першим/першою! 🙋",
+  "tierCard.tagline.relay-runner": "Візьми естафету та неси місію далі 💪",
+  "tierCard.tagline.marathoner": "Подолай дистанцію заради України 🚀",
+  "tierCard.tagline.ultramarathoner":
+    "Вдень чи вночі, твоя відданість не має меж 💫",
+  "tierCard.rewards.supporter": "Дізнайся, як твій донат допоміг",
+  "tierCard.rewards.sprinter": "Стікерпак",
+  "tierCard.rewards.relay-runner":
+    "Стікерпак · Бігові шкарпетки · 1 лотерейний квиток",
+  "tierCard.rewards.marathoner":
+    "Стікерпак · Традиційний обід · 3 лотерейні квитки",
+  "tierCard.rewards.ultramarathoner":
+    "Стікерпак · Шовковий шарф від українського дизайнерського бренду · Традиційний обід · 5 лотерейних квитків",
+  "tierCard.rewardsRunner.supporter": "",
+  "tierCard.rewardsRunner.sprinter": "Біг",
+  "tierCard.rewardsRunner.relay-runner": "Біг",
+  "tierCard.rewardsRunner.marathoner": "Біг · Бігова футболка",
+  "tierCard.rewardsRunner.ultramarathoner": "Біг",
 
   // fundraise
   "fundraise.overline": "Напрямок B · Почни збір у нашій команді",
@@ -156,7 +178,7 @@ export const uk = {
   "fundraise.reviewEmail": "Електронна пошта",
   "fundraise.reviewTshirt": "Футболка",
   "fundraise.reviewCountry": "Країна",
-  "fundraise.submitButton": "Створити сторінку та зареєструватися — €{price}",
+  "fundraise.submitButton": "Створити сторінку та зареєструватися (€{price})",
   "fundraise.submitting": "Створення\u2026",
   "fundraise.networkError":
     "Помилка мережі. Перевір з'єднання та спробуй ще раз.",
@@ -177,11 +199,11 @@ export const uk = {
 
   // confirmation (FundraiserConfirmation)
   "confirmation.heading": "Твою сторінку збору коштів створено!",
-  "confirmation.subheading": "Поділися сторінкою з друзями та сім'єю — {name}",
+  "confirmation.subheading": "Поділися сторінкою з друзями та сім'єю, {name}",
   "confirmation.shareableLink": "Твоє посилання для поширення",
   "confirmation.copy": "Копіювати",
   "confirmation.copied": "Скопійовано!",
-  "confirmation.editLink": "Секретне посилання для редагування — збережи його!",
+  "confirmation.editLink": "Секретне посилання для редагування, збережи його!",
   "confirmation.editHint":
     "Це посилання дозволяє редагувати та публікувати твою сторінку. Тримай її в таємниці.",
   "confirmation.registrationHeading": "Реєстрація бігун_ки",
@@ -195,7 +217,7 @@ export const uk = {
   "confirmation.afterDonation": "Після завершення твого донату вище:",
   "confirmation.confirmButton": "Донат надіслано",
   "confirmation.confirming": "Підтвердження\u2026",
-  "confirmation.confirmed": "Оплату підтверджено — все готово!",
+  "confirmation.confirmed": "Оплату підтверджено, все готово!",
   "confirmation.confirmError":
     "Не вдалося підтвердити оплату. Будь ласка, спробуй ще раз.",
   "confirmation.confirmFailed": "Підтвердження не вдалося",
@@ -211,12 +233,12 @@ export const uk = {
     "Ця сторінка збору коштів не існує або була видалена.",
   "fundraiser.createOwn": "Створити власну сторінку збору коштів →",
   "fundraiser.draftBanner":
-    "Ця сторінка є чернеткою — лише автор_ка може її бачити",
-  "fundraiser.nameSuffix": " — сторінка збору",
+    "Ця сторінка є чернеткою. Лише автор_ка може її бачити",
+  "fundraiser.nameSuffix": ": сторінка збору",
   "fundraiser.personalGoal": "Особиста мета: €{goal}",
   "fundraiser.raisedSoFar": "Зібрано: €{raised}",
   "fundraiser.collectiveTotal":
-    "Частина спільної кампанії — €{total} зібрано разом",
+    "Частина спільної кампанії: €{total} зібрано разом",
   "fundraiser.donateHeading": "Зробити донат",
   "fundraiser.shareHeading": "Поділитися цією сторінкою",
   "fundraiser.ctaButton": "Підтримати {name}",
@@ -234,9 +256,9 @@ export const uk = {
 
   // donorWall
   "donorWall.heading": "Підтримка",
-  "donorWall.empty": "Ще немає підтримки — будь першим/першою!",
+  "donorWall.empty": "Ще немає підтримки, будь першим/першою!",
   "donorWall.loading": "Завантаження\u2026",
-  "donorWall.gateButton": "Я зроби_ла донат — залишити слово підтримки",
+  "donorWall.gateButton": "Я зроби_ла донат, залишити слово підтримки",
   "donorWall.nameLabel": "Твоє ім'я",
   "donorWall.namePlaceholder": "Як ти хочеш виглядати",
   "donorWall.messageLabel": "Твоє повідомлення",

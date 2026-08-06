@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
-import { TIER_DATA, filterRewards } from "../tiers.js";
+import { TIER_DATA, getLocalizedRewards } from "../tiers.js";
 import type {
   RegisterResponse,
   ApiResponse,
@@ -79,7 +79,11 @@ lookupRoute.get("/:token", async (c) => {
     tierName: tier.name,
     participationType: registration.participationType as ParticipationType,
     amountEur: registration.amountEur,
-    rewards: filterRewards(tier.rewards, registration.participationType as ParticipationType),
+    rewards: getLocalizedRewards(
+      registration.tierId as TierId,
+      registration.participationType as ParticipationType,
+      registration.language,
+    ),
     paymentToken: registration.paymentToken,
     status: "pending",
   };

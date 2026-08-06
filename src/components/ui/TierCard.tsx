@@ -3,17 +3,19 @@ import { t } from "@/locales";
 import type { ParticipationType } from "./registerTypes";
 import styles from "./TierCard.module.css";
 
-const RUNNER_ONLY_REWARDS = new Set([
-  "Running",
-  "Running t-shirt",
-]);
-
 interface TierCardProps {
   tier: Tier;
   isSelected: boolean;
   hasSelection: boolean;
   onSelect: () => void;
   participationType: ParticipationType;
+}
+
+function splitRewards(value: string): string[] {
+  return value
+    .split("·")
+    .map((reward) => reward.trim())
+    .filter(Boolean);
 }
 
 export function TierCard({
@@ -23,10 +25,11 @@ export function TierCard({
   onSelect,
   participationType,
 }: TierCardProps) {
+  const baseRewards = splitRewards(t(`tierCard.rewards.${tier.id}`));
   const visibleRewards =
     participationType === "runner"
-      ? tier.rewards
-      : tier.rewards.filter((r) => !RUNNER_ONLY_REWARDS.has(r));
+      ? [...splitRewards(t(`tierCard.rewardsRunner.${tier.id}`)), ...baseRewards]
+      : baseRewards;
 
   return (
     <article
@@ -36,17 +39,13 @@ export function TierCard({
         <span className={styles.badge}>{t("tierCard.badge")}</span>
       )}
       <span className={styles.overline}>{tier.name}</span>
-      <p className={styles.tagline}>{tier.tagline}</p>
+      <p className={styles.tagline}>{t(`tierCard.tagline.${tier.id}`)}</p>
       <p className={styles.price}>
         €{tier.price}
         {tier.id === "supporter" && (
           <span className={styles.priceNote}> or more</span>
         )}
       </p>
-      {/*<FeeBreakdownBar
-        causeFee={tier.causeFee}
-        logisticsFee={tier.logisticsFee}
-      />*/}
       <button
         type="button"
         className={styles.selectButton}

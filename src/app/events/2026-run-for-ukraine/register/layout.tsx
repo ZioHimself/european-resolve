@@ -5,11 +5,11 @@ const PAGE_URL = `${BASE_URL}/events/2026-run-for-ukraine/register`;
 const OG_IMAGE = `${BASE_URL}/og/run-for-ukraine-2026.png`;
 
 export const metadata: Metadata = {
-  title: "Register — 35 Years of 🇺🇦 Independence: Charity and Run",
+  title: "Register | 35 Years of 🇺🇦 Independence: Charity and Run",
   description:
     "Choose your tier and register for 35 Years of 🇺🇦 Independence: Charity and Run in Brussels. Every fee helps fund charging stations for defenders.",
   openGraph: {
-    title: "Register — 35 Years of 🇺🇦 Independence: Charity and Run",
+    title: "Register | 35 Years of 🇺🇦 Independence: Charity and Run",
     description:
       "Choose your tier and register for 35 Years of 🇺🇦 Independence: Charity and Run in Brussels. Every fee helps fund charging stations for defenders.",
     url: PAGE_URL,
@@ -22,13 +22,13 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "35 Years of 🇺🇦 Independence: Charity and Run — Brussels",
+        alt: "35 Years of 🇺🇦 Independence: Charity and Run, Brussels",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Register — 35 Years of 🇺🇦 Independence: Charity and Run",
+    title: "Register | 35 Years of 🇺🇦 Independence: Charity and Run",
     description:
       "Choose your tier and register for the charity run in Brussels. Every fee helps fund charging stations for defenders.",
     images: [OG_IMAGE],
