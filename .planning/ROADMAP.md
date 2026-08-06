@@ -208,3 +208,13 @@ Plans:
 
 ---
 *Created: 2026-07-28*
+
+### Phase 06.1: Tier amount enforcement & effective-tier policy (INSERTED)
+
+**Goal:** [Urgent work - to be planned]
+**Requirements**: TBD
+**Depends on:** Phase 6
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 06.1 to break down)
