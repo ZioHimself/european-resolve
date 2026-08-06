@@ -211,10 +211,27 @@ Plans:
 
 ### Phase 06.1: Tier amount enforcement & effective-tier policy (INSERTED)
 
-**Goal:** [Urgent work - to be planned]
-**Requirements**: TBD
+**Goal:** Enforce tier minimum at WhyDonate step 1 for registration payments, pre-fill tier price, compute effective tier and cumulative rewards from observed payment amount on confirm-payment, and align post-payment UI and payment email with effective tier (not registration selection).
+**Requirements**: REGA-06
 **Depends on:** Phase 6
-**Plans:** 0 plans
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 06.1 to break down)
+
+**Wave 1**
+- [ ] 06.1-01-PLAN.md — Backend: getEffectiveTier, cumulative rewards, confirmPayment + email locales
+
+**Wave 2** *(blocked on Wave 1 completion)*
+- [ ] 06.1-02-PLAN.md — Frontend: WhyDonateWidget step-1 gate, pre-fill, registration panel wiring
+
+**Wave 3** *(blocked on Wave 2 completion)*
+- [ ] 06.1-03-PLAN.md — Frontend: Post-payment effective tier UI + FundraiserConfirmation parity + tests
+
+**Success Criteria:**
+1. Step-1 gate blocks advance when donation amount is below selected tier minimum (registration flows only)
+2. Amount field pre-fills with tier price; sessionStorage stashed immediately on load
+3. confirm-payment returns effective tier name and cumulative rewards from observed amount
+4. Payments below €10 resolve to donor tier with thank-you-only rewards
+5. Post-payment confirmation panel and payment email show effective tier only (no selected-vs-effective comparison)
+6. Fundraiser page visitor donations and donor wall remain unrestricted (no gate)
+7. `npm test` and `npm run build` succeed
