@@ -315,7 +315,7 @@ export function FundraiserConfirmation({
               )}
             </div>
           ) : (
-            <div className={styles.confirmedSection}>
+            <>
               <div className={styles.confirmedBanner}>
                 <span className={styles.confirmedIcon}>✓</span>
                 {t("confirmation.confirmed")}
@@ -348,7 +348,7 @@ export function FundraiserConfirmation({
                   ))}
                 </ul>
               </div>
-            </div>
+            </>
           )}
         </div>
       )}
