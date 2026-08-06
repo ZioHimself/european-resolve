@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-07-31T03:31:00.679Z"
+last_updated: "2026-08-06T21:22:48.105Z"
 progress:
-  total_phases: 8
-  completed_phases: 0
-  total_plans: 25
-  completed_plans: 0
-  percent: 0
+  total_phases: 9
+  completed_phases: 1
+  total_plans: 28
+  completed_plans: 3
+  percent: 11
 ---
 
 # Project State
@@ -22,7 +22,7 @@ progress:
 See: .planning/PROJECT.md (updated 2026-07-28)
 
 **Core value:** Participants can register and share personal fundraising pages that drive donations via WhyDonate with full transparency
-**Current focus:** Phase 6 complete — WhyDonate Widget Auto-Detection
+**Current focus:** Phase 06.1 — Tier amount enforcement & effective-tier policy
 
 ## Current Phase
 
@@ -80,3 +80,4 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - Phase 02.1 inserted after Phase 2: Replace Monobank jar with WhyDonate (URGENT)
 - Phase 04.1 inserted after Phase 4: Registration Confirmation Emails (URGENT)
 - Phase 6 added: WhyDonate Widget Auto-Detection — replace honour-system confirm button with DOM-based payment detection
+- Phase 06.1 inserted after Phase 6: Tier amount enforcement & effective-tier policy (URGENT)
