@@ -41,6 +41,8 @@ export const config = Object.freeze({
     from:
       process.env.SMTP_FROM ??
       '"35 Years of Ukraine Independence: Charity and Run" <noreply@european-resolve.org>',
+    replyTo:
+      process.env.SMTP_REPLY_TO ?? "info@european-resolve.org",
   },
   nodeEnv,
 });

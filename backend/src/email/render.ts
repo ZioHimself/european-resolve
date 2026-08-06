@@ -1,5 +1,11 @@
 import { getEmailLocale } from "./locales/index.js";
 
+export interface RenderedEmail {
+  subject: string;
+  html: string;
+  text: string;
+}
+
 export interface RegistrationEmailData {
   name: string;
   email: string;
@@ -24,7 +30,7 @@ function interpolate(
 export function renderConfirmationEmail(
   data: RegistrationEmailData,
   localeCode: string,
-): { subject: string; html: string } {
+): RenderedEmail {
   const l = getEmailLocale(localeCode);
   const params = {
     name: data.name,
@@ -100,8 +106,8 @@ export function renderConfirmationEmail(
 
               <!-- Event details -->
               <h2 style="margin:0 0 8px;font-size:16px;color:#0a1628;">${escapeHtml(l.eventDetailsHeading)}</h2>
-              <p style="margin:0 0 4px;font-size:14px;color:#333;">📅 ${escapeHtml(l.eventDate)}</p>
-              <p style="margin:0 0 24px;font-size:14px;color:#333;">📍 <a href="https://maps.google.com/?q=Place+du+Luxembourg,+Brussels,+Belgium" style="color:#0057b8;text-decoration:underline;">${escapeHtml(l.eventLocation)}</a></p>
+              <p style="margin:0 0 4px;font-size:14px;color:#333;">${escapeHtml(l.eventDate)}</p>
+              <p style="margin:0 0 24px;font-size:14px;color:#333;"><a href="https://maps.google.com/?q=Place+du+Luxembourg,+Brussels,+Belgium" style="color:#0057b8;text-decoration:underline;">${escapeHtml(l.eventLocation)}</a></p>
             </td>
           </tr>
 
@@ -120,7 +126,36 @@ export function renderConfirmationEmail(
 </body>
 </html>`;
 
-  return { subject, html };
+  const text = [
+    greeting,
+    "",
+    intro,
+    "",
+    `${l.participantIdLabel}: ${data.participantId}`,
+    `${l.tierLabel}: ${data.tierName}`,
+    `${l.amountLabel}: EUR ${data.amountEur}`,
+    "",
+    l.rewardsLabelPending,
+    formatTextList(data.rewards),
+    "",
+    l.rewardsDisclaimer,
+    "",
+    l.donationHeading,
+    l.alreadyPaidNotice,
+    donationInstructions,
+    `${donationButton}: ${data.donationUrl}`,
+    "",
+    l.eventDetailsHeading,
+    l.eventDate,
+    l.eventLocation,
+    "https://maps.google.com/?q=Place+du+Luxembourg,+Brussels,+Belgium",
+    "",
+    l.footerText,
+    l.footerPaymentEmail,
+    l.footerUnsubscribe,
+  ].join("\n");
+
+  return { subject, html, text };
 }
 
 export interface FundraiserEmailData extends RegistrationEmailData {
@@ -134,7 +169,7 @@ export interface FundraiserEmailData extends RegistrationEmailData {
 export function renderFundraiserEmail(
   data: FundraiserEmailData,
   localeCode: string,
-): { subject: string; html: string } {
+): RenderedEmail {
   const l = getEmailLocale(localeCode);
   const params = {
     name: data.name,
@@ -233,8 +268,8 @@ export function renderFundraiserEmail(
 
               <!-- Event details -->
               <h2 style="margin:0 0 8px;font-size:16px;color:#0a1628;">${escapeHtml(l.eventDetailsHeading)}</h2>
-              <p style="margin:0 0 4px;font-size:14px;color:#333;">📅 ${escapeHtml(l.eventDate)}</p>
-              <p style="margin:0 0 24px;font-size:14px;color:#333;">📍 <a href="https://maps.google.com/?q=Place+du+Luxembourg,+Brussels,+Belgium" style="color:#0057b8;text-decoration:underline;">${escapeHtml(l.eventLocation)}</a></p>
+              <p style="margin:0 0 4px;font-size:14px;color:#333;">${escapeHtml(l.eventDate)}</p>
+              <p style="margin:0 0 24px;font-size:14px;color:#333;"><a href="https://maps.google.com/?q=Place+du+Luxembourg,+Brussels,+Belgium" style="color:#0057b8;text-decoration:underline;">${escapeHtml(l.eventLocation)}</a></p>
             </td>
           </tr>
 
@@ -253,7 +288,43 @@ export function renderFundraiserEmail(
 </body>
 </html>`;
 
-  return { subject, html };
+  const text = [
+    greeting,
+    "",
+    intro,
+    "",
+    `${l.participantIdLabel}: ${data.participantId}`,
+    `${l.tierLabel}: ${data.tierName}`,
+    `${l.amountLabel}: EUR ${data.amountEur}`,
+    "",
+    l.rewardsLabelPending,
+    formatTextList(data.rewards),
+    "",
+    l.rewardsDisclaimer,
+    "",
+    l.fundraiserHeading,
+    `${l.fundraiserDisplayNameLabel}: ${data.displayName}`,
+    `${l.fundraiserGoalLabel}: EUR ${data.fundraiserGoalEur}`,
+    `${l.fundraiserPageLabel}: ${fundraiserPageUrl}`,
+    `${l.fundraiserEditLabel}: ${fundraiserEditUrl}`,
+    l.fundraiserEditHint,
+    "",
+    l.donationHeading,
+    l.alreadyPaidNotice,
+    donationInstructions,
+    `${donationButton}: ${data.donationUrl}`,
+    "",
+    l.eventDetailsHeading,
+    l.eventDate,
+    l.eventLocation,
+    "https://maps.google.com/?q=Place+du+Luxembourg,+Brussels,+Belgium",
+    "",
+    l.footerText,
+    l.footerPaymentEmail,
+    l.footerUnsubscribe,
+  ].join("\n");
+
+  return { subject, html, text };
 }
 
 export interface PaymentConfirmationEmailData {
@@ -269,7 +340,7 @@ export interface PaymentConfirmationEmailData {
 export function renderPaymentConfirmationEmail(
   data: PaymentConfirmationEmailData,
   localeCode: string,
-): { subject: string; html: string } {
+): RenderedEmail {
   const l = getEmailLocale(localeCode);
   const params = {
     name: data.name,
@@ -355,7 +426,34 @@ export function renderPaymentConfirmationEmail(
 </body>
 </html>`;
 
-  return { subject, html };
+  const detailLines = [
+    `${l.participantIdLabel}: ${data.participantId}`,
+    `${l.tierLabel}: ${data.tierName}`,
+  ];
+  if (data.amountEur != null) {
+    detailLines.push(`${l.amountLabel}: EUR ${data.amountEur}`);
+  }
+
+  const text = [
+    greeting,
+    "",
+    intro,
+    "",
+    ...detailLines,
+    "",
+    l.paymentRewardsLabel,
+    formatTextList(data.rewards),
+    "",
+    l.paymentThankYou,
+    "",
+    l.paymentFooter,
+  ].join("\n");
+
+  return { subject, html, text };
+}
+
+function formatTextList(items: string[]): string {
+  return items.map((item) => `- ${item}`).join("\n");
 }
 
 function escapeHtml(text: string): string {

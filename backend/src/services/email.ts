@@ -5,12 +5,28 @@ import {
   renderConfirmationEmail,
   renderFundraiserEmail,
   renderPaymentConfirmationEmail,
+  type RenderedEmail,
   type RegistrationEmailData,
   type FundraiserEmailData,
   type PaymentConfirmationEmailData,
 } from "../email/render.js";
 
 let transporter: Transporter | null = null;
+
+async function deliverEmail(
+  transport: Transporter,
+  to: string,
+  rendered: RenderedEmail,
+): Promise<void> {
+  await transport.sendMail({
+    from: config.smtp.from,
+    replyTo: config.smtp.replyTo,
+    to,
+    subject: rendered.subject,
+    text: rendered.text,
+    html: rendered.html,
+  });
+}
 
 function getTransporter(): Transporter | null {
   if (!config.smtp.host || !config.smtp.user || !config.smtp.pass) {
@@ -43,14 +59,9 @@ export async function sendConfirmationEmail(
   }
 
   const localeCode = LANGUAGE_TO_LOCALE[language] ?? "en";
-  const { subject, html } = renderConfirmationEmail(data, localeCode);
+  const rendered = renderConfirmationEmail(data, localeCode);
 
-  await transport.sendMail({
-    from: config.smtp.from,
-    to: data.email,
-    subject,
-    html,
-  });
+  await deliverEmail(transport, data.email, rendered);
 
   console.info(
     `[email] Confirmation sent to ${data.email} (locale: ${localeCode})`,
@@ -68,14 +79,9 @@ export async function sendFundraiserEmail(
   }
 
   const localeCode = LANGUAGE_TO_LOCALE[language] ?? "en";
-  const { subject, html } = renderFundraiserEmail(data, localeCode);
+  const rendered = renderFundraiserEmail(data, localeCode);
 
-  await transport.sendMail({
-    from: config.smtp.from,
-    to: data.email,
-    subject,
-    html,
-  });
+  await deliverEmail(transport, data.email, rendered);
 
   console.info(
     `[email] Fundraiser confirmation sent to ${data.email} (locale: ${localeCode})`,
@@ -93,14 +99,9 @@ export async function sendPaymentConfirmationEmail(
   }
 
   const localeCode = LANGUAGE_TO_LOCALE[language] ?? "en";
-  const { subject, html } = renderPaymentConfirmationEmail(data, localeCode);
+  const rendered = renderPaymentConfirmationEmail(data, localeCode);
 
-  await transport.sendMail({
-    from: config.smtp.from,
-    to: data.email,
-    subject,
-    html,
-  });
+  await deliverEmail(transport, data.email, rendered);
 
   console.info(
     `[email] Payment confirmation sent to ${data.email} (locale: ${localeCode})`,

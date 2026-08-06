@@ -16,6 +16,7 @@ const user = process.env.SMTP_USER ?? "";
 const pass = process.env.SMTP_PASS ?? "";
 const from =
   process.env.SMTP_FROM ?? "Run for Ukraine 2026 <noreply@european-resolve.org>";
+const replyTo = process.env.SMTP_REPLY_TO ?? "info@european-resolve.org";
 
 const shouldSend = process.argv.includes("--send");
 
@@ -35,6 +36,7 @@ console.log("─".repeat(50));
 console.log(`  Host : ${host}:${port}`);
 console.log(`  User : ${user}`);
 console.log(`  From : ${from}`);
+console.log(`  Reply: ${replyTo}`);
 console.log(`  Mode : ${shouldSend ? "connect + send test email" : "connect only (use --send to deliver)"}`);
 console.log();
 
@@ -64,6 +66,7 @@ if (shouldSend) {
   try {
     const info = await transporter.sendMail({
       from,
+      replyTo,
       to,
       subject: "[Test] SMTP integration test — Run for Ukraine 2026",
       text: "This is an automated integration test. If you received this, SMTP delivery is working.",
