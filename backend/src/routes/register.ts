@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
 import { sendConfirmationEmail } from "../services/email.js";
 import { config } from "../config.js";
-import { TIER_DATA, filterRewards } from "../tiers.js";
+import { TIER_DATA, getLocalizedRewards } from "../tiers.js";
 import type {
   RegisterRequest,
   RegisterResponse,
@@ -107,6 +107,7 @@ registerRoute.post("/", async (c) => {
   const { participantId, paymentToken } = await sheetsService.appendRegistration(data);
   const tier = TIER_DATA[data.tierId];
   const fullName = `${data.firstName} ${data.lastName}`.trim();
+  const rewards = getLocalizedRewards(data.tierId, data.participationType, data.language);
 
   const response: RegisterResponse = {
     participantId,
@@ -118,7 +119,7 @@ registerRoute.post("/", async (c) => {
     tierName: tier.name,
     participationType: data.participationType,
     amountEur: tier.price,
-    rewards: filterRewards(tier.rewards, data.participationType),
+    rewards,
     paymentToken,
   };
 
@@ -129,7 +130,7 @@ registerRoute.post("/", async (c) => {
       participantId,
       tierName: tier.name,
       amountEur: tier.price,
-      rewards: filterRewards(tier.rewards, data.participationType),
+      rewards,
       donationUrl: `${config.corsOrigins[0] ?? "https://european-resolve.org"}/events/2026-run-for-ukraine/register?token=${paymentToken}`,
     },
     data.language,

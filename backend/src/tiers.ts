@@ -1,53 +1,46 @@
-import type { TierId, ParticipationType } from "./types.js";
+import type { TierId, ParticipationType, Language } from "./types.js";
+import { LANGUAGE_TO_LOCALE } from "./types.js";
+import { getEmailLocale } from "./email/locales/index.js";
 
-export const RUNNER_ONLY_REWARDS = new Set([
-  "Running",
-  "Running t-shirt",
-]);
-
-export const TIER_DATA: Record<TierId, { name: string; price: number; rewards: string[] }> = {
+export const TIER_DATA: Record<TierId, { name: string; price: number }> = {
   supporter: {
     name: "Supporter",
     price: 10,
-    rewards: ["Hear how your donation helped"],
   },
   sprinter: {
     name: "Sprinter",
     price: 15,
-    rewards: ["Running", "Sticker pack"],
   },
   "relay-runner": {
     name: "Relay runner",
     price: 30,
-    rewards: ["Running", "Sticker pack", "Running socks", "1 raffle ticket"],
   },
   marathoner: {
     name: "Marathoner",
     price: 60,
-    rewards: [
-      "Running",
-      "Sticker pack",
-      "Running t-shirt",
-      "Traditional Ukrainian meal",
-      "3 raffle tickets",
-    ],
   },
   ultramarathoner: {
     name: "Ultramarathoner",
     price: 100,
-    rewards: [
-      "Running",
-      "Sticker pack",
-      "Silk scarf by a Ukrainian designer brand",
-      "Traditional Ukrainian meal",
-      "5 raffle tickets",
-    ],
   },
 };
 
-export function filterRewards(rewards: string[], participationType: ParticipationType): string[] {
-  if (participationType === "runner") return rewards;
-  return rewards.filter((r) => !RUNNER_ONLY_REWARDS.has(r));
+/**
+ * Reward text lives per-language in the email locales (tierRewards) so the
+ * same list is reused for both the API response and the confirmation
+ * emails. `runnerOnly` items are prepended before `base` items, and only
+ * included for participationType "runner".
+ */
+export function getLocalizedRewards(
+  tierId: TierId,
+  participationType: ParticipationType,
+  language: string,
+): string[] {
+  const localeCode = LANGUAGE_TO_LOCALE[language as Language] ?? "en";
+  const { base, runnerOnly } = getEmailLocale(localeCode).tierRewards[tierId];
+  const baseList = base.split(" · ").filter(Boolean);
+  if (participationType !== "runner") return baseList;
+  return [...runnerOnly.split(" · ").filter(Boolean), ...baseList];
 }
 
 export function getTierPrice(tierId: string): number {

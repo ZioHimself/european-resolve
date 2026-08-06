@@ -1,7 +1,7 @@
 import type { EmailLocale } from "./types.js";
 
 export const de: EmailLocale = {
-  subject: "35 Years of 🇺🇦 Independence: Charity and Run — Anmeldung bestätigt!",
+  subject: "35 Years of 🇺🇦 Independence: Charity and Run | Anmeldung bestätigt!",
   greeting: "Hallo {name},",
   confirmationIntro:
     "Deine Anmeldung für 35 Years of 🇺🇦 Independence: Charity and Run ist bestätigt. Hier sind deine Daten:",
@@ -28,17 +28,17 @@ export const de: EmailLocale = {
   footerPaymentEmail:
     "Du erhältst eine weitere E-Mail, sobald deine Zahlung bestätigt ist.",
   fundraiserSubject:
-    "35 Years of 🇺🇦 Independence: Charity and Run — Deine Spendenseite ist online!",
+    "35 Years of 🇺🇦 Independence: Charity and Run | Deine Spendenseite ist online!",
   fundraiserIntro:
     "Tolle Neuigkeiten, {name}! Du bist angemeldet UND deine persönliche Spendenseite ist online. Teile den Link mit Freunden und Familie, um dein Ziel zu erreichen.",
   fundraiserHeading: "Deine Spendenseite",
   fundraiserPageLabel: "Teile diesen Link",
   fundraiserEditLabel: "Seite bearbeiten",
   fundraiserEditHint:
-    "Speichere diesen Link — er ist der einzige Weg, deine Spendenseite zu bearbeiten. Teile ihn nicht öffentlich.",
+    "Speichere diesen Link. Er ist der einzige Weg, deine Spendenseite zu bearbeiten. Teile ihn nicht öffentlich.",
   fundraiserDisplayNameLabel: "Anzeigename",
   fundraiserGoalLabel: "Persönliches Ziel",
-  paymentSubject: "35 Years of 🇺🇦 Independence: Charity and Run — Zahlung bestätigt!",
+  paymentSubject: "35 Years of 🇺🇦 Independence: Charity and Run | Zahlung bestätigt!",
   paymentIntro:
     "Deine Spende ist eingegangen. Hier ist deine bestätigte Anmeldung:",
   paymentRewardsLabel: "Deine Belohnungen",
@@ -46,4 +46,20 @@ export const de: EmailLocale = {
     "Danke, dass du die Verteidiger der Ukraine unterstützt! Jeder Euro finanziert Ladestationen an der Front.",
   paymentFooter:
     "Dies ist deine Zahlungsbestätigung von European Resolve VZW für 35 Years of 🇺🇦 Independence: Charity and Run.",
+  tierRewards: {
+    supporter: { base: "Erfahre, wie deine Spende geholfen hat", runnerOnly: "" },
+    sprinter: { base: "Sticker-Set", runnerOnly: "Laufen" },
+    "relay-runner": {
+      base: "Sticker-Set · Laufsocken · 1 Tombola-Los",
+      runnerOnly: "Laufen",
+    },
+    marathoner: {
+      base: "Sticker-Set · Traditionelles ukrainisches Essen · 3 Tombola-Lose",
+      runnerOnly: "Laufen · Lauf-T-Shirt",
+    },
+    ultramarathoner: {
+      base: "Sticker-Set · Seidenschal einer ukrainischen Designermarke · Traditionelles ukrainisches Essen · 5 Tombola-Lose",
+      runnerOnly: "Laufen",
+    },
+  },
 };

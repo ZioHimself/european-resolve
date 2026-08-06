@@ -1,7 +1,7 @@
 import type { EmailLocale } from "./types.js";
 
 export const fr: EmailLocale = {
-  subject: "35 Years of 🇺🇦 Independence: Charity and Run — Inscription confirmée !",
+  subject: "35 Years of 🇺🇦 Independence: Charity and Run | Inscription confirmée !",
   greeting: "Bonjour {name},",
   confirmationIntro:
     "Votre inscription à 35 Years of 🇺🇦 Independence: Charity and Run est confirmée. Voici vos détails :",
@@ -28,17 +28,17 @@ export const fr: EmailLocale = {
   footerPaymentEmail:
     "Vous recevrez un dernier e-mail lorsque votre paiement sera confirmé.",
   fundraiserSubject:
-    "35 Years of 🇺🇦 Independence: Charity and Run — Votre page de collecte est en ligne !",
+    "35 Years of 🇺🇦 Independence: Charity and Run | Votre page de collecte est en ligne !",
   fundraiserIntro:
     "Bonne nouvelle, {name} ! Vous êtes inscrit(e) ET votre page de collecte personnelle est en ligne. Partagez-la avec vos proches pour atteindre votre objectif.",
   fundraiserHeading: "Votre page de collecte",
   fundraiserPageLabel: "Partagez ce lien",
   fundraiserEditLabel: "Modifier votre page",
   fundraiserEditHint:
-    "Conservez ce lien — c'est le seul moyen de modifier votre page de collecte. Ne le partagez pas publiquement.",
+    "Conservez ce lien. C'est le seul moyen de modifier votre page de collecte. Ne le partagez pas publiquement.",
   fundraiserDisplayNameLabel: "Nom affiché",
   fundraiserGoalLabel: "Objectif personnel",
-  paymentSubject: "35 Years of 🇺🇦 Independence: Charity and Run — Paiement confirmé !",
+  paymentSubject: "35 Years of 🇺🇦 Independence: Charity and Run | Paiement confirmé !",
   paymentIntro:
     "Votre don a été reçu. Voici votre inscription confirmée :",
   paymentRewardsLabel: "Vos récompenses",
@@ -46,4 +46,20 @@ export const fr: EmailLocale = {
     "Merci de soutenir les défenseurs de l'Ukraine ! Chaque euro finance des stations de recharge sur le front.",
   paymentFooter:
     "Ceci est votre reçu de paiement d'European Resolve VZW pour 35 Years of 🇺🇦 Independence: Charity and Run.",
+  tierRewards: {
+    supporter: { base: "Découvrez l'impact de votre don", runnerOnly: "" },
+    sprinter: { base: "Pack d'autocollants", runnerOnly: "Course" },
+    "relay-runner": {
+      base: "Pack d'autocollants · Chaussettes de course · 1 ticket de tombola",
+      runnerOnly: "Course",
+    },
+    marathoner: {
+      base: "Pack d'autocollants · Repas traditionnel ukrainien · 3 tickets de tombola",
+      runnerOnly: "Course · T-shirt de course",
+    },
+    ultramarathoner: {
+      base: "Pack d'autocollants · Foulard en soie d'une marque de créateur ukrainienne · Repas traditionnel ukrainien · 5 tickets de tombola",
+      runnerOnly: "Course",
+    },
+  },
 };

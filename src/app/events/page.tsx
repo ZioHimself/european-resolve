@@ -5,7 +5,7 @@ import { EventTimeline } from "@/components/ui/EventTimeline";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Events — European Resolve",
+  title: "Events | European Resolve",
   description: "Events organised and attended by European Resolve",
 };
 

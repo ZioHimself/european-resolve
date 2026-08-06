@@ -485,7 +485,7 @@ describe("FundraiseForm", () => {
       expect(screen.getByText("Jane Doe")).toBeInTheDocument();
       expect(screen.getByText("jane@example.com")).toBeInTheDocument();
       expect(screen.getByText("Belgium")).toBeInTheDocument();
-      expect(screen.getByText(/Supporter — €10/)).toBeInTheDocument();
+      expect(screen.getByText(/Supporter \(€10\)/)).toBeInTheDocument();
     });
 
     it("shows photo status as None when no photo uploaded", () => {
@@ -495,7 +495,7 @@ describe("FundraiseForm", () => {
     it("shows submit button with price", () => {
       expect(
         screen.getByRole("button", {
-          name: /create page and register — €10/i,
+          name: /create page and register \(€10\)/i,
         }),
       ).toBeInTheDocument();
     });
@@ -842,7 +842,7 @@ describe("FundraiseForm", () => {
       expect(screen.getByText("Serhiy K")).toBeInTheDocument();
       expect(screen.getByText("s@test.com")).toBeInTheDocument();
       expect(screen.getByText("Ukraine")).toBeInTheDocument();
-      expect(screen.getByText(/Marathoner — €60/)).toBeInTheDocument();
+      expect(screen.getByText(/Marathoner \(€60\)/)).toBeInTheDocument();
 
       clickBack();
       expect(screen.getByLabelText(/first name/i)).toHaveValue("Serhiy");
@@ -991,7 +991,7 @@ describe("FundraiseForm", () => {
       clickNext();
       expect(
         screen.getByRole("button", {
-          name: /create page and register — €100/i,
+          name: /create page and register \(€100\)/i,
         }),
       ).toBeInTheDocument();
     });

@@ -5,7 +5,7 @@ export const en = {
   "hero.overline": "Charity run · Brussels",
   "hero.title": "35 Years of 🇺🇦 Independence: Charity and Run",
   "hero.description":
-    "On Sunday, 23 August, join us to celebrate 35 years of Ukrainian independence! We'll unfold the flag, run 5 or 8 kilometres together, and gather after at the community village for food, friends, and a charity raffle. Our bigger goal: raise €3,000 with Hurkit to equip Ukraine's defenders with reliable power in the field — check your support options below and bring your mates and family along.",
+    "On Sunday, 23 August, join us to celebrate 35 years of Ukrainian independence! We'll unfold the flag, run 5 or 8 kilometres together, and gather after at the community village for food, friends, and a charity raffle. Our bigger goal: raise €3,000 with Hurkit to equip Ukraine's defenders with reliable power in the field. Check your support options below and bring your mates and family along.",
   "hero.beneficiary": "Beneficiary:",
 
   // tracks
@@ -14,13 +14,13 @@ export const en = {
   "tracks.trackAOverline": "Track A",
   "tracks.trackATitle": "Join the Campaign",
   "tracks.trackADescription":
-    "Pick a tier and contribute directly — run on the day or simply support from anywhere. Your fee funds charging stations for defenders.",
+    "Pick a tier and contribute directly: run on the day or simply support from anywhere. Your fee funds charging stations for defenders.",
   "tracks.trackAFeatures": "Choose your tier · Rewards vary · Run optional",
   "tracks.trackACta": "See tiers →",
   "tracks.trackBOverline": "Track B",
   "tracks.trackBTitle": "Fundraise for the Team",
   "tracks.trackBDescription":
-    "Create a personal fundraising page and rally your network. Every donation counts toward the collective goal — then show up and run.",
+    "Create a personal fundraising page and rally your network. Every donation counts toward the collective goal, then show up and run.",
   "tracks.trackBFeatures": "Personal page · Shareable link · Live stats",
   "tracks.trackBCta": "Create my page →",
 
@@ -83,7 +83,7 @@ export const en = {
   "register.confirmAfterDonation": "After completing your donation above:",
   "register.confirmButton": "I\u2019ve completed my donation",
   "register.confirmingPayment": "Confirming\u2026",
-  "register.confirmedHeading": "Payment received — thank you!",
+  "register.confirmedHeading": "Payment received, thank you!",
   "register.confirmedRunner":
     "Your registration is now complete. You'll receive your race materials at the event.",
   "register.confirmedSupporter":
@@ -101,17 +101,39 @@ export const en = {
   "register.alreadyPaidMessage":
     "We've received your payment and will keep you posted with campaign and event updates.",
   "register.alreadyPaidCta": "Back to event page",
+  "register.paymentReceivedHeading": "Thank you, your payment was received!",
+  "register.paymentReceivedMessage": "We will keep you posted via email.",
 
   // tierCard
   "tierCard.badge": "Most chosen",
   "tierCard.selected": "Selected",
   "tierCard.select": "Select {tierName}",
+  "tierCard.tagline.supporter": "Support the mission without running 🪷",
+  "tierCard.tagline.sprinter": "You are always the first to participate! 🙋",
+  "tierCard.tagline.relay-runner":
+    "Get that baton and carry the mission forward 💪",
+  "tierCard.tagline.marathoner": "Go the distance for Ukraine 🚀",
+  "tierCard.tagline.ultramarathoner":
+    "Night or day, your commitment is endless 💫",
+  "tierCard.rewards.supporter": "Hear how your donation helped",
+  "tierCard.rewards.sprinter": "Sticker pack",
+  "tierCard.rewards.relay-runner":
+    "Sticker pack · Running socks · 1 raffle ticket",
+  "tierCard.rewards.marathoner":
+    "Sticker pack · Traditional Ukrainian meal · 3 raffle tickets",
+  "tierCard.rewards.ultramarathoner":
+    "Sticker pack · Silk scarf by a Ukrainian designer brand · Traditional Ukrainian meal · 5 raffle tickets",
+  "tierCard.rewardsRunner.supporter": "",
+  "tierCard.rewardsRunner.sprinter": "Running",
+  "tierCard.rewardsRunner.relay-runner": "Running",
+  "tierCard.rewardsRunner.marathoner": "Running · Running t-shirt",
+  "tierCard.rewardsRunner.ultramarathoner": "Running",
 
   // fundraise
   "fundraise.overline": "Track B · Fundraise for the Team",
   "fundraise.title": "Your fundraising page",
   "fundraise.subtitle":
-    "Takes about a minute. Share your page with friends and family to help reach the collective goal — then show up and run.",
+    "Takes about a minute. Share your page with friends and family to help reach the collective goal, then show up and run.",
   "fundraise.step1": "1. Your page",
   "fundraise.step2": "2. Runner details",
   "fundraise.step3": "3. Review",
@@ -153,7 +175,7 @@ export const en = {
   "fundraise.reviewEmail": "Email",
   "fundraise.reviewTshirt": "T-shirt",
   "fundraise.reviewCountry": "Country",
-  "fundraise.submitButton": "Create page and register — €{price}",
+  "fundraise.submitButton": "Create page and register (€{price})",
   "fundraise.submitting": "Creating\u2026",
   "fundraise.networkError":
     "Network error. Please check your connection and try again.",
@@ -173,11 +195,11 @@ export const en = {
 
   // confirmation (FundraiserConfirmation)
   "confirmation.heading": "Your fundraising page is ready!",
-  "confirmation.subheading": "Share your page with friends and family — {name}",
+  "confirmation.subheading": "Share your page with friends and family, {name}",
   "confirmation.shareableLink": "Your shareable link",
   "confirmation.copy": "Copy",
   "confirmation.copied": "Copied!",
-  "confirmation.editLink": "Secret edit link — save this!",
+  "confirmation.editLink": "Secret edit link, save this!",
   "confirmation.editHint":
     "This link lets you edit and publish your page. Keep it private.",
   "confirmation.registrationHeading": "Runner registration",
@@ -191,7 +213,7 @@ export const en = {
   "confirmation.afterDonation": "After completing your donation above:",
   "confirmation.confirmButton": "I\u2019ve completed my donation",
   "confirmation.confirming": "Confirming\u2026",
-  "confirmation.confirmed": "Payment confirmed — you're all set!",
+  "confirmation.confirmed": "Payment confirmed, you're all set!",
   "confirmation.confirmError": "Could not confirm payment. Please try again.",
   "confirmation.confirmFailed": "Confirmation failed",
   "confirmation.interruptedSession":
@@ -206,12 +228,12 @@ export const en = {
     "This fundraiser doesn't exist or may have been removed.",
   "fundraiser.createOwn": "Create your own fundraiser →",
   "fundraiser.draftBanner":
-    "This page is a draft — only the creator can see it",
+    "This page is a draft. Only the creator can see it",
   "fundraiser.nameSuffix": "'s page",
   "fundraiser.personalGoal": "Personal goal: €{goal}",
   "fundraiser.raisedSoFar": "Raised so far: €{raised}",
   "fundraiser.collectiveTotal":
-    "Part of one shared campaign — €{total} raised together so far",
+    "Part of one shared campaign: €{total} raised together so far",
   "fundraiser.donateHeading": "Donate",
   "fundraiser.shareHeading": "Share this page",
   "fundraiser.ctaButton": "Support {name}",
@@ -229,9 +251,9 @@ export const en = {
 
   // donorWall
   "donorWall.heading": "Supporters",
-  "donorWall.empty": "No supporters yet — be the first!",
+  "donorWall.empty": "No supporters yet, be the first!",
   "donorWall.loading": "Loading\u2026",
-  "donorWall.gateButton": "I've donated — leave a message of support",
+  "donorWall.gateButton": "I've donated, leave a message of support",
   "donorWall.nameLabel": "Your name",
   "donorWall.namePlaceholder": "How you want to appear",
   "donorWall.messageLabel": "Your message",

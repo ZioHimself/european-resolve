@@ -1,7 +1,7 @@
 import { randomBytes } from "node:crypto";
 import { google, type sheets_v4 } from "googleapis";
 import { config } from "../config.js";
-import { getTierPrice, TIER_DATA, filterRewards } from "../tiers.js";
+import { getTierPrice, TIER_DATA, getLocalizedRewards } from "../tiers.js";
 import type {
   RegisterRequest,
   FundraiserCreateRequest,
@@ -22,6 +22,7 @@ export interface ExistingRegistration {
   paymentToken: string;
   participationType: string;
   status: string;
+  language: string;
 }
 
 export interface FundraiserRow {
@@ -91,6 +92,7 @@ export class SheetsService {
           status: (row[13] as string) ?? "pending",
           firstName: (row[19] as string) ?? "",
           lastName: (row[20] as string) ?? "",
+          language: (row[5] as string) ?? "English",
         };
       }
     }
@@ -247,15 +249,17 @@ export class SheetsService {
       await this.publishFundraiserBySlug(fundraiserSlug);
     }
 
+    const language = (row[5] as string) ?? "English";
+
     return {
       success: true,
       participantId: row[0] as string,
       fullName: row[1] as string,
       email: row[2] as string,
-      language: (row[5] as string) ?? "English",
+      language,
       tierName: tier?.name ?? (row[7] as string),
       amountEur: recordedAmount,
-      rewards: tier ? filterRewards(tier.rewards, participationType) : [],
+      rewards: tier ? getLocalizedRewards(tierId as TierId, participationType, language) : [],
     };
   }
 

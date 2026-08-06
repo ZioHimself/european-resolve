@@ -58,7 +58,7 @@ export function ProgressSection() {
 
   const raised = progress
     ? `€${progress.totalRaisedEur.toLocaleString("en-GB")}`
-    : "—";
+    : "-";
   const goalPct = progress ? `${progress.goalPercent}%` : "0%";
   const participants = progress ? String(progress.participantCount) : "0";
   const donors = progress ? String(progress.donorCount) : "0";

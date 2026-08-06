@@ -567,7 +567,7 @@ export function FundraiseForm() {
               <div className={styles.reviewRow}>
                 <span className={styles.reviewKey}>{t("fundraise.reviewTier")}</span>
                 <span className={styles.reviewValue}>
-                  {selectedTier ? `${selectedTier.name} — €${selectedTier.price}` : "—"}
+                  {selectedTier ? `${selectedTier.name} (€${selectedTier.price})` : "-"}
                 </span>
               </div>
               <div className={styles.reviewRow}>
@@ -601,7 +601,7 @@ export function FundraiseForm() {
             >
               {submitting
                 ? t("fundraise.submitting")
-                : t("fundraise.submitButton", { price: String(selectedTier?.price ?? "—") })}
+                : t("fundraise.submitButton", { price: String(selectedTier?.price ?? "-") })}
             </button>
           </div>
         </div>

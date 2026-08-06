@@ -156,6 +156,7 @@ A charity run event platform at `european-resolve.org/events/2026-run-for-ukrain
   - Compact: common stem + `_` + feminine ending — `ти зроби_ла`, `ти взя_ла`.
   - Full: both forms separated by a slash — `ти зробив/зробила`, `ти взяв/взяла`.
 - **Ukraine's defenders include servicewomen** — always use both forms, e.g. `для військовослужбовиць і військовослужбовців`, `для захисниць і захисників`. Never write `захисників`/`військовослужбовців` alone when referring to Ukraine's defenders collectively.
+- **Never use an em dash (—) in user-facing copy.** It's a clear tell of AI-generated text. Use a period, a comma, or restructure the sentence instead. Applies to prose copy: locale strings, email copy, UI text. Code comments are not affected.
 <!-- GSD:conventions-end -->
 
 <!-- GSD:architecture-start source:ARCHITECTURE.md -->

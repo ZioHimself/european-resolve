@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — European Resolve",
+  title: "Privacy Policy | European Resolve",
   description:
     "How European Resolve VZW handles personal data under GDPR, including event registration and fundraising.",
 };
@@ -168,7 +168,7 @@ export default function PrivacyPage() {
           <strong>Restrict</strong> or <strong>object</strong> to processing
         </li>
         <li>
-          <strong>Data portability</strong> — receive your data in a structured
+          <strong>Data portability</strong>: receive your data in a structured
           format
         </li>
         <li>

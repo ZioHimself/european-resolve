@@ -107,3 +107,35 @@ describe("RegisterClient — URL token vs cached session", () => {
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 });
+
+describe("RegisterClient — payment redirect on an unrelated device", () => {
+  // Regression: a payment provider can redirect back with
+  // redirect_status=succeeded on a *different* device than the one that
+  // started registration (e.g. scanning a QR code with a phone) — no
+  // token, no cached session, so there's no way to know which registration
+  // it belongs to. It used to fall through to the tier grid, which reads
+  // as if nothing happened.
+  it("shows a generic thank-you instead of the tier grid when redirected with no token and no cached session", () => {
+    window.history.replaceState(
+      {},
+      "",
+      "?payment_intent=pi_123&payment_intent_client_secret=pi_123_secret_abc&redirect_status=succeeded",
+    );
+
+    render(<RegisterClient />);
+
+    expect(
+      screen.getByText("Thank you, your payment was received!"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("We will keep you posted via email.")).toBeInTheDocument();
+    expect(screen.queryByTestId("confirmation-panel")).not.toBeInTheDocument();
+  });
+
+  it("shows the tier grid as normal when there is no redirect_status in the URL", () => {
+    render(<RegisterClient />);
+
+    expect(
+      screen.queryByText("Thank you, your payment was received!"),
+    ).not.toBeInTheDocument();
+  });
+});

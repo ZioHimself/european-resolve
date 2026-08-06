@@ -1,7 +1,7 @@
 import type { EmailLocale } from "./types.js";
 
 export const nl: EmailLocale = {
-  subject: "35 Years of 🇺🇦 Independence: Charity and Run — Inschrijving bevestigd!",
+  subject: "35 Years of 🇺🇦 Independence: Charity and Run | Inschrijving bevestigd!",
   greeting: "Hallo {name},",
   confirmationIntro:
     "Je inschrijving voor 35 Years of 🇺🇦 Independence: Charity and Run is bevestigd. Hier zijn je gegevens:",
@@ -28,17 +28,17 @@ export const nl: EmailLocale = {
   footerPaymentEmail:
     "Je ontvangt nog één e-mail wanneer je betaling is bevestigd.",
   fundraiserSubject:
-    "35 Years of 🇺🇦 Independence: Charity and Run — Je actiepagina staat online!",
+    "35 Years of 🇺🇦 Independence: Charity and Run | Je actiepagina staat online!",
   fundraiserIntro:
     "Goed nieuws, {name}! Je bent ingeschreven ÉN je persoonlijke actiepagina staat online. Deel de link met vrienden en familie om je doel te bereiken.",
   fundraiserHeading: "Je actiepagina",
   fundraiserPageLabel: "Deel deze link",
   fundraiserEditLabel: "Bewerk je pagina",
   fundraiserEditHint:
-    "Bewaar deze link — het is de enige manier om je actiepagina te bewerken. Deel deze niet publiekelijk.",
+    "Bewaar deze link. Het is de enige manier om je actiepagina te bewerken. Deel deze niet publiekelijk.",
   fundraiserDisplayNameLabel: "Weergavenaam",
   fundraiserGoalLabel: "Persoonlijk doel",
-  paymentSubject: "35 Years of 🇺🇦 Independence: Charity and Run — Betaling bevestigd!",
+  paymentSubject: "35 Years of 🇺🇦 Independence: Charity and Run | Betaling bevestigd!",
   paymentIntro:
     "Je donatie is ontvangen. Hier is je bevestigde inschrijving:",
   paymentRewardsLabel: "Jouw beloningen",
@@ -46,4 +46,20 @@ export const nl: EmailLocale = {
     "Bedankt voor je steun aan de verdedigers van Oekraïne! Elke euro financiert laadstations aan het front.",
   paymentFooter:
     "Dit is je betalingsbewijs van European Resolve VZW voor 35 Years of 🇺🇦 Independence: Charity and Run.",
+  tierRewards: {
+    supporter: { base: "Hoor hoe je donatie heeft geholpen", runnerOnly: "" },
+    sprinter: { base: "Stickerpakket", runnerOnly: "Lopen" },
+    "relay-runner": {
+      base: "Stickerpakket · Hardloopsokken · 1 tombolalot",
+      runnerOnly: "Lopen",
+    },
+    marathoner: {
+      base: "Stickerpakket · Traditionele Oekraïense maaltijd · 3 tombolaloten",
+      runnerOnly: "Lopen · Hardloopshirt",
+    },
+    ultramarathoner: {
+      base: "Stickerpakket · Zijden sjaal van een Oekraïens designmerk · Traditionele Oekraïense maaltijd · 5 tombolaloten",
+      runnerOnly: "Lopen",
+    },
+  },
 };

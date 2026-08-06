@@ -5,7 +5,7 @@ export const de = {
   "hero.overline": "Wohltätigkeitslauf · Brüssel",
   "hero.title": "35 Jahre 🇺🇦 Unabhängigkeit: Wohltätigkeit und Lauf",
   "hero.description":
-    "Am Sonntag, den 23. August, feiern wir gemeinsam 35 Jahre ukrainische Unabhängigkeit! Wir entfalten die Flagge, laufen zusammen 5 oder 8 Kilometer und treffen uns danach im Gemeinschaftsdorf für Essen, Freunde und eine wohltätige Tombola. Unser größeres Ziel: gemeinsam mit Hurkit 3.000 € sammeln, um die Verteidiger der Ukraine mit zuverlässiger Energie im Feld auszustatten — schaut euch unten unsere Unterstützungsoptionen an und bringt eure Kumpels und Familie mit!",
+    "Am Sonntag, den 23. August, feiern wir gemeinsam 35 Jahre ukrainische Unabhängigkeit! Wir entfalten die Flagge, laufen zusammen 5 oder 8 Kilometer und treffen uns danach im Gemeinschaftsdorf für Essen, Freunde und eine wohltätige Tombola. Unser größeres Ziel: gemeinsam mit Hurkit 3.000 € sammeln, um die Verteidiger der Ukraine mit zuverlässiger Energie im Feld auszustatten. Schaut euch unten unsere Unterstützungsoptionen an und bringt eure Kumpels und Familie mit!",
   "hero.beneficiary": "Begünstigter:",
 
   // tracks
@@ -15,14 +15,14 @@ export const de = {
   "tracks.trackAOverline": "Strecke A",
   "tracks.trackATitle": "Kampagne Beitreten",
   "tracks.trackADescription":
-    "Wählen Sie eine Stufe und tragen Sie direkt bei — laufen Sie am Tag selbst mit oder unterstützen Sie einfach von überall. Ihr Beitrag finanziert Ladestationen für Verteidiger.",
+    "Wählen Sie eine Stufe und tragen Sie direkt bei: laufen Sie am Tag selbst mit oder unterstützen Sie einfach von überall. Ihr Beitrag finanziert Ladestationen für Verteidiger.",
   "tracks.trackAFeatures":
     "Stufe nach Wahl · Prämien variieren · Laufen optional",
   "tracks.trackACta": "Stufen ansehen →",
   "tracks.trackBOverline": "Strecke B",
   "tracks.trackBTitle": "Spenden sammeln fürs Team",
   "tracks.trackBDescription":
-    "Erstellen Sie Ihre persönliche Spendenseite und mobilisieren Sie Ihr Netzwerk. Jede Spende zählt für das gemeinsame Ziel — dann kommen Sie selbst zum Laufen.",
+    "Erstellen Sie Ihre persönliche Spendenseite und mobilisieren Sie Ihr Netzwerk. Jede Spende zählt für das gemeinsame Ziel, dann kommen Sie selbst zum Laufen.",
   "tracks.trackBFeatures":
     "Persönliche Seite · Teilbarer Link · Live-Statistiken",
   "tracks.trackBCta": "Meine Seite erstellen →",
@@ -88,7 +88,7 @@ export const de = {
   "register.confirmAfterDonation": "Nach Abschluss Ihrer Spende oben:",
   "register.confirmButton": "Ich habe meine Spende abgeschlossen",
   "register.confirmingPayment": "Bestätigung\u2026",
-  "register.confirmedHeading": "Zahlung erhalten — vielen Dank!",
+  "register.confirmedHeading": "Zahlung erhalten, vielen Dank!",
   "register.confirmedRunner":
     "Ihre Anmeldung ist nun vollständig. Sie erhalten Ihr Laufmaterial bei der Veranstaltung.",
   "register.confirmedSupporter":
@@ -107,17 +107,38 @@ export const de = {
   "register.alreadyPaidMessage":
     "Wir haben Ihre Zahlung erhalten und halten Sie über Neuigkeiten zur Kampagne und Veranstaltung auf dem Laufenden.",
   "register.alreadyPaidCta": "Zurück zur Veranstaltungsseite",
+  "register.paymentReceivedHeading": "Danke, Ihre Zahlung wurde erhalten!",
+  "register.paymentReceivedMessage": "Wir halten Sie per E-Mail auf dem Laufenden.",
 
   // tierCard
   "tierCard.badge": "Am häufigsten gewählt",
   "tierCard.selected": "Ausgewählt",
   "tierCard.select": "{tierName} auswählen",
+  "tierCard.tagline.supporter": "Unterstütze die Mission, ohne zu laufen 🪷",
+  "tierCard.tagline.sprinter": "Du bist immer der Erste, der dabei ist! 🙋",
+  "tierCard.tagline.relay-runner":
+    "Nimm den Staffelstab und trage die Mission weiter 💪",
+  "tierCard.tagline.marathoner": "Geh die Distanz für die Ukraine 🚀",
+  "tierCard.tagline.ultramarathoner":
+    "Tag oder Nacht, dein Einsatz kennt keine Grenzen 💫",
+  "tierCard.rewards.supporter": "Erfahre, wie deine Spende geholfen hat",
+  "tierCard.rewards.sprinter": "Sticker-Set",
+  "tierCard.rewards.relay-runner": "Sticker-Set · Laufsocken · 1 Tombola-Los",
+  "tierCard.rewards.marathoner":
+    "Sticker-Set · Traditionelles ukrainisches Essen · 3 Tombola-Lose",
+  "tierCard.rewards.ultramarathoner":
+    "Sticker-Set · Seidenschal einer ukrainischen Designermarke · Traditionelles ukrainisches Essen · 5 Tombola-Lose",
+  "tierCard.rewardsRunner.supporter": "",
+  "tierCard.rewardsRunner.sprinter": "Laufen",
+  "tierCard.rewardsRunner.relay-runner": "Laufen",
+  "tierCard.rewardsRunner.marathoner": "Laufen · Lauf-T-Shirt",
+  "tierCard.rewardsRunner.ultramarathoner": "Laufen",
 
   // fundraise
   "fundraise.overline": "Strecke B · Spenden sammeln fürs Team",
   "fundraise.title": "Ihre Spendenseite",
   "fundraise.subtitle":
-    "Das dauert etwa eine Minute. Teilen Sie Ihre Seite mit Freunden und Familie, um das gemeinsame Ziel zu erreichen — dann kommen Sie selbst zum Laufen.",
+    "Das dauert etwa eine Minute. Teilen Sie Ihre Seite mit Freunden und Familie, um das gemeinsame Ziel zu erreichen, dann kommen Sie selbst zum Laufen.",
   "fundraise.step1": "1. Ihre Seite",
   "fundraise.step2": "2. Läuferdaten",
   "fundraise.step3": "3. Überprüfung",
@@ -160,7 +181,7 @@ export const de = {
   "fundraise.reviewEmail": "E-Mail",
   "fundraise.reviewTshirt": "T-Shirt",
   "fundraise.reviewCountry": "Land",
-  "fundraise.submitButton": "Seite erstellen und anmelden — €{price}",
+  "fundraise.submitButton": "Seite erstellen und anmelden (€{price})",
   "fundraise.submitting": "Erstellen\u2026",
   "fundraise.networkError":
     "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
@@ -185,11 +206,11 @@ export const de = {
   // confirmation (FundraiserConfirmation)
   "confirmation.heading": "Ihre Spendenseite ist fertig!",
   "confirmation.subheading":
-    "Teilen Sie Ihre Seite mit Freunden und Familie — {name}",
+    "Teilen Sie Ihre Seite mit Freunden und Familie, {name}",
   "confirmation.shareableLink": "Ihr teilbarer Link",
   "confirmation.copy": "Kopieren",
   "confirmation.copied": "Kopiert!",
-  "confirmation.editLink": "Geheimer Bearbeitungslink — bewahren Sie ihn auf!",
+  "confirmation.editLink": "Geheimer Bearbeitungslink, bewahren Sie ihn auf!",
   "confirmation.editHint":
     "Mit diesem Link können Sie Ihre Seite bearbeiten und veröffentlichen. Halten Sie ihn privat.",
   "confirmation.registrationHeading": "Läuferanmeldung",
@@ -203,7 +224,7 @@ export const de = {
   "confirmation.afterDonation": "Nach Abschluss Ihrer Spende oben:",
   "confirmation.confirmButton": "Ich habe meine Spende abgeschlossen",
   "confirmation.confirming": "Bestätigung\u2026",
-  "confirmation.confirmed": "Zahlung bestätigt — alles erledigt!",
+  "confirmation.confirmed": "Zahlung bestätigt, alles erledigt!",
   "confirmation.confirmError":
     "Zahlung konnte nicht bestätigt werden. Bitte versuchen Sie es erneut.",
   "confirmation.confirmFailed": "Bestätigung fehlgeschlagen",
@@ -219,12 +240,12 @@ export const de = {
     "Diese Spendenseite existiert nicht oder wurde entfernt.",
   "fundraiser.createOwn": "Erstellen Sie Ihre eigene Spendenseite →",
   "fundraiser.draftBanner":
-    "Diese Seite ist ein Entwurf — nur der Ersteller kann sie sehen",
+    "Diese Seite ist ein Entwurf. Nur der Ersteller kann sie sehen",
   "fundraiser.nameSuffix": "s Seite",
   "fundraiser.personalGoal": "Persönliches Ziel: €{goal}",
   "fundraiser.raisedSoFar": "Bisher gesammelt: €{raised}",
   "fundraiser.collectiveTotal":
-    "Teil einer gemeinsamen Kampagne — €{total} gemeinsam gesammelt",
+    "Teil einer gemeinsamen Kampagne: €{total} gemeinsam gesammelt",
   "fundraiser.donateHeading": "Spenden",
   "fundraiser.shareHeading": "Diese Seite teilen",
   "fundraiser.ctaButton": "{name} unterstützen",
@@ -242,10 +263,10 @@ export const de = {
 
   // donorWall
   "donorWall.heading": "Unterstützer",
-  "donorWall.empty": "Noch keine Unterstützer — seien Sie der Erste!",
+  "donorWall.empty": "Noch keine Unterstützer, seien Sie der Erste!",
   "donorWall.loading": "Laden\u2026",
   "donorWall.gateButton":
-    "Ich habe gespendet — eine Unterstützungsnachricht hinterlassen",
+    "Ich habe gespendet, eine Unterstützungsnachricht hinterlassen",
   "donorWall.nameLabel": "Ihr Name",
   "donorWall.namePlaceholder": "Wie Sie erscheinen möchten",
   "donorWall.messageLabel": "Ihre Nachricht",
