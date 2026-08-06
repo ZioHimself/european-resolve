@@ -106,7 +106,7 @@ export const uk = {
   "register.alreadyPaidCta": "Повернутися на сторінку події",
   "register.paymentReceivedHeading": "Дякуємо, оплату отримано!",
   "register.paymentReceivedMessage":
-    "Ми повідомлятимемо тебе електронною поштою.",
+    "Ми триматимемо тебе в курсі нашої кампанії електронною поштою.",
 
   // tierCard
   "tierCard.badge": "Найпопулярніший",
