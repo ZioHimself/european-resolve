@@ -142,18 +142,36 @@
   color: var(--color-link-hover);
 }
 
-/* Internal hub links — TrackCards-style participation CTA */
+/* Internal hub links — secondary outline button (matches FundraiseForm ghostButton) */
 .linkInternal {
-  font-size: var(--text-base);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: var(--text-sm);
   font-weight: var(--font-medium);
-  color: var(--color-link);
+  font-family: inherit;
+  line-height: var(--leading-normal);
   text-decoration: none;
-  text-underline-offset: 2px;
-}
+  transition:
+    background var(--duration-fast) var(--easing-default),
+    border-color var(--duration-fast) var(--easing-default);
 
-.linkInternal:hover {
-  color: var(--color-link-hover);
-  text-decoration: underline;
+  &:hover {
+    background: var(--color-black-05);
+    border-color: var(--color-black-40);
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: var(--focus-offset);
+  }
 }
 
 .tags {
