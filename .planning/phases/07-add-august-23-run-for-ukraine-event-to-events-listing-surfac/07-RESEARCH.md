@@ -419,17 +419,14 @@ organizers:          [Embassy, Ukrainian Voices, European Resolve — Co-organis
 | A3 | Events page remains EN-only; `announcement_title` need not go through `t()` | Claude's Discretion | Minor copy inconsistency if i18n added later |
 | A4 | Google Drive URL will be direct-download and reachable within 15s at build | Pitfall 3 | Missing thumbnail on card |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
-1. **Ukrainian Voices URL confirmation**
-   - What we know: Web presence at `uv-rc.org` for "Ukrainian Voices RC" / UVRC in Belgium [CITED: https://uv-rc.org/about/]
-   - What's unclear: Whether team prefers `uv-rc.org` vs another domain
-   - Recommendation: Use `https://uv-rc.org/` in spreadsheet; flag `[ASSUMED]` for human verify at ops checkpoint
+1. **Ukrainian Voices URL confirmation** — RESOLVED
+   - Resolution: Use `https://uv-rc.org/` in spreadsheet row (Plan 03 Task 1). Flag `[ASSUMED]` for human verify at ops checkpoint.
+   - Source: RESEARCH A1; Embassy URL confirmed in existing tests (`https://belgium.mfa.gov.ua/en`).
 
-2. **Vitest include fix: rename vs config change**
-   - What we know: Only `events-page.spec.tsx` uses `.spec.tsx` suffix
-   - What's unclear: Team preference
-   - Recommendation: Add `src/**/*.spec.{ts,tsx}` to `vitest.config.ts` (minimal diff, preserves filename convention in TESTING.md)
+2. **Vitest include fix: rename vs config change** — RESOLVED
+   - Resolution: Add `src/**/*.spec.{ts,tsx}` to `vitest.config.ts` include array (Plan 01 Task 1). Do not rename `events-page.spec.tsx`.
 
 ## Environment Availability
 
