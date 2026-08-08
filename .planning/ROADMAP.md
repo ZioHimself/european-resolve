@@ -215,7 +215,7 @@ Plans:
 **Requirements**: EVNT-04
 **Depends on:** Phase 1
 **UI hint:** no
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 Plans:
 
@@ -226,7 +226,7 @@ Plans:
 - [x] 02-PLAN.md — TDD: `isInternalAnnouncementUrl` + `isEventUpcoming` + EventCard same-tab links, Upcoming badge (D-22–D-26), CSS badge row, BDD RED/GREEN/REFACTOR
 
 **Wave 2** *(blocked on Wave 1 completion)*
-- [ ] 03-PLAN.md — Manual ops: Events DB spreadsheet row, Drive thumbnail, build gate (name + hub + Upcoming + no Facebook)
+- [x] 03-PLAN.md — Manual ops: Events DB spreadsheet row, Drive thumbnail, build gate (name + hub + Upcoming + no Facebook)
 
 **Success Criteria:**
 1. Events DB spreadsheet contains a Run for Ukraine 2026 row dated 2026-08-23 with fields matching the dedicated event page (name, place, type, announcement URL → `/events/2026-run-for-ukraine/`)
