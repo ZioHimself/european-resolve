@@ -229,6 +229,12 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
           "https://facebook.com/events/123",
         );
       });
+
+      And("the announcement link opens in a new tab", () => {
+        const link = screen.getByText("Official Event Announcement").closest("a")!;
+        expect(link).toHaveAttribute("target", "_blank");
+        expect(link).toHaveAttribute("rel", "noopener noreferrer");
+      });
     },
   );
 
@@ -352,6 +358,113 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
       Then("no Upcoming badge is displayed", () => {
         expect(screen.queryByText("Upcoming")).toBeNull();
         expect(screen.getByText("Protest")).toBeInTheDocument();
+      });
+    },
+  );
+
+  Scenario(
+    "Display Run for Ukraine 2026 participation card",
+    ({ Given, When, Then, And }) => {
+      let event: EventDisplay;
+
+      Given('the system date is "2026-08-08"', () => {
+        vi.setSystemTime(new Date("2026-08-08T12:00:00"));
+      });
+
+      And("a Run for Ukraine 2026 participation event", () => {
+        event = makeEvent({
+          date: "2026-08-23",
+          name: "Run for Ukraine 2026",
+          type: "Charity run",
+          place: "Place du Luxembourg, Brussels",
+          announcement_url: "/events/2026-run-for-ukraine/",
+          announcement_title: "View event & register",
+          thumbnail: "/events/2026-08-23.jpg",
+          tags: ["Ukraine", "Independence", "Belgium", "Run"],
+          organizers: [
+            {
+              name: "Embassy of Ukraine in the Kingdom of Belgium",
+              website: "https://belgium.mfa.gov.ua/en",
+              role: "Co-organiser",
+            },
+            {
+              name: "Ukrainian Voices",
+              website: "https://uv-rc.org/",
+              role: "Co-organiser",
+            },
+            {
+              name: "European Resolve",
+              website: "https://european-resolve.org",
+              role: "Co-organiser",
+            },
+          ],
+        });
+      });
+
+      When("the event card is rendered", async () => {
+        const { EventCard } = await import("@/components/ui/EventCard");
+        render(<EventCard event={event} />);
+      });
+
+      Then('the formatted date "23 August 2026" is displayed', () => {
+        expect(screen.getByText("23 August 2026")).toBeInTheDocument();
+      });
+
+      And('the event name "Run for Ukraine 2026" is displayed', () => {
+        expect(screen.getByText("Run for Ukraine 2026")).toBeInTheDocument();
+      });
+
+      And('a type badge showing "Charity run" is displayed', () => {
+        expect(screen.getByText("Charity run")).toBeInTheDocument();
+      });
+
+      And("an Upcoming badge is displayed", () => {
+        expect(screen.getByText("Upcoming")).toBeInTheDocument();
+      });
+
+      And('the place "Place du Luxembourg, Brussels" is displayed', () => {
+        expect(
+          screen.getByText("Place du Luxembourg, Brussels"),
+        ).toBeInTheDocument();
+      });
+
+      And(
+        'the tags "Ukraine", "Independence", "Belgium", and "Run" are displayed',
+        () => {
+          expect(screen.getByText("Ukraine")).toBeInTheDocument();
+          expect(screen.getByText("Independence")).toBeInTheDocument();
+          expect(screen.getByText("Belgium")).toBeInTheDocument();
+          expect(screen.getByText("Run")).toBeInTheDocument();
+        },
+      );
+
+      And('a link labelled "View event & register" is displayed', () => {
+        expect(screen.getByText("View event & register")).toBeInTheDocument();
+      });
+
+      And('the link points to "/events/2026-run-for-ukraine/"', () => {
+        const link = screen.getByText("View event & register");
+        expect(link.closest("a")).toHaveAttribute(
+          "href",
+          "/events/2026-run-for-ukraine/",
+        );
+      });
+
+      And("the link opens in the same tab", () => {
+        const link = screen.getByText("View event & register").closest("a")!;
+        expect(link).not.toHaveAttribute("target");
+        expect(link).not.toHaveAttribute("rel");
+      });
+
+      And("no Facebook link is displayed on the card", () => {
+        const card = screen.getByRole("article");
+        expect(card.textContent?.toLowerCase()).not.toContain("facebook");
+        const links = within(card).getAllByRole("link");
+        for (const link of links) {
+          expect(link.getAttribute("href")?.toLowerCase()).not.toContain(
+            "facebook",
+          );
+        }
       });
     },
   );
