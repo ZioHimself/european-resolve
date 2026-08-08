@@ -130,15 +130,30 @@
   margin-top: 0.75rem;
 }
 
-.links a {
+/* External / archive links — small underlined reference style */
+.linkExternal {
   font-size: var(--text-sm);
   color: var(--color-link);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.links a:hover {
+.linkExternal:hover {
   color: var(--color-link-hover);
+}
+
+/* Internal hub links — TrackCards-style participation CTA */
+.linkInternal {
+  font-size: var(--text-base);
+  font-weight: var(--font-medium);
+  color: var(--color-link);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+.linkInternal:hover {
+  color: var(--color-link-hover);
+  text-decoration: underline;
 }
 
 .tags {

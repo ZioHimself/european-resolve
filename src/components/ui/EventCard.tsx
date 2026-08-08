@@ -79,6 +79,11 @@ export function EventCard({ event }: { event: EventDisplay }) {
         <div className={styles.links}>
           <a
             href={event.announcement_url}
+            className={
+              isInternalAnnouncementUrl(event.announcement_url)
+                ? styles.linkInternal
+                : styles.linkExternal
+            }
             {...(!isInternalAnnouncementUrl(event.announcement_url) && {
               target: "_blank",
               rel: "noopener noreferrer",
