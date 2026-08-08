@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-08T20:55:07.488Z"
+last_updated: "2026-08-08T20:57:51.227Z"
 progress:
   total_phases: 10
   completed_phases: 2
   total_plans: 34
-  completed_plans: 7
+  completed_plans: 8
   percent: 20
 ---
 
@@ -29,8 +29,8 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 **Phase 7: Run for Ukraine Events Listing**
 
 - Status: In Progress
-- Plans: 1/3
-- Current Plan: 02 (TDD EventCard link behavior + Upcoming badge)
+- Plans: 2/3
+- Current Plan: 03 (spreadsheet row + build verification)
 
 ## Progress
 
@@ -44,7 +44,7 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 | 5     | ◐      | 0/4   | 0%       |
 | 4.1   | ◐      | 0/2   | 0%       |
 | 6     | ●      | 3/3   | 100%     |
-| 7     | ◐      | 1/3   | 33%      |
+| 7     | ◐      | 2/3   | 67%      |
 
 ## Recent Activity
 
@@ -72,13 +72,16 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - 2026-07-31: Phase 6 planned (3 plans in 2 waves: backend amount-based confirmation, widget detection hook, auto-confirm UX)
 - 2026-07-31: Phase 6 executed — all 3 plans complete (typecheck ✓, build ✓)
 - 2026-08-08: Phase 7 Plan 01 executed — Vitest include extended for `*.spec.tsx` BDD tests (npm test: 13 files, 224 tests ✓)
+- 2026-08-08: Phase 7 Plan 02 executed — EventCard link behavior + Upcoming badge via TDD (npm test: 13 files, 262 tests ✓)
 
 ---
-*Last updated: 2026-08-08 after Phase 7 Plan 01 execution*
+*Last updated: 2026-08-08 after Phase 7 Plan 02 execution*
 
 ## Decisions
 
 - Extended Vitest include rather than renaming events-page.spec.tsx to preserve BDD naming convention
+- Upcoming badge uses neutral black-05 background to distinguish from amber type badge
+- isEventUpcoming accepts optional now Date for deterministic unit tests
 
 ## Accumulated Context
 
