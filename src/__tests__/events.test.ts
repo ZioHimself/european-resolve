@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { parseEvents, groupOrganizersByRole } from "@/lib/events";
+import {
+  parseEvents,
+  groupOrganizersByRole,
+  isInternalAnnouncementUrl,
+  isEventUpcoming,
+} from "@/lib/events";
 import type { RawEvent } from "@/lib/events";
 
 function makeRawEvent(overrides: Partial<RawEvent> = {}): RawEvent {
@@ -280,5 +285,37 @@ describe("groupOrganizersByRole", () => {
 
     expect(result[0].members[0]).toEqual({ name: "Solo Org" });
     expect(result[0].members[0]).not.toHaveProperty("website");
+  });
+});
+
+describe("isInternalAnnouncementUrl", () => {
+  it("returns true for root-relative paths", () => {
+    expect(isInternalAnnouncementUrl("/events/2026-run-for-ukraine/")).toBe(
+      true,
+    );
+  });
+
+  it("returns false for external https URLs", () => {
+    expect(isInternalAnnouncementUrl("https://facebook.com/events/123")).toBe(
+      false,
+    );
+  });
+
+  it("returns false for empty string", () => {
+    expect(isInternalAnnouncementUrl("")).toBe(false);
+  });
+});
+
+describe("isEventUpcoming", () => {
+  it("returns true when event date is today", () => {
+    expect(isEventUpcoming("2026-08-23", new Date(2026, 7, 23))).toBe(true);
+  });
+
+  it("returns true when event date is in the future", () => {
+    expect(isEventUpcoming("2026-08-23", new Date(2026, 7, 1))).toBe(true);
+  });
+
+  it("returns false when event date is in the past", () => {
+    expect(isEventUpcoming("2026-08-23", new Date(2026, 7, 24))).toBe(false);
   });
 });

@@ -49,6 +49,7 @@ const feature = await loadFeature("src/__tests__/features/events-page.feature");
 
 describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
   AfterEachScenario(() => {
+    vi.useRealTimers();
     cleanup();
   });
 
@@ -227,6 +228,130 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
           "href",
           "https://facebook.com/events/123",
         );
+      });
+    },
+  );
+
+  Scenario(
+    "Open internal announcement link in same tab",
+    ({ Given, When, Then, And }) => {
+      let event: EventDisplay;
+
+      Given(
+        'an event with announcement URL "/events/2026-run-for-ukraine/"',
+        () => {
+          event = makeEvent({
+            announcement_url: "/events/2026-run-for-ukraine/",
+          });
+        },
+      );
+
+      And('the announcement title is "View event & register"', () => {
+        event.announcement_title = "View event & register";
+      });
+
+      When("the event card is rendered", async () => {
+        const { EventCard } = await import("@/components/ui/EventCard");
+        render(<EventCard event={event} />);
+      });
+
+      Then('a link labelled "View event & register" is displayed', () => {
+        expect(screen.getByText("View event & register")).toBeInTheDocument();
+      });
+
+      And('the link points to "/events/2026-run-for-ukraine/"', () => {
+        const link = screen.getByText("View event & register");
+        expect(link.closest("a")).toHaveAttribute(
+          "href",
+          "/events/2026-run-for-ukraine/",
+        );
+      });
+
+      And("the link opens in the same tab", () => {
+        const link = screen.getByText("View event & register").closest("a")!;
+        expect(link).not.toHaveAttribute("target");
+        expect(link).not.toHaveAttribute("rel");
+      });
+    },
+  );
+
+  Scenario(
+    "Open external announcement link in new tab",
+    ({ Given, When, Then, And }) => {
+      let event: EventDisplay;
+
+      Given(
+        'an event with announcement URL "https://facebook.com/events/123"',
+        () => {
+          event = makeEvent({
+            announcement_url: "https://facebook.com/events/123",
+          });
+        },
+      );
+
+      And('the announcement title is "Official Event Announcement"', () => {
+        event.announcement_title = "Official Event Announcement";
+      });
+
+      When("the event card is rendered", async () => {
+        const { EventCard } = await import("@/components/ui/EventCard");
+        render(<EventCard event={event} />);
+      });
+
+      Then("the announcement link opens in a new tab", () => {
+        const link = screen.getByText("Official Event Announcement").closest("a")!;
+        expect(link).toHaveAttribute("target", "_blank");
+        expect(link).toHaveAttribute("rel", "noopener noreferrer");
+      });
+    },
+  );
+
+  Scenario(
+    "Show Upcoming badge for future-dated event",
+    ({ Given, When, Then, And }) => {
+      let event: EventDisplay;
+
+      Given('the system date is "2026-08-08"', () => {
+        vi.setSystemTime(new Date("2026-08-08T12:00:00"));
+      });
+
+      And('an event dated "2026-12-31" with type "Charity run"', () => {
+        event = makeEvent({ date: "2026-12-31", type: "Charity run" });
+      });
+
+      When("the event card is rendered", async () => {
+        const { EventCard } = await import("@/components/ui/EventCard");
+        render(<EventCard event={event} />);
+      });
+
+      Then("an Upcoming badge is displayed", () => {
+        expect(screen.getByText("Upcoming")).toBeInTheDocument();
+        expect(screen.getByText("Charity run")).toBeInTheDocument();
+      });
+    },
+  );
+
+  Scenario(
+    "Hide Upcoming badge for past-dated event",
+    ({ Given, When, Then, And }) => {
+      let event: EventDisplay;
+
+      Given('the system date is "2026-08-08"', () => {
+        vi.setSystemTime(new Date("2026-08-08T12:00:00"));
+      });
+
+      And('an event dated "2020-01-01" with type "Protest"', () => {
+        event = makeEvent({ date: "2020-01-01", type: "Protest" });
+      });
+
+      When("the event card is rendered", async () => {
+        const { EventCard } = await import("@/components/ui/EventCard");
+        render(<EventCard event={event} />);
+      });
+
+      Then("no Upcoming badge is displayed", () => {
+        expect(screen.queryByText("Upcoming")).toBeNull();
+        expect(screen.getByText("Protest")).toBeInTheDocument();
       });
     },
   );

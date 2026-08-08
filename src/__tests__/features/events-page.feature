@@ -41,6 +41,32 @@ Feature: Events page
     Then a link labelled "Official Event Announcement" is displayed
     And the link points to "https://facebook.com/events/123"
 
+  Scenario: Open internal announcement link in same tab
+    Given an event with announcement URL "/events/2026-run-for-ukraine/"
+    And the announcement title is "View event & register"
+    When the event card is rendered
+    Then a link labelled "View event & register" is displayed
+    And the link points to "/events/2026-run-for-ukraine/"
+    And the link opens in the same tab
+
+  Scenario: Open external announcement link in new tab
+    Given an event with announcement URL "https://facebook.com/events/123"
+    And the announcement title is "Official Event Announcement"
+    When the event card is rendered
+    Then the announcement link opens in a new tab
+
+  Scenario: Show Upcoming badge for future-dated event
+    Given the system date is "2026-08-08"
+    And an event dated "2026-12-31" with type "Charity run"
+    When the event card is rendered
+    Then an Upcoming badge is displayed
+
+  Scenario: Hide Upcoming badge for past-dated event
+    Given the system date is "2026-08-08"
+    And an event dated "2020-01-01" with type "Protest"
+    When the event card is rendered
+    Then no Upcoming badge is displayed
+
   Scenario: Hide announcement link when URL is empty
     Given an event with no announcement URL
     When the event card is rendered
