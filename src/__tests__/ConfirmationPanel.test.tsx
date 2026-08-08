@@ -3,23 +3,18 @@ import { render, screen, waitFor, cleanup, act } from "@testing-library/react";
 import { ConfirmationPanel } from "@/components/ui/ConfirmationPanel";
 import type { RegisterResponse } from "@/components/ui/registerTypes";
 
-let mockOnPaymentSuccess: ((amount: number) => void) | undefined;
-
 vi.mock("@/components/ui/WhyDonateWidget", () => ({
   WhyDonateWidget: (props: {
     onPaymentSuccess?: (amount: number) => void;
-  }) => {
-    mockOnPaymentSuccess = props.onPaymentSuccess;
-    return (
-      <button
-        type="button"
-        data-testid="mock-pay"
-        onClick={() => props.onPaymentSuccess?.(100)}
-      >
-        Pay
-      </button>
-    );
-  },
+  }) => (
+    <button
+      type="button"
+      data-testid="mock-pay"
+      onClick={() => props.onPaymentSuccess?.(100)}
+    >
+      Pay
+    </button>
+  ),
 }));
 
 const registrationResult: RegisterResponse = {
@@ -39,7 +34,6 @@ const registrationResult: RegisterResponse = {
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
-  mockOnPaymentSuccess = undefined;
 });
 
 describe("ConfirmationPanel effective tier display", () => {
