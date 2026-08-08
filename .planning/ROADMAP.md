@@ -215,12 +215,12 @@ Plans:
 **Requirements**: EVNT-04
 **Depends on:** Phase 1
 **UI hint:** no
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 Plans:
 
 **Wave 0**
-- [ ] 01-PLAN.md — Fix Vitest include for `*.spec.tsx` (BDD pyramid prerequisite)
+- [x] 01-PLAN.md — Fix Vitest include for `*.spec.tsx` (BDD pyramid prerequisite)
 
 **Wave 1** *(blocked on Wave 0 completion)*
 - [ ] 02-PLAN.md — TDD: `isInternalAnnouncementUrl` + `isEventUpcoming` + EventCard same-tab links, Upcoming badge (D-22–D-26), CSS badge row, BDD RED/GREEN/REFACTOR

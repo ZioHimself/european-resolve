@@ -3,33 +3,34 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-08T20:50:33.305Z"
+last_updated: "2026-08-08T20:55:07.488Z"
 progress:
   total_phases: 10
   completed_phases: 2
   total_plans: 34
-  completed_plans: 6
-  percent: 18
+  completed_plans: 7
+  percent: 20
 ---
 
 # Project State
 
 **Project:** Run for Ukraine 2026
-**Status:** Ready to execute
+**Status:** Executing Phase 07
 
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2026-07-28)
 
 **Core value:** Participants can register and share personal fundraising pages that drive donations via WhyDonate with full transparency
-**Current focus:** Phase 06.1 — Tier amount enforcement & effective-tier policy
+**Current focus:** Phase 07 — add-august-23-run-for-ukraine-event-to-events-listing-surfac
 
 ## Current Phase
 
-**Phase 6: WhyDonate Widget Auto-Detection**
+**Phase 7: Run for Ukraine Events Listing**
 
-- Status: Complete
-- Plans: 3/3
+- Status: In Progress
+- Plans: 1/3
+- Current Plan: 02 (TDD EventCard link behavior + Upcoming badge)
 
 ## Progress
 
@@ -43,6 +44,7 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 | 5     | ◐      | 0/4   | 0%       |
 | 4.1   | ◐      | 0/2   | 0%       |
 | 6     | ●      | 3/3   | 100%     |
+| 7     | ◐      | 1/3   | 33%      |
 
 ## Recent Activity
 
@@ -69,9 +71,14 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - 2026-07-30: Phase 04.1 planned (2 plans in 1 wave: SMTP deploy config, fundraiser confirmation email)
 - 2026-07-31: Phase 6 planned (3 plans in 2 waves: backend amount-based confirmation, widget detection hook, auto-confirm UX)
 - 2026-07-31: Phase 6 executed — all 3 plans complete (typecheck ✓, build ✓)
+- 2026-08-08: Phase 7 Plan 01 executed — Vitest include extended for `*.spec.tsx` BDD tests (npm test: 13 files, 224 tests ✓)
 
 ---
-*Last updated: 2026-07-30 after Phase 04.1 planning*
+*Last updated: 2026-08-08 after Phase 7 Plan 01 execution*
+
+## Decisions
+
+- Extended Vitest include rather than renaming events-page.spec.tsx to preserve BDD naming convention
 
 ## Accumulated Context
 
