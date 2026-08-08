@@ -130,20 +130,20 @@
   margin-top: 0.75rem;
 }
 
-/* External / archive links — small underlined reference style */
-.linkExternal {
+/* Reference links — external announcements and past internal hubs */
+.linkReference {
   font-size: var(--text-sm);
   color: var(--color-link);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.linkExternal:hover {
+.linkReference:hover {
   color: var(--color-link-hover);
 }
 
-/* Internal hub links — secondary outline button (matches FundraiseForm ghostButton) */
-.linkInternal {
+/* Participation CTA — internal hub link for upcoming/today events only */
+.linkParticipation {
   display: inline-flex;
   align-items: center;
   justify-content: center;

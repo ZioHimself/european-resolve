@@ -4,6 +4,7 @@ import {
   groupOrganizersByRole,
   isInternalAnnouncementUrl,
   isEventUpcoming,
+  isParticipationAnnouncementLink,
 } from "@/lib/events";
 import type { RawEvent } from "@/lib/events";
 
@@ -317,5 +318,28 @@ describe("isEventUpcoming", () => {
 
   it("returns false when event date is in the past", () => {
     expect(isEventUpcoming("2026-08-23", new Date(2026, 7, 24))).toBe(false);
+  });
+});
+
+describe("isParticipationAnnouncementLink", () => {
+  const hub = "/events/2026-run-for-ukraine/";
+  const now = new Date(2026, 7, 8);
+
+  it("returns true for internal hub when event is upcoming", () => {
+    expect(isParticipationAnnouncementLink(hub, "2026-08-23", now)).toBe(true);
+  });
+
+  it("returns false for internal hub when event is past", () => {
+    expect(isParticipationAnnouncementLink(hub, "2020-01-01", now)).toBe(false);
+  });
+
+  it("returns false for external URL even when upcoming", () => {
+    expect(
+      isParticipationAnnouncementLink(
+        "https://facebook.com/events/123",
+        "2026-08-23",
+        now,
+      ),
+    ).toBe(false);
   });
 });

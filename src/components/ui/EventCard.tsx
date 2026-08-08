@@ -3,6 +3,7 @@ import {
   groupOrganizersByRole,
   isInternalAnnouncementUrl,
   isEventUpcoming,
+  isParticipationAnnouncementLink,
 } from "@/lib/events";
 import styles from "./EventCard.module.css";
 
@@ -80,9 +81,12 @@ export function EventCard({ event }: { event: EventDisplay }) {
           <a
             href={event.announcement_url}
             className={
-              isInternalAnnouncementUrl(event.announcement_url)
-                ? styles.linkInternal
-                : styles.linkExternal
+              isParticipationAnnouncementLink(
+                event.announcement_url,
+                event.date,
+              )
+                ? styles.linkParticipation
+                : styles.linkReference
             }
             {...(!isInternalAnnouncementUrl(event.announcement_url) && {
               target: "_blank",

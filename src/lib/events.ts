@@ -103,6 +103,15 @@ export function isEventUpcoming(
   return eventDay >= todayStart;
 }
 
+/** Internal hub link for a future/today event — gets participation CTA styling. */
+export function isParticipationAnnouncementLink(
+  url: string,
+  isoDate: string,
+  now?: Date,
+): boolean {
+  return isInternalAnnouncementUrl(url) && isEventUpcoming(isoDate, now);
+}
+
 export async function fetchEvents(): Promise<EventDisplay[]> {
   try {
     const res = await fetchWithTimeout(API_URL, API_TIMEOUT_MS);
