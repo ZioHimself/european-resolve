@@ -90,6 +90,19 @@ export function groupOrganizersByRole(
   return Array.from(map, ([role, members]) => ({ role, members }));
 }
 
+export function isInternalAnnouncementUrl(url: string): boolean {
+  return url.startsWith("/");
+}
+
+export function isEventUpcoming(
+  isoDate: string,
+  now: Date = new Date(),
+): boolean {
+  const eventDay = new Date(isoDate + "T00:00:00");
+  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return eventDay >= todayStart;
+}
+
 export async function fetchEvents(): Promise<EventDisplay[]> {
   try {
     const res = await fetchWithTimeout(API_URL, API_TIMEOUT_MS);

@@ -1,5 +1,9 @@
 import type { EventDisplay } from "@/lib/events";
-import { groupOrganizersByRole } from "@/lib/events";
+import {
+  groupOrganizersByRole,
+  isInternalAnnouncementUrl,
+  isEventUpcoming,
+} from "@/lib/events";
 import styles from "./EventCard.module.css";
 
 function formatDate(iso: string): string {
@@ -34,7 +38,12 @@ export function EventCard({ event }: { event: EventDisplay }) {
 
       <div className={styles.meta}>
         <span className={styles.date}>{formatDate(event.date)}</span>
-        <span className={styles.badge}>{event.type}</span>
+        <div className={styles.badges}>
+          <span className={styles.badge}>{event.type}</span>
+          {isEventUpcoming(event.date) && (
+            <span className={styles.badgeUpcoming}>Upcoming</span>
+          )}
+        </div>
       </div>
 
       <h3 className={styles.name}>{event.name}</h3>
@@ -68,15 +77,15 @@ export function EventCard({ event }: { event: EventDisplay }) {
 
       {event.announcement_url && (
         <div className={styles.links}>
-          {event.announcement_url && (
-            <a
-              href={event.announcement_url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {event.announcement_title || "Announcement"}
-            </a>
-          )}
+          <a
+            href={event.announcement_url}
+            {...(!isInternalAnnouncementUrl(event.announcement_url) && {
+              target: "_blank",
+              rel: "noopener noreferrer",
+            })}
+          >
+            {event.announcement_title || "Announcement"}
+          </a>
         </div>
       )}
 
