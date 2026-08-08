@@ -1,7 +1,7 @@
 # Roadmap: Run for Ukraine 2026
 
 **Created:** 2026-07-28
-**Phases:** 5
+**Phases:** 7
 **Mode:** Vertical MVP (each phase delivers a deployable increment)
 
 ---
@@ -172,11 +172,14 @@ Phase 1 (Static Pages) ──→ Phase 2 (Backend + Registration)
                                     │
                                     ▼
                            Phase 04.1 (Registration Confirmation Emails)
+                                    │
+                                    ▼
+                           Phase 7 (Run for Ukraine Events Listing)
 ```
 
 ## Milestone Boundary
 
-Phases 1–6 (including 02.1 and 04.1) constitute **Milestone 1: Event Launch**. After Phase 5, Phase 04.1, and Phase 6, the event page is fully multilingual with automated payment detection, ready for public launch ahead of 23 August 2026.
+Phases 1–7 (including 02.1, 04.1, and 06.1) constitute **Milestone 1: Event Launch**. After Phase 5, Phase 04.1, Phase 6, Phase 06.1, and Phase 7, the event page is fully multilingual with automated payment detection and visible on the public events timeline, ready for public launch ahead of 23 August 2026.
 
 ### Phase 6: WhyDonate Widget Auto-Detection
 
@@ -205,6 +208,32 @@ Plans:
 6. Fallback: if auto-detection fails (timeout), the manual confirm button is shown
 7. Shortcode is fully parameterized via env config (no hardcoded campaign IDs)
 8. Build succeeds with `npm run build`
+
+### Phase 7: Run for Ukraine Events Listing
+
+**Goal:** Add the August 23 Run for Ukraine 2026 event to the public `/events` timeline as a regular Events DB spreadsheet entry that links to the dedicated event pages — deriving display fields (title, date, location, thumbnail, announcement link) from the existing `src/data/event.ts` / `2026-run-for-ukraine` page content so the listing and event hub stay in sync organically.
+**Requirements**: EVNT-04
+**Depends on:** Phase 1
+**UI hint:** no
+**Plans:** 3 plans
+
+Plans:
+
+**Wave 0**
+- [ ] 01-PLAN.md — Fix Vitest include for `*.spec.tsx` (BDD pyramid prerequisite)
+
+**Wave 1** *(blocked on Wave 0 completion)*
+- [ ] 02-PLAN.md — TDD: `isInternalAnnouncementUrl` + `isEventUpcoming` + EventCard same-tab links, Upcoming badge (D-22–D-26), CSS badge row, BDD RED/GREEN/REFACTOR
+
+**Wave 2** *(blocked on Wave 1 completion)*
+- [ ] 03-PLAN.md — Manual ops: Events DB spreadsheet row, Drive thumbnail, build gate (name + hub + Upcoming + no Facebook)
+
+**Success Criteria:**
+1. Events DB spreadsheet contains a Run for Ukraine 2026 row dated 2026-08-23 with fields matching the dedicated event page (name, place, type, announcement URL → `/events/2026-run-for-ukraine/`)
+2. `/events` renders the new entry in the timeline via existing `fetchRawEvents` → `parseEvents` flow (no special-case UI)
+3. Clicking the event card navigates to the dedicated Run for Ukraine landing page
+4. Thumbnail processes at build time if `thumbnail_url` is provided in the spreadsheet row
+5. Build succeeds with `npm run build`
 
 ---
 *Created: 2026-07-28*
