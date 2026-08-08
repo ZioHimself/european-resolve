@@ -1,6 +1,6 @@
 # Phase 7: Run for Ukraine Events Listing - Context
 
-**Gathered:** 2026-08-08
+**Gathered:** 2026-08-08 (updated 2026-08-08 — upcoming event label)
 **Status:** Ready for planning
 
 <domain>
@@ -44,11 +44,19 @@ Add the August 23 Run for Ukraine 2026 event to the public `/events` timeline as
 ### Data Sync (not discussed — planner discretion)
 - **D-21:** Spreadsheet row is added **manually** to Events DB. Use `src/data/event.ts` and `src/locales/en.ts` (`hero.title`, location, co-organisers) as reference when filling fields — no automated export/validation script required for this phase unless planner finds it trivial.
 
+### Upcoming Event Status Label
+- **D-22:** **Auto-derive from date** — show an "Upcoming" indicator when `event.date` is **today or in the future** (date-only comparison in local timezone, consistent with `EventCard` `formatDate` using `iso + "T00:00:00"`). No spreadsheet column required; operators do not set status manually.
+- **D-23:** Label copy is **`Upcoming`** (exact string, EN-only for now — events page is not i18n'd yet).
+- **D-24:** **New badge** in the card meta row, **beside** the existing `type` badge (e.g. date left; type + Upcoming badges right). Do not replace or hide the type badge.
+- **D-25:** **All events** with a future (or today) date get the badge — not limited to internal-hub / participatory events.
+- **D-26:** **No complementary "Past" label** — past events show date only; only upcoming/future-dated cards get extra status treatment.
+
 ### Claude's Discretion
 - Exact organizer website URLs (Embassy, Ukrainian Voices) — use official URLs
 - Whether internal-link same-tab behavior keys off relative path (`/events/...`) vs same-origin absolute URL
 - `announcement_title` exact wording if "View event & register" needs i18n consideration (events page is EN-only today)
 - Google Drive sharing settings for thumbnail URL (must be fetchable at build time)
+- Upcoming badge visual styling (reuse `.badge` amber vs distinct token) — must not clash with type badge readability
 
 </decisions>
 
@@ -70,7 +78,8 @@ Add the August 23 Run for Ukraine 2026 event to the public `/events` timeline as
 - `src/lib/events-server.ts` — `fetchRawEvents()`, `processEventThumbnails()`
 - `src/app/events/page.tsx` — build-time fetch + render
 - `src/components/ui/EventTimeline.tsx` — client-side refresh
-- `src/components/ui/EventCard.tsx` — card layout, announcement link (currently always `target="_blank"`)
+- `src/components/ui/EventCard.tsx` — card layout, announcement link, type badge, upcoming status badge (D-22–D-26)
+- `src/components/ui/EventCard.module.css` — badge styles for type and upcoming indicators
 
 ### Event Hub (link target)
 - `src/app/events/2026-run-for-ukraine/page.tsx` — landing page with breadcrumbs back to `/events`
@@ -104,11 +113,12 @@ Add the August 23 Run for Ukraine 2026 event to the public `/events` timeline as
 
 ### Integration Points
 - **Spreadsheet:** New row in Events DB (manual) with fields per D-04–D-14, D-18–D-19
-- **EventCard:** May need generic internal-link handling (same-tab) for relative `announcement_url` — affects all future internal announcements, not a one-off
-- **Build:** `npm run build` must fetch new row, process banner thumbnail, emit static `/events` page with Run for Ukraine card
+- **EventCard:** Generic internal-link handling (same-tab) for relative `announcement_url` (D-15, D-17) plus **Upcoming badge** derived from date (D-22–D-26)
+- **Build:** `npm run build` must fetch new row, process banner thumbnail, emit static `/events` page with Run for Ukraine card showing Upcoming badge
 
 ### Gap vs Current Behavior
 - EventCard always uses `target="_blank"` on announcement links — conflicts with D-15 for internal URLs
+- EventCard has no temporal status label — future events indistinguishable from past except by reading the date (D-22–D-26)
 - Roadmap originally mentioned Facebook-style announcement; user decision overrides with internal hub link
 
 </code_context>
@@ -119,6 +129,7 @@ Add the August 23 Run for Ukraine 2026 event to the public `/events` timeline as
 - Promo banner: "CHARITY RUN for UKRAINE", Pl. du Luxembourg, 23.08 | 10:00, co-organiser strip (Embassy, European Resolve, UV RC, be.brussels, HURKIT RUN)
 - Facebook event exists for outbound marketing: `https://www.facebook.com/events/1826555465375638` — intentionally excluded from card
 - Socratic framing: past events = archive/awareness; this event = participation funnel entry
+- Upcoming badge makes future events scannable without reading the full date first
 
 </specifics>
 
@@ -129,11 +140,12 @@ Add the August 23 Run for Ukraine 2026 event to the public `/events` timeline as
 - **Hidden spreadsheet fields** — description, notes, contacts for team reference; defer until needed
 - **`image_credit`** on thumbnail — user declined
 - **Whole-card clickable** — only announcement link is interactive today; acceptable unless planner finds low-friction improvement trivial with internal-link work
-- **Build-time validation** comparing spreadsheet row vs `event.ts` — not required this phase
+- **Spreadsheet status column** — user chose auto date derivation (D-22); explicit operator status field deferred
+- **"Past" event badge** — user chose upcoming-only labeling (D-26)
 
 </deferred>
 
 ---
 
 *Phase: 07-add-august-23-run-for-ukraine-event-to-events-listing-surfac*
-*Context gathered: 2026-08-08*
+*Context gathered: 2026-08-08 (updated: upcoming event label)*
