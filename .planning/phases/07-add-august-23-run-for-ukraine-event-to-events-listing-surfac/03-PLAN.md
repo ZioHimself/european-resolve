@@ -12,7 +12,8 @@ requirements:
 must_haves:
   truths:
     - "Events DB spreadsheet contains Run for Ukraine 2026 row dated 2026-08-23 (D-04, D-21)"
-    - "Spreadsheet fields match locked values: name, type, place, organizers, tags, announcement_url, announcement_title (D-05–D-14)"
+    - "Spreadsheet type Charity run, place Place du Luxembourg Brussels, three Co-organiser entries with websites, tags Ukraine Independence Belgium Run (D-06, D-07, D-08, D-09, D-10)"
+    - "Spreadsheet fields match locked values: name, announcement_url, announcement_title (D-05, D-13, D-14)"
     - "Non-displayed fields and image_credit left empty per D-11, D-12"
     - "announcement_url is /events/2026-run-for-ukraine/ — not Facebook (D-13, D-16)"
     - "thumbnail_url from Drive upload produces public/events/2026-08-23.jpg at build when URL valid (D-18, D-19, D-20)"

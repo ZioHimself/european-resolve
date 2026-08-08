@@ -21,7 +21,7 @@ must_haves:
     - "External announcement URLs still open in new tab with rel=noopener noreferrer (D-16 external-only)"
     - "Future-dated and today-dated events show Upcoming badge beside type badge (D-22, D-23, D-24, D-25)"
     - "Past-dated events show date and type only — no Upcoming badge and no Past label (D-26)"
-    - "Run for Ukraine fixture shows participation CTA to hub and Upcoming badge (D-01, D-03, D-04, D-13, D-14)"
+    - "Run for Ukraine fixture shows participation CTA to hub and Upcoming badge (D-01, D-03, D-04, D-05, D-06, D-07, D-08, D-09, D-10, D-13, D-14)"
     - "No Facebook URL or special-case UI for Run for Ukraine (D-02, D-16, D-17)"
   artifacts:
     - path: src/lib/events.ts
