@@ -1,12 +1,12 @@
 import type { EmailLocale } from "./types.js";
 
 export const de: EmailLocale = {
-  eventName: "35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf",
+  eventName: "Run for Ukraine",
   subject:
-    "35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf | Anmeldung bestätigt!",
+    "Run for Ukraine | Anmeldung bestätigt!",
   greeting: "Hallo {name},",
   confirmationIntro:
-    "Deine Anmeldung für 35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf ist bestätigt. Hier sind deine Daten:",
+    "Deine Anmeldung für Run for Ukraine ist bestätigt. Hier sind deine Daten:",
   participantIdLabel: "Teilnehmer-ID",
   tierLabel: "Kategorie",
   amountLabel: "Betrag",
@@ -24,13 +24,13 @@ export const de: EmailLocale = {
   eventDate: "23. August 2026, 10:00",
   eventLocation: "Place du Luxembourg, Brüssel, Belgien",
   footerText:
-    "Diese E-Mail wurde von European Resolve VZW als Bestätigung deiner Anmeldung zu 35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf gesendet.",
+    "Diese E-Mail wurde von European Resolve VZW als Bestätigung deiner Anmeldung zu Run for Ukraine gesendet.",
   footerUnsubscribe:
     "Du erhältst diese Nachricht, weil du dich für die Veranstaltung angemeldet hast. Es werden keine weiteren E-Mails gesendet, es sei denn, du hast der Kommunikation zugestimmt.",
   footerPaymentEmail:
     "Du erhältst eine weitere E-Mail, sobald deine Zahlung bestätigt ist.",
   fundraiserSubject:
-    "35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf | Deine Spendenseite ist online!",
+    "Run for Ukraine | Deine Spendenseite ist online!",
   fundraiserIntro:
     "Tolle Neuigkeiten, {name}! Du bist angemeldet UND deine persönliche Spendenseite ist online. Teile den Link mit Freunden und Familie, um dein Ziel zu erreichen.",
   fundraiserHeading: "Deine Spendenseite",
@@ -41,14 +41,14 @@ export const de: EmailLocale = {
   fundraiserDisplayNameLabel: "Anzeigename",
   fundraiserGoalLabel: "Persönliches Ziel",
   paymentSubject:
-    "35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf | Zahlung bestätigt!",
+    "Run for Ukraine | Zahlung bestätigt!",
   paymentIntro:
     "Deine Spende ist eingegangen. Hier sind die Informationen zu deiner Zahlung:",
   paymentRewardsLabel: "Deine Belohnungen",
   paymentThankYou:
     "Danke, dass du die Verteidiger der Ukraine unterstützt! Jeder Euro finanziert Ladestationen an der Front.",
   paymentFooter:
-    "Dies ist deine Zahlungsbestätigung von European Resolve VZW für 35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf.",
+    "Dies ist deine Zahlungsbestätigung von European Resolve VZW für Run for Ukraine.",
   tierRewards: {
     donor: "Danke, dass du die Verteidiger der Ukraine unterstützt",
     supporter: "Erfahre, wie deine Spende geholfen hat",

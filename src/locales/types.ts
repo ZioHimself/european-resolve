@@ -3,6 +3,25 @@ export interface Locale {
   "hero.overline": string;
   "hero.title": string;
   "hero.description": string;
+  "hero.readMore": string;
+  "hero.whyHeading": string;
+  "hero.whyBody": string;
+  "hero.scheduleHeading": string;
+  "hero.scheduleIntro": string;
+  "hero.scheduleGathering": string;
+  "hero.scheduleFlag": string;
+  "hero.scheduleRun": string;
+  "hero.scheduleAfter": string;
+  "hero.scheduleOrganisers": string;
+  "hero.participateHeading": string;
+  "hero.participateBody": string;
+  "hero.updatesHeading": string;
+  "hero.updatesPublished": string;
+  "hero.updatesContact": string;
+  "hero.facebookEventLink": string;
+  "hero.notesHeading": string;
+  "hero.notesBody": string;
+  "hero.closing": string;
   "hero.beneficiary": string;
 
   // tracks.* — TrackCards

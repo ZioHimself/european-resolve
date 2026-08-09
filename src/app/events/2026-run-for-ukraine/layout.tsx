@@ -9,13 +9,13 @@ const EVENT_PATH = "/events/2026-run-for-ukraine";
 const OG_IMAGE = `${BASE_URL}/og/run-for-ukraine-2026.png`;
 
 export const metadata: Metadata = {
-  title: "35 Years of Ukraine Independence: Charity and Run | European Resolve",
+  title: "Run for Ukraine: Charity Run for 35 Years of Independence | European Resolve",
   description:
-    "Join the charity run in Brussels on 23 August 2026. Register, fundraise, and help provide charging stations for Ukraine's defenders.",
+    "Join us in Brussels on 23 August 2026 for the Run for Ukraine. Register, fundraise, and help Hurkit provide portable power stations for Ukraine's air defence units.",
   openGraph: {
-    title: "35 Years of Ukraine Independence: Charity and Run, Brussels",
+    title: "Run for Ukraine: Charity Run for 35 Years of Independence, Brussels",
     description:
-      "Join the charity run in Brussels on 23 August 2026. Register, fundraise, and help provide charging stations for Ukraine's defenders.",
+      "Join us in Brussels on 23 August 2026 for the Run for Ukraine. Register, fundraise, and help Hurkit provide portable power stations for Ukraine's air defence units.",
     url: `${BASE_URL}${EVENT_PATH}`,
     siteName: "European Resolve",
     locale: "en_BE",
@@ -26,15 +26,15 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "35 Years of Ukraine Independence: Charity and Run, Brussels",
+        alt: "Run for Ukraine: Charity Run for 35 Years of Independence, Brussels",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "35 Years of Ukraine Independence: Charity and Run, Brussels",
+    title: "Run for Ukraine: Charity Run for 35 Years of Independence, Brussels",
     description:
-      "Join the charity run in Brussels on 23 August 2026. Register, fundraise, and help provide charging stations for Ukraine's defenders.",
+      "Join us in Brussels on 23 August 2026 for the Run for Ukraine. Register, fundraise, and help Hurkit provide portable power stations for Ukraine's air defence units.",
     images: [OG_IMAGE],
   },
   alternates: {

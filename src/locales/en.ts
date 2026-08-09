@@ -3,9 +3,36 @@ import type { Locale } from "./types";
 export const en = {
   // hero
   "hero.overline": "Charity run · Brussels",
-  "hero.title": "35 Years of Ukraine Independence: Charity and Run",
+  "hero.title": "Run for Ukraine: Charity Run for 35 Years of Independence",
   "hero.description":
-    "On Sunday, 23 August, join us to celebrate 35 years of Ukrainian independence! We'll unfold the flag, run 5 or 8 kilometres together, and gather after at the community village for food, friends, and a charity raffle. Our bigger goal: raise €3,000 with Hurkit to equip Ukraine's defenders with reliable power in the field. Check your support options below and bring your mates and family along.",
+    "Join us in Brussels on 23 August, Ukraine's National Flag Day and the eve of the 35th anniversary of Ukraine's Independence, for the Run for Ukraine, a charity run open to everyone, regardless of age or fitness level. With this run, we raise funds to support the Hurkit Foundation in purchasing portable power stations that provide electricity to Ukraine's air defence units where it is needed most.",
+  "hero.readMore": "Read more about the event",
+  "hero.whyHeading": "Why participate and donate?",
+  "hero.whyBody":
+    "The portable power stations we're funding keep Ukraine's air defence units operational where reliable electricity is hardest to find, helping protect the skies and the people beneath them. The initiative is supported by the Hurkit Foundation, a Ukrainian NGO working directly with the air defence units on the ground. Run in solidarity and celebrate together: after the run, join us at Beguinage Square for Ukrainian cuisine, a festive concert, and a traditional craft fair marking Ukraine's Independence Day.",
+  "hero.scheduleHeading": "Event details",
+  "hero.scheduleIntro":
+    "Open to all. Walk, jog, or run at your own pace. There will be two groups: a beginner level, at a slower pace and shorter distance, and a medium level, at a faster pace and longer distance. Both groups will finish together at Beguinage Square.",
+  "hero.scheduleGathering":
+    "10:00. Gathering of participants at Place du Luxembourg, registration and running bib collection",
+  "hero.scheduleFlag":
+    "11:00. Ceremony of the Ukrainian National Flag unfurling",
+  "hero.scheduleRun": "11:30. Run starts",
+  "hero.scheduleAfter":
+    "Afterwards. Celebrations continue at Beguinage Square with Ukrainian food, music, and a craft fair",
+  "hero.scheduleOrganisers":
+    "Organised by the Embassy of Ukraine in Belgium, UVRC, and European Resolve.",
+  "hero.participateHeading": "How to participate",
+  "hero.participateBody":
+    "Pick a donation tier, then register and make your donation using the options below. Join us at 10:00 on 23 August at Place du Luxembourg. Can't run? No worries! You can still donate and comment \"Support from a distance.\"",
+  "hero.updatesHeading": "Communication and updates",
+  "hero.updatesPublished": "All updates will be published on the",
+  "hero.updatesContact": "For questions or more details, contact us via the",
+  "hero.facebookEventLink": "Facebook event page",
+  "hero.notesHeading": "Important notes",
+  "hero.notesBody":
+    "We will publish all fundraising reports for transparency on the WhyDonate page, so make sure to leave your email to get updates. Please share this fundraiser with friends to maximize impact!",
+  "hero.closing": "Thank you for your support!",
   "hero.beneficiary": "Beneficiary:",
 
   // tracks
@@ -274,7 +301,7 @@ export const en = {
   "social.shareEmail": "Share via Email",
   "social.copyLink": "Copy link",
   "social.shareMessage":
-    "Support {title}'s fundraiser for 35 Years of Ukraine Independence: Charity and Run! Every euro funds charging stations for Ukraine's defenders.",
+    "Support {title}'s fundraiser for Run for Ukraine! Every euro funds portable power stations for Ukraine's air defence units.",
 
   // common
   "common.loading": "Loading",

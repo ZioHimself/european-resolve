@@ -3,9 +3,37 @@ import type { Locale } from "./types";
 export const nl = {
   // hero
   "hero.overline": "Liefdadigheidsloop · Brussel",
-  "hero.title": "35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop",
+  "hero.title":
+    "Run for Ukraine: Liefdadigheidsloop voor 35 jaar Onafhankelijkheid",
   "hero.description":
-    "Op zondag 23 augustus vieren we samen 35 jaar Oekraïense onafhankelijkheid! We ontvouwen de vlag, lopen samen 5 of 8 kilometer, en verzamelen daarna in het gemeenschapsdorp voor eten, vrienden en een goededoelenverloting. Ons grotere doel: samen met Hurkit €3.000 inzamelen om Oekraïense verdedigers te voorzien van betrouwbare stroom in het veld. Bekijk hieronder je steunopties en neem je maten en familie mee!",
+    "Doe mee in Brussel op 23 augustus, de Dag van de Nationale Vlag van Oekraïne en de vooravond van de 35e verjaardag van de Onafhankelijkheid van Oekraïne, voor de Run for Ukraine, een liefdadigheidsloop open voor iedereen, ongeacht leeftijd of conditie. Met deze loop zamelen we geld in voor de Hurkit Foundation om draagbare stroomvoorzieningen aan te kopen die Oekraïense luchtverdedigingseenheden van stroom voorzien waar dat het hardst nodig is.",
+  "hero.readMore": "Meer over het evenement",
+  "hero.whyHeading": "Waarom deelnemen en doneren?",
+  "hero.whyBody":
+    "De draagbare stroomvoorzieningen die we financieren houden Oekraïense luchtverdedigingseenheden operationeel waar betrouwbare stroom het moeilijkst te vinden is, en helpen zo de lucht en de mensen eronder te beschermen. Het initiatief wordt ondersteund door de Hurkit Foundation, een Oekraïense NGO die rechtstreeks samenwerkt met luchtverdedigingseenheden in het veld. Loop in solidariteit en vier samen: na de loop verwelkomen we je op het Begijnhofplein met Oekraïense keuken, een feestelijk concert en een traditionele ambachtenmarkt ter gelegenheid van de Onafhankelijkheidsdag van Oekraïne.",
+  "hero.scheduleHeading": "Evenementdetails",
+  "hero.scheduleIntro":
+    "Open voor iedereen. Wandel, jog of loop in je eigen tempo. Er zijn twee groepen: een beginnersniveau, met een rustiger tempo en kortere afstand, en een medium niveau, met een sneller tempo en langere afstand. Beide groepen finishen samen op het Begijnhofplein.",
+  "hero.scheduleGathering":
+    "10:00. Verzameling van deelnemers op het Luxemburgplein, registratie en uitreiking van startnummers",
+  "hero.scheduleFlag":
+    "11:00. Ceremonie van het ontvouwen van de Oekraïense nationale vlag",
+  "hero.scheduleRun": "11:30. Start van de loop",
+  "hero.scheduleAfter":
+    "Daarna. Feestelijkheden op het Begijnhofplein met Oekraïens eten, muziek en een ambachtenmarkt",
+  "hero.scheduleOrganisers":
+    "Georganiseerd door de Ambassade van Oekraïne in België, UVRC en European Resolve.",
+  "hero.participateHeading": "Hoe deelnemen",
+  "hero.participateBody":
+    "Kies een donatieniveau, registreer je en doe je donatie via de opties hieronder. Kom om 10:00 op 23 augustus naar het Luxemburgplein. Kun je niet lopen? Geen probleem! Je kunt nog steeds doneren en de opmerking \"Steun van op afstand\" achterlaten.",
+  "hero.updatesHeading": "Communicatie en updates",
+  "hero.updatesPublished": "Alle updates worden gepubliceerd op de",
+  "hero.updatesContact": "Voor vragen of meer details, neem contact met ons op via de",
+  "hero.facebookEventLink": "Facebook-evenementpagina",
+  "hero.notesHeading": "Belangrijke opmerkingen",
+  "hero.notesBody":
+    "We publiceren alle fondsenwervingsrapporten voor transparantie op de WhyDonate-pagina, dus laat je e-mailadres achter om updates te ontvangen. Deel deze fondsenwerving met vrienden om de impact te vergroten!",
+  "hero.closing": "Bedankt voor je steun!",
   "hero.beneficiary": "Begunstigde:",
 
   // tracks
@@ -278,7 +306,7 @@ export const nl = {
   "social.shareEmail": "Deel via e-mail",
   "social.copyLink": "Kopieer link",
   "social.shareMessage":
-    "Steun de fondsenwerving van {title} voor 35 Jaar Onafhankelijkheid van Oekraïne: Liefdadigheid en Loop! Elke euro financiert oplaadstations voor de verdedigers van Oekraïne.",
+    "Steun de fondsenwerving van {title} voor Run for Ukraine! Elke euro financiert draagbare stroomvoorzieningen voor Oekraïense luchtverdedigingseenheden.",
 
   // common
   "common.loading": "Laden",

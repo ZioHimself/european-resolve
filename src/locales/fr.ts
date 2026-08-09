@@ -3,9 +3,37 @@ import type { Locale } from "./types";
 export const fr = {
   // hero
   "hero.overline": "Course caritative · Bruxelles",
-  "hero.title": "35 ans d'Indépendance de l'Ukraine : Charité et Course",
+  "hero.title":
+    "Run for Ukraine : Course caritative pour 35 ans d'Indépendance",
   "hero.description":
-    "Le dimanche 23 août, rejoignez-nous pour célébrer 35 ans d'indépendance ukrainienne ! Nous déploierons le drapeau, courrons ensemble 5 ou 8 kilomètres, puis nous nous retrouverons au village communautaire pour un moment entre amis, avec de la nourriture et une tombola caritative. Notre objectif plus large : récolter 3 000 € avec Hurkit pour équiper les défenseurs de l'Ukraine en solutions d'alimentation fiables sur le terrain. Découvrez nos options de soutien ci-dessous et emmenez vos copains et votre famille avec vous !",
+    "Rejoignez-nous à Bruxelles le 23 août, Journée du drapeau national ukrainien et veille du 35e anniversaire de l'Indépendance de l'Ukraine, pour le Run for Ukraine, une course caritative ouverte à tous, quel que soit l'âge ou le niveau de forme. Cette course permet de lever des fonds pour soutenir la Fondation Hurkit dans l'achat de stations électriques portables qui alimentent les unités de défense aérienne ukrainiennes là où elles en ont le plus besoin.",
+  "hero.readMore": "En savoir plus sur l'événement",
+  "hero.whyHeading": "Pourquoi participer et faire un don ?",
+  "hero.whyBody":
+    "Les stations électriques portables que nous finançons permettent aux unités de défense aérienne ukrainiennes de rester opérationnelles là où l'électricité fiable est la plus difficile à trouver, contribuant à protéger le ciel et les personnes en dessous. L'initiative est soutenue par la Fondation Hurkit, une ONG ukrainienne qui travaille directement avec les unités de défense aérienne sur le terrain. Courez en solidarité et célébrez ensemble : après la course, rejoignez-nous sur la place du Beguinage pour une cuisine ukrainienne, un concert festif et un marché artisanal traditionnel à l'occasion de la Fête de l'Indépendance de l'Ukraine.",
+  "hero.scheduleHeading": "Détails de l'événement",
+  "hero.scheduleIntro":
+    "Ouvert à tous. Marchez, trottinez ou courez à votre rythme. Deux groupes seront formés : un niveau débutant, à un rythme plus lent et sur une distance plus courte, et un niveau intermédiaire, à un rythme plus soutenu et sur une distance plus longue. Les deux groupes termineront ensemble sur la place du Beguinage.",
+  "hero.scheduleGathering":
+    "10:00. Rassemblement des participants à la place du Luxembourg, inscription et remise des dossards",
+  "hero.scheduleFlag":
+    "11:00. Cérémonie de déploiement du drapeau national ukrainien",
+  "hero.scheduleRun": "11:30. Départ de la course",
+  "hero.scheduleAfter":
+    "Ensuite. Les célébrations se poursuivent sur la place du Beguinage avec de la nourriture ukrainienne, de la musique et un marché artisanal",
+  "hero.scheduleOrganisers":
+    "Organisé par l'Ambassade d'Ukraine en Belgique, l'UVRC et European Resolve.",
+  "hero.participateHeading": "Comment participer",
+  "hero.participateBody":
+    "Choisissez un palier de don, puis inscrivez-vous et faites votre don via les options ci-dessous. Rejoignez-nous à 10:00 le 23 août à la place du Luxembourg. Vous ne pouvez pas courir ? Pas de souci ! Vous pouvez quand même faire un don et laisser le commentaire « Soutien à distance ».",
+  "hero.updatesHeading": "Communication et mises à jour",
+  "hero.updatesPublished": "Toutes les mises à jour seront publiées sur la",
+  "hero.updatesContact": "Pour des questions ou plus de détails, contactez-nous via la",
+  "hero.facebookEventLink": "page Facebook de l'événement",
+  "hero.notesHeading": "Notes importantes",
+  "hero.notesBody":
+    "Nous publierons tous les rapports de collecte de fonds pour plus de transparence sur la page WhyDonate, alors laissez votre adresse e-mail pour recevoir les mises à jour. Partagez cette collecte avec vos amis pour maximiser l'impact !",
+  "hero.closing": "Merci pour votre soutien !",
   "hero.beneficiary": "Bénéficiaire :",
 
   // tracks
@@ -286,7 +314,7 @@ export const fr = {
   "social.shareEmail": "Partager par e-mail",
   "social.copyLink": "Copier le lien",
   "social.shareMessage":
-    "Soutenez la collecte de {title} pour 35 ans d'Indépendance de l'Ukraine : Charité et Course ! Chaque euro finance des stations de recharge pour les défenseurs de l'Ukraine.",
+    "Soutenez la collecte de {title} pour Run for Ukraine ! Chaque euro finance des stations électriques portables pour les unités de défense aérienne ukrainiennes.",
 
   // common
   "common.loading": "Chargement",

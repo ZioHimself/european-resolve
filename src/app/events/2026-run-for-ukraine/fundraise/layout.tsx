@@ -5,13 +5,13 @@ const PAGE_URL = `${BASE_URL}/events/2026-run-for-ukraine/fundraise`;
 const OG_IMAGE = `${BASE_URL}/og/run-for-ukraine-2026.png`;
 
 export const metadata: Metadata = {
-  title: "Fundraise | 35 Years of Ukraine Independence: Charity and Run",
+  title: "Fundraise | Run for Ukraine",
   description:
-    "Create your personal fundraising page for 35 Years of Ukraine Independence: Charity and Run in Brussels. Help fund charging stations for defenders.",
+    "Create your personal fundraising page for Run for Ukraine in Brussels. Help fund portable power stations for Ukraine's air defence units.",
   openGraph: {
-    title: "Fundraise | 35 Years of Ukraine Independence: Charity and Run",
+    title: "Fundraise | Run for Ukraine",
     description:
-      "Create your personal fundraising page for 35 Years of Ukraine Independence: Charity and Run in Brussels. Help fund charging stations for defenders.",
+      "Create your personal fundraising page for Run for Ukraine in Brussels. Help fund portable power stations for Ukraine's air defence units.",
     url: PAGE_URL,
     siteName: "European Resolve",
     locale: "en_BE",
@@ -22,15 +22,15 @@ export const metadata: Metadata = {
         url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: "35 Years of Ukraine Independence: Charity and Run, Brussels",
+        alt: "Run for Ukraine, Brussels",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Fundraise | 35 Years of Ukraine Independence: Charity and Run",
+    title: "Fundraise | Run for Ukraine",
     description:
-      "Create your personal fundraising page for 35 Years of Ukraine Independence: Charity and Run. Help fund charging stations for defenders.",
+      "Create your personal fundraising page for Run for Ukraine. Help fund portable power stations for Ukraine's air defence units.",
     images: [OG_IMAGE],
   },
   alternates: {

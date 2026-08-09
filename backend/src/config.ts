@@ -40,7 +40,7 @@ export const config = Object.freeze({
     pass: process.env.SMTP_PASS ?? "",
     from:
       process.env.SMTP_FROM ??
-      '"35 Years of Ukraine Independence: Charity and Run" <noreply@european-resolve.org>',
+      '"Run for Ukraine" <noreply@european-resolve.org>',
     replyTo:
       process.env.SMTP_REPLY_TO ?? "info@european-resolve.org",
   },

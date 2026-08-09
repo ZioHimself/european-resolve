@@ -3,9 +3,37 @@ import type { Locale } from "./types";
 export const de = {
   // hero
   "hero.overline": "Wohltätigkeitslauf · Brüssel",
-  "hero.title": "35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf",
+  "hero.title":
+    "Run for Ukraine: Wohltätigkeitslauf zum 35. Unabhängigkeitsjubiläum",
   "hero.description":
-    "Am Sonntag, den 23. August, feiern wir gemeinsam 35 Jahre ukrainische Unabhängigkeit! Wir entfalten die Flagge, laufen zusammen 5 oder 8 Kilometer und treffen uns danach im Gemeinschaftsdorf für Essen, Freunde und eine wohltätige Tombola. Unser größeres Ziel: gemeinsam mit Hurkit 3.000 € sammeln, um die Verteidiger der Ukraine mit zuverlässiger Energie im Feld auszustatten. Schaut euch unten unsere Unterstützungsoptionen an und bringt eure Kumpels und Familie mit!",
+    "Kommen Sie am 23. August nach Brüssel, am Tag der ukrainischen Nationalflagge und am Vorabend des 35. Jahrestags der Unabhängigkeit der Ukraine, zum Run for Ukraine, einem Wohltätigkeitslauf, der für alle offen ist, unabhängig von Alter oder Fitnesslevel. Mit diesem Lauf sammeln wir Spenden für die Hurkit Foundation zum Kauf tragbarer Stromstationen, die ukrainische Luftverteidigungseinheiten dort mit Strom versorgen, wo er am dringendsten gebraucht wird.",
+  "hero.readMore": "Mehr über die Veranstaltung",
+  "hero.whyHeading": "Warum mitmachen und spenden?",
+  "hero.whyBody":
+    "Die tragbaren Stromstationen, die wir finanzieren, halten ukrainische Luftverteidigungseinheiten dort einsatzbereit, wo zuverlässiger Strom am schwersten zu finden ist, und helfen so, den Himmel und die Menschen darunter zu schützen. Die Initiative wird von der Hurkit Foundation unterstützt, einer ukrainischen NGO, die direkt mit Luftverteidigungseinheiten vor Ort zusammenarbeitet. Laufen Sie in Solidarität und feiern Sie gemeinsam: Nach dem Lauf treffen wir uns auf dem Begijnhof-Platz mit ukrainischer Küche, einem Festkonzert und einem traditionellen Handwerksmarkt zum Unabhängigkeitstag der Ukraine.",
+  "hero.scheduleHeading": "Veranstaltungsdetails",
+  "hero.scheduleIntro":
+    "Offen für alle. Gehen, joggen oder laufen Sie in Ihrem eigenen Tempo. Es gibt zwei Gruppen: ein Anfängerniveau mit langsamerem Tempo und kürzerer Distanz und ein mittleres Niveau mit schnellerem Tempo und längerer Distanz. Beide Gruppen laufen gemeinsam auf dem Begijnhof-Platz ein.",
+  "hero.scheduleGathering":
+    "10:00. Treffen der Teilnehmer am Place du Luxembourg, Anmeldung und Ausgabe der Startnummern",
+  "hero.scheduleFlag":
+    "11:00. Zeremonie zum Entfalten der ukrainischen Nationalflagge",
+  "hero.scheduleRun": "11:30. Start des Laufs",
+  "hero.scheduleAfter":
+    "Danach. Feier auf dem Begijnhof-Platz mit ukrainischem Essen, Musik und Handwerksmarkt",
+  "hero.scheduleOrganisers":
+    "Organisiert von der Botschaft der Ukraine in Belgien, UVRC und European Resolve.",
+  "hero.participateHeading": "So nehmen Sie teil",
+  "hero.participateBody":
+    "Wählen Sie eine Spendenstufe, registrieren Sie sich und spenden Sie über die Optionen unten. Treffen Sie uns am 23. August um 10:00 am Place du Luxembourg. Sie können nicht laufen? Kein Problem! Sie können trotzdem spenden und den Kommentar \"Unterstützung aus der Ferne\" hinterlassen.",
+  "hero.updatesHeading": "Kommunikation und Updates",
+  "hero.updatesPublished": "Alle Updates werden auf der",
+  "hero.updatesContact": "Für Fragen oder weitere Details kontaktieren Sie uns über die",
+  "hero.facebookEventLink": "Facebook-Veranstaltungsseite",
+  "hero.notesHeading": "Wichtige Hinweise",
+  "hero.notesBody":
+    "Wir veröffentlichen alle Fundraising-Berichte zur Transparenz auf der WhyDonate-Seite, also hinterlassen Sie Ihre E-Mail-Adresse, um Updates zu erhalten. Teilen Sie diese Spendenaktion mit Freunden, um die Wirkung zu maximieren!",
+  "hero.closing": "Vielen Dank für Ihre Unterstützung!",
   "hero.beneficiary": "Begünstigter:",
 
   // tracks
@@ -289,7 +317,7 @@ export const de = {
   "social.shareEmail": "Per E-Mail teilen",
   "social.copyLink": "Link kopieren",
   "social.shareMessage":
-    "Unterstützen Sie die Spendenaktion von {title} für 35 Jahre Unabhängigkeit der Ukraine: Wohltätigkeit und Lauf! Jeder Euro finanziert Ladestationen für die Verteidiger der Ukraine.",
+    "Unterstützen Sie die Spendenaktion von {title} für Run for Ukraine! Jeder Euro finanziert tragbare Stromstationen für ukrainische Luftverteidigungseinheiten.",
 
   // common
   "common.loading": "Laden",

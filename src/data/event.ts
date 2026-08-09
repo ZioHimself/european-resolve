@@ -39,6 +39,7 @@ export type EventDetails = {
   };
   goalEur: number;
   whydonateShortcode: string;
+  facebookEventUrl: string;
   postEvent: PostEventData;
 };
 
@@ -82,21 +83,22 @@ export const coOrganisers = [
 ] satisfies CoOrganiser[];
 
 export const eventDetails = {
-  title: "35 Years of Ukraine Independence: Charity and Run",
+  title: "Run for Ukraine: Charity Run for 35 Years of Independence",
   date: "23 August 2026, 10:00",
   location: "Place du Luxembourg, Brussels, Belgium",
   seoDescription:
-    "Join our charity run on 23 August. Celebrate 35 years of Ukrainian independence and help raise €3,000 to equip Ukraine's defenders with power in the field.",
+    "Join us in Brussels on 23 August for the Run for Ukraine, a charity run open to everyone. Raise funds with Hurkit for portable power stations that keep Ukraine's air defence units operational.",
   beneficiary: {
-    name: "Hurkit",
-    mission: "charging stations for defenders",
+    name: "Hurkit Foundation",
+    mission: "portable power stations for air defence units",
     url: "https://hurkit.org/",
   },
   goalEur: 3_000,
   whydonateShortcode: "KvhGb",
+  facebookEventUrl: "https://www.facebook.com/events/1826555465375638",
   postEvent: {
     thankYouMessage:
-      "Thank you to every runner, supporter, and donor who made 35 Years of Ukraine Independence: Charity and Run possible. Together we powered hope on the front line.",
+      "Thank you to every runner, supporter, and donor who made Run for Ukraine possible. Together we powered hope on the front line.",
     impactStatement:
       "Every euro raised went directly to Hurkit, providing portable charging stations that keep defenders connected and operational in the field.",
     galleryFolderId: "",
