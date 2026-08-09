@@ -63,6 +63,14 @@ function generateParticipantId(): string {
   return `R4U-${base36.padStart(6, "0").slice(-6)}`;
 }
 
+/** Column T (index 19); fall back to first token of full name for legacy rows. */
+function firstNameFromRow(row: string[]): string {
+  const stored = (row[19] as string)?.trim();
+  if (stored) return stored;
+  const fullName = (row[1] as string)?.trim();
+  return fullName ? fullName.split(/\s+/)[0] : "";
+}
+
 export class SheetsService {
   private sheets: sheets_v4.Sheets;
 
@@ -94,7 +102,7 @@ export class SheetsService {
           paymentToken: (row[12] as string) ?? "",
           participationType: (row[16] as string) ?? "runner",
           status: (row[13] as string) ?? "pending",
-          firstName: (row[19] as string) ?? "",
+          firstName: firstNameFromRow(row),
           lastName: (row[20] as string) ?? "",
           language: (row[5] as string) ?? "English",
         };
@@ -168,7 +176,7 @@ export class SheetsService {
   > {
     const res = await this.sheets.spreadsheets.values.get({
       spreadsheetId: config.spreadsheetId,
-      range: `${SHEET_NAME}!A:S`,
+      range: `${SHEET_NAME}!A:U`,
     });
 
     const rows = res.data.values ?? [];
@@ -265,7 +273,7 @@ export class SheetsService {
       success: true,
       participantId: row[0] as string,
       fullName: row[1] as string,
-      firstName: row[19] as string,
+      firstName: firstNameFromRow(row),
       email: row[2] as string,
       language,
       tierName,
