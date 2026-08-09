@@ -86,7 +86,6 @@ export function RegisterClient({ onStepChange }: RegisterClientProps) {
         ? tokenHint(registrationResult.paymentToken)
         : undefined,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- log initial mount only
   }, []);
 
   useEffect(() => {
