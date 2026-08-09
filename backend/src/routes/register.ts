@@ -3,6 +3,7 @@ import { SheetsService } from "../services/sheets.js";
 import { sendConfirmationEmail } from "../services/email.js";
 import { config } from "../config.js";
 import { TIER_DATA, getLocalizedRewards } from "../tiers.js";
+import { redactEmail, regFlowLog, tokenHint } from "../lib/registrationFlowLog.js";
 import type {
   RegisterRequest,
   RegisterResponse,
@@ -93,8 +94,22 @@ const sheetsService = new SheetsService();
 registerRoute.post("/", async (c) => {
   const body = (await c.req.json()) as Record<string, unknown>;
 
+  regFlowLog.register("request received", {
+    tierId: typeof body.tierId === "string" ? body.tierId : undefined,
+    participationType:
+      typeof body.participationType === "string" ? body.participationType : undefined,
+    language: typeof body.language === "string" ? body.language : undefined,
+    email:
+      typeof body.email === "string" ? redactEmail(body.email) : undefined,
+    gdprConsent: body.gdprConsent === true,
+  });
+
   const errors = validate(body);
   if (errors.length > 0) {
+    regFlowLog.registerWarn("validation rejected", {
+      errorCount: errors.length,
+      codes: errors.map((e) => e.code).filter(Boolean),
+    });
     return c.json({ success: false, errors } satisfies ApiResponse<never>, 400);
   }
 
@@ -108,6 +123,14 @@ registerRoute.post("/", async (c) => {
   const tier = TIER_DATA[data.tierId];
   const fullName = `${data.firstName} ${data.lastName}`.trim();
   const rewards = getLocalizedRewards(data.tierId, data.language);
+
+  regFlowLog.register("registration stored", {
+    participantId,
+    paymentToken: tokenHint(paymentToken),
+    tierId: data.tierId,
+    amountEur: tier.price,
+    email: redactEmail(data.email),
+  });
 
   const response: RegisterResponse = {
     participantId,

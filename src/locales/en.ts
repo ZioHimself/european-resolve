@@ -39,6 +39,7 @@ export const en = {
   "register.title": "Pick a tier",
   "register.titleRegistration": "Registration",
   "register.titleConfirmation": "Confirmation",
+  "register.changeTier": "Change tier",
   "register.subtitle":
     "Every tier directly funds charging stations for Ukraine's defenders. Run on the day or simply support from anywhere.",
   "register.heading": "Your details",

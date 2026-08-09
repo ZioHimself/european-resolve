@@ -11,6 +11,11 @@ export interface WhyDonatePaymentReturn {
   amount?: number;
 }
 
+function logRedirect(event: string, data?: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  console.log(`[R4U:PaymentRedirect] ${event}`, data ?? {});
+}
+
 /** Detect a WhyDonate redirect return. */
 export function parseWhyDonatePaymentReturn(): WhyDonatePaymentReturn {
   if (typeof window === "undefined") {
@@ -18,7 +23,8 @@ export function parseWhyDonatePaymentReturn(): WhyDonatePaymentReturn {
   }
 
   const params = new URLSearchParams(window.location.search);
-  if (params.get("redirect_status") !== "succeeded") {
+  const redirectStatus = params.get("redirect_status");
+  if (redirectStatus !== "succeeded") {
     return { isReturn: false };
   }
 
@@ -29,7 +35,16 @@ export function parseWhyDonatePaymentReturn(): WhyDonatePaymentReturn {
     /* storage unavailable */
   }
 
-  return { isReturn: true, amount: storedAmount > 0 ? storedAmount : undefined };
+  const result = {
+    isReturn: true,
+    amount: storedAmount > 0 ? storedAmount : undefined,
+  };
+  logRedirect("payment redirect detected", {
+    redirectStatus,
+    hasOrderId: params.has("orderId"),
+    storedAmount: result.amount,
+  });
+  return result;
 }
 
 export function clearPaymentAmountStorage(): void {

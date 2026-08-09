@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen, waitFor, cleanup } from "@testing-library/react";
+import { render, screen, waitFor, cleanup, fireEvent } from "@testing-library/react";
 import { RegisterClient } from "@/components/ui/RegisterClient";
 
 vi.mock("@/components/ui/ConfirmationPanel", () => ({
@@ -137,5 +137,24 @@ describe("RegisterClient — payment redirect on an unrelated device", () => {
     expect(
       screen.queryByText("Thank you, your payment was received!"),
     ).not.toBeInTheDocument();
+  });
+});
+
+describe("RegisterClient — tier selection", () => {
+  it("notifies parent of step change when a tier is selected", async () => {
+    const onStepChange = vi.fn();
+    render(<RegisterClient onStepChange={onStepChange} />);
+
+    expect(onStepChange).toHaveBeenCalledWith("pick-tier");
+
+    fireEvent.click(screen.getByRole("button", { name: "Select Sprinter" }));
+
+    await waitFor(() => {
+      expect(onStepChange).toHaveBeenCalledWith("registration");
+    });
+
+    expect(screen.getByRole("heading", { name: "Your details" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Select Supporter" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Change tier" })).toBeInTheDocument();
   });
 });

@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
 import { TIER_DATA, getLocalizedRewards } from "../tiers.js";
+import { regFlowLog, tokenHint } from "../lib/registrationFlowLog.js";
 import type {
   RegisterResponse,
   ApiResponse,
@@ -16,6 +17,7 @@ lookupRoute.get("/:token", async (c) => {
   const token = c.req.param("token");
 
   if (!token || !token.trim()) {
+    regFlowLog.lookupWarn("request rejected — missing token");
     return c.json(
       {
         success: false,
@@ -25,9 +27,12 @@ lookupRoute.get("/:token", async (c) => {
     );
   }
 
+  regFlowLog.lookup("lookup by token", { paymentToken: tokenHint(token) });
+
   const registration = await sheetsService.findByToken(token);
 
   if (!registration) {
+    regFlowLog.lookupWarn("registration not found", { paymentToken: tokenHint(token) });
     return c.json(
       {
         success: false,
@@ -41,6 +46,10 @@ lookupRoute.get("/:token", async (c) => {
   // thank-you screen. Tier lookup isn't required here: a payment recorded
   // with no matching registration attempt has no tier on file at all.
   if (registration.status === "paid") {
+    regFlowLog.lookup("registration found (already paid)", {
+      paymentToken: tokenHint(token),
+      participantId: registration.participantId,
+    });
     const response: RegisterResponse = {
       participantId: registration.participantId,
       fullName: registration.fullName,
@@ -60,6 +69,11 @@ lookupRoute.get("/:token", async (c) => {
 
   const tier = TIER_DATA[registration.tierId as TierId];
   if (!tier) {
+    regFlowLog.lookupWarn("registration has invalid tier", {
+      paymentToken: tokenHint(token),
+      participantId: registration.participantId,
+      tierId: registration.tierId,
+    });
     return c.json(
       {
         success: false,
@@ -83,6 +97,13 @@ lookupRoute.get("/:token", async (c) => {
     paymentToken: registration.paymentToken,
     status: "pending",
   };
+
+  regFlowLog.lookup("registration found (pending payment)", {
+    paymentToken: tokenHint(token),
+    participantId: registration.participantId,
+    tierId: registration.tierId,
+    amountEur: registration.amountEur,
+  });
 
   return c.json({ success: true, data: response } satisfies ApiResponse<RegisterResponse>);
 });

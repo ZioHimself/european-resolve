@@ -42,6 +42,7 @@ export const fr = {
   "register.title": "Choisissez un palier",
   "register.titleRegistration": "Inscription",
   "register.titleConfirmation": "Confirmation",
+  "register.changeTier": "Changer de formule",
   "register.subtitle":
     "Chaque palier finance directement des stations de recharge pour les défenseurs de l'Ukraine. Courez le jour J ou soutenez simplement depuis n'importe où.",
   "register.heading": "Vos coordonnées",

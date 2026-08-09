@@ -10,6 +10,7 @@ import {
   parseWhyDonatePaymentReturn,
   clearPaymentAmountStorage,
 } from "@/lib/whydonatePaymentRedirect";
+import { regFlowLog, tokenHint } from "@/lib/registrationFlowLog";
 import styles from "./ConfirmationPanel.module.css";
 
 interface ConfirmationPanelProps {
@@ -37,12 +38,25 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
   } | null>(null);
 
   useEffect(() => {
+    regFlowLog.confirmation("panel mounted", {
+      participantId: result.participantId,
+      tierId: result.tierId,
+      tierName: result.tierName,
+      amountEur: result.amountEur,
+      paymentToken: tokenHint(result.paymentToken),
+      isRestoredSession,
+      paymentReturn: paymentReturn.isReturn,
+      storedAmount: paymentReturn.amount,
+      url: `${window.location.pathname}${window.location.search.split("&").slice(0, 3).join("&")}`,
+    });
+
     if (!isRestoredSession) return;
 
     if (paymentReturn.isReturn) {
       clearPaymentAmountStorage();
-      console.log("[ConfirmationPanel] redirect return — auto-confirming", {
+      regFlowLog.confirmation("redirect return — auto-confirming", {
         amount: paymentReturn.amount,
+        paymentToken: tokenHint(result.paymentToken),
       });
       handleAutoConfirm(paymentReturn.amount);
       return;
@@ -50,6 +64,7 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
 
     const params = new URLSearchParams(window.location.search);
     if (!params.has("orderId") && !paymentReturn.isReturn) {
+      regFlowLog.confirmationWarn("restored session without payment return params");
       setInterruptedSession(true);
       const timer = setTimeout(() => setInterruptedSession(false), 10 * 60 * 1000);
       return () => clearTimeout(timer);
@@ -61,6 +76,10 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
     setError(null);
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
+    regFlowLog.confirmation("confirm-payment request (auto)", {
+      paymentToken: tokenHint(result.paymentToken),
+      amount,
+    });
 
     try {
       const res = await fetch(`${apiUrl}/api/register/confirm-payment`, {
@@ -77,6 +96,11 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
+        regFlowLog.confirmation("confirm-payment success (auto)", {
+          tierName: data.data.tierName,
+          amountEur: data.data.amountEur,
+          rewardCount: data.data.rewards?.length ?? 0,
+        });
         setEffectivePayment({
           tierName: data.data.tierName,
           rewards: data.data.rewards ?? [],
@@ -86,9 +110,15 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
         onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
+        regFlowLog.confirmationWarn("confirm-payment rejected (auto)", {
+          status: res.status,
+          code: firstErr?.code,
+          message: firstErr?.message,
+        });
         setError(firstErr?.code ? t(`errors.${firstErr.code}`) || firstErr.message : firstErr?.message ?? t("register.confirmFailed"));
       }
     } catch {
+      regFlowLog.confirmationError("confirm-payment network error (auto)");
       setError(t("register.confirmNetworkError"));
     } finally {
       setVerifying(false);
@@ -100,6 +130,9 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
     setError(null);
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
+    regFlowLog.confirmation("confirm-payment request (manual)", {
+      paymentToken: tokenHint(result.paymentToken),
+    });
 
     try {
       const res = await fetch(`${apiUrl}/api/register/confirm-payment`, {
@@ -115,6 +148,11 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
+        regFlowLog.confirmation("confirm-payment success (manual)", {
+          tierName: data.data.tierName,
+          amountEur: data.data.amountEur,
+          rewardCount: data.data.rewards?.length ?? 0,
+        });
         setEffectivePayment({
           tierName: data.data.tierName,
           rewards: data.data.rewards ?? [],
@@ -124,9 +162,15 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
         onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
+        regFlowLog.confirmationWarn("confirm-payment rejected (manual)", {
+          status: res.status,
+          code: firstErr?.code,
+          message: firstErr?.message,
+        });
         setError(firstErr?.code ? t(`errors.${firstErr.code}`) || firstErr.message : firstErr?.message ?? t("register.confirmFailed"));
       }
     } catch {
+      regFlowLog.confirmationError("confirm-payment network error (manual)");
       setError(t("register.confirmNetworkError"));
     } finally {
       setConfirming(false);
@@ -301,12 +345,16 @@ export function ConfirmationPanel({ result, isRestoredSession, onPaymentConfirme
             minTierAmount={result.amountEur}
             minTierName={result.tierName}
             onPaymentSuccess={(amount) => {
+              regFlowLog.confirmation("widget reported payment success", { amount });
               try {
                 sessionStorage.setItem(AMOUNT_STORAGE_KEY, String(amount));
               } catch { /* unavailable */ }
               handleAutoConfirm(amount).finally(clearPaymentAmountStorage);
             }}
-            onDetectionFailed={() => setDetectionActive(false)}
+            onDetectionFailed={() => {
+              regFlowLog.confirmationWarn("widget auto-detection failed — showing manual confirm");
+              setDetectionActive(false);
+            }}
             donorInfo={{ firstName: result.firstName, lastName: result.lastName, email: result.email }}
           />
           {verifying && (

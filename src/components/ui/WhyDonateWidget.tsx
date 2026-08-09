@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { regFlowLog } from "@/lib/registrationFlowLog";
 
 type DonorInfo =
   | { firstName: string; lastName: string; email: string }
@@ -93,19 +94,90 @@ function persistDonationDetails(keys: DonationStorageKeys, shadow: ShadowRoot, i
   }
 }
 
-const nativeInputValueSetter =
-  typeof window !== "undefined"
-    ? Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value")?.set
-    : undefined;
+function getNativeValueSetter(
+  input: HTMLInputElement | HTMLTextAreaElement,
+): ((value: string) => void) | undefined {
+  const proto =
+    input instanceof HTMLTextAreaElement
+      ? HTMLTextAreaElement.prototype
+      : HTMLInputElement.prototype;
+  const setter = Object.getOwnPropertyDescriptor(proto, "value")?.set;
+  return setter ? (value: string) => setter.call(input, value) : undefined;
+}
 
-function setInputValue(input: HTMLInputElement, value: string): void {
-  if (nativeInputValueSetter) {
-    nativeInputValueSetter.call(input, value);
+function setInputValue(input: HTMLInputElement | HTMLTextAreaElement, value: string): void {
+  const setNativeValue = getNativeValueSetter(input);
+  if (setNativeValue) {
+    setNativeValue(value);
   } else {
     input.value = value;
   }
-  input.dispatchEvent(new Event("input", { bubbles: true }));
+  // InputEvent keeps floating labels and widget validation in sync on mobile;
+  // a plain Event("input") is ignored by some browsers inside shadow DOM.
+  try {
+    input.dispatchEvent(
+      new InputEvent("input", {
+        bubbles: true,
+        data: value,
+        inputType: "insertFromPaste",
+      }),
+    );
+  } catch {
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+  }
   input.dispatchEvent(new Event("change", { bubbles: true }));
+}
+
+function isContainerVisible(el: HTMLElement | null): boolean {
+  if (!el) return false;
+  const display = el.style.display;
+  return display !== "none" && display !== "";
+}
+
+function donorFieldsExist(shadow: ShadowRoot, id: string): boolean {
+  return Boolean(
+    shadow.getElementById(`donor-fname-${id}`) &&
+      shadow.getElementById(`donor-lname-${id}`) &&
+      shadow.getElementById(`donor-email-${id}`),
+  );
+}
+
+function needsDonorPrefill(
+  shadow: ShadowRoot,
+  id: string,
+  info: DonorInfo,
+): boolean {
+  if (!donorFieldsExist(shadow, id)) return false;
+  const expected = normalizeDonorInfo(info);
+  const fname =
+    (shadow.getElementById(`donor-fname-${id}`) as HTMLInputElement | null)?.value ??
+    "";
+  const lname =
+    (shadow.getElementById(`donor-lname-${id}`) as HTMLInputElement | null)?.value ??
+    "";
+  const email =
+    (shadow.getElementById(`donor-email-${id}`) as HTMLInputElement | null)?.value ??
+    "";
+  return (
+    fname !== expected.firstName ||
+    lname !== expected.lastName ||
+    email !== expected.email
+  );
+}
+
+function ensureMinTierAmount(
+  shadow: ShadowRoot,
+  id: string,
+  minAmount: number,
+  keys?: DonationStorageKeys,
+): void {
+  const amountInput = shadow.getElementById(
+    `other-amount-number-${id}`,
+  ) as HTMLInputElement | null;
+  if (!amountInput) return;
+  if (readAmount(shadow, id) >= minAmount) return;
+  setInputValue(amountInput, String(minAmount));
+  if (keys) persistDonationDetails(keys, shadow, id);
 }
 
 function prefillDonorFields(
@@ -124,13 +196,12 @@ function prefillDonorFields(
   let filledCount = 0;
   for (const [fieldId, value] of fields) {
     const input = shadow.getElementById(fieldId) as HTMLInputElement | null;
-    if (input) {
-      setInputValue(input, value);
-      filledCount++;
-    }
+    if (!input) return false;
+    setInputValue(input, value);
+    filledCount++;
   }
 
-  return filledCount > 0;
+  return filledCount === fields.length;
 }
 
 function attachDonationPersistence(
@@ -165,6 +236,44 @@ function attachDonationPersistence(
   };
 }
 
+function readDonorPrefillState(
+  shadow: ShadowRoot,
+  id: string,
+  info: DonorInfo,
+): Record<string, boolean | string> {
+  const expected = normalizeDonorInfo(info);
+  const fname =
+    (shadow.getElementById(`donor-fname-${id}`) as HTMLInputElement | null)?.value ??
+    "";
+  const lname =
+    (shadow.getElementById(`donor-lname-${id}`) as HTMLInputElement | null)?.value ??
+    "";
+  const email =
+    (shadow.getElementById(`donor-email-${id}`) as HTMLInputElement | null)?.value ??
+    "";
+  return {
+    fieldsPresent: donorFieldsExist(shadow, id),
+    fnameMatch: fname === expected.firstName,
+    lnameMatch: lname === expected.lastName,
+    emailMatch: email === expected.email,
+    stepTwoVisible: isContainerVisible(shadow.getElementById(`step-two-container-${id}`)),
+  };
+}
+
+function readWidgetStepState(shadow: ShadowRoot, id: string) {
+  const stepIds = ["one", "two", "three", "four"] as const;
+  const steps: Record<string, string> = {};
+  for (const step of stepIds) {
+    const el = shadow.getElementById(`step-${step}-container-${id}`);
+    if (!el) {
+      steps[step] = "missing";
+      continue;
+    }
+    steps[step] = el.style.display === "none" ? "hidden" : "visible";
+  }
+  return steps;
+}
+
 function attachTierAmountGate(
   shadow: ShadowRoot,
   id: string,
@@ -183,6 +292,11 @@ function attachTierAmountGate(
     if (amount < minAmount) {
       event.preventDefault();
       event.stopImmediatePropagation();
+      regFlowLog.whyDonateWarn("step-one blocked by tier minimum gate", {
+        amount,
+        minAmount,
+        tierName,
+      });
 
       if (errorEl) {
         errorEl.textContent = `Minimum donation for ${tierName} is €${minAmount}. Please enter at least this amount to continue.`;
@@ -190,6 +304,11 @@ function attachTierAmountGate(
       }
       return;
     }
+
+    regFlowLog.whyDonate("step-one allowed by tier minimum gate", {
+      amount,
+      minAmount,
+    });
 
     if (errorEl) {
       errorEl.textContent = "";
@@ -215,16 +334,19 @@ export function WhyDonateWidget({
   minTierName,
 }: WhyDonateWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const prefillDoneRef = useRef(false);
   const detectionDoneRef = useRef(false);
   const donorInfoRef = useRef(donorInfo);
   const storageKeysRef = useRef(donationStorageKeys);
   const minTierAmountRef = useRef(minTierAmount);
   const minTierNameRef = useRef(minTierName);
+  const onPaymentSuccessRef = useRef(onPaymentSuccess);
+  const onDetectionFailedRef = useRef(onDetectionFailed);
   donorInfoRef.current = donorInfo;
   storageKeysRef.current = donationStorageKeys;
   minTierAmountRef.current = minTierAmount;
   minTierNameRef.current = minTierName;
+  onPaymentSuccessRef.current = onPaymentSuccess;
+  onDetectionFailedRef.current = onDetectionFailed;
 
   useEffect(() => {
     const el = containerRef.current?.querySelector(".widget-here") as HTMLElement | null;
@@ -253,7 +375,14 @@ export function WhyDonateWidget({
     const script = document.createElement("script");
     script.src = "https://plugin.whydonate.com/wp_styling.js";
     script.type = "text/javascript";
+    script.onload = () => {
+      regFlowLog.whyDonate("widget script loaded", { shortcode });
+    };
+    script.onerror = () => {
+      regFlowLog.whyDonateWarn("widget script failed to load", { shortcode });
+    };
     document.body.appendChild(script);
+    regFlowLog.whyDonate("widget script injected", { shortcode, lang });
   }, []);
 
   useEffect(() => {
@@ -274,17 +403,54 @@ export function WhyDonateWidget({
     const id = `${shortcode}-1`;
 
     function firePaymentSuccess(shadow: ShadowRoot) {
-      if (!onPaymentSuccess) return;
+      const onSuccess = onPaymentSuccessRef.current;
+      if (!onSuccess) return;
       const details = readDonationDetails(shadow, id);
-      console.log("[WhyDonateWidget] payment detected", details);
-      onPaymentSuccess(details.amount, {
+      regFlowLog.whyDonate("payment detected", {
+        amount: details.amount,
+        hasDonorName: Boolean(details.donorName),
+        hasMessage: Boolean(details.message),
+        steps: readWidgetStepState(shadow, id),
+      });
+      onSuccess(details.amount, {
         donorName: details.donorName,
         message: details.message,
       });
     }
 
+    function tryPrefillDonorFields(shadow: ShadowRoot): boolean {
+      const info = donorInfoRef.current;
+      if (!info) return true;
+      if (!donorFieldsExist(shadow, id)) return false;
+      if (!needsDonorPrefill(shadow, id, info)) return true;
+
+      const stepTwo = shadow.getElementById(`step-two-container-${id}`);
+      const stepTwoVisible = isContainerVisible(stepTwo);
+
+      if (!stepTwoVisible) {
+        prefillDonorFields(shadow, id, info);
+        // Values set on hidden fields may not stick on mobile; keep retrying
+        // until the details step is visible and values are confirmed.
+        return !needsDonorPrefill(shadow, id, info);
+      }
+
+      const filled = prefillDonorFields(shadow, id, info);
+      regFlowLog.whyDonate(
+        filled ? "donor prefill applied" : "donor prefill incomplete",
+        readDonorPrefillState(shadow, id, info),
+      );
+      return filled;
+    }
+
     function handleShadowRoot(shadow: ShadowRoot) {
       if (cancelled) return;
+
+      regFlowLog.whyDonate("shadow root ready", {
+        shortcode,
+        widgetId: id,
+        steps: readWidgetStepState(shadow, id),
+        minTierAmount: minTierAmountRef.current,
+      });
 
       const keys = storageKeysRef.current;
       if (keys) {
@@ -295,40 +461,38 @@ export function WhyDonateWidget({
       const tierMin = minTierAmountRef.current;
       const tierName = minTierNameRef.current;
       if (tierMin != null && tierMin > 0 && tierName) {
-        const amountInput = shadow.getElementById(
-          `other-amount-number-${id}`,
-        ) as HTMLInputElement | null;
-        if (amountInput) {
-          setInputValue(amountInput, String(tierMin));
-          if (keys) {
-            persistDonationDetails(keys, shadow, id);
-          }
+        const before = readAmount(shadow, id);
+        ensureMinTierAmount(shadow, id, tierMin, keys);
+        const after = readAmount(shadow, id);
+        if (after !== before) {
+          regFlowLog.whyDonate("tier minimum amount enforced", {
+            before,
+            after,
+            minAmount: tierMin,
+          });
         }
-
         detachGate?.();
         detachGate = attachTierAmountGate(shadow, id, tierMin, tierName);
       }
 
+      tryPrefillDonorFields(shadow);
+
       const currentDonorInfo = donorInfoRef.current;
-
-      // Pre-fill donor fields — attempt immediately, retry on DOM changes
-      if (currentDonorInfo && !prefillDoneRef.current) {
-        const filled = prefillDonorFields(shadow, id, currentDonorInfo);
-        if (filled) {
-          prefillDoneRef.current = true;
-        }
-      }
-
-      const needsPaymentDetection = onPaymentSuccess && !detectionDoneRef.current;
-      const needsPrefillRetry = currentDonorInfo && !prefillDoneRef.current;
+      const donorPrefillSettled =
+        !currentDonorInfo || !needsDonorPrefill(shadow, id, currentDonorInfo);
+      const needsPaymentDetection =
+        onPaymentSuccessRef.current && !detectionDoneRef.current;
+      const needsPrefillRetry = currentDonorInfo && !donorPrefillSettled;
       const needsGateRetry =
         tierMin != null && tierMin > 0 && tierName && !shadow.querySelector(".wd-part-step-one-next");
+      const needsTierAmountWatch =
+        tierMin != null && tierMin > 0 && Boolean(tierName);
 
-      if (!needsPaymentDetection && !needsPrefillRetry && !needsGateRetry) return;
+      if (!needsPaymentDetection && !needsPrefillRetry && !needsGateRetry && !needsTierAmountWatch) return;
 
       if (needsPaymentDetection) {
         const stepFour = shadow.getElementById(`step-four-container-${id}`);
-        console.log("[WhyDonateWidget] checking step-four on mount", {
+        regFlowLog.whyDonate("checking step-four on mount", {
           found: !!stepFour,
           display: stepFour?.style.display,
         });
@@ -341,13 +505,7 @@ export function WhyDonateWidget({
 
       observer = new MutationObserver(() => {
         const info = donorInfoRef.current;
-        // Retry prefill when the widget renders new steps
-        if (info && !prefillDoneRef.current) {
-          const filled = prefillDonorFields(shadow, id, info);
-          if (filled) {
-            prefillDoneRef.current = true;
-          }
-        }
+        tryPrefillDonorFields(shadow);
 
         if (keys) {
           persistDonationDetails(keys, shadow, id);
@@ -356,6 +514,7 @@ export function WhyDonateWidget({
         const currentTierMin = minTierAmountRef.current;
         const currentTierName = minTierNameRef.current;
         if (currentTierMin != null && currentTierMin > 0 && currentTierName) {
+          ensureMinTierAmount(shadow, id, currentTierMin, keys);
           if (shadow.querySelector(".wd-part-step-one-next")) {
             detachGate?.();
             detachGate = attachTierAmountGate(
@@ -367,8 +526,14 @@ export function WhyDonateWidget({
           }
         }
 
-        if (!onPaymentSuccess || detectionDoneRef.current) {
-          if (prefillDoneRef.current) {
+        const prefillSettled =
+          !info || !needsDonorPrefill(shadow, id, info);
+        const tierWatchActive =
+          minTierAmountRef.current != null &&
+          minTierAmountRef.current > 0 &&
+          Boolean(minTierNameRef.current);
+        if (!onPaymentSuccessRef.current || detectionDoneRef.current) {
+          if (prefillSettled && !tierWatchActive) {
             observer?.disconnect();
             observer = null;
           }
@@ -377,7 +542,7 @@ export function WhyDonateWidget({
         const el = shadow.getElementById(`step-four-container-${id}`);
         if (el && el.style.display !== "none" && el.style.display !== "") {
           detectionDoneRef.current = true;
-          if (prefillDoneRef.current || !donorInfoRef.current) {
+          if (prefillSettled && !tierWatchActive) {
             observer?.disconnect();
             observer = null;
           }
@@ -414,7 +579,11 @@ export function WhyDonateWidget({
       if (attempts >= maxAttempts) {
         if (pollTimer) clearInterval(pollTimer);
         pollTimer = null;
-        onDetectionFailed?.();
+        regFlowLog.whyDonateWarn("shadow root poll timed out", {
+          shortcode,
+          attempts: maxAttempts,
+        });
+        onDetectionFailedRef.current?.();
       }
     }, 100);
 
@@ -428,15 +597,7 @@ export function WhyDonateWidget({
       detachPersistence?.();
       detachGate?.();
     };
-  }, [
-    shortcode,
-    onPaymentSuccess,
-    onDetectionFailed,
-    donorInfo,
-    donationStorageKeys,
-    minTierAmount,
-    minTierName,
-  ]);
+  }, [shortcode, minTierAmount, minTierName]);
 
   return (
     <div ref={containerRef}>

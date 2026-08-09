@@ -42,6 +42,7 @@ export const de = {
   "register.title": "Wählen Sie eine Stufe",
   "register.titleRegistration": "Anmeldung",
   "register.titleConfirmation": "Bestätigung",
+  "register.changeTier": "Stufe ändern",
   "register.subtitle":
     "Jede Stufe finanziert direkt Ladestationen für die Verteidiger der Ukraine. Laufen Sie am Tag selbst mit oder unterstützen Sie einfach von überall.",
   "register.heading": "Ihre Daten",

@@ -42,6 +42,7 @@ export const nl = {
   "register.title": "Kies een niveau",
   "register.titleRegistration": "Inschrijving",
   "register.titleConfirmation": "Bevestiging",
+  "register.changeTier": "Formule wijzigen",
   "register.subtitle":
     "Elk niveau financiert rechtstreeks oplaadstations voor de verdedigers van Oekraïne. Loop mee op de dag zelf of steun gewoon vanuit om het even waar.",
   "register.heading": "Je gegevens",

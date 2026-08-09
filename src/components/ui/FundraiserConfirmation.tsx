@@ -10,6 +10,7 @@ import {
   parseWhyDonatePaymentReturn,
   clearPaymentAmountStorage,
 } from "@/lib/whydonatePaymentRedirect";
+import { regFlowLog, tokenHint } from "@/lib/registrationFlowLog";
 import styles from "./FundraiserConfirmation.module.css";
 
 const AMOUNT_STORAGE_KEY = PAYMENT_AMOUNT_STORAGE_KEY;
@@ -64,12 +65,22 @@ export function FundraiserConfirmation({
   } | null>(null);
 
   useEffect(() => {
+    regFlowLog.fundraiserConfirmation("panel mounted", {
+      slug,
+      hasRegistration: Boolean(registration),
+      isRestoredSession: Boolean(isRestoredSession),
+      paymentReturn: paymentReturn.isReturn,
+    });
+  }, []);
+
+  useEffect(() => {
     if (!isRestoredSession) return;
 
     if (paymentReturn.isReturn && registration) {
       clearPaymentAmountStorage();
-      console.log("[FundraiserConfirmation] redirect return — auto-confirming", {
+      regFlowLog.fundraiserConfirmation("redirect return — auto-confirming", {
         amount: paymentReturn.amount,
+        paymentToken: tokenHint(registration.paymentToken),
       });
       handleAutoConfirm(paymentReturn.amount);
       return;
@@ -77,6 +88,7 @@ export function FundraiserConfirmation({
 
     const params = new URLSearchParams(window.location.search);
     if (!params.has("orderId") && !paymentReturn.isReturn) {
+      regFlowLog.fundraiserConfirmationWarn("restored session without payment return params");
       setInterruptedSession(true);
       const timer = setTimeout(() => setInterruptedSession(false), 10 * 60 * 1000);
       return () => clearTimeout(timer);
@@ -104,6 +116,10 @@ export function FundraiserConfirmation({
     setConfirmError(null);
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
+    regFlowLog.fundraiserConfirmation("confirm-payment request (auto)", {
+      paymentToken: tokenHint(registration.paymentToken),
+      amount,
+    });
 
     try {
       const res = await fetch(`${apiUrl}/api/register/confirm-payment`, {
@@ -120,6 +136,11 @@ export function FundraiserConfirmation({
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
+        regFlowLog.fundraiserConfirmation("confirm-payment success (auto)", {
+          tierName: data.data.tierName,
+          amountEur: data.data.amountEur,
+          rewardCount: data.data.rewards?.length ?? 0,
+        });
         setEffectivePayment({
           tierName: data.data.tierName,
           rewards: data.data.rewards ?? [],
@@ -129,9 +150,15 @@ export function FundraiserConfirmation({
         onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
+        regFlowLog.fundraiserConfirmationWarn("confirm-payment rejected (auto)", {
+          status: res.status,
+          code: firstErr?.code,
+          message: firstErr?.message,
+        });
         setConfirmError(firstErr?.code ? t(`errors.${firstErr.code}`) || firstErr.message : firstErr?.message ?? t("confirmation.confirmFailed"));
       }
     } catch {
+      regFlowLog.fundraiserConfirmationError("confirm-payment network error (auto)");
       setConfirmError(t("confirmation.confirmError"));
     } finally {
       setVerifying(false);
@@ -144,6 +171,9 @@ export function FundraiserConfirmation({
     setConfirmError(null);
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
+    regFlowLog.fundraiserConfirmation("confirm-payment request (manual)", {
+      paymentToken: tokenHint(registration.paymentToken),
+    });
 
     try {
       const res = await fetch(`${apiUrl}/api/register/confirm-payment`, {
@@ -159,6 +189,11 @@ export function FundraiserConfirmation({
       const data = await res.json();
 
       if (data.success && data.data?.confirmed) {
+        regFlowLog.fundraiserConfirmation("confirm-payment success (manual)", {
+          tierName: data.data.tierName,
+          amountEur: data.data.amountEur,
+          rewardCount: data.data.rewards?.length ?? 0,
+        });
         setEffectivePayment({
           tierName: data.data.tierName,
           rewards: data.data.rewards ?? [],
@@ -168,9 +203,15 @@ export function FundraiserConfirmation({
         onPaymentConfirmed?.();
       } else {
         const firstErr = data.errors?.[0];
+        regFlowLog.fundraiserConfirmationWarn("confirm-payment rejected (manual)", {
+          status: res.status,
+          code: firstErr?.code,
+          message: firstErr?.message,
+        });
         setConfirmError(firstErr?.code ? t(`errors.${firstErr.code}`) || firstErr.message : firstErr?.message ?? t("confirmation.confirmFailed"));
       }
     } catch {
+      regFlowLog.fundraiserConfirmationError("confirm-payment network error (manual)");
       setConfirmError(t("confirmation.confirmError"));
     } finally {
       setConfirming(false);
@@ -278,12 +319,16 @@ export function FundraiserConfirmation({
                   minTierAmount={registration.amountEur}
                   minTierName={registration.tierName}
                   onPaymentSuccess={(amount) => {
+                    regFlowLog.fundraiserConfirmation("widget reported payment success", { amount });
                     try {
                       sessionStorage.setItem(AMOUNT_STORAGE_KEY, String(amount));
                     } catch { /* unavailable */ }
                     handleAutoConfirm(amount).finally(clearPaymentAmountStorage);
                   }}
-                  onDetectionFailed={() => setDetectionActive(false)}
+                  onDetectionFailed={() => {
+                    regFlowLog.fundraiserConfirmationWarn("widget auto-detection failed — showing manual confirm");
+                    setDetectionActive(false);
+                  }}
                   donorInfo={{ firstName: registration.firstName, lastName: registration.lastName, email: registration.email }}
                 />
                 {verifying && (

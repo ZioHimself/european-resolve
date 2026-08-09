@@ -42,6 +42,7 @@ export const uk = {
   "register.title": "Обери рівень",
   "register.titleRegistration": "Реєстрація",
   "register.titleConfirmation": "Підтвердження",
+  "register.changeTier": "Змінити рівень",
   "register.subtitle":
     "Кожен рівень безпосередньо фінансує зарядні станції для захисниць і захисників України. Біжи у день події або просто підтримай кампанію з будь-якого місця.",
   "register.heading": "Твої дані",

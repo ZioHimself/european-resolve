@@ -9,6 +9,7 @@ import { ConfirmationPanel } from "@/components/ui/ConfirmationPanel";
 import { t } from "@/locales";
 import type { RegisterResponse } from "./registerTypes";
 import styles from "./RegisterClient.module.css";
+import { regFlowLog, tokenHint } from "@/lib/registrationFlowLog";
 
 type TierId = "supporter" | "sprinter" | "relay-runner" | "marathoner" | "ultramarathoner";
 
@@ -34,6 +35,13 @@ function hasOrphanedPaymentReturn(): boolean {
   if (typeof window === "undefined") return false;
   const params = new URLSearchParams(window.location.search);
   return params.get("redirect_status") === "succeeded" && !params.get("token");
+}
+
+function scrollToFormAnchor(el: HTMLElement | null): void {
+  if (!el || typeof el.scrollIntoView !== "function") return;
+  // `auto` is more reliable on mobile than `smooth`, which some browsers
+  // block when the scroll isn't in the same turn as the tap.
+  el.scrollIntoView({ behavior: "auto", block: "start" });
 }
 
 interface RegisterClientProps {
@@ -64,12 +72,29 @@ export function RegisterClient({ onStepChange }: RegisterClientProps) {
 
   useEffect(() => {
     onStepChange?.(step);
+    regFlowLog.registerClient("step changed", { step });
   }, [step, onStepChange]);
 
   useEffect(() => {
-    if (selectedTierId) {
-      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    regFlowLog.registerClient("mounted", {
+      step,
+      hasRestoredSession: isRestoredSession,
+      hasRegistrationResult: registrationResult !== null,
+      paymentReceivedElsewhere,
+      participantId: registrationResult?.participantId,
+      paymentToken: registrationResult
+        ? tokenHint(registrationResult.paymentToken)
+        : undefined,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- log initial mount only
+  }, []);
+
+  useEffect(() => {
+    if (!selectedTierId) return;
+    const frame = requestAnimationFrame(() => {
+      scrollToFormAnchor(formRef.current);
+    });
+    return () => cancelAnimationFrame(frame);
   }, [selectedTierId]);
 
   useEffect(() => {
@@ -78,15 +103,27 @@ export function RegisterClient({ onStepChange }: RegisterClientProps) {
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
     setTokenLoading(true);
+    regFlowLog.registerClient("fetching registration by URL token", {
+      token: tokenHint(token),
+    });
 
     fetch(`${apiUrl}/api/register/by-token/${encodeURIComponent(token)}`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (data?.success && data.data) {
+          regFlowLog.registerClient("registration loaded from URL token", {
+            participantId: data.data.participantId,
+            tierId: data.data.tierId,
+            token: tokenHint(data.data.paymentToken ?? token),
+          });
           setRegistrationResult(data.data as RegisterResponse);
+        } else {
+          regFlowLog.registerClientWarn("URL token lookup returned no registration");
         }
       })
-      .catch(() => {})
+      .catch(() => {
+        regFlowLog.registerClientWarn("URL token lookup failed");
+      })
       .finally(() => setTokenLoading(false));
   }, [registrationResult]);
 
@@ -96,6 +133,13 @@ export function RegisterClient({ onStepChange }: RegisterClientProps) {
       : null;
 
   function handleRegistrationSuccess(result: RegisterResponse) {
+    regFlowLog.registerClient("registration API success", {
+      participantId: result.participantId,
+      tierId: result.tierId,
+      tierName: result.tierName,
+      amountEur: result.amountEur,
+      paymentToken: tokenHint(result.paymentToken),
+    });
     setRegistrationResult(result);
     setIsRestoredSession(false);
     try {
@@ -111,12 +155,25 @@ export function RegisterClient({ onStepChange }: RegisterClientProps) {
   }
 
   function handleStartOver() {
+    regFlowLog.registerClient("start over");
     try {
       sessionStorage.removeItem(STORAGE_KEY);
     } catch { /* storage unavailable */ }
     setRegistrationResult(null);
     setSelectedTierId(null);
     setPaymentJustConfirmed(false);
+  }
+
+  function handleSelectTier(id: TierId) {
+    regFlowLog.registerClient("tier selected", { tierId: id });
+    setSelectedTierId(id);
+    onStepChange?.("registration");
+  }
+
+  function handleChangeTier() {
+    regFlowLog.registerClient("tier selection cleared");
+    setSelectedTierId(null);
+    onStepChange?.("pick-tier");
   }
 
   if (tokenLoading) {
@@ -146,13 +203,28 @@ export function RegisterClient({ onStepChange }: RegisterClientProps) {
         </section>
       ) : (
         <>
-          <TierGrid
-            selectedTierId={selectedTierId}
-            onSelectTier={setSelectedTierId}
-          />
-
-          {selectedTier && (
+          {!selectedTier ? (
+            <TierGrid
+              selectedTierId={selectedTierId}
+              onSelectTier={handleSelectTier}
+            />
+          ) : (
             <div ref={formRef} className={styles.formAnchor}>
+              <div className={styles.selectedTierBar}>
+                <p className={styles.selectedTierLabel}>
+                  {selectedTier.name} · €{selectedTier.price}
+                  {selectedTier.id === "supporter" && (
+                    <span className={styles.selectedTierNote}> or more</span>
+                  )}
+                </p>
+                <button
+                  type="button"
+                  className={styles.changeTierButton}
+                  onClick={handleChangeTier}
+                >
+                  {t("register.changeTier")}
+                </button>
+              </div>
               <RegistrationForm
                 selectedTier={selectedTier}
                 onSuccess={handleRegistrationSuccess}

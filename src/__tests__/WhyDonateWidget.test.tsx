@@ -142,6 +142,44 @@ describe("WhyDonateWidget", () => {
       expect(events).toContain("change");
     });
 
+    it("prefills donor fields when step two becomes visible after hidden prefill failed", async () => {
+      const shortcode = "mob01";
+      render(
+        <WhyDonateWidget
+          shortcode={shortcode}
+          donorInfo={{ fullName: "Mobile User", email: "mobile@test.com" }}
+          onPaymentSuccess={vi.fn()}
+          onDetectionFailed={vi.fn()}
+        />,
+      );
+
+      act(() => { simulateWidgetInit(shortcode); });
+      act(() => { vi.advanceTimersByTime(200); });
+
+      const host = document.getElementById(`widget-here-${shortcode}`)!;
+      const shadow = host.shadowRoot!;
+      const id = `${shortcode}-1`;
+      const stepTwo = shadow.getElementById(`step-two-container-${id}`)!;
+
+      // Simulate mobile: hidden prefill does not stick
+      const fname = shadow.getElementById(`donor-fname-${id}`) as HTMLInputElement;
+      const lname = shadow.getElementById(`donor-lname-${id}`) as HTMLInputElement;
+      const email = shadow.getElementById(`donor-email-${id}`) as HTMLInputElement;
+      fname.value = "";
+      lname.value = "";
+      email.value = "";
+
+      act(() => {
+        stepTwo.style.display = "block";
+      });
+
+      await act(async () => { await Promise.resolve(); });
+
+      expect(fname).toHaveProperty("value", "Mobile");
+      expect(lname).toHaveProperty("value", "User");
+      expect(email).toHaveProperty("value", "mobile@test.com");
+    });
+
     it("retries prefill via MutationObserver when fields appear later", async () => {
       const shortcode = "late1";
       render(
@@ -473,6 +511,41 @@ describe("WhyDonateWidget", () => {
 
       expect(nativeHandler).toHaveBeenCalled();
       expect(errorEl.style.display).toBe("none");
+    });
+
+    it("re-applies tier minimum when amount is reset below minimum", async () => {
+      const shortcode = "gate5";
+      const AMOUNT_KEY = "test:gate5:amount";
+      render(
+        <WhyDonateWidget
+          shortcode={shortcode}
+          donationStorageKeys={{ amount: AMOUNT_KEY }}
+          minTierAmount={30}
+          minTierName="Relay runner"
+        />,
+      );
+
+      act(() => { simulateWidgetInit(shortcode); });
+      act(() => { vi.advanceTimersByTime(200); });
+
+      const host = document.getElementById(`widget-here-${shortcode}`)!;
+      const shadow = host.shadowRoot!;
+      const id = `${shortcode}-1`;
+      const amountInput = shadow.getElementById(
+        `other-amount-number-${id}`,
+      ) as HTMLInputElement;
+
+      expect(amountInput.value).toBe("30");
+
+      act(() => {
+        amountInput.value = "15";
+        shadow.getElementById(`step-one-container-${id}`)!.classList.add("wd-api-loaded");
+      });
+
+      await act(async () => { await Promise.resolve(); });
+
+      expect(amountInput.value).toBe("30");
+      expect(sessionStorage.getItem(AMOUNT_KEY)).toBe("30");
     });
 
     it("does not attach gate when minTierAmount is omitted", () => {

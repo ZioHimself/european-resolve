@@ -34,6 +34,7 @@ export interface Locale {
   "register.title": string;
   "register.titleRegistration": string;
   "register.titleConfirmation": string;
+  "register.changeTier": string;
   "register.subtitle": string;
   "register.heading": string;
   "register.descriptionSupporter": string;

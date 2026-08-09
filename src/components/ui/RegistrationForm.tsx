@@ -4,6 +4,7 @@ import { t } from "@/locales";
 import { useLocale } from "@/components/ui/LocaleProvider";
 import type { RegisterResponse, ValidationError } from "./registerTypes";
 import styles from "./RegistrationForm.module.css";
+import { redactEmail, regFlowLog } from "@/lib/registrationFlowLog";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -78,12 +79,21 @@ export function RegistrationForm({
 
     const validationErrors = validateForm();
     if (validationErrors.length > 0) {
+      regFlowLog.registrationFormWarn("client validation failed", {
+        tierId: selectedTier.id,
+        fields: validationErrors.map((err) => err.field),
+      });
       setErrors(validationErrors);
       return;
     }
 
     setErrors([]);
     setIsSubmitting(true);
+    regFlowLog.registrationForm("submitting registration", {
+      tierId: selectedTier.id,
+      participationType,
+      email: redactEmail(email),
+    });
 
     try {
       const res = await fetch(`${API_URL}/api/register`, {
@@ -106,12 +116,22 @@ export function RegistrationForm({
       const data = await res.json();
 
       if (!data.success) {
+        regFlowLog.registrationFormWarn("registration API rejected", {
+          status: res.status,
+          errors: data.errors?.map((err: ValidationError) => err.field ?? err.code),
+        });
         setErrors(data.errors ?? [{ field: "_global", message: t("register.failedFallback") }]);
         return;
       }
 
+      regFlowLog.registrationForm("registration API accepted", {
+        participantId: data.data?.participantId,
+        tierId: data.data?.tierId,
+        amountEur: data.data?.amountEur,
+      });
       onSuccess(data.data as RegisterResponse);
     } catch {
+      regFlowLog.registrationFormError("registration API network error");
       setErrors([
         { field: "_global", message: t("register.networkError") },
       ]);
