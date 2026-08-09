@@ -1,7 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { t } from "@/locales";
 import { regFlowLog } from "@/lib/registrationFlowLog";
+import styles from "./WhyDonateWidget.module.css";
+
+const POLL_INTERVAL_MS = 100;
+const SCRIPT_LOAD_TIMEOUT_MS = 20_000;
+const SHADOW_POLL_MAX_ATTEMPTS = 200;
+const ABSOLUTE_LOAD_TIMEOUT_MS = 60_000;
+const PAYMENT_DETECT_FALLBACK_MS = 90_000;
+
+type LoadPhase = "loading" | "ready" | "failed";
 
 type DonorInfo =
   | { firstName: string; lastName: string; email: string }
@@ -335,6 +345,8 @@ export function WhyDonateWidget({
 }: WhyDonateWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const detectionDoneRef = useRef(false);
+  const loadPhaseRef = useRef<LoadPhase>("loading");
+  const [loadPhase, setLoadPhase] = useState<LoadPhase>("loading");
   const donorInfoRef = useRef(donorInfo);
   const storageKeysRef = useRef(donationStorageKeys);
   const minTierAmountRef = useRef(minTierAmount);
@@ -352,7 +364,6 @@ export function WhyDonateWidget({
     const el = containerRef.current?.querySelector(".widget-here") as HTMLElement | null;
     if (!el) return;
 
-    // Already initialized with a shadow root — nothing to do
     if (el.shadowRoot) return;
 
     el.setAttribute("value", "donation-widget");
@@ -364,47 +375,81 @@ export function WhyDonateWidget({
       link.href = "https://plugin.whydonate.com/wdplugin-style.css";
       document.head.appendChild(link);
     }
-
-    // The WhyDonate script only scans for .widget-here elements once on
-    // load, so if it already ran before this div existed, we must force
-    // a re-scan by removing and re-adding the script tag (browser cache
-    // prevents a network re-fetch).
-    const existing = document.querySelector('script[src*="wp_styling.js"]');
-    if (existing) existing.remove();
-
-    const script = document.createElement("script");
-    script.src = "https://plugin.whydonate.com/wp_styling.js";
-    script.type = "text/javascript";
-    script.onload = () => {
-      regFlowLog.whyDonate("widget script loaded", { shortcode });
-    };
-    script.onerror = () => {
-      regFlowLog.whyDonateWarn("widget script failed to load", { shortcode });
-    };
-    document.body.appendChild(script);
-    regFlowLog.whyDonate("widget script injected", { shortcode, lang });
-  }, []);
+  }, [shortcode, lang]);
 
   useEffect(() => {
-    const hasTierGate =
-      minTierAmount != null && minTierAmount > 0 && Boolean(minTierName);
-    if (
-      !shortcode ||
-      (!onPaymentSuccess && !donorInfo && !donationStorageKeys && !hasTierGate)
-    )
-      return;
+    if (!shortcode) return;
 
     let observer: MutationObserver | null = null;
     let pollTimer: ReturnType<typeof setInterval> | null = null;
+    let scriptLoadTimeout: ReturnType<typeof setTimeout> | null = null;
+    let absoluteLoadTimeout: ReturnType<typeof setTimeout> | null = null;
+    let paymentDetectFallbackTimeout: ReturnType<typeof setTimeout> | null = null;
     let detachPersistence: (() => void) | null = null;
     let detachGate: (() => void) | null = null;
     let cancelled = false;
+    let scriptLoaded = false;
+    let shadowPollStarted = false;
+
+    loadPhaseRef.current = "loading";
+    setLoadPhase("loading");
 
     const id = `${shortcode}-1`;
+
+    function clearLoadTimers() {
+      if (scriptLoadTimeout) {
+        clearTimeout(scriptLoadTimeout);
+        scriptLoadTimeout = null;
+      }
+      if (absoluteLoadTimeout) {
+        clearTimeout(absoluteLoadTimeout);
+        absoluteLoadTimeout = null;
+      }
+      if (pollTimer) {
+        clearInterval(pollTimer);
+        pollTimer = null;
+      }
+    }
+
+    function clearPaymentDetectFallback() {
+      if (paymentDetectFallbackTimeout) {
+        clearTimeout(paymentDetectFallbackTimeout);
+        paymentDetectFallbackTimeout = null;
+      }
+    }
+
+    function failLoad(reason: string) {
+      if (cancelled || loadPhaseRef.current !== "loading") return;
+      loadPhaseRef.current = "failed";
+      setLoadPhase("failed");
+      clearLoadTimers();
+      regFlowLog.whyDonateWarn("widget load failed", { shortcode, reason });
+      onDetectionFailedRef.current?.();
+    }
+
+    function markReady() {
+      if (cancelled || loadPhaseRef.current !== "loading") return;
+      loadPhaseRef.current = "ready";
+      setLoadPhase("ready");
+      clearLoadTimers();
+      regFlowLog.whyDonate("widget ready for interaction", { shortcode });
+
+      if (onPaymentSuccessRef.current && !detectionDoneRef.current) {
+        paymentDetectFallbackTimeout = setTimeout(() => {
+          if (cancelled || detectionDoneRef.current) return;
+          regFlowLog.whyDonateWarn("payment auto-detection fallback elapsed", {
+            shortcode,
+            waitMs: PAYMENT_DETECT_FALLBACK_MS,
+          });
+          onDetectionFailedRef.current?.();
+        }, PAYMENT_DETECT_FALLBACK_MS);
+      }
+    }
 
     function firePaymentSuccess(shadow: ShadowRoot) {
       const onSuccess = onPaymentSuccessRef.current;
       if (!onSuccess) return;
+      clearPaymentDetectFallback();
       const details = readDonationDetails(shadow, id);
       regFlowLog.whyDonate("payment detected", {
         amount: details.amount,
@@ -558,38 +603,88 @@ export function WhyDonateWidget({
       });
     }
 
-    // Poll for shadow root (widget script loads asynchronously)
-    let attempts = 0;
-    const maxAttempts = 30;
-    pollTimer = setInterval(() => {
-      if (cancelled) {
-        if (pollTimer) clearInterval(pollTimer);
-        return;
-      }
+    function startShadowPoll() {
+      if (shadowPollStarted || cancelled) return;
+      shadowPollStarted = true;
 
+      let attempts = 0;
+      pollTimer = setInterval(() => {
+        if (cancelled) {
+          if (pollTimer) clearInterval(pollTimer);
+          return;
+        }
+
+        const host = document.getElementById(`widget-here-${shortcode}`);
+        if (host?.shadowRoot) {
+          if (pollTimer) clearInterval(pollTimer);
+          pollTimer = null;
+          handleShadowRoot(host.shadowRoot);
+          markReady();
+          return;
+        }
+
+        attempts++;
+        if (attempts >= SHADOW_POLL_MAX_ATTEMPTS) {
+          if (pollTimer) clearInterval(pollTimer);
+          pollTimer = null;
+          regFlowLog.whyDonateWarn("shadow root poll timed out", {
+            shortcode,
+            attempts: SHADOW_POLL_MAX_ATTEMPTS,
+          });
+          failLoad("shadow_poll_timeout");
+        }
+      }, POLL_INTERVAL_MS);
+    }
+
+    function injectScript() {
       const host = document.getElementById(`widget-here-${shortcode}`);
       if (host?.shadowRoot) {
-        if (pollTimer) clearInterval(pollTimer);
-        pollTimer = null;
         handleShadowRoot(host.shadowRoot);
+        markReady();
         return;
       }
 
-      attempts++;
-      if (attempts >= maxAttempts) {
-        if (pollTimer) clearInterval(pollTimer);
-        pollTimer = null;
-        regFlowLog.whyDonateWarn("shadow root poll timed out", {
-          shortcode,
-          attempts: maxAttempts,
-        });
-        onDetectionFailedRef.current?.();
+      const existing = document.querySelector('script[src*="wp_styling.js"]');
+      if (existing) existing.remove();
+
+      const script = document.createElement("script");
+      script.src = "https://plugin.whydonate.com/wp_styling.js";
+      script.type = "text/javascript";
+      script.onload = () => {
+        scriptLoaded = true;
+        regFlowLog.whyDonate("widget script loaded", { shortcode });
+        if (scriptLoadTimeout) {
+          clearTimeout(scriptLoadTimeout);
+          scriptLoadTimeout = null;
+        }
+        startShadowPoll();
+      };
+      script.onerror = () => {
+        regFlowLog.whyDonateWarn("widget script failed to load", { shortcode });
+        failLoad("script_error");
+      };
+      document.body.appendChild(script);
+      regFlowLog.whyDonate("widget script injected", { shortcode, lang });
+
+      scriptLoadTimeout = setTimeout(() => {
+        if (!scriptLoaded) {
+          failLoad("script_load_timeout");
+        }
+      }, SCRIPT_LOAD_TIMEOUT_MS);
+    }
+
+    absoluteLoadTimeout = setTimeout(() => {
+      if (loadPhaseRef.current === "loading") {
+        failLoad("absolute_load_timeout");
       }
-    }, 100);
+    }, ABSOLUTE_LOAD_TIMEOUT_MS);
+
+    injectScript();
 
     return () => {
       cancelled = true;
-      if (pollTimer) clearInterval(pollTimer);
+      clearLoadTimers();
+      clearPaymentDetectFallback();
       if (observer) {
         observer.disconnect();
         observer = null;
@@ -597,13 +692,19 @@ export function WhyDonateWidget({
       detachPersistence?.();
       detachGate?.();
     };
-  }, [shortcode, minTierAmount, minTierName]);
+  }, [shortcode, minTierAmount, minTierName, lang]);
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className={styles.wrapper}>
+      {loadPhase === "loading" && (
+        <div className={styles.loadingOverlay} aria-live="polite" aria-busy="true">
+          <div className={styles.loadingSpinner} aria-hidden="true" />
+          <p className={styles.loadingText}>{t("paymentForm.loading")}</p>
+        </div>
+      )}
       <div
         id={`widget-here-${shortcode}`}
-        className="widget-here"
+        className={`widget-here ${styles.host}`}
         data-shortcode={shortcode}
         data-lang={lang}
       />

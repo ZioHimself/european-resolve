@@ -126,6 +126,7 @@ export const nl = {
   "register.interruptedSession":
     "Het lijkt erop dat je sessie werd onderbroken. Als je je betaling al hebt voltooid, neem dan contact met ons op via info@european-resolve.org met je betalingsbevestiging en we werken je inschrijving bij.",
   "register.verifyingPayment": "Betaling verifi\u00ebren\u2026",
+  "paymentForm.loading": "Betalingsformulier laden\u2026",
   "register.needInvoice": "Factuur nodig?",
   "register.startOver": "Opnieuw inschrijven",
   "register.abandonRegistration": "Afbreken en inschrijving opnieuw starten",

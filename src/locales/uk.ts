@@ -125,6 +125,7 @@ export const uk = {
   "register.interruptedSession":
     "Схоже, твою сесію було перервано. Якщо оплату було проведено, зв\u2019яжися з нами за адресою info@european-resolve.org з підтвердженням оплати, і ми власноруч завершимо твою реєстрацію.",
   "register.verifyingPayment": "Перевірка оплати\u2026",
+  "paymentForm.loading": "Завантаження форми оплати\u2026",
   "register.needInvoice": "Потрібен рахунок?",
   "register.startOver": "Зареєструватися знову",
   "register.abandonRegistration": "Скасувати та розпочати реєстрацію знову",

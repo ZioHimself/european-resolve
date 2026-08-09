@@ -126,6 +126,7 @@ export const fr = {
   "register.interruptedSession":
     "Il semble que votre session a été interrompue. Si vous avez déjà effectué votre paiement, contactez-nous à info@european-resolve.org avec votre confirmation de paiement et nous mettrons à jour votre inscription.",
   "register.verifyingPayment": "Vérification du paiement\u2026",
+  "paymentForm.loading": "Chargement du formulaire de paiement\u2026",
   "register.needInvoice": "Besoin de votre facture ?",
   "register.startOver": "S\u2019inscrire à nouveau",
   "register.abandonRegistration": "Abandonner et recommencer l’inscription",

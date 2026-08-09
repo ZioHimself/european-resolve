@@ -97,6 +97,7 @@ export interface Locale {
   "register.confirmNetworkError": string;
   "register.interruptedSession": string;
   "register.verifyingPayment": string;
+  "paymentForm.loading": string;
   "register.needInvoice": string;
   "register.startOver": string;
   "register.abandonRegistration": string;

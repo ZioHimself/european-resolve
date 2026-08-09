@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, cleanup, act } from "@testing-library/react";
+import { render, cleanup, act, screen } from "@testing-library/react";
 import { WhyDonateWidget } from "@/components/ui/WhyDonateWidget";
 
 beforeEach(() => {
@@ -14,6 +14,26 @@ afterEach(() => {
   document.querySelectorAll('script[src*="wp_styling"]').forEach((el) => el.remove());
   sessionStorage.clear();
 });
+
+/** Fire the injected WhyDonate script onload handler (shadow poll starts here). */
+function simulateScriptLoad() {
+  const script = document.querySelector('script[src*="wp_styling.js"]') as HTMLScriptElement | null;
+  expect(script).not.toBeNull();
+  act(() => {
+    script!.onload?.(new Event("load"));
+  });
+}
+
+/** Script load + shadow root + poll tick — typical widget-ready path in tests. */
+function bootstrapWidget(shortcode: string) {
+  simulateScriptLoad();
+  act(() => {
+    simulateWidgetInit(shortcode);
+  });
+  act(() => {
+    vi.advanceTimersByTime(200);
+  });
+}
 
 /**
  * Simulates the Whydonate plugin creating a shadow root with form inputs.
@@ -57,8 +77,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -80,8 +99,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -103,8 +121,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -125,7 +142,10 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
+      act(() => {
+        simulateScriptLoad();
+        simulateWidgetInit(shortcode);
+      });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -136,7 +156,9 @@ describe("WhyDonateWidget", () => {
       fname.addEventListener("input", () => events.push("input"));
       fname.addEventListener("change", () => events.push("change"));
 
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => {
+        vi.advanceTimersByTime(200);
+      });
 
       expect(events).toContain("input");
       expect(events).toContain("change");
@@ -153,8 +175,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -203,8 +224,11 @@ describe("WhyDonateWidget", () => {
         <div id="step-four-container-${id}" style="display: none"></div>
       `;
 
-      // Let the poll find the shadow root
-      act(() => { vi.advanceTimersByTime(200); });
+      // Let the poll find the shadow root after script load
+      act(() => {
+        simulateScriptLoad();
+        vi.advanceTimersByTime(200);
+      });
 
       // Fields don't exist yet — prefill should not mark as done
       expect(shadow.getElementById(`donor-fname-${id}`)).toBeNull();
@@ -237,8 +261,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -263,8 +286,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -288,7 +310,7 @@ describe("WhyDonateWidget", () => {
       });
     });
 
-    it("calls onDetectionFailed after poll timeout", () => {
+    it("calls onDetectionFailed after shadow poll timeout", () => {
       const shortcode = "fail1";
       const onDetectionFailed = vi.fn();
       render(
@@ -300,8 +322,69 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      // Don't simulate widget init — shadow root never appears
-      act(() => { vi.advanceTimersByTime(3100); });
+      simulateScriptLoad();
+      // Shadow root never appears — 200 poll attempts × 100ms
+      act(() => {
+        vi.advanceTimersByTime(20_100);
+      });
+
+      expect(onDetectionFailed).toHaveBeenCalled();
+    });
+
+    it("calls onDetectionFailed when the script never loads", () => {
+      const shortcode = "fail2";
+      const onDetectionFailed = vi.fn();
+      render(
+        <WhyDonateWidget
+          shortcode={shortcode}
+          onPaymentSuccess={vi.fn()}
+          onDetectionFailed={onDetectionFailed}
+        />,
+      );
+
+      act(() => {
+        vi.advanceTimersByTime(20_100);
+      });
+
+      expect(onDetectionFailed).toHaveBeenCalled();
+    });
+
+    it("shows a loading spinner until the widget is ready", () => {
+      const shortcode = "spin1";
+      render(
+        <WhyDonateWidget
+          shortcode={shortcode}
+          donorInfo={{ fullName: "Spinner Test", email: "spin@test.com" }}
+          onPaymentSuccess={vi.fn()}
+          onDetectionFailed={vi.fn()}
+        />,
+      );
+
+      expect(screen.getByText("Loading payment form\u2026")).toBeInTheDocument();
+
+      bootstrapWidget(shortcode);
+
+      expect(screen.queryByText("Loading payment form\u2026")).not.toBeInTheDocument();
+    });
+
+    it("calls onDetectionFailed after the post-ready payment detection fallback", () => {
+      const shortcode = "fbk01";
+      const onDetectionFailed = vi.fn();
+      render(
+        <WhyDonateWidget
+          shortcode={shortcode}
+          donorInfo={{ fullName: "Fallback Test", email: "fbk@test.com" }}
+          onPaymentSuccess={vi.fn()}
+          onDetectionFailed={onDetectionFailed}
+        />,
+      );
+
+      bootstrapWidget(shortcode);
+      expect(onDetectionFailed).not.toHaveBeenCalled();
+
+      act(() => {
+        vi.advanceTimersByTime(90_100);
+      });
 
       expect(onDetectionFailed).toHaveBeenCalled();
     });
@@ -321,8 +404,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -367,8 +449,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -398,7 +479,7 @@ describe("WhyDonateWidget", () => {
 
       const host = document.getElementById(`widget-here-${shortcode}`);
       expect(host).not.toBeNull();
-      expect(host!.className).toBe("widget-here");
+      expect(host!.classList.contains("widget-here")).toBe(true);
       expect(host!.getAttribute("data-shortcode")).toBe(shortcode);
       expect(host!.getAttribute("data-lang")).toBe("auto");
     });
@@ -425,8 +506,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -448,8 +528,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -486,8 +565,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -525,8 +603,7 @@ describe("WhyDonateWidget", () => {
         />,
       );
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;
@@ -552,8 +629,7 @@ describe("WhyDonateWidget", () => {
       const shortcode = "gate4";
       render(<WhyDonateWidget shortcode={shortcode} />);
 
-      act(() => { simulateWidgetInit(shortcode); });
-      act(() => { vi.advanceTimersByTime(200); });
+      act(() => { bootstrapWidget(shortcode); });
 
       const host = document.getElementById(`widget-here-${shortcode}`)!;
       const shadow = host.shadowRoot!;

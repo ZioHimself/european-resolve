@@ -128,6 +128,7 @@ export const de = {
   "register.interruptedSession":
     "Es sieht so aus, als wäre Ihre Sitzung unterbrochen worden. Wenn Sie Ihre Zahlung bereits abgeschlossen haben, kontaktieren Sie uns bitte unter info@european-resolve.org mit Ihrer Zahlungsbestätigung und wir aktualisieren Ihre Anmeldung.",
   "register.verifyingPayment": "Zahlung wird überprüft\u2026",
+  "paymentForm.loading": "Zahlungsformular wird geladen\u2026",
   "register.needInvoice": "Rechnung benötigt?",
   "register.startOver": "Erneut anmelden",
   "register.abandonRegistration": "Abbrechen und Anmeldung neu starten",
