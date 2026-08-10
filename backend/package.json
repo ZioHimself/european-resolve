@@ -7,7 +7,8 @@
     "dev": "node --env-file=.env --import tsx --watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test:smtp": "node --env-file=.env --import tsx src/test-smtp.ts"
+    "test:smtp": "node --env-file=.env --import tsx src/test-smtp.ts",
+    "refresh-drive-oauth": "node scripts/refresh-drive-oauth.mjs"
   },
   "dependencies": {
     "@hono/node-server": "^2.0.12",
