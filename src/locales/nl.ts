@@ -13,7 +13,7 @@ export const nl = {
     "De draagbare stroomvoorzieningen die we financieren houden Oekraïense luchtverdedigingseenheden operationeel waar betrouwbare stroom het moeilijkst te vinden is, en helpen zo de lucht en de mensen eronder te beschermen. Het initiatief wordt ondersteund door de Hurkit Foundation, een Oekraïense NGO die rechtstreeks samenwerkt met luchtverdedigingseenheden in het veld. Loop in solidariteit en vier samen: na de loop verwelkomen we je op het Begijnhofplein met Oekraïense keuken, een feestelijk concert en een traditionele ambachtenmarkt ter gelegenheid van de Onafhankelijkheidsdag van Oekraïne.",
   "hero.scheduleHeading": "Evenementdetails",
   "hero.scheduleIntro":
-    "Open voor iedereen. Wandel, jog of loop in je eigen tempo. Er zijn twee groepen: een beginnersniveau, met een rustiger tempo en kortere afstand, en een medium niveau, met een sneller tempo en langere afstand. Beide groepen finishen samen op het Begijnhofplein.",
+    "Open voor iedereen. Kies tussen twee routes: 5 km in een ontspannen tempo (beginnersniveau) of 8 km in een sneller tempo (medium niveau). Beide routes finishen op het Begijnhofplein.",
   "hero.scheduleGathering":
     "10:00. Verzameling van deelnemers op het Luxemburgplein, registratie en uitreiking van startnummers",
   "hero.scheduleFlag":

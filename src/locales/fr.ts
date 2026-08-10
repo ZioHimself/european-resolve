@@ -13,7 +13,7 @@ export const fr = {
     "Les stations électriques portables que nous finançons permettent aux unités de défense aérienne ukrainiennes de rester opérationnelles là où l'électricité fiable est la plus difficile à trouver, contribuant à protéger le ciel et les personnes en dessous. L'initiative est soutenue par la Fondation Hurkit, une ONG ukrainienne qui travaille directement avec les unités de défense aérienne sur le terrain. Courez en solidarité et célébrez ensemble : après la course, rejoignez-nous sur la place du Beguinage pour une cuisine ukrainienne, un concert festif et un marché artisanal traditionnel à l'occasion de la Fête de l'Indépendance de l'Ukraine.",
   "hero.scheduleHeading": "Détails de l'événement",
   "hero.scheduleIntro":
-    "Ouvert à tous. Marchez, trottinez ou courez à votre rythme. Deux groupes seront formés : un niveau débutant, à un rythme plus lent et sur une distance plus courte, et un niveau intermédiaire, à un rythme plus soutenu et sur une distance plus longue. Les deux groupes termineront ensemble sur la place du Beguinage.",
+    "Ouvert à tous. Choisissez entre deux parcours : 5 km à un rythme détendu (niveau débutant) ou 8 km à un rythme plus rapide (niveau intermédiaire). Les deux parcours se terminent sur la place du Beguinage.",
   "hero.scheduleGathering":
     "10:00. Rassemblement des participants à la place du Luxembourg, inscription et remise des dossards",
   "hero.scheduleFlag":

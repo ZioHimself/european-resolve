@@ -13,7 +13,7 @@ export const de = {
     "Die tragbaren Stromstationen, die wir finanzieren, halten ukrainische Luftverteidigungseinheiten dort einsatzbereit, wo zuverlässiger Strom am schwersten zu finden ist, und helfen so, den Himmel und die Menschen darunter zu schützen. Die Initiative wird von der Hurkit Foundation unterstützt, einer ukrainischen NGO, die direkt mit Luftverteidigungseinheiten vor Ort zusammenarbeitet. Laufen Sie in Solidarität und feiern Sie gemeinsam: Nach dem Lauf treffen wir uns auf dem Begijnhof-Platz mit ukrainischer Küche, einem Festkonzert und einem traditionellen Handwerksmarkt zum Unabhängigkeitstag der Ukraine.",
   "hero.scheduleHeading": "Veranstaltungsdetails",
   "hero.scheduleIntro":
-    "Offen für alle. Gehen, joggen oder laufen Sie in Ihrem eigenen Tempo. Es gibt zwei Gruppen: ein Anfängerniveau mit langsamerem Tempo und kürzerer Distanz und ein mittleres Niveau mit schnellerem Tempo und längerer Distanz. Beide Gruppen laufen gemeinsam auf dem Begijnhof-Platz ein.",
+    "Offen für alle. Wählen Sie zwischen zwei Routen: 5 km in entspanntem Tempo (Anfängerniveau) oder 8 km in schnellerem Tempo (mittleres Niveau). Beide Routen enden am Begijnhof-Platz.",
   "hero.scheduleGathering":
     "10:00. Treffen der Teilnehmer am Place du Luxembourg, Anmeldung und Ausgabe der Startnummern",
   "hero.scheduleFlag":

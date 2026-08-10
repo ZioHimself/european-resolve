@@ -12,7 +12,7 @@ export const en = {
     "The portable power stations we're funding keep Ukraine's air defence units operational where reliable electricity is hardest to find, helping protect the skies and the people beneath them. The initiative is supported by the Hurkit Foundation, a Ukrainian NGO working directly with the air defence units on the ground. Run in solidarity and celebrate together: after the run, join us at Beguinage Square for Ukrainian cuisine, a festive concert, and a traditional craft fair marking Ukraine's Independence Day.",
   "hero.scheduleHeading": "Event details",
   "hero.scheduleIntro":
-    "Open to all. Walk, jog, or run at your own pace. There will be two groups: a beginner level, at a slower pace and shorter distance, and a medium level, at a faster pace and longer distance. Both groups will finish together at Beguinage Square.",
+    "Open to all. Choose between two routes: 5 km at a relaxed pace (beginner level) or 8 km at a faster pace (medium level). Both finish at Beguinage Square.",
   "hero.scheduleGathering":
     "10:00. Gathering of participants at Place du Luxembourg, registration and running bib collection",
   "hero.scheduleFlag":
