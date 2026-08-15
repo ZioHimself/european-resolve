@@ -55,7 +55,7 @@ export const de: EmailLocale = {
     sprinter: "Laufen · Sticker-Set",
     "relay-runner": "Laufen · Sticker-Set · Laufsocken · 1 Tombola-Los",
     marathoner:
-      "Laufen · Lauf-T-Shirt · Sticker-Set · Traditionelles ukrainisches Essen · 3 Tombola-Lose",
+      "Laufen · T-Shirt · Sticker-Set · Traditionelles ukrainisches Essen · 3 Tombola-Lose",
     ultramarathoner:
       "Laufen · Sticker-Set · Seidenschal einer ukrainischen Designermarke · Traditionelles ukrainisches Essen · 5 Tombola-Lose",
   },

@@ -45,7 +45,7 @@ describe("getCumulativeRewards", () => {
     const rewards = getCumulativeRewards("marathoner", "English");
     expect(rewards).toContain("Hear how your donation helped");
     expect(rewards).toContain("Running");
-    expect(rewards).toContain("Running t-shirt");
+    expect(rewards).toContain("T-shirt");
     expect(rewards).toContain("3 raffle tickets");
   });
 });

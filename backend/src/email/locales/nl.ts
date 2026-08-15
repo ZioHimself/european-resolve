@@ -55,7 +55,7 @@ export const nl: EmailLocale = {
     sprinter: "Lopen · Stickerpakket",
     "relay-runner": "Lopen · Stickerpakket · Hardloopsokken · 1 tombolalot",
     marathoner:
-      "Lopen · Hardloopshirt · Stickerpakket · Traditionele Oekraïense maaltijd · 3 tombolaloten",
+      "Lopen · T-shirt · Stickerpakket · Traditionele Oekraïense maaltijd · 3 tombolaloten",
     ultramarathoner:
       "Lopen · Stickerpakket · Zijden sjaal van een Oekraïens designmerk · Traditionele Oekraïense maaltijd · 5 tombolaloten",
   },

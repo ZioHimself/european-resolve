@@ -51,7 +51,7 @@ export function EventHero({ isCompleted = false }: EventHeroProps) {
               <section className={styles.subsection}>
                 <h2 className={styles.subheading}>{t("hero.updatesHeading")}</h2>
                 <p>
-                  {t("hero.updatesPublished")}{" "}
+                  {t("hero.updatesBodyBefore")}{" "}
                   <a
                     href={eventDetails.facebookEventUrl}
                     target="_blank"
@@ -60,16 +60,7 @@ export function EventHero({ isCompleted = false }: EventHeroProps) {
                   >
                     {t("hero.facebookEventLink")} ↗
                   </a>
-                  . {t("hero.updatesContact")}{" "}
-                  <a
-                    href={eventDetails.facebookEventUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.beneficiaryLink}
-                  >
-                    {t("hero.facebookEventLink")} ↗
-                  </a>
-                  .
+                  {t("hero.updatesBodyAfter")}
                 </p>
               </section>
 

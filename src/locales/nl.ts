@@ -27,8 +27,10 @@ export const nl = {
   "hero.participateBody":
     "Kies een donatieniveau, registreer je en doe je donatie via de opties hieronder. Kom om 10:00 op 23 augustus naar het Luxemburgplein. Kun je niet lopen? Geen probleem! Je kunt nog steeds doneren en de opmerking \"Steun van op afstand\" achterlaten.",
   "hero.updatesHeading": "Communicatie en updates",
-  "hero.updatesPublished": "Alle updates worden gepubliceerd op de",
-  "hero.updatesContact": "Voor vragen of meer details, neem contact met ons op via de",
+  "hero.updatesBodyBefore":
+    "E-mail is ons primaire communicatiekanaal. Routinemeldingen tot de evenementdatum worden gepubliceerd op de",
+  "hero.updatesBodyAfter":
+    ". Belangrijke aankondigingen worden ook per e-mail verzonden.",
   "hero.facebookEventLink": "Facebook-evenementpagina",
   "hero.notesHeading": "Belangrijke opmerkingen",
   "hero.notesBody":
@@ -153,7 +155,7 @@ export const nl = {
   "tierCard.rewards.relay-runner":
     "Lopen · Stickerpakket · Hardloopsokken · 1 tombolalot",
   "tierCard.rewards.marathoner":
-    "Lopen · Hardloopshirt · Stickerpakket · Traditionele Oekraïense maaltijd · 3 tombolaloten",
+    "Lopen · T-shirt · Stickerpakket · Traditionele Oekraïense maaltijd · 3 tombolaloten",
   "tierCard.rewards.ultramarathoner":
     "Lopen · Stickerpakket · Zijden sjaal van een Oekraïens designmerk · Traditionele Oekraïense maaltijd · 5 tombolaloten",
 

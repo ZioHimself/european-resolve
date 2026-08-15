@@ -26,8 +26,10 @@ export const en = {
   "hero.participateBody":
     "Pick a donation tier, then register and make your donation using the options below. Join us at 10:00 on 23 August at Place du Luxembourg. Can't run? No worries! You can still donate and comment \"Support from a distance.\"",
   "hero.updatesHeading": "Communication and updates",
-  "hero.updatesPublished": "All updates will be published on the",
-  "hero.updatesContact": "For questions or more details, contact us via the",
+  "hero.updatesBodyBefore":
+    "Email is our primary channel of communication. Routine announcements until the event date are published on the",
+  "hero.updatesBodyAfter":
+    ". Important announcements are sent by email as well.",
   "hero.facebookEventLink": "Facebook event page",
   "hero.notesHeading": "Important notes",
   "hero.notesBody":
@@ -149,7 +151,7 @@ export const en = {
   "tierCard.rewards.relay-runner":
     "Running · Sticker pack · Running socks · 1 raffle ticket",
   "tierCard.rewards.marathoner":
-    "Running · Running t-shirt · Sticker pack · Traditional Ukrainian meal · 3 raffle tickets",
+    "Running · T-shirt · Sticker pack · Traditional Ukrainian meal · 3 raffle tickets",
   "tierCard.rewards.ultramarathoner":
     "Running · Sticker pack · Silk scarf by a Ukrainian designer brand · Traditional Ukrainian meal · 5 raffle tickets",
 

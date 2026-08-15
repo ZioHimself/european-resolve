@@ -54,7 +54,7 @@ export const en: EmailLocale = {
     sprinter: "Running · Sticker pack",
     "relay-runner": "Running · Sticker pack · Running socks · 1 raffle ticket",
     marathoner:
-      "Running · Running t-shirt · Sticker pack · Traditional Ukrainian meal · 3 raffle tickets",
+      "Running · T-shirt · Sticker pack · Traditional Ukrainian meal · 3 raffle tickets",
     ultramarathoner:
       "Running · Sticker pack · Silk scarf by a Ukrainian designer brand · Traditional Ukrainian meal · 5 raffle tickets",
   },

@@ -27,8 +27,10 @@ export const de = {
   "hero.participateBody":
     "Wählen Sie eine Spendenstufe, registrieren Sie sich und spenden Sie über die Optionen unten. Treffen Sie uns am 23. August um 10:00 am Place du Luxembourg. Sie können nicht laufen? Kein Problem! Sie können trotzdem spenden und den Kommentar \"Unterstützung aus der Ferne\" hinterlassen.",
   "hero.updatesHeading": "Kommunikation und Updates",
-  "hero.updatesPublished": "Alle Updates werden auf der",
-  "hero.updatesContact": "Für Fragen oder weitere Details kontaktieren Sie uns über die",
+  "hero.updatesBodyBefore":
+    "E-Mail ist unser Hauptkommunikationskanal. Routinemäßige Ankündigungen bis zum Veranstaltungstag werden auf der",
+  "hero.updatesBodyAfter":
+    ". Wichtige Ankündigungen werden auch per E-Mail versendet.",
   "hero.facebookEventLink": "Facebook-Veranstaltungsseite",
   "hero.notesHeading": "Wichtige Hinweise",
   "hero.notesBody":
@@ -156,7 +158,7 @@ export const de = {
   "tierCard.rewards.relay-runner":
     "Laufen · Sticker-Set · Laufsocken · 1 Tombola-Los",
   "tierCard.rewards.marathoner":
-    "Laufen · Lauf-T-Shirt · Sticker-Set · Traditionelles ukrainisches Essen · 3 Tombola-Lose",
+    "Laufen · T-Shirt · Sticker-Set · Traditionelles ukrainisches Essen · 3 Tombola-Lose",
   "tierCard.rewards.ultramarathoner":
     "Laufen · Sticker-Set · Seidenschal einer ukrainischen Designermarke · Traditionelles ukrainisches Essen · 5 Tombola-Lose",
 

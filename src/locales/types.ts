@@ -16,8 +16,8 @@ export interface Locale {
   "hero.participateHeading": string;
   "hero.participateBody": string;
   "hero.updatesHeading": string;
-  "hero.updatesPublished": string;
-  "hero.updatesContact": string;
+  "hero.updatesBodyBefore": string;
+  "hero.updatesBodyAfter": string;
   "hero.facebookEventLink": string;
   "hero.notesHeading": string;
   "hero.notesBody": string;

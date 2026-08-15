@@ -27,8 +27,10 @@ export const fr = {
   "hero.participateBody":
     "Choisissez un palier de don, puis inscrivez-vous et faites votre don via les options ci-dessous. Rejoignez-nous à 10:00 le 23 août à la place du Luxembourg. Vous ne pouvez pas courir ? Pas de souci ! Vous pouvez quand même faire un don et laisser le commentaire « Soutien à distance ».",
   "hero.updatesHeading": "Communication et mises à jour",
-  "hero.updatesPublished": "Toutes les mises à jour seront publiées sur la",
-  "hero.updatesContact": "Pour des questions ou plus de détails, contactez-nous via la",
+  "hero.updatesBodyBefore":
+    "L'e-mail est notre principal canal de communication. Les annonces courantes jusqu'à la date de l'événement sont publiées sur la",
+  "hero.updatesBodyAfter":
+    ". Les annonces importantes sont également envoyées par e-mail.",
   "hero.facebookEventLink": "page Facebook de l'événement",
   "hero.notesHeading": "Notes importantes",
   "hero.notesBody":
@@ -154,7 +156,7 @@ export const fr = {
   "tierCard.rewards.relay-runner":
     "Course · Pack d'autocollants · Chaussettes de course · 1 ticket de tombola",
   "tierCard.rewards.marathoner":
-    "Course · T-shirt de course · Pack d'autocollants · Repas traditionnel ukrainien · 3 tickets de tombola",
+    "Course · T-shirt · Pack d'autocollants · Repas traditionnel ukrainien · 3 tickets de tombola",
   "tierCard.rewards.ultramarathoner":
     "Course · Pack d'autocollants · Foulard en soie d'une marque de créateur ukrainienne · Repas traditionnel ukrainien · 5 tickets de tombola",
 
