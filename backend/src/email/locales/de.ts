@@ -14,6 +14,9 @@ export const de: EmailLocale = {
   rewardsLabelPending: "Deine gewählte Kategorie beinhaltet",
   rewardsDisclaimer:
     "Die endgültigen Belohnungen richten sich nach deinem Spendenbetrag.",
+  physicalRewardsNoticeHeading: "Physische Belohnungen: Verzögerung bei der Ausgabe",
+  physicalRewardsNoticeBody:
+    "Unser Bestand an Aufklebern, Socken, T-Shirts und Schals ist derzeit erschöpft. Deine Belohnungen werden nach Eintreffen unserer nächsten Bestellung bereitgestellt. Tombola-Lose und das ukrainische Essen sind vor Ort verfügbar. Um die Abholung physischer Belohnungen zu koordinieren, schreib an",
   donationHeading: "Spende abschließen",
   alreadyPaidNotice:
     "Falls du bereits bezahlt hast, senden wir dir die Quittung, sobald wir deine Zahlung verarbeitet haben.",

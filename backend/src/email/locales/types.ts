@@ -12,6 +12,8 @@ export interface EmailLocale {
   rewardsLabel: string;
   rewardsLabelPending: string;
   rewardsDisclaimer: string;
+  physicalRewardsNoticeHeading: string;
+  physicalRewardsNoticeBody: string;
   donationHeading: string;
   alreadyPaidNotice: string;
   donationInstructions: string;

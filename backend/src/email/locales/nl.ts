@@ -14,6 +14,9 @@ export const nl: EmailLocale = {
   rewardsLabelPending: "Je gekozen formule bevat",
   rewardsDisclaimer:
     "De uiteindelijke beloningen zijn afhankelijk van je donatiebedrag.",
+  physicalRewardsNoticeHeading: "Fysieke beloningen: vertraging bij uitreiking",
+  physicalRewardsNoticeBody:
+    "Onze voorraad stickers, sokken, t-shirts en sjaals is op. Je beloningen worden uitgereikt zodra onze nieuwe bestelling arriveert. Tombolaloten en de Oekraïense maaltijd zijn beschikbaar op het evenement. Om de afhaling van fysieke beloningen te regelen, mail naar",
   donationHeading: "Rond je donatie af",
   alreadyPaidNotice:
     "Heb je al betaald? Dan sturen we je het betalingsbewijs zodra we je betaling hebben verwerkt.",

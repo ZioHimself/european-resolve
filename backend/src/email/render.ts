@@ -1,4 +1,7 @@
 import { getEmailLocale } from "./locales/index.js";
+import type { EmailLocale } from "./locales/types.js";
+
+const COLLECTION_EMAIL = "info@european-resolve.org";
 
 export interface RenderedEmail {
   subject: string;
@@ -94,6 +97,7 @@ export function renderConfirmationEmail(
               <ul style="margin:0 0 8px;padding-left:20px;font-size:14px;color:#0a1628;">
                 ${rewardsList}
               </ul>
+              ${renderPhysicalRewardsNoticeHtml(l, data.rewards)}
               <p style="margin:0 0 24px;font-size:12px;color:#666;font-style:italic;">${escapeHtml(l.rewardsDisclaimer)}</p>
 
               <!-- Donation CTA -->
@@ -138,6 +142,7 @@ export function renderConfirmationEmail(
     l.rewardsLabelPending,
     formatTextList(data.rewards),
     "",
+    ...formatPhysicalRewardsNoticeText(l, data.rewards),
     l.rewardsDisclaimer,
     "",
     l.donationHeading,
@@ -236,6 +241,7 @@ export function renderFundraiserEmail(
               <ul style="margin:0 0 8px;padding-left:20px;font-size:14px;color:#0a1628;">
                 ${rewardsList}
               </ul>
+              ${renderPhysicalRewardsNoticeHtml(l, data.rewards)}
               <p style="margin:0 0 24px;font-size:12px;color:#666;font-style:italic;">${escapeHtml(l.rewardsDisclaimer)}</p>
 
               <!-- Fundraiser details -->
@@ -300,6 +306,7 @@ export function renderFundraiserEmail(
     l.rewardsLabelPending,
     formatTextList(data.rewards),
     "",
+    ...formatPhysicalRewardsNoticeText(l, data.rewards),
     l.rewardsDisclaimer,
     "",
     l.fundraiserHeading,
@@ -405,6 +412,7 @@ export function renderPaymentConfirmationEmail(
               <ul style="margin:0 0 24px;padding-left:20px;font-size:14px;color:#0a1628;">
                 ${rewardsList}
               </ul>
+              ${renderPhysicalRewardsNoticeHtml(l, data.rewards)}
 
               <!-- Thank you -->
               <div style="margin-bottom:24px;padding:20px;background-color:#e8f5e9;border-radius:6px;border:1px solid #4caf50;">
@@ -444,12 +452,47 @@ export function renderPaymentConfirmationEmail(
     l.paymentRewardsLabel,
     formatTextList(data.rewards),
     "",
+    ...formatPhysicalRewardsNoticeText(l, data.rewards),
     l.paymentThankYou,
     "",
     l.paymentFooter,
   ].join("\n");
 
   return { subject, html, text };
+}
+
+function hasPhysicalRewards(rewards: string[]): boolean {
+  // Runner tiers list "Running" plus at least one other reward; supporter/donor do not.
+  return rewards.length >= 2;
+}
+
+function renderPhysicalRewardsNoticeHtml(
+  l: EmailLocale,
+  rewards: string[],
+): string {
+  if (!hasPhysicalRewards(rewards)) {
+    return "";
+  }
+
+  return `<div style="margin:0 0 16px;padding:16px;background-color:#fff8e1;border-radius:6px;border:2px solid #d4a012;">
+                <p style="margin:0 0 8px;font-size:14px;font-weight:700;color:#0a1628;">${escapeHtml(l.physicalRewardsNoticeHeading)}</p>
+                <p style="margin:0;font-size:13px;color:#333;line-height:1.5;">${escapeHtml(l.physicalRewardsNoticeBody)} <a href="mailto:${COLLECTION_EMAIL}" style="color:#0057b8;text-decoration:underline;">${COLLECTION_EMAIL}</a>.</p>
+              </div>`;
+}
+
+function formatPhysicalRewardsNoticeText(
+  l: EmailLocale,
+  rewards: string[],
+): string[] {
+  if (!hasPhysicalRewards(rewards)) {
+    return [];
+  }
+
+  return [
+    l.physicalRewardsNoticeHeading,
+    `${l.physicalRewardsNoticeBody} ${COLLECTION_EMAIL}.`,
+    "",
+  ];
 }
 
 function formatTextList(items: string[]): string {

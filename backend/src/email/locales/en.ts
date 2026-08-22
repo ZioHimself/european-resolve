@@ -13,6 +13,9 @@ export const en: EmailLocale = {
   rewardsLabel: "Your rewards",
   rewardsLabelPending: "Your selected tier includes",
   rewardsDisclaimer: "Final rewards are based on your donation amount.",
+  physicalRewardsNoticeHeading: "Physical rewards: delivery delay",
+  physicalRewardsNoticeBody:
+    "Our stock of stickers, socks, t-shirts, and scarves is currently exhausted. Your rewards will be provided once our next order arrives. Raffle tickets and the Ukrainian meal are available at the event. To coordinate collection of physical rewards, email",
   donationHeading: "Complete your donation",
   alreadyPaidNotice:
     "If you have already paid, we will send you the receipt as soon as we process your payment.",

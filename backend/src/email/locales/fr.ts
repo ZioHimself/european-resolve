@@ -14,6 +14,9 @@ export const fr: EmailLocale = {
   rewardsLabelPending: "Votre formule sélectionnée comprend",
   rewardsDisclaimer:
     "Les récompenses finales dépendent du montant de votre don.",
+  physicalRewardsNoticeHeading: "Récompenses physiques : délai de remise",
+  physicalRewardsNoticeBody:
+    "Notre stock d'autocollants, de chaussettes, de t-shirts et de foulards est actuellement épuisé. Vos récompenses seront fournies à l'arrivée de notre prochaine commande. Les tickets de tombola et le repas ukrainien sont disponibles sur place. Pour coordonner la remise des récompenses physiques, écrivez à",
   donationHeading: "Complétez votre don",
   alreadyPaidNotice:
     "Si vous avez déjà payé, nous vous enverrons le reçu dès que votre paiement sera traité.",
