@@ -141,6 +141,9 @@ export const de = {
   "register.alreadyPaidCta": "Zurück zur Veranstaltungsseite",
   "register.paymentReceivedHeading": "Danke, Ihre Zahlung wurde erhalten!",
   "register.paymentReceivedMessage": "Wir halten Sie per E-Mail auf dem Laufenden.",
+  "register.stockWarningHeading": "Physische Belohnungen vorübergehend nicht verfügbar",
+  "register.stockWarningBody":
+    "Unser Bestand an physischen Belohnungen (Aufkleber, Socken, T-Shirts und Schals) ist derzeit erschöpft. Sie können sich weiterhin anmelden und Ihre Spende abschließen. Die Belohnungen werden nach Eintreffen unserer nächsten Bestellung bereitgestellt. Zur Koordination der Abholung schreiben Sie an",
 
   // tierCard
   "tierCard.badge": "Am häufigsten gewählt",

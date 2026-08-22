@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { RegisterClient } from "@/components/ui/RegisterClient";
 import type { RegisterStep } from "@/components/ui/RegisterClient";
+import { StockWarningBanner } from "@/components/ui/StockWarningBanner";
 import { useEventStatus } from "@/hooks/useEventStatus";
 import { useLocale } from "@/components/ui/LocaleProvider";
 import { t } from "@/locales";
@@ -61,6 +62,8 @@ export default function RegisterPage() {
               <h1 className={styles.title}>{t(TITLE_KEY[step])}</h1>
               <p className={styles.subtitle}>{t("register.subtitle")}</p>
             </div>
+
+            <StockWarningBanner />
 
             <div className={styles.sections}>
               <RegisterClient onStepChange={setStep} />

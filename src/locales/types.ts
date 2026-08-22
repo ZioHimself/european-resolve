@@ -106,6 +106,8 @@ export interface Locale {
   "register.alreadyPaidCta": string;
   "register.paymentReceivedHeading": string;
   "register.paymentReceivedMessage": string;
+  "register.stockWarningHeading": string;
+  "register.stockWarningBody": string;
 
   // tierCard.* — TierCard
   "tierCard.badge": string;

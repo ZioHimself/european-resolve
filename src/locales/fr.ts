@@ -138,6 +138,9 @@ export const fr = {
   "register.alreadyPaidCta": "Retour à la page de l’événement",
   "register.paymentReceivedHeading": "Merci, votre paiement a été reçu !",
   "register.paymentReceivedMessage": "Nous vous tiendrons informé(e) par e-mail.",
+  "register.stockWarningHeading": "Récompenses physiques temporairement épuisées",
+  "register.stockWarningBody":
+    "Notre stock de récompenses physiques (autocollants, chaussettes, t-shirts et foulards) est actuellement épuisé. Vous pouvez toujours vous inscrire et finaliser votre don. Les récompenses seront fournies à l'arrivée de notre prochaine commande. Pour coordonner la remise, écrivez à",
 
   // tierCard
   "tierCard.badge": "Le plus choisi",

@@ -134,6 +134,9 @@ export const en = {
   "register.alreadyPaidCta": "Back to event page",
   "register.paymentReceivedHeading": "Thank you, your payment was received!",
   "register.paymentReceivedMessage": "We will keep you posted via email.",
+  "register.stockWarningHeading": "Physical rewards temporarily out of stock",
+  "register.stockWarningBody":
+    "Our stock of physical rewards (stickers, socks, t-shirts, and scarves) is currently exhausted. You can still register and complete your donation. Rewards will be provided once our next order arrives. To coordinate collection, email",
 
   // tierCard
   "tierCard.badge": "Most chosen",

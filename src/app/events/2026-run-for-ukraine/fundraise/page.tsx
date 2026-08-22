@@ -2,6 +2,7 @@
 
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { FundraiseForm } from "@/components/ui/FundraiseForm";
+import { StockWarningBanner } from "@/components/ui/StockWarningBanner";
 import { useEventStatus } from "@/hooks/useEventStatus";
 import { useLocale } from "@/components/ui/LocaleProvider";
 import { t } from "@/locales";
@@ -52,6 +53,8 @@ export default function FundraisePage() {
               <h1 className={styles.title}>{t("fundraise.title")}</h1>
               <p className={styles.subtitle}>{t("fundraise.subtitle")}</p>
             </div>
+
+            <StockWarningBanner />
 
             <FundraiseForm />
           </>

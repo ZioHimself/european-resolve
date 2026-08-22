@@ -138,6 +138,9 @@ export const nl = {
   "register.alreadyPaidCta": "Terug naar de evenementpagina",
   "register.paymentReceivedHeading": "Bedankt, je betaling is ontvangen!",
   "register.paymentReceivedMessage": "We houden je op de hoogte via e-mail.",
+  "register.stockWarningHeading": "Fysieke beloningen tijdelijk uitverkocht",
+  "register.stockWarningBody":
+    "Onze voorraad fysieke beloningen (stickers, sokken, t-shirts en sjaals) is op. Je kunt je nog steeds inschrijven en je donatie afronden. Beloningen worden uitgereikt zodra onze nieuwe bestelling arriveert. Om de afhaling te regelen, mail naar",
 
   // tierCard
   "tierCard.badge": "Meest gekozen",
