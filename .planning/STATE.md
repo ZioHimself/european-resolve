@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-23T12:08:30.000Z"
+last_updated: "2026-08-23T12:13:00.000Z"
 progress:
   total_phases: 13
   completed_phases: 3
   total_plans: 38
-  completed_plans: 12
+  completed_plans: 13
   percent: 24
 ---
 
@@ -29,8 +29,8 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 **Phase 8: Post-event registration closure**
 
 - Status: In Progress
-- Plans: 2/4
-- Current Plan: 08-03 (snapshot-final-stats script)
+- Plans: 3/4
+- Current Plan: 08-04 (deploy wiring and closure verification)
 
 ## Progress
 
@@ -45,7 +45,7 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 | 4.1   | ◐      | 0/2   | 0%       |
 | 6     | ●      | 3/3   | 100%     |
 | 7     | ●      | 3/3   | 100%     |
-| 8     | ◐      | 2/4   | 50%      |
+| 8     | ◐      | 3/4   | 75%      |
 
 ## Recent Activity
 
@@ -77,9 +77,10 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - 2026-08-08: Phase 7 Plan 03 executed — Events DB row + Drive thumbnail + build verification (npm test: 262/262 ✓, static HTML verified)
 - 2026-08-23: Phase 8 Plan 01 executed — backend EVENT_STATUS write guards + closure tests (npm test: 286/286 ✓)
 - 2026-08-23: Phase 8 Plan 02 executed — register page ?token= exception for late payment (npm test: 289/289 ✓)
+- 2026-08-23: Phase 8 Plan 03 executed — snapshot-final-stats ops CLI + unit tests (vitest: 8/8 ✓)
 
 ---
-*Last updated: 2026-08-23 after Phase 8 Plan 02 execution*
+*Last updated: 2026-08-23 after Phase 8 Plan 03 execution*
 
 ## Decisions
 
@@ -91,6 +92,9 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - confirm-payment and read endpoints explicitly excluded from closure guards per D-06/D-11
 - Register page token exception: showClosedBanner = isCompleted && !hasToken; fundraise page unchanged
 - Token param gates register UI visibility only; authorization remains at API lookup
+- Snapshot script stdout-first JSON; --apply patches finalStats numeric fields only
+- chargingStations manual via --charging-stations CLI flag only
+- participants count = all registration rows via getProgress()
 
 ## Accumulated Context
 

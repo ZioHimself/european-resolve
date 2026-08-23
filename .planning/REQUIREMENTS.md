@@ -45,11 +45,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Progress Dashboard
 
-- [ ] **DASH-01**: Public page shows overall amount raised (from Google Sheets confirmed payments in EUR)
-- [ ] **DASH-02**: Public page shows fundraising goal and percentage reached (progress bar)
-- [ ] **DASH-03**: Public page shows number of registered participants
-- [ ] **DASH-04**: Public page shows cause description with link to beneficiary and WhyDonate campaign
-- [ ] **DASH-05**: Stats refresh automatically without page reload (polling or SSE)
+- [x] **DASH-01**: Public page shows overall amount raised (from Google Sheets confirmed payments in EUR)
+- [x] **DASH-02**: Public page shows fundraising goal and percentage reached (progress bar)
+- [x] **DASH-03**: Public page shows number of registered participants
+- [x] **DASH-04**: Public page shows cause description with link to beneficiary and WhyDonate campaign
+- [x] **DASH-05**: Stats refresh automatically without page reload (polling or SSE)
 
 ### Backend API
 
@@ -153,11 +153,11 @@ Deferred to future release. Tracked but not in current roadmap.
 | PAGE-04 | Phase 3 | Pending |
 | PAGE-05 | Phase 3 | Pending |
 | PAGE-06 | Phase 3 | Pending |
-| DASH-01 | Phase 3 | Pending |
-| DASH-02 | Phase 3 | Pending |
-| DASH-03 | Phase 3 | Pending |
-| DASH-04 | Phase 3 | Pending |
-| DASH-05 | Phase 3 | Pending |
+| DASH-01 | Phase 3 | Complete |
+| DASH-02 | Phase 3 | Complete |
+| DASH-03 | Phase 3 | Complete |
+| DASH-04 | Phase 3 | Complete |
+| DASH-05 | Phase 3 | Complete |
 | API-01 | Phase 2 | Pending |
 | API-02 | Phase 2 | Complete |
 | API-03 | Phase 3 | Complete |
