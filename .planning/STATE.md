@@ -3,19 +3,19 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-08T21:22:46.716Z"
+last_updated: "2026-08-23T11:39:49.978Z"
 progress:
-  total_phases: 10
+  total_phases: 13
   completed_phases: 3
-  total_plans: 34
+  total_plans: 38
   completed_plans: 9
-  percent: 26
+  percent: 23
 ---
 
 # Project State
 
 **Project:** Run for Ukraine 2026
-**Status:** Executing Phase 07
+**Status:** Ready to execute
 
 ## Project Reference
 
@@ -94,3 +94,6 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - Phase 6 added: WhyDonate Widget Auto-Detection — replace honour-system confirm button with DOM-based payment detection
 - Phase 06.1 inserted after Phase 6: Tier amount enforcement & effective-tier policy (URGENT)
 - Phase 7 added: Run for Ukraine Events Listing — add August 23 event to `/events` via Events DB spreadsheet, linked from dedicated event page data
+- Phase 8 added: Post-event registration closure — activate completed mode, backend guard, final stats snapshot
+- Phase 9 added: Post-event thank-you email — localized template and send to all paid participants
+- Phase 10 added: Opt-in beneficiary announcements — Hurkit charging station update email and Sheets-based send script

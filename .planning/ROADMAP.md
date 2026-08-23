@@ -235,6 +235,47 @@ Plans:
 4. Thumbnail processes at build time if `thumbnail_url` is provided in the spreadsheet row
 5. Build succeeds with `npm run build`
 
+### Phase 8: Post-event registration closure — activate completed mode, backend guard, final stats snapshot
+
+**Goal:** Close registrations after the event by activating completed mode on frontend and backend, guarding write APIs, freezing reconciled final stats into `event.ts`, and deploying both surfaces together in a single coordinated release.
+**Requirements**: POST-02, EVNT-02, DASH-01, DASH-02, DASH-03, DASH-04, DASH-05, API-02, API-03, API-07, REGA-06
+**Depends on:** Phase 7
+**Plans:** 4 plans
+
+Plans:
+
+**Wave 1**
+- [ ] 08-01-PLAN.md — Backend: EVENT_STATUS config, eventClosure helper, write-route guards + tests
+
+**Wave 2**
+- [ ] 08-02-PLAN.md — Frontend: register page ?token= exception for late payment (D-06)
+
+**Wave 3**
+- [ ] 08-03-PLAN.md — Ops: snapshot-final-stats script from reconciled Sheets totals
+
+**Wave 4** *(blocked on Waves 1–3 completion)*
+- [ ] 08-04-PLAN.md — Deploy: CI completed-mode build, EVENT_STATUS in Cloud Run, closure ops checklist
+
+### Phase 9: Post-event thank-you email — localized template and send to all paid participants
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 8
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 9 to break down)
+
+### Phase 10: Opt-in beneficiary announcements — Hurkit charging station update email and Sheets-based send script
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 9
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 10 to break down)
+
 ---
 *Created: 2026-07-28*
 

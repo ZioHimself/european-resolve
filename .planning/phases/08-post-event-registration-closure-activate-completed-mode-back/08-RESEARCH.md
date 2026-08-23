@@ -422,19 +422,16 @@ Set `vars.EVENT_STATUS=completed` in GitHub repository variables at closure time
 | A4 | `POST /api/donation/:slug` must be guarded | Pitfall 5 | Donor wall accepts writes after closure |
 | A5 | Cloudflare env is set manually in dashboard (not in repo) | Deploy | Closure deploy forgets frontend flip |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Paid-only vs all-registration participant count for snapshot?**
-   - What we know: `getProgress().participantCount` counts all rows [VERIFIED: `sheets.ts`].
-   - What's unclear: Whether ops wants "registered" or "paid" for public final stats.
-   - Recommendation: Default to `getProgress()` for consistency with pre-closure live dashboard; flag in plan for ops confirmation.
+   - RESOLVED: Default to `getProgress().participantCount` (all registration rows) for consistency with pre-closure live dashboard. Documented in Plan 03 script header comment.
 
 2. **Snapshot script `--apply` vs stdout-only?**
-   - What we know: D-13 requires ops review before commit.
-   - Recommendation: Default stdout JSON; optional `--apply` patches `finalStats` numbers only; copy/`chargingStations` always manual in same commit (D-14, D-16).
+   - RESOLVED: Default stdout JSON per D-13; optional `--apply` patches `finalStats` numeric fields only; copy/`chargingStations` always manual in same commit (D-14, D-16). Plan 03 Task 2 tests `applyFinalStatsPatch`.
 
 3. **GitHub `vars.EVENT_STATUS` default before closure?**
-   - Recommendation: Omit or set `active` in workflow default `${{ vars.EVENT_STATUS || 'active' }}` so normal deploys unchanged until closure.
+   - RESOLVED: Plan 04 uses `${{ vars.EVENT_STATUS || 'active' }}` in deploy-backend.yml so normal deploys unchanged until closure.
 
 ## Environment Availability
 
