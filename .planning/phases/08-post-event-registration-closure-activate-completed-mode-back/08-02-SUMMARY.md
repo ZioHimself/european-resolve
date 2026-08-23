@@ -63,7 +63,7 @@ Each task was committed atomically:
 
 1. **Task 1: Register page token exception + component tests (TDD)** - `6868ea2` (test RED), `ebc7951` (feat GREEN)
 
-**Plan metadata:** pending (docs commit after state update)
+**Plan metadata:** `e0628a5` (docs: complete plan)
 
 ## Files Created/Modified
 
