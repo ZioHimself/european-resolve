@@ -23,6 +23,9 @@ export const config = Object.freeze({
   googleDriveFolderId,
   galleryFolderId: process.env.GALLERY_FOLDER_ID ?? "",
   goalEur: Number(process.env.GOAL_EUR) || 3000,
+  eventStatus: (process.env.EVENT_STATUS === "completed"
+    ? "completed"
+    : "active") as "active" | "completed",
   corsOrigins: (process.env.CORS_ORIGINS ?? "http://localhost:3000")
     .split(",")
     .map((o) => o.trim())
