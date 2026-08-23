@@ -16,10 +16,12 @@ export function AccountabilityReport() {
             €{finalStats.raised.toLocaleString("en-GB")}
           </dd>
         </div>
-        <div className={styles.statCard}>
-          <dt className={styles.statLabel}>{t("closed.chargingStations")}</dt>
-          <dd className={styles.statValue}>{finalStats.chargingStations}</dd>
-        </div>
+        {finalStats.chargingStations > 0 && (
+          <div className={styles.statCard}>
+            <dt className={styles.statLabel}>{t("closed.chargingStations")}</dt>
+            <dd className={styles.statValue}>{finalStats.chargingStations}</dd>
+          </div>
+        )}
       </dl>
 
       <p className={styles.impact}>{impactStatement}</p>

@@ -111,7 +111,7 @@ export async function runSnapshot(
       "Patched finalStats.raised, .participants, .donors in src/data/event.ts.",
     );
     console.warn(
-      "Update thankYouMessage, impactStatement, and chargingStations manually before closure commit.",
+      "Update thankYouMessage and impactStatement manually before closure commit.",
     );
   } else {
     console.log(JSON.stringify(snapshot, null, 2));
