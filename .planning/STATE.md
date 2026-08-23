@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-23T12:13:00.000Z"
+last_updated: "2026-08-23T12:39:00.000Z"
 progress:
   total_phases: 13
   completed_phases: 3
@@ -29,8 +29,8 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 **Phase 8: Post-event registration closure**
 
 - Status: In Progress
-- Plans: 3/4
-- Current Plan: 08-04 (deploy wiring and closure verification)
+- Plans: 3/4 (Plan 04: 2/3 tasks — stopped at closure deploy checkpoint)
+- Current Plan: 08-04 Task 3 (closure deploy — awaiting human action)
 
 ## Progress
 
@@ -77,10 +77,12 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - 2026-08-08: Phase 7 Plan 03 executed — Events DB row + Drive thumbnail + build verification (npm test: 262/262 ✓, static HTML verified)
 - 2026-08-23: Phase 8 Plan 01 executed — backend EVENT_STATUS write guards + closure tests (npm test: 286/286 ✓)
 - 2026-08-23: Phase 8 Plan 02 executed — register page ?token= exception for late payment (npm test: 289/289 ✓)
-- 2026-08-23: Phase 8 Plan 03 executed — snapshot-final-stats ops CLI + unit tests (vitest: 8/8 ✓)
+- 2026-08-23: Phase 8 Plan 04 Task 1 verified — CI/deploy EVENT_STATUS wiring (commit 810d7e8)
+- 2026-08-23: Phase 8 Plan 04 Task 2 executed — D-19 AccountabilityReport conditional charging stat (RED f31d857, GREEN 22a8310; npm test: 299/299 ✓)
+- 2026-08-23: Phase 8 Plan 04 stopped at Task 3 closure deploy checkpoint (human action required)
 
 ---
-*Last updated: 2026-08-23 after Phase 8 Plan 03 execution*
+*Last updated: 2026-08-23 after Phase 8 Plan 04 Task 2 (checkpoint at Task 3)*
 
 ## Decisions
 
@@ -94,7 +96,7 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - Token param gates register UI visibility only; authorization remains at API lookup
 - Snapshot script stdout-first JSON; --apply patches finalStats numeric fields only
 - chargingStations manual via --charging-stations CLI flag only
-- participants count = all registration rows via getProgress()
+- D-19: AccountabilityReport hides charging-stations stat when finalStats.chargingStations is 0
 
 ## Accumulated Context
 
