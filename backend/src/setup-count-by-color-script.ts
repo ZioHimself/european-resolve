@@ -80,7 +80,7 @@ async function findBoundScriptId(
   return match?.id ?? null;
 }
 
-function buildScriptFiles(source: string): script_v1.Schema$GoogleAppsScriptFile[] {
+function buildScriptFiles(source: string): script_v1.Schema$File[] {
   return [
     {
       name: "appsscript",

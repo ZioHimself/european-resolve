@@ -12,6 +12,11 @@ export default defineConfig({
       "src/**/*.spec.{ts,tsx}",
       "backend/src/**/*.test.ts",
     ],
+    server: {
+      deps: {
+        moduleDirectories: ["node_modules", "backend/node_modules"],
+      },
+    },
   },
   resolve: {
     alias: {
