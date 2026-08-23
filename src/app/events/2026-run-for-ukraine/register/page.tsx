@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { RegisterClient } from "@/components/ui/RegisterClient";
@@ -18,6 +18,14 @@ const TITLE_KEY: Record<RegisterStep, "register.title" | "register.titleRegistra
 };
 
 export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className={styles.content} aria-hidden="true" />}>
+      <RegisterPageContent />
+    </Suspense>
+  );
+}
+
+function RegisterPageContent() {
   useLocale();
   const searchParams = useSearchParams();
   const hasToken = Boolean(searchParams.get("token"));

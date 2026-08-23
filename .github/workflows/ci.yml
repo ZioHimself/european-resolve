@@ -20,3 +20,5 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      - name: Build completed mode smoke
+        run: NEXT_PUBLIC_EVENT_STATUS=completed npm run build
