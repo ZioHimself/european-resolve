@@ -240,7 +240,7 @@ Plans:
 **Goal:** Close registrations after the event by activating completed mode on frontend and backend, guarding write APIs, freezing reconciled final stats into `event.ts`, and deploying both surfaces together in a single coordinated release.
 **Requirements**: POST-02, EVNT-02, DASH-01, DASH-02, DASH-03, DASH-04, DASH-05, API-02, API-03, API-07, REGA-06
 **Depends on:** Phase 7
-**Plans:** 1/4 plans executed
+**Plans:** 2/4 plans executed
 
 Plans:
 
@@ -248,7 +248,7 @@ Plans:
 - [x] 08-01-PLAN.md — Backend: EVENT_STATUS config, eventClosure helper, write-route guards + tests
 
 **Wave 2**
-- [ ] 08-02-PLAN.md — Frontend: register page ?token= exception for late payment (D-06)
+- [x] 08-02-PLAN.md — Frontend: register page ?token= exception for late payment (D-06)
 
 **Wave 3**
 - [ ] 08-03-PLAN.md — Ops: snapshot-final-stats script from reconciled Sheets totals

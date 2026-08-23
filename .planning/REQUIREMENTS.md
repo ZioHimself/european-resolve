@@ -10,7 +10,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Event Page
 
 - [ ] **EVNT-01**: User can view the event landing page with event description, date, venue placeholder, and beneficiary info
-- [ ] **EVNT-02**: User can see live progress stats (amount raised, goal %, participants, donors) updated in near-real-time
+- [x] **EVNT-02**: User can see live progress stats (amount raised, goal %, participants, donors) updated in near-real-time
 - [ ] **EVNT-03**: User can choose between two participation tracks (Register/Donate vs Raise Funds)
 - [x] **EVNT-04**: User can navigate back to events list via breadcrumbs
 - [ ] **EVNT-05**: User can see co-organiser logos/names in the event header area
@@ -130,7 +130,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | EVNT-01 | Phase 1 | Pending |
-| EVNT-02 | Phase 3 | Pending |
+| EVNT-02 | Phase 3 | Complete |
 | EVNT-03 | Phase 1 | Pending |
 | EVNT-04 | Phase 1 | Complete |
 | EVNT-05 | Phase 1 | Pending |

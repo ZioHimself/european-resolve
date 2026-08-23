@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-23T12:05:00.000Z"
+last_updated: "2026-08-23T12:08:30.000Z"
 progress:
   total_phases: 13
   completed_phases: 3
   total_plans: 38
-  completed_plans: 10
-  percent: 23
+  completed_plans: 12
+  percent: 24
 ---
 
 # Project State
@@ -29,8 +29,8 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 **Phase 8: Post-event registration closure**
 
 - Status: In Progress
-- Plans: 1/4
-- Current Plan: 08-02 (frontend late-payment exception)
+- Plans: 2/4
+- Current Plan: 08-03 (snapshot-final-stats script)
 
 ## Progress
 
@@ -45,7 +45,7 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 | 4.1   | ◐      | 0/2   | 0%       |
 | 6     | ●      | 3/3   | 100%     |
 | 7     | ●      | 3/3   | 100%     |
-| 8     | ◐      | 1/4   | 25%      |
+| 8     | ◐      | 2/4   | 50%      |
 
 ## Recent Activity
 
@@ -76,9 +76,10 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - 2026-08-08: Phase 7 Plan 02 executed — EventCard link behavior + Upcoming badge via TDD (npm test: 13 files, 262 tests ✓)
 - 2026-08-08: Phase 7 Plan 03 executed — Events DB row + Drive thumbnail + build verification (npm test: 262/262 ✓, static HTML verified)
 - 2026-08-23: Phase 8 Plan 01 executed — backend EVENT_STATUS write guards + closure tests (npm test: 286/286 ✓)
+- 2026-08-23: Phase 8 Plan 02 executed — register page ?token= exception for late payment (npm test: 289/289 ✓)
 
 ---
-*Last updated: 2026-08-23 after Phase 8 Plan 01 execution*
+*Last updated: 2026-08-23 after Phase 8 Plan 02 execution*
 
 ## Decisions
 
@@ -88,6 +89,8 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - Organizer name typo in spreadsheet left as ops fix — not corrected in code
 - Default EVENT_STATUS to active when unset (safe for local dev and pre-closure production)
 - confirm-payment and read endpoints explicitly excluded from closure guards per D-06/D-11
+- Register page token exception: showClosedBanner = isCompleted && !hasToken; fundraise page unchanged
+- Token param gates register UI visibility only; authorization remains at API lookup
 
 ## Accumulated Context
 
