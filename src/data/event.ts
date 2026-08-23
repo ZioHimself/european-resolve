@@ -100,7 +100,7 @@ export const eventDetails = {
     thankYouMessage:
       "Thank you to every runner, supporter, and donor who made Run for Ukraine possible. Together we powered hope on the front line.",
     impactStatement:
-      "Every euro raised went directly to Hurkit, providing portable charging stations that keep defenders connected and operational in the field.",
+      "Every euro raised went directly to Hurkit for portable charging stations for Ukraine's defenders.",
     galleryFolderId: "",
     finalStats: {
       raised: 6473,

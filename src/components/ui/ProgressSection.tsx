@@ -70,10 +70,12 @@ export function ProgressSection() {
   return (
     <section className={styles.section}>
       <div className={styles.header}>
-        <span className={styles.overline}>{t("progress.overline")}</span>
-        <span className={styles.indicator}>
-          {isCompleted ? t("progress.finalResults") : t("progress.indicator")}
+        <span className={styles.overline}>
+          {isCompleted ? t("closed.finalResults") : t("progress.overline")}
         </span>
+        {!isCompleted && (
+          <span className={styles.indicator}>{t("progress.indicator")}</span>
+        )}
       </div>
 
       <dl className={styles.stats}>

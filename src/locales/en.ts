@@ -324,11 +324,13 @@ export const en = {
   "closed.donationsClosed": "Donations are closed",
   "closed.finalResults": "Final results",
   "closed.galleryHeading": "Event Photos",
-  "closed.accountabilityHeading": "Impact Report",
+  "closed.accountabilityHeading": "Where your donations went",
   "closed.totalRaised": "Total raised",
   "closed.chargingStations": "Charging stations funded",
   "closed.impactStatement":
-    "Every euro raised went directly to Hurkit, providing charging stations for Ukraine's defenders.",
+    "Every euro raised went directly to Hurkit for portable charging stations for Ukraine's defenders.",
+  "closed.impactUpdatePending":
+    "Hurkit will confirm how many stations your donations funded. We'll update this page and share news by email as soon as we have the figures. Check back soon.",
 
   // errors (backend error code mappings)
   "errors.VALIDATION_FIRSTNAME_REQUIRED": "First name is required",

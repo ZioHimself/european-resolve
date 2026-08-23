@@ -283,6 +283,7 @@ export interface Locale {
   "closed.totalRaised": string;
   "closed.chargingStations": string;
   "closed.impactStatement": string;
+  "closed.impactUpdatePending": string;
 
   // errors.* — Backend error code mappings
   "errors.VALIDATION_FIRSTNAME_REQUIRED": string;

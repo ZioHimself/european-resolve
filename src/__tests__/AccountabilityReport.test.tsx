@@ -39,9 +39,13 @@ describe("AccountabilityReport — D-19 charging stations stat", () => {
 
     render(<AccountabilityReport />);
 
+    expect(screen.getByText("Where your donations went")).toBeInTheDocument();
     expect(screen.getByText("Total raised")).toBeInTheDocument();
     expect(
       screen.getByText("Mock impact statement for test"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Hurkit will confirm how many stations/i),
     ).toBeInTheDocument();
     expect(
       screen.queryByText("Charging stations funded"),
@@ -56,5 +60,8 @@ describe("AccountabilityReport — D-19 charging stations stat", () => {
     expect(screen.getByText("Charging stations funded")).toBeInTheDocument();
     expect(screen.getByText("5")).toBeInTheDocument();
     expect(screen.getByText("Total raised")).toBeInTheDocument();
+    expect(
+      screen.queryByText(/Hurkit will confirm how many stations/i),
+    ).not.toBeInTheDocument();
   });
 });

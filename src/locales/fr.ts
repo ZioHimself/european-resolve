@@ -337,11 +337,13 @@ export const fr = {
   "closed.donationsClosed": "Les dons sont clos",
   "closed.finalResults": "Résultats finaux",
   "closed.galleryHeading": "Photos de l'événement",
-  "closed.accountabilityHeading": "Rapport d'impact",
+  "closed.accountabilityHeading": "Où sont allés vos dons",
   "closed.totalRaised": "Total collecté",
   "closed.chargingStations": "Stations de recharge financées",
   "closed.impactStatement":
-    "Chaque euro collecté est allé directement à Hurkit, fournissant des stations de recharge pour les défenseurs de l'Ukraine.",
+    "Chaque euro collecté est allé directement à Hurkit pour des stations de recharge portables pour les défenseurs de l'Ukraine.",
+  "closed.impactUpdatePending":
+    "Hurkit confirmera bientôt combien de stations vos dons ont financées. Nous mettrons cette page à jour et partagerons des nouvelles par e-mail dès que nous aurons les chiffres. Revenez bientôt.",
 
   // errors (backend error code mappings)
   "errors.VALIDATION_FIRSTNAME_REQUIRED": "Le prénom est obligatoire",

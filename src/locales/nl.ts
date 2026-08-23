@@ -329,11 +329,13 @@ export const nl = {
   "closed.donationsClosed": "Donaties zijn gesloten",
   "closed.finalResults": "Eindresultaten",
   "closed.galleryHeading": "Evenementfoto's",
-  "closed.accountabilityHeading": "Impactrapport",
+  "closed.accountabilityHeading": "Waar je donaties naartoe gingen",
   "closed.totalRaised": "Totaal opgehaald",
   "closed.chargingStations": "Oplaadstations gefinancierd",
   "closed.impactStatement":
-    "Elke opgehaalde euro ging rechtstreeks naar Hurkit, voor oplaadstations voor de verdedigers van Oekraïne.",
+    "Elke opgehaalde euro ging rechtstreeks naar Hurkit voor draagbare oplaadstations voor de verdedigers van Oekraïne.",
+  "closed.impactUpdatePending":
+    "Hurkit bevestigt binnenkort hoeveel stations jullie donaties hebben gefinancierd. We werken deze pagina bij en delen nieuws per e-mail zodra we de cijfers hebben. Kom binnenkort terug.",
 
   // errors (backend error code mappings)
   "errors.VALIDATION_FIRSTNAME_REQUIRED": "Voornaam is verplicht",

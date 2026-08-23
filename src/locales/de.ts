@@ -340,11 +340,13 @@ export const de = {
   "closed.donationsClosed": "Spenden sind geschlossen",
   "closed.finalResults": "Endergebnisse",
   "closed.galleryHeading": "Veranstaltungsfotos",
-  "closed.accountabilityHeading": "Wirkungsbericht",
+  "closed.accountabilityHeading": "Wohin deine Spenden gingen",
   "closed.totalRaised": "Insgesamt gesammelt",
   "closed.chargingStations": "Ladestationen finanziert",
   "closed.impactStatement":
-    "Jeder gesammelte Euro ging direkt an Hurkit, um Ladestationen für die Verteidiger der Ukraine bereitzustellen.",
+    "Jeder gesammelte Euro ging direkt an Hurkit für tragbare Ladestationen für die Verteidiger der Ukraine.",
+  "closed.impactUpdatePending":
+    "Hurkit wird bald bestätigen, wie viele Stationen eure Spenden finanziert haben. Wir aktualisieren diese Seite und teilen Neuigkeiten per E-Mail, sobald wir die Zahlen haben. Schaut bald wieder vorbei.",
 
   // errors (backend error code mappings)
   "errors.VALIDATION_FIRSTNAME_REQUIRED": "Vorname ist erforderlich",

@@ -54,6 +54,14 @@
     margin: 0 0 var(--space-4);
   }
 
+  .impactPending {
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+    max-width: var(--max-width-prose);
+    margin: 0 0 var(--space-4);
+  }
+
   .beneficiary {
     font-size: var(--text-sm);
     color: var(--color-text-secondary);

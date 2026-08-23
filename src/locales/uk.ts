@@ -330,11 +330,13 @@ export const uk = {
   "closed.donationsClosed": "Донати закрито",
   "closed.finalResults": "Фінальні результати",
   "closed.galleryHeading": "Фото з події",
-  "closed.accountabilityHeading": "Звіт про вплив",
+  "closed.accountabilityHeading": "Куди пішли твої донати",
   "closed.totalRaised": "Загальна сума зборів",
   "closed.chargingStations": "Зарядних станцій профінансовано",
   "closed.impactStatement":
-    "Кожне зібране євро пішло безпосередньо до Hurkit, забезпечуючи зарядні станції для захисниць і захисників України.",
+    "Кожне зібране євро пішло безпосередньо до Hurkit на портативні зарядні станції для захисниць і захисників України.",
+  "closed.impactUpdatePending":
+    "Hurkit незабаром підтвердить, скільки станцій профінансували твої донати. Ми оновимо цю сторінку й поділимося новинами електронною поштою, щойно отримаємо цифри. Загляни сюди знову незабаром.",
 
   // errors (backend error code mappings)
   "errors.VALIDATION_FIRSTNAME_REQUIRED": "Ім'я є обов'язковим",

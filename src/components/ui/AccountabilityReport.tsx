@@ -26,6 +26,10 @@ export function AccountabilityReport() {
 
       <p className={styles.impact}>{impactStatement}</p>
 
+      {finalStats.chargingStations === 0 && (
+        <p className={styles.impactPending}>{t("closed.impactUpdatePending")}</p>
+      )}
+
       <p className={styles.beneficiary}>
         {t("hero.beneficiary")}{" "}
         <a
