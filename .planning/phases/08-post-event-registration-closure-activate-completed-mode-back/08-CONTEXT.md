@@ -1,6 +1,6 @@
 # Phase 8: Post-event registration closure — activate completed mode, backend guard, final stats snapshot - Context
 
-**Gathered:** 2026-08-23
+**Gathered:** 2026-08-23 (updated 2026-08-23 — chargingStations decoupled from closure)
 **Status:** Ready for planning
 
 <domain>
@@ -31,11 +31,12 @@ Phase 4 built the completed-mode UI (`NEXT_PUBLIC_EVENT_STATUS=completed`); Phas
 - **D-11:** **Selective guards only** — backend is not shut down. Read endpoints (progress, gallery, fundraiser GET) and allowed writes (`confirm-payment`) stay available.
 
 ### Final Stats Snapshot
-- **D-12:** **Snapshot after full reconciliation** — `finalStats` in `event.ts` are populated only after WhyDonate donations are fully reconciled and traced to registrations in Sheets. Do not snapshot from pre-reconciliation `/api/progress`.
+- **D-12:** **Snapshot after full reconciliation** — `raised`, `participants`, and `donors` in `event.ts` are populated only after WhyDonate donations are fully reconciled and traced to registrations in Sheets. Do not snapshot from pre-reconciliation `/api/progress`.
 - **D-13:** **`backend/` npm script** — reads reconciled totals from Sheets and outputs/updates `eventDetails.postEvent.finalStats` (`raised`, `participants`, `donors`). Ops reviews output before commit.
-- **D-14:** **`chargingStations` manual entry** — team enters the real number from Hurkit confirmation; not auto-calculated from raised total.
-- **D-15:** **Stats first, status flip in same deploy** — reconcile → run snapshot script → update `event.ts` (stats + copy) → set both env vars to `completed` → single frontend + backend deploy. Do not close registrations with placeholder/zero stats.
-- **D-16:** **Update impact copy in same commit** — `thankYouMessage`, `impactStatement`, and `chargingStations` updated alongside `finalStats` in the closure commit.
+- **D-14:** **`chargingStations` is not a closure blocker** — Hurkit confirms the real station count much later. Closure does not wait for it. When Hurkit confirms, ops updates `chargingStations` in a follow-up commit/deploy. Not auto-calculated from raised total.
+- **D-15:** **Stats first, status flip in same deploy** — reconcile → run snapshot script → update `event.ts` (reconciled `raised`/`participants`/`donors` + impact copy) → set both env vars to `completed` → single frontend + backend deploy. Do not close with placeholder/zero **donation** stats. `chargingStations` may remain `0` at closure.
+- **D-16:** **Update impact copy in closure commit** — `thankYouMessage` and `impactStatement` updated alongside reconciled `finalStats` in the closure commit. `chargingStations` is optional at closure; add when Hurkit confirms.
+- **D-19:** **Hide chargingStations when unknown** — `AccountabilityReport` must not show "0 charging stations funded" as a final result. Hide the stat row when `chargingStations` is `0` (or unset); show it only after ops sets the real Hurkit number.
 
 ### Gallery & Results Content
 - **D-17:** **Skip gallery for Phase 8** — `galleryFolderId` / `EventGallery` activation is not part of the closure checklist. Results page works without the gallery section for now.
@@ -116,7 +117,7 @@ Phase 4 built the completed-mode UI (`NEXT_PUBLIC_EVENT_STATUS=completed`); Phas
 ### Integration Points
 - **Cloudflare Pages**: set `NEXT_PUBLIC_EVENT_STATUS=completed` + rebuild
 - **Cloud Run**: set `EVENT_STATUS=completed` in deploy workflow vars
-- **`event.ts`**: commit updated `finalStats` + copy before deploy
+- **`event.ts`**: commit reconciled `finalStats` (raised/participants/donors) + impact copy before deploy; `chargingStations` optional until Hurkit confirms
 - **Sheets**: reconciliation source of truth for snapshot script
 - **`/events` timeline**: Upcoming badge auto-clears on rebuild when date is past
 
@@ -132,9 +133,10 @@ Phase 4 built the completed-mode UI (`NEXT_PUBLIC_EVENT_STATUS=completed`); Phas
 ## Specific Ideas
 
 - Closure is a team decision after full WhyDonate ↔ registration reconciliation — not a fixed clock time
-- Same deploy should show final reconciled numbers AND closed registrations together — no "closed with €0" interim state
+- Same deploy should show final reconciled donation numbers AND closed registrations together — no "closed with €0" interim state
+- `chargingStations` arrives weeks later from Hurkit — closure must not wait for it
 - Fundraiser pages are permanent participant records; donations and edits stop, viewing continues
-- Gallery deferred — results page launches with stats + accountability copy only
+- Gallery deferred — results page launches with stats + accountability copy only (charging stations stat hidden until Hurkit confirms)
 
 </specifics>
 
@@ -147,6 +149,7 @@ Phase 4 built the completed-mode UI (`NEXT_PUBLIC_EVENT_STATUS=completed`); Phas
 - **Separate RUNBOOK.md** — user chose CONTEXT.md + plans only.
 - **Phase 9 thank-you email** — localized template send to all paid participants (depends on Phase 8).
 - **Phase 10 Hurkit beneficiary announcement** — opt-in email + Sheets script (depends on Phase 9).
+- **`chargingStations` update after Hurkit confirmation** — follow-up deploy when real station count is known; may coincide with Phase 10 beneficiary messaging.
 
 </deferred>
 

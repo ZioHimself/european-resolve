@@ -188,9 +188,18 @@
 - Deploy workflow changes for env vars
 - Whether GET /api/progress freezes post-closure
 
+## Revision (2026-08-23)
+
+**User follow-up:** Hurkit station count arrives much later — is it really needed to close registrations?
+
+**Refined decision:** No. `chargingStations` is display-only (`AccountabilityReport`) and does not gate backend guards or env-var flip. Closure requires reconciled `raised`/`participants`/`donors` only. `chargingStations` updates in a follow-up deploy when Hurkit confirms. Hide the stat row when value is `0` to avoid misleading "0 charging stations funded" (D-19 in CONTEXT.md).
+
+---
+
 ## Deferred Ideas
 
 - Event photo gallery activation (follow-up deploy)
+- chargingStations update when Hurkit confirms (follow-up deploy)
 - Automatic date-based completed mode
 - Redirect closed routes to landing
 - Separate RUNBOOK.md file

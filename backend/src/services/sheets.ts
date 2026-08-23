@@ -519,6 +519,70 @@ export class SheetsService {
     };
   }
 
+  /**
+   * Increase paid_amount on an already-paid row and append a WhyDonate id (top-up).
+   */
+  async adjustPaidAmountAndWhyDonate(
+    participantId: string,
+    newPaidAmount: number,
+    wdId: number,
+  ): Promise<{ success: true } | { success: false; error: string }> {
+    const match = await this.findByParticipantId(participantId);
+    if (!match) {
+      return { success: false, error: "not_found" };
+    }
+
+    const { rowIndex, row } = match;
+    if ((row[13] as string) !== "paid") {
+      return { success: false, error: "not_paid" };
+    }
+
+    await this.sheets.spreadsheets.values.update({
+      spreadsheetId: config.spreadsheetId,
+      range: `${SHEET_NAME}!O${rowIndex}`,
+      valueInputOption: "RAW",
+      requestBody: { values: [[String(newPaidAmount)]] },
+    });
+
+    const wdResult = await this.setRegistrationWhyDonateIds(
+      participantId,
+      [wdId],
+      true,
+    );
+    if (!wdResult.success) {
+      return wdResult;
+    }
+
+    return { success: true };
+  }
+
+  /**
+   * Record a WhyDonate payment with no prior registration (WD orders API name only).
+   * Uses a synthetic email — the API does not expose donor email.
+   */
+  async recordWhyDonatePaidRegistration(
+    donorName: string,
+    amountEur: number,
+    wdId: number,
+  ): Promise<{ participantId: string; fullName: string }> {
+    const trimmed = donorName.trim() || "Anonymous";
+    const parts = trimmed.split(/\s+/);
+    const firstName = parts[0] ?? trimmed;
+    const lastName = parts.slice(1).join(" ");
+    const email = `whydonate+${wdId}@european-resolve.org`;
+
+    const result = await this.createPaidRegistration(
+      email,
+      firstName,
+      lastName,
+      amountEur,
+    );
+
+    await this.setRegistrationWhyDonateIds(result.participantId, [wdId], false);
+
+    return { participantId: result.participantId, fullName: result.fullName };
+  }
+
   async generateSlug(displayName: string): Promise<string> {
     const base = displayName
       .toLowerCase()

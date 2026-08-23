@@ -3,8 +3,9 @@ phase: 8
 slug: post-event-registration-closure-activate-completed-mode-back
 status: draft
 nyquist_compliant: false
-wave_0_complete: false
+wave_0_complete: true
 created: 2026-08-23
+updated: 2026-08-23
 ---
 
 # Phase 8 — Validation Strategy
@@ -38,13 +39,14 @@ created: 2026-08-23
 
 | Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 08-01-01 | 01 | 1 | API-02 | T-8-01 | POST /api/register returns 403 REGISTRATION_CLOSED when completed | unit | `npx vitest run backend/src/lib/eventClosure.test.ts` | ❌ W0 | ⬜ pending |
-| 08-01-02 | 01 | 1 | API-03 | T-8-01 | POST /api/fundraiser blocked when completed | unit | `npx vitest run backend/src/routes/fundraiser.closure.test.ts` | ❌ W0 | ⬜ pending |
-| 08-01-03 | 01 | 1 | API-07 | T-8-01 | POST /api/donors blocked when completed | unit | `npx vitest run backend/src/routes/donors.closure.test.ts` | ❌ W0 | ⬜ pending |
-| 08-01-04 | 01 | 1 | REGA-06 | T-8-02 | confirm-payment allowed when completed | unit | `npx vitest run backend/src/routes/confirm-payment.closure.test.ts` | ❌ W0 | ⬜ pending |
-| 08-02-01 | 02 | 2 | D-06 | — | Register page shows flow when `?token=` + completed | component | `npx vitest run src/__tests__/register-page-completed.test.tsx` | ❌ W0 | ⬜ pending |
-| 08-03-01 | 03 | 3 | D-12 | — | Snapshot script outputs valid JSON | unit | `npx vitest run backend/src/snapshot-final-stats.test.ts` | ❌ W0 | ⬜ pending |
-| 08-04-01 | 04 | 4 | POST-02 | — | Completed build succeeds | smoke | `NEXT_PUBLIC_EVENT_STATUS=completed npm run build` | ❌ W0 | ⬜ pending |
+| 08-01-01 | 01 | 1 | API-02 | T-8-01 | POST /api/register returns 403 REGISTRATION_CLOSED when completed | unit | `npx vitest run backend/src/lib/eventClosure.test.ts` | ✅ | ✅ green |
+| 08-01-02 | 01 | 1 | API-03 | T-8-01 | POST /api/fundraiser blocked when completed | unit | `npx vitest run backend/src/routes/fundraiser.closure.test.ts` | ✅ | ✅ green |
+| 08-01-03 | 01 | 1 | API-07 | T-8-01 | POST /api/donors + record-donation blocked when completed | unit | `npx vitest run backend/src/routes/donors.closure.test.ts` | ✅ | ✅ green |
+| 08-01-04 | 01 | 1 | REGA-06 | T-8-02 | confirm-payment allowed when completed | unit | `npx vitest run backend/src/routes/confirm-payment.closure.test.ts` | ✅ | ✅ green |
+| 08-02-01 | 02 | 2 | D-06 | — | Register page shows flow when `?token=` + completed | component | `npx vitest run src/__tests__/register-page-completed.test.tsx` | ✅ | ✅ green |
+| 08-03-01 | 03 | 3 | D-12 | — | Snapshot script outputs valid JSON | unit | `npx vitest run backend/src/snapshot-final-stats.test.ts` | ✅ | ✅ green |
+| 08-04-01 | 04 | 4 | POST-02 | — | Completed build succeeds | smoke | `NEXT_PUBLIC_EVENT_STATUS=completed npm run build` | ✅ | ⬜ pending |
+| 08-04-02 | 04 | 4 | D-19 | T-8-11 | chargingStations stat hidden when value is 0 | component | `npx vitest run src/__tests__/AccountabilityReport.test.tsx` | ❌ W0 | ⬜ pending |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
@@ -52,11 +54,12 @@ created: 2026-08-23
 
 ## Wave 0 Requirements
 
-- [ ] `backend/src/lib/eventClosure.ts` + `eventClosure.test.ts` — shared guard helper
-- [ ] Route-level closure tests (mock `config.eventStatus`)
-- [ ] `src/__tests__/register-page-completed.test.tsx` — token exception
-- [ ] CI: add completed-mode build step to `.github/workflows/ci.yml`
-- [ ] `backend/src/snapshot-final-stats.ts` + npm script
+- [x] `backend/src/lib/eventClosure.ts` + `eventClosure.test.ts` — shared guard helper (08-01)
+- [x] Route-level closure tests (mock `config.eventStatus`) (08-01)
+- [x] `src/__tests__/register-page-completed.test.tsx` — token exception (08-02)
+- [x] `backend/src/snapshot-final-stats.ts` + npm script (08-03)
+- [ ] CI completed-mode build step verified in 08-04 Task 1
+- [ ] `src/__tests__/AccountabilityReport.test.tsx` — D-19 (08-04 Task 2)
 
 ---
 
@@ -66,7 +69,8 @@ created: 2026-08-23
 |----------|-------------|------------|-------------------|
 | Cloudflare `NEXT_PUBLIC_EVENT_STATUS=completed` | D-01 | Env var set in dashboard, not repo | Set in Cloudflare Pages → rebuild; verify TrackCards hidden |
 | GitHub `vars.EVENT_STATUS=completed` | D-10 | GitHub repo variable | Set variable; deploy backend; curl POST /api/register → 403 |
-| Ops closure sequence | D-15 | Human judgment on reconciliation | Run audit script clean → snapshot → commit event.ts → flip env vars → deploy both |
+| Ops closure sequence | D-15 | Human judgment on reconciliation | Audit clean → snapshot → commit event.ts (donation stats + copy) → flip env vars → deploy |
+| Hurkit chargingStations follow-up | D-14 | Hurkit confirms weeks later | Later deploy: set chargingStations > 0 in event.ts; stat appears via D-19 |
 
 ---
 

@@ -254,7 +254,7 @@ Plans:
 - [x] 08-03-PLAN.md — Ops: snapshot-final-stats script from reconciled Sheets totals
 
 **Wave 4** *(blocked on Waves 1–3 completion)*
-- [ ] 08-04-PLAN.md — Deploy: CI completed-mode build, EVENT_STATUS in Cloud Run, closure ops checklist
+- [ ] 08-04-PLAN.md — Deploy wiring verify, D-19 hide zero charging-stations stat, closure ops checkpoint
 
 ### Phase 9: Post-event thank-you email — localized template and send to all paid participants
 
