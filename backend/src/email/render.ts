@@ -1,5 +1,5 @@
 import { getEmailLocale } from "./locales/index.js";
-import type { EmailLocale } from "./locales/types.js";
+import type { DelayedRewardKey, EmailLocale } from "./locales/types.js";
 
 const COLLECTION_EMAIL = "info@european-resolve.org";
 
@@ -456,6 +456,123 @@ export function renderPaymentConfirmationEmail(
     l.paymentThankYou,
     "",
     l.paymentFooter,
+  ].join("\n");
+
+  return { subject, html, text };
+}
+
+export interface DelayedRewardsEmailData {
+  name: string;
+  email: string;
+  participantId: string;
+  delayedRewardKeys: DelayedRewardKey[];
+  /** True when the tier includes raffle tickets and/or the Ukrainian meal. */
+  hasEventDayRewards: boolean;
+}
+
+export function localizeDelayedRewardKeys(
+  keys: DelayedRewardKey[],
+  localeCode: string,
+): string[] {
+  const l = getEmailLocale(localeCode);
+  return keys.map((key) => l.delayedRewardLabels[key]);
+}
+
+export function renderDelayedRewardsEmail(
+  data: DelayedRewardsEmailData,
+  localeCode: string,
+): RenderedEmail {
+  const l = getEmailLocale(localeCode);
+  const params = { name: data.name };
+  const subject = interpolate(l.delayedRewardsSubject, params);
+  const greeting = interpolate(l.greeting, params);
+  const intro = interpolate(l.delayedRewardsIntro, params);
+  const delayedRewards = localizeDelayedRewardKeys(
+    data.delayedRewardKeys,
+    localeCode,
+  );
+
+  const delayedList = delayedRewards
+    .map((r) => `<li style="margin-bottom:4px;">${escapeHtml(r)}</li>`)
+    .join("");
+
+  const eventDayNote = data.hasEventDayRewards
+    ? `<p style="margin:0 0 24px;font-size:14px;color:#333;line-height:1.5;">${escapeHtml(l.delayedRewardsEventDayNote)}</p>`
+    : "";
+
+  const html = `<!DOCTYPE html>
+<html lang="${localeCode}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(subject)}</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f5f2eb;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f2eb;">
+    <tr>
+      <td align="center" style="padding:32px 16px;">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background-color:#ffffff;border-radius:8px;overflow:hidden;">
+          <!-- Header -->
+          <tr>
+            <td style="background-color:#0057b8;padding:24px 32px;">
+              <h1 style="margin:0;color:#ffd700;font-size:20px;font-weight:700;">${escapeHtml(l.eventName)}</h1>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:32px;">
+              <p style="margin:0 0 16px;font-size:16px;color:#0a1628;">${escapeHtml(greeting)}</p>
+              <p style="margin:0 0 24px;font-size:16px;color:#0a1628;line-height:1.5;">${escapeHtml(intro)}</p>
+
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;border:1px solid #e5e5e5;border-radius:6px;overflow:hidden;">
+                <tr>
+                  <td style="padding:12px 16px;background-color:#f9f9f9;font-size:14px;color:#666;">${escapeHtml(l.participantIdLabel)}</td>
+                  <td style="padding:12px 16px;background-color:#f9f9f9;font-size:14px;font-weight:600;color:#0a1628;">${escapeHtml(data.participantId)}</td>
+                </tr>
+              </table>
+
+              <div style="margin-bottom:24px;padding:16px;background-color:#fff8e1;border-radius:6px;border:2px solid #d4a012;">
+                <h2 style="margin:0 0 12px;font-size:16px;color:#0a1628;">${escapeHtml(l.delayedRewardsListHeading)}</h2>
+                <ul style="margin:0 0 16px;padding-left:20px;font-size:14px;color:#0a1628;">
+                  ${delayedList}
+                </ul>
+                <p style="margin:0 0 12px;font-size:14px;color:#333;line-height:1.5;">${escapeHtml(l.delayedRewardsPromise)}</p>
+                <p style="margin:0;font-size:14px;color:#333;line-height:1.5;">${escapeHtml(l.delayedRewardsContactBody)} <a href="mailto:${COLLECTION_EMAIL}" style="color:#0057b8;text-decoration:underline;">${COLLECTION_EMAIL}</a>.</p>
+              </div>
+
+              ${eventDayNote}
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:24px 32px;background-color:#f5f2eb;border-top:1px solid #e5e5e5;">
+              <p style="margin:0;font-size:12px;color:#666;">${escapeHtml(l.delayedRewardsFooter)}</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+  const text = [
+    greeting,
+    "",
+    intro,
+    "",
+    `${l.participantIdLabel}: ${data.participantId}`,
+    "",
+    l.delayedRewardsListHeading,
+    formatTextList(delayedRewards),
+    "",
+    l.delayedRewardsPromise,
+    `${l.delayedRewardsContactBody} ${COLLECTION_EMAIL}.`,
+    "",
+    ...(data.hasEventDayRewards ? [l.delayedRewardsEventDayNote, ""] : []),
+    l.delayedRewardsFooter,
   ].join("\n");
 
   return { subject, html, text };

@@ -52,6 +52,24 @@ export const fr: EmailLocale = {
     "Merci de soutenir les défenseurs de l'Ukraine ! Chaque euro finance des stations de recharge sur le front.",
   paymentFooter:
     "Ceci est votre reçu de paiement d'European Resolve VZW pour Run for Ukraine.",
+  delayedRewardsSubject: "Run for Ukraine | Mise à jour sur vos récompenses",
+  delayedRewardsIntro:
+    "Merci de rejoindre Run for Ukraine et pour votre généreux don. Nous vous prions de nous excuser : notre stock de récompenses physiques s'est épuisé avant la confirmation de votre paiement, et les articles ci-dessous ne pourront pas être remis le jour de l'événement.",
+  delayedRewardsListHeading: "Non disponible le jour de l'événement",
+  delayedRewardsPromise:
+    "Nous avons passé une deuxième commande. Nous vous remettrons ces récompenses dès son arrivée.",
+  delayedRewardsContactBody:
+    "Pour coordonner la remise une fois vos récompenses prêtes, écrivez à",
+  delayedRewardsEventDayNote:
+    "Les autres récompenses de votre formule seront toujours disponibles sur place, y compris les tickets de tombola et, le cas échéant, le repas traditionnel ukrainien.",
+  delayedRewardsFooter:
+    "Cet e-mail a été envoyé par European Resolve VZW concernant votre inscription à Run for Ukraine.",
+  delayedRewardLabels: {
+    running_socks: "Chaussettes de course",
+    t_shirt: "T-shirt",
+    silk_scarf: "Foulard en soie d'une marque de créateur ukrainienne",
+    sticker_pack: "Pack d'autocollants",
+  },
   tierRewards: {
     donor: "Merci de soutenir les défenseurs de l'Ukraine",
     supporter: "Découvrez l'impact de votre don",

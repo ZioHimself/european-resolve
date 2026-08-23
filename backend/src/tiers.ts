@@ -38,14 +38,6 @@ const TIER_THRESHOLDS: { id: TierId; min: number }[] = [
   { id: "donor", min: 0 },
 ];
 
-const REWARD_TIER_ORDER: TierId[] = [
-  "supporter",
-  "sprinter",
-  "relay-runner",
-  "marathoner",
-  "ultramarathoner",
-];
-
 /**
  * Reward text lives per-language in the email locales (tierRewards) so the
  * same list is reused for both the API response and the confirmation
@@ -77,26 +69,7 @@ export function getEffectiveTier(amountEur: number): TierId {
   return "donor";
 }
 
+/** Rewards for the effective tier only (not stacked from lower tiers). */
 export function getCumulativeRewards(tierId: TierId, language: string): string[] {
-  if (tierId === "donor") {
-    return getLocalizedRewards("donor", language);
-  }
-
-  const seen = new Set<string>();
-  const merged: string[] = [];
-
-  for (const rewardTierId of REWARD_TIER_ORDER) {
-    for (const reward of getLocalizedRewards(rewardTierId, language)) {
-      if (!seen.has(reward)) {
-        seen.add(reward);
-        merged.push(reward);
-      }
-    }
-
-    if (rewardTierId === tierId) {
-      break;
-    }
-  }
-
-  return merged;
+  return getLocalizedRewards(tierId, language);
 }

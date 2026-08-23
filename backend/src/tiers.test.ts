@@ -27,25 +27,28 @@ describe("getEffectiveTier", () => {
 describe("getCumulativeRewards", () => {
   it("returns donor thank-you only for donor tier", () => {
     const rewards = getCumulativeRewards("donor", "English");
-    expect(rewards.length).toBeGreaterThanOrEqual(1);
-    expect(rewards).toContain("Thank you for supporting Ukraine's defenders");
+    expect(rewards).toEqual(["Thank you for supporting Ukraine's defenders"]);
   });
 
-  it("merges supporter through relay-runner with dedupe", () => {
+  it("returns relay-runner tier rewards only, not lower tiers", () => {
     const rewards = getCumulativeRewards("relay-runner", "English");
-    expect(rewards).toContain("Hear how your donation helped");
-    expect(rewards).toContain("Running");
-    expect(rewards).toContain("Sticker pack");
+    expect(rewards).not.toContain("Hear how your donation helped");
     expect(rewards).toContain("Running socks");
     expect(rewards).toContain("1 raffle ticket");
-    expect(new Set(rewards).size).toBe(rewards.length);
   });
 
-  it("includes lower-tier rewards for marathoner", () => {
+  it("returns marathoner tier rewards only", () => {
     const rewards = getCumulativeRewards("marathoner", "English");
-    expect(rewards).toContain("Hear how your donation helped");
-    expect(rewards).toContain("Running");
     expect(rewards).toContain("T-shirt");
     expect(rewards).toContain("3 raffle tickets");
+    expect(rewards).not.toContain("Running socks");
+  });
+
+  it("returns ultramarathoner tier rewards only", () => {
+    const rewards = getCumulativeRewards("ultramarathoner", "English");
+    expect(rewards).toContain("Silk scarf by a Ukrainian designer brand");
+    expect(rewards).toContain("5 raffle tickets");
+    expect(rewards).not.toContain("T-shirt");
+    expect(rewards).not.toContain("Running socks");
   });
 });

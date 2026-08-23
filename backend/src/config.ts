@@ -28,6 +28,12 @@ export const config = Object.freeze({
     .map((o) => o.trim())
     .filter(Boolean),
   donationUrl: process.env.WHYDONATE_WIDGET_URL ?? "",
+  /** Campaign slug for the WhyDonate orders API (reconciliation scripts). */
+  whydonateCampaignSlug:
+    process.env.WHYDONATE_CAMPAIGN_SLUG ?? "run-for-ukraine-2026-brussels",
+  whydonateOrdersApiBase:
+    process.env.WHYDONATE_ORDERS_API_BASE ??
+    "https://donation.whydonate.dev",
   driveOAuth: {
     clientId: process.env.DRIVE_OAUTH_CLIENT_ID ?? "",
     clientSecret: process.env.DRIVE_OAUTH_CLIENT_SECRET ?? "",

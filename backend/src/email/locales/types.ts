@@ -1,5 +1,18 @@
 import type { TierId } from "../../types.js";
 
+export type DelayedRewardKey =
+  | "running_socks"
+  | "t_shirt"
+  | "silk_scarf"
+  | "sticker_pack";
+
+export interface DelayedRewardLabels {
+  running_socks: string;
+  t_shirt: string;
+  silk_scarf: string;
+  sticker_pack: string;
+}
+
 export interface EmailLocale {
   /** Localized event display name (email header and copy). */
   eventName: string;
@@ -37,6 +50,14 @@ export interface EmailLocale {
   paymentRewardsLabel: string;
   paymentThankYou: string;
   paymentFooter: string;
+  delayedRewardsSubject: string;
+  delayedRewardsIntro: string;
+  delayedRewardsListHeading: string;
+  delayedRewardsPromise: string;
+  delayedRewardsContactBody: string;
+  delayedRewardsEventDayNote: string;
+  delayedRewardsFooter: string;
+  delayedRewardLabels: DelayedRewardLabels;
 
   /** Reward list per tier, as a single "·"-separated string, split at render time. */
   tierRewards: Record<TierId, string>;

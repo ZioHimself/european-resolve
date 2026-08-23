@@ -52,6 +52,24 @@ export const nl: EmailLocale = {
     "Bedankt voor je steun aan de verdedigers van Oekraïne! Elke euro financiert laadstations aan het front.",
   paymentFooter:
     "Dit is je betalingsbewijs van European Resolve VZW voor Run for Ukraine.",
+  delayedRewardsSubject: "Run for Ukraine | Update over je beloningen",
+  delayedRewardsIntro:
+    "Bedankt dat je meedoet aan Run for Ukraine en voor je gulle donatie. Onze excuses: onze fysieke beloningen waren uitverkocht voordat je betaling werd bevestigd, dus de onderstaande items kunnen we niet uitreiken op de dag van het evenement zelf.",
+  delayedRewardsListHeading: "Niet beschikbaar op de dag van het evenement",
+  delayedRewardsPromise:
+    "We hebben een tweede bestelling geplaatst. Je ontvangt deze beloningen zodra die arriveert.",
+  delayedRewardsContactBody:
+    "Om de afhaling te regelen zodra je beloningen klaar zijn, mail naar",
+  delayedRewardsEventDayNote:
+    "Andere beloningen van je formule zijn nog steeds beschikbaar op het evenement, waaronder tombolaloten en, indien je formule dit omvat, de traditionele Oekraïense maaltijd.",
+  delayedRewardsFooter:
+    "Deze e-mail is verzonden door European Resolve VZW over je inschrijving voor Run for Ukraine.",
+  delayedRewardLabels: {
+    running_socks: "Hardloopsokken",
+    t_shirt: "T-shirt",
+    silk_scarf: "Zijden sjaal van een Oekraïens designmerk",
+    sticker_pack: "Stickerpakket",
+  },
   tierRewards: {
     donor: "Bedankt voor je steun aan de verdedigers van Oekraïne",
     supporter: "Hoor hoe je donatie heeft geholpen",

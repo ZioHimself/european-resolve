@@ -40,9 +40,24 @@ export interface FundraiserRow {
   createdAt: string;
 }
 
+export interface RegistrationRowMatch {
+  rowIndex: number;
+  row: string[];
+}
+
+export interface DonorWallRow {
+  slug: string;
+  donorName: string;
+  amountEur: number;
+  whyDonateIds: number[];
+  rowIndex: number;
+}
+
 const SHEET_NAME = "Registrations";
 const FUNDRAISER_SHEET = "Fundraisers";
 const DONOR_WALL_SHEET = "Donor Wall";
+const REGISTRATION_RANGE = `${SHEET_NAME}!A:V`;
+const DONOR_WALL_RANGE = `${DONOR_WALL_SHEET}!A:F`;
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 
 // Custom epoch keeps the encoded number small (and not recognizable as a
@@ -69,6 +84,15 @@ function firstNameFromRow(row: string[]): string {
   if (stored) return stored;
   const fullName = (row[1] as string)?.trim();
   return fullName ? fullName.split(/\s+/)[0] : "";
+}
+
+function parseWhyDonateIdsFromCell(value: string | undefined): number[] {
+  if (!value?.trim()) return [];
+  const ids: number[] = [];
+  for (const match of value.matchAll(/\d{6,}/g)) {
+    ids.push(Number(match[0]));
+  }
+  return ids;
 }
 
 export class SheetsService {
@@ -110,6 +134,149 @@ export class SheetsService {
     }
 
     return null;
+  }
+
+  async listRegistrationRows(): Promise<RegistrationRowMatch[]> {
+    const res = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: config.spreadsheetId,
+      range: REGISTRATION_RANGE,
+    });
+    const rows = res.data.values ?? [];
+    const matches: RegistrationRowMatch[] = [];
+    for (let i = 1; i < rows.length; i++) {
+      matches.push({ rowIndex: i + 1, row: rows[i] });
+    }
+    return matches;
+  }
+
+  async findByParticipantId(
+    participantId: string,
+  ): Promise<RegistrationRowMatch | null> {
+    const rows = await this.listRegistrationRows();
+    for (const match of rows) {
+      if (match.row[0] === participantId) {
+        return match;
+      }
+    }
+    return null;
+  }
+
+  async listDonorWallRows(): Promise<DonorWallRow[]> {
+    try {
+      const res = await this.sheets.spreadsheets.values.get({
+        spreadsheetId: config.spreadsheetId,
+        range: DONOR_WALL_RANGE,
+      });
+      const rows = res.data.values ?? [];
+      const result: DonorWallRow[] = [];
+      for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        result.push({
+          slug: row[0] as string,
+          donorName: (row[1] as string) ?? "",
+          amountEur: Number(row[4]) || 0,
+          whyDonateIds: parseWhyDonateIdsFromCell(row[5] as string),
+          rowIndex: i + 1,
+        });
+      }
+      return result;
+    } catch {
+      return [];
+    }
+  }
+
+  async setRegistrationWhyDonateIds(
+    participantId: string,
+    wdIds: number[],
+    append = true,
+  ): Promise<{ success: true } | { success: false; error: string }> {
+    const match = await this.findByParticipantId(participantId);
+    if (!match) {
+      return { success: false, error: "not_found" };
+    }
+
+    const existing = parseWhyDonateIdsFromCell(match.row[21] as string);
+    const merged = append
+      ? [...new Set([...existing, ...wdIds])]
+      : [...wdIds];
+    const cellValue = merged.join(",");
+
+    await this.sheets.spreadsheets.values.update({
+      spreadsheetId: config.spreadsheetId,
+      range: `${SHEET_NAME}!V${match.rowIndex}`,
+      valueInputOption: "RAW",
+      requestBody: { values: [[cellValue]] },
+    });
+
+    return { success: true };
+  }
+
+  async markPaidByParticipantId(
+    participantId: string,
+    paidAmount: number,
+    whyDonateId?: number,
+  ): Promise<
+    | {
+        success: true;
+        participantId: string;
+        fullName: string;
+        firstName: string;
+        email: string;
+        language: string;
+        tierName: string;
+        amountEur: number;
+        rewards: string[];
+        alreadyPaid: boolean;
+      }
+    | { success: false; error: string }
+  > {
+    const match = await this.findByParticipantId(participantId);
+    if (!match) {
+      return { success: false, error: "not_found" };
+    }
+
+    const { rowIndex, row } = match;
+    const status = (row[13] as string) ?? "pending";
+    const alreadyPaid = status === "paid";
+    const language = (row[5] as string) ?? "English";
+
+    if (!alreadyPaid) {
+      const now = new Date().toISOString();
+      await this.sheets.spreadsheets.values.update({
+        spreadsheetId: config.spreadsheetId,
+        range: `${SHEET_NAME}!M${rowIndex}:P${rowIndex}`,
+        valueInputOption: "RAW",
+        requestBody: {
+          values: [["", "paid", String(paidAmount), now]],
+        },
+      });
+
+      const fundraiserSlug = (row[17] as string) ?? "";
+      if (fundraiserSlug) {
+        await this.publishFundraiserBySlug(fundraiserSlug);
+      }
+    }
+
+    if (whyDonateId !== undefined) {
+      await this.setRegistrationWhyDonateIds(participantId, [whyDonateId], true);
+    }
+
+    const effectiveTierId = getEffectiveTier(paidAmount);
+    const tierName = TIER_DATA[effectiveTierId].name;
+    const rewards = getCumulativeRewards(effectiveTierId, language);
+
+    return {
+      success: true,
+      participantId: row[0] as string,
+      fullName: row[1] as string,
+      firstName: firstNameFromRow(row),
+      email: row[2] as string,
+      language,
+      tierName,
+      amountEur: paidAmount,
+      rewards,
+      alreadyPaid,
+    };
   }
 
   async appendRegistration(

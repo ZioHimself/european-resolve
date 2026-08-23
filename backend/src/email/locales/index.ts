@@ -5,7 +5,7 @@ import { uk } from "./uk.js";
 import { nl } from "./nl.js";
 import { de } from "./de.js";
 
-export type { EmailLocale };
+export type { EmailLocale, DelayedRewardKey } from "./types.js";
 
 const locales: Record<string, EmailLocale> = { en, fr, uk, nl, de };
 
