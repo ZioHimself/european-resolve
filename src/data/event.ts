@@ -103,9 +103,9 @@ export const eventDetails = {
       "Every euro raised went directly to Hurkit, providing portable charging stations that keep defenders connected and operational in the field.",
     galleryFolderId: "",
     finalStats: {
-      raised: 0,
-      participants: 0,
-      donors: 0,
+      raised: 6473,
+      participants: 248,
+      donors: 9,
       chargingStations: 0,
     },
   },
