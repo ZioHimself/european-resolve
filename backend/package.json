@@ -9,7 +9,11 @@
     "start": "node dist/index.js",
     "test:smtp": "node --env-file=.env --import tsx src/test-smtp.ts",
     "setup-tier-lookup-sheet": "node --env-file=.env --import tsx src/setup-tier-lookup-sheet.ts",
+    "setup-count-by-color-script": "node --env-file=.env --import tsx src/setup-count-by-color-script.ts",
     "sync-whydonate-tracking": "node --env-file=.env --import tsx src/sync-whydonate-tracking.ts",
+    "audit-whydonate-records": "node --env-file=.env --import tsx src/audit-whydonate-records.ts",
+    "snapshot-final-stats": "node --env-file=.env --import tsx src/snapshot-final-stats.ts",
+    "place-whydonate-gap": "node --env-file=.env --import tsx src/place-whydonate-gap.ts",
     "process-wd-pending": "node --env-file=.env --import tsx src/process-wd-pending.ts",
     "refresh-drive-oauth": "node scripts/refresh-drive-oauth.mjs"
   },
