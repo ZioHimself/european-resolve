@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { RegisterClient } from "@/components/ui/RegisterClient";
 import type { RegisterStep } from "@/components/ui/RegisterClient";
@@ -18,7 +19,10 @@ const TITLE_KEY: Record<RegisterStep, "register.title" | "register.titleRegistra
 
 export default function RegisterPage() {
   useLocale();
+  const searchParams = useSearchParams();
+  const hasToken = Boolean(searchParams.get("token"));
   const isCompleted = useEventStatus() === "completed";
+  const showClosedBanner = isCompleted && !hasToken;
   const [step, setStep] = useState<RegisterStep>("pick-tier");
 
   return (
@@ -35,7 +39,7 @@ export default function RegisterPage() {
       />
 
       <div className={styles.content}>
-        {isCompleted ? (
+        {showClosedBanner ? (
           <div className={styles.closedBanner}>
             <span className={styles.closedIcon} aria-hidden="true">
               ℹ️
