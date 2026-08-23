@@ -4,6 +4,7 @@ import { sendConfirmationEmail } from "../services/email.js";
 import { config } from "../config.js";
 import { TIER_DATA, getLocalizedRewards } from "../tiers.js";
 import { redactEmail, regFlowLog, tokenHint } from "../lib/registrationFlowLog.js";
+import { isEventCompleted, registrationClosedResponse } from "../lib/eventClosure.js";
 import type {
   RegisterRequest,
   RegisterResponse,
@@ -92,6 +93,8 @@ export const registerRoute = new Hono();
 const sheetsService = new SheetsService();
 
 registerRoute.post("/", async (c) => {
+  if (isEventCompleted()) return registrationClosedResponse(c);
+
   const body = (await c.req.json()) as Record<string, unknown>;
 
   regFlowLog.register("request received", {

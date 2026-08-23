@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
+import { isEventCompleted, registrationClosedResponse } from "../lib/eventClosure.js";
 import type { DonorWallEntry, ValidationError, ApiResponse } from "../types.js";
 
 export const donorsRoute = new Hono();
@@ -7,6 +8,8 @@ export const donorsRoute = new Hono();
 const sheetsService = new SheetsService();
 
 donorsRoute.post("/", async (c) => {
+  if (isEventCompleted()) return registrationClosedResponse(c);
+
   const body = (await c.req.json()) as Record<string, unknown>;
 
   const errors: ValidationError[] = [];

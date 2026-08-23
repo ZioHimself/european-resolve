@@ -4,6 +4,7 @@ import { DriveService } from "../services/drive.js";
 import { sendFundraiserEmail } from "../services/email.js";
 import { config } from "../config.js";
 import { TIER_DATA, getLocalizedRewards } from "../tiers.js";
+import { isEventCompleted, registrationClosedResponse } from "../lib/eventClosure.js";
 import type {
   FundraiserResponse,
   FundraiserRegisterResponse,
@@ -29,6 +30,8 @@ const VALID_LANGUAGES: Language[] = ["English", "French", "Ukrainian", "Dutch", 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 fundraiserRoute.post("/", async (c) => {
+  if (isEventCompleted()) return registrationClosedResponse(c);
+
   const formData = await c.req.formData();
 
   const displayName = formData.get("displayName") as string | null;
@@ -118,6 +121,8 @@ fundraiserRoute.get("/:slug", async (c) => {
 });
 
 fundraiserRoute.put("/:slug", async (c) => {
+  if (isEventCompleted()) return registrationClosedResponse(c);
+
   const slug = c.req.param("slug");
   const authHeader = c.req.header("Authorization");
 
@@ -206,6 +211,8 @@ fundraiserRoute.put("/:slug", async (c) => {
 });
 
 fundraiserRoute.post("/register", async (c) => {
+  if (isEventCompleted()) return registrationClosedResponse(c);
+
   const formData = await c.req.formData();
 
   const displayName = formData.get("displayName") as string | null;

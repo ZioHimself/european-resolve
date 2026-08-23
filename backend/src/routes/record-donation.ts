@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { SheetsService } from "../services/sheets.js";
+import { isEventCompleted, registrationClosedResponse } from "../lib/eventClosure.js";
 import type { ApiResponse, DonorWallEntry } from "../types.js";
 
 export const recordDonationRoute = new Hono();
@@ -7,6 +8,8 @@ export const recordDonationRoute = new Hono();
 const sheetsService = new SheetsService();
 
 recordDonationRoute.post("/:slug", async (c) => {
+  if (isEventCompleted()) return registrationClosedResponse(c);
+
   const slug = c.req.param("slug");
   const body = (await c.req.json()) as Record<string, unknown>;
 
