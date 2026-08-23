@@ -3,34 +3,34 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-last_updated: "2026-08-23T11:39:49.978Z"
+last_updated: "2026-08-23T12:05:00.000Z"
 progress:
   total_phases: 13
   completed_phases: 3
   total_plans: 38
-  completed_plans: 9
+  completed_plans: 10
   percent: 23
 ---
 
 # Project State
 
 **Project:** Run for Ukraine 2026
-**Status:** Ready to execute
+**Status:** Executing Phase 08
 
 ## Project Reference
 
 See: .planning/PROJECT.md (updated 2026-07-28)
 
 **Core value:** Participants can register and share personal fundraising pages that drive donations via WhyDonate with full transparency
-**Current focus:** Phase 07 — add-august-23-run-for-ukraine-event-to-events-listing-surfac
+**Current focus:** Phase 08 — post-event-registration-closure-activate-completed-mode-back
 
 ## Current Phase
 
-**Phase 7: Run for Ukraine Events Listing**
+**Phase 8: Post-event registration closure**
 
-- Status: Complete
-- Plans: 3/3
-- Current Plan: None (phase complete)
+- Status: In Progress
+- Plans: 1/4
+- Current Plan: 08-02 (frontend late-payment exception)
 
 ## Progress
 
@@ -45,6 +45,7 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 | 4.1   | ◐      | 0/2   | 0%       |
 | 6     | ●      | 3/3   | 100%     |
 | 7     | ●      | 3/3   | 100%     |
+| 8     | ◐      | 1/4   | 25%      |
 
 ## Recent Activity
 
@@ -74,9 +75,10 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - 2026-08-08: Phase 7 Plan 01 executed — Vitest include extended for `*.spec.tsx` BDD tests (npm test: 13 files, 224 tests ✓)
 - 2026-08-08: Phase 7 Plan 02 executed — EventCard link behavior + Upcoming badge via TDD (npm test: 13 files, 262 tests ✓)
 - 2026-08-08: Phase 7 Plan 03 executed — Events DB row + Drive thumbnail + build verification (npm test: 262/262 ✓, static HTML verified)
+- 2026-08-23: Phase 8 Plan 01 executed — backend EVENT_STATUS write guards + closure tests (npm test: 286/286 ✓)
 
 ---
-*Last updated: 2026-08-08 after Phase 7 Plan 03 execution*
+*Last updated: 2026-08-23 after Phase 8 Plan 01 execution*
 
 ## Decisions
 
@@ -84,6 +86,8 @@ See: .planning/PROJECT.md (updated 2026-07-28)
 - Upcoming badge uses neutral black-05 background to distinguish from amber type badge
 - isEventUpcoming accepts optional now Date for deterministic unit tests
 - Organizer name typo in spreadsheet left as ops fix — not corrected in code
+- Default EVENT_STATUS to active when unset (safe for local dev and pre-closure production)
+- confirm-payment and read endpoints explicitly excluded from closure guards per D-06/D-11
 
 ## Accumulated Context
 

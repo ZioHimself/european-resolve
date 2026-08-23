@@ -22,7 +22,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **REGA-03**: User can fill registration form (full name, email, phone, t-shirt size, language, country)
 - [ ] **REGA-04**: User must consent to GDPR data processing before submitting
 - [ ] **REGA-05**: User can opt-in to ongoing communications (optional checkbox)
-- [ ] **REGA-06**: User can complete payment via WhyDonate donation link after registration with payment confirmation flow
+- [x] **REGA-06**: User can complete payment via WhyDonate donation link after registration with payment confirmation flow
 - [ ] **REGA-07**: User receives on-page confirmation with participant ID after successful registration
 - [ ] **REGA-08**: Registration data is persisted to Google Sheets via backend API
 
@@ -54,12 +54,12 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Backend API
 
 - [ ] **API-01**: Backend runs on GCP Cloud Run (Node.js/TypeScript)
-- [ ] **API-02**: Backend provides POST /api/register endpoint (validates + writes to Google Sheets)
-- [ ] **API-03**: Backend provides POST /api/fundraiser endpoint (creates page + writes to Google Sheets)
+- [x] **API-02**: Backend provides POST /api/register endpoint (validates + writes to Google Sheets)
+- [x] **API-03**: Backend provides POST /api/fundraiser endpoint (creates page + writes to Google Sheets)
 - [ ] **API-04**: Backend provides GET /api/fundraiser/:slug endpoint (reads from Google Sheets)
 - [ ] **API-05**: Backend provides GET /api/progress endpoint (sums confirmed payments from Sheets + participant count)
 - [ ] **API-06**: Backend reads confirmed payment totals from Google Sheets (no external polling needed)
-- [ ] **API-07**: Backend provides POST /api/donors endpoint (add donor wall entry)
+- [x] **API-07**: Backend provides POST /api/donors endpoint (add donor wall entry)
 - [ ] **API-08**: Backend provides GET /api/donors/:slug endpoint (read donor wall for a fundraiser)
 - [ ] **API-09**: Payment confirmations are timestamped in Google Sheets (built-in audit trail)
 
@@ -139,7 +139,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | REGA-03 | Phase 1 | Pending |
 | REGA-04 | Phase 1 | Pending |
 | REGA-05 | Phase 1 | Pending |
-| REGA-06 | Phase 2 | Pending |
+| REGA-06 | Phase 2 | Complete |
 | REGA-07 | Phase 2 | Pending |
 | REGA-08 | Phase 2 | Pending |
 | FUND-01 | Phase 3 | Pending |
@@ -159,12 +159,12 @@ Deferred to future release. Tracked but not in current roadmap.
 | DASH-04 | Phase 3 | Pending |
 | DASH-05 | Phase 3 | Pending |
 | API-01 | Phase 2 | Pending |
-| API-02 | Phase 2 | Pending |
-| API-03 | Phase 3 | Pending |
+| API-02 | Phase 2 | Complete |
+| API-03 | Phase 3 | Complete |
 | API-04 | Phase 3 | Pending |
 | API-05 | Phase 3 | Pending |
 | API-06 | Phase 3 | Pending |
-| API-07 | Phase 3 | Pending |
+| API-07 | Phase 3 | Complete |
 | API-08 | Phase 3 | Pending |
 | API-09 | Phase 3 | Pending |
 | DESX-01 | Phase 1 | Pending |
