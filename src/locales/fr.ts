@@ -337,7 +337,6 @@ export const fr = {
   "closed.donationsClosed": "Les dons sont clos",
   "closed.finalResults": "Résultats finaux",
   "closed.galleryHeading": "Photos de l'événement",
-  "closed.accountabilityHeading": "Où sont allés vos dons",
   "closed.totalRaised": "Total collecté",
   "closed.chargingStations": "Stations de recharge financées",
   "closed.impactStatement":

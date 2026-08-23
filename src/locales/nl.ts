@@ -329,7 +329,6 @@ export const nl = {
   "closed.donationsClosed": "Donaties zijn gesloten",
   "closed.finalResults": "Eindresultaten",
   "closed.galleryHeading": "Evenementfoto's",
-  "closed.accountabilityHeading": "Waar je donaties naartoe gingen",
   "closed.totalRaised": "Totaal opgehaald",
   "closed.chargingStations": "Oplaadstations gefinancierd",
   "closed.impactStatement":

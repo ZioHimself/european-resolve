@@ -5,13 +5,6 @@
     padding-inline: var(--space-6);
   }
 
-  .heading {
-    font-size: var(--text-h2);
-    font-weight: var(--font-bold);
-    color: var(--color-text-primary);
-    margin: 0 0 var(--space-6);
-  }
-
   .stats {
     display: flex;
     gap: var(--space-6);

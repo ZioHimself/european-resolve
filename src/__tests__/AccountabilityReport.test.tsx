@@ -39,7 +39,6 @@ describe("AccountabilityReport — D-19 charging stations stat", () => {
 
     render(<AccountabilityReport />);
 
-    expect(screen.getByText("Where your donations went")).toBeInTheDocument();
     expect(screen.getByText("Total raised")).toBeInTheDocument();
     expect(
       screen.getByText("Mock impact statement for test"),

@@ -7,8 +7,6 @@ export function AccountabilityReport() {
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.heading}>{t("closed.accountabilityHeading")}</h2>
-
       <dl className={styles.stats}>
         <div className={styles.statCard}>
           <dt className={styles.statLabel}>{t("closed.totalRaised")}</dt>

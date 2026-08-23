@@ -330,7 +330,6 @@ export const uk = {
   "closed.donationsClosed": "Донати закрито",
   "closed.finalResults": "Фінальні результати",
   "closed.galleryHeading": "Фото з події",
-  "closed.accountabilityHeading": "Куди пішли твої донати",
   "closed.totalRaised": "Загальна сума зборів",
   "closed.chargingStations": "Зарядних станцій профінансовано",
   "closed.impactStatement":

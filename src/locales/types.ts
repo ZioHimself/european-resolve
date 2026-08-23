@@ -279,7 +279,6 @@ export interface Locale {
   "closed.donationsClosed": string;
   "closed.finalResults": string;
   "closed.galleryHeading": string;
-  "closed.accountabilityHeading": string;
   "closed.totalRaised": string;
   "closed.chargingStations": string;
   "closed.impactStatement": string;

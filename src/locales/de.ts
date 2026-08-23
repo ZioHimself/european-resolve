@@ -340,7 +340,6 @@ export const de = {
   "closed.donationsClosed": "Spenden sind geschlossen",
   "closed.finalResults": "Endergebnisse",
   "closed.galleryHeading": "Veranstaltungsfotos",
-  "closed.accountabilityHeading": "Wohin deine Spenden gingen",
   "closed.totalRaised": "Insgesamt gesammelt",
   "closed.chargingStations": "Ladestationen finanziert",
   "closed.impactStatement":
