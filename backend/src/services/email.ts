@@ -6,11 +6,13 @@ import {
   renderFundraiserEmail,
   renderPaymentConfirmationEmail,
   renderDelayedRewardsEmail,
+  renderClosingEmail,
   type RenderedEmail,
   type RegistrationEmailData,
   type FundraiserEmailData,
   type PaymentConfirmationEmailData,
   type DelayedRewardsEmailData,
+  type ClosingEmailData,
 } from "../email/render.js";
 
 let transporter: Transporter | null = null;
@@ -127,5 +129,25 @@ export async function sendDelayedRewardsEmail(
 
   console.info(
     `[email] Delayed rewards notice sent to ${data.email} (locale: ${localeCode})`,
+  );
+}
+
+export async function sendClosingEmail(
+  data: ClosingEmailData,
+  language: Language,
+): Promise<void> {
+  const transport = getTransporter();
+  if (!transport) {
+    console.warn("[email] SMTP not configured, skipping closing email");
+    return;
+  }
+
+  const localeCode = LANGUAGE_TO_LOCALE[language] ?? "en";
+  const rendered = renderClosingEmail(data, localeCode);
+
+  await deliverEmail(transport, data.email, rendered);
+
+  console.info(
+    `[email] Closing email sent to ${data.email} (locale: ${localeCode})`,
   );
 }
