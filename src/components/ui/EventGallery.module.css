@@ -9,7 +9,28 @@
     font-size: var(--text-h2);
     font-weight: var(--font-bold);
     color: var(--color-text-primary);
+    margin: 0 0 var(--space-4);
+  }
+
+  .lead {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
     margin: 0 0 var(--space-6);
+    max-width: 36rem;
+  }
+
+  .driveLink {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-link);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .grid {

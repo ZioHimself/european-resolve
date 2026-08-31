@@ -329,6 +329,10 @@ export const nl = {
   "closed.donationsClosed": "Donaties zijn gesloten",
   "closed.finalResults": "Eindresultaten",
   "closed.galleryHeading": "Evenementfoto's",
+  "closed.galleryLead":
+    "Bekijk foto's van de run op Google Drive.",
+  "closed.viewGalleryOnDrive": "Bekijk foto's op Google Drive →",
+  "closed.fundraiserArchived": "Deze fondsenwervingspagina is gearchiveerd",
   "closed.totalRaised": "Totaal opgehaald",
   "closed.chargingStations": "Oplaadstations gefinancierd",
   "closed.impactStatement":

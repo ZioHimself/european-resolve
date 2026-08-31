@@ -330,6 +330,10 @@ export const uk = {
   "closed.donationsClosed": "Донати закрито",
   "closed.finalResults": "Фінальні результати",
   "closed.galleryHeading": "Фото з події",
+  "closed.galleryLead":
+    "Переглянь фото з забігу на Google Drive.",
+  "closed.viewGalleryOnDrive": "Переглянути фото на Google Drive →",
+  "closed.fundraiserArchived": "Цю сторінку збору архівовано",
   "closed.totalRaised": "Загальна сума зборів",
   "closed.chargingStations": "Зарядних станцій профінансовано",
   "closed.impactStatement":

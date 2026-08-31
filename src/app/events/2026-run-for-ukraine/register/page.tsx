@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { RegisterClient } from "@/components/ui/RegisterClient";
 import type { RegisterStep } from "@/components/ui/RegisterClient";
@@ -11,7 +10,12 @@ import { useLocale } from "@/components/ui/LocaleProvider";
 import { t } from "@/locales";
 import styles from "./page.module.css";
 
-const TITLE_KEY: Record<RegisterStep, "register.title" | "register.titleRegistration" | "register.titleConfirmation"> = {
+const TITLE_KEY: Record<
+  RegisterStep,
+  | "register.title"
+  | "register.titleRegistration"
+  | "register.titleConfirmation"
+> = {
   "pick-tier": "register.title",
   registration: "register.titleRegistration",
   confirmation: "register.titleConfirmation",
@@ -27,10 +31,7 @@ export default function RegisterPage() {
 
 function RegisterPageContent() {
   useLocale();
-  const searchParams = useSearchParams();
-  const hasToken = Boolean(searchParams.get("token"));
   const isCompleted = useEventStatus() === "completed";
-  const showClosedBanner = isCompleted && !hasToken;
   const [step, setStep] = useState<RegisterStep>("pick-tier");
 
   return (
@@ -47,7 +48,7 @@ function RegisterPageContent() {
       />
 
       <div className={styles.content}>
-        {showClosedBanner ? (
+        {isCompleted ? (
           <div className={styles.closedBanner}>
             <span className={styles.closedIcon} aria-hidden="true">
               ℹ️
@@ -55,9 +56,7 @@ function RegisterPageContent() {
             <h1 className={styles.closedHeading}>
               {t("closed.registrationClosed")}
             </h1>
-            <p className={styles.closedText}>
-              {t("closed.eventCompleted")}
-            </p>
+            <p className={styles.closedText}>{t("closed.eventCompleted")}</p>
             <a
               href="/events/2026-run-for-ukraine"
               className={styles.closedLink}

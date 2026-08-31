@@ -340,6 +340,10 @@ export const de = {
   "closed.donationsClosed": "Spenden sind geschlossen",
   "closed.finalResults": "Endergebnisse",
   "closed.galleryHeading": "Veranstaltungsfotos",
+  "closed.galleryLead":
+    "Sehen Sie sich Fotos vom Lauf auf Google Drive an.",
+  "closed.viewGalleryOnDrive": "Fotos auf Google Drive ansehen →",
+  "closed.fundraiserArchived": "Diese Spendenseite ist archiviert",
   "closed.totalRaised": "Insgesamt gesammelt",
   "closed.chargingStations": "Ladestationen finanziert",
   "closed.impactStatement":

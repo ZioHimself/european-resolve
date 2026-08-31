@@ -11,7 +11,7 @@ const { mockEventDetails } = vi.hoisted(() => ({
     postEvent: {
       thankYouMessage: "Thank you everyone!",
       impactStatement: "Mock impact statement for test",
-      galleryFolderId: "",
+      galleryDriveUrl: "",
       finalStats: {
         raised: 1500,
         participants: 42,

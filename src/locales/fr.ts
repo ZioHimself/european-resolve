@@ -337,6 +337,10 @@ export const fr = {
   "closed.donationsClosed": "Les dons sont clos",
   "closed.finalResults": "Résultats finaux",
   "closed.galleryHeading": "Photos de l'événement",
+  "closed.galleryLead":
+    "Parcourez les photos de la course sur Google Drive.",
+  "closed.viewGalleryOnDrive": "Voir les photos sur Google Drive →",
+  "closed.fundraiserArchived": "Cette page de collecte est archivée",
   "closed.totalRaised": "Total collecté",
   "closed.chargingStations": "Stations de recharge financées",
   "closed.impactStatement":

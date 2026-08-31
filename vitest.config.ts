@@ -10,13 +10,11 @@ export default defineConfig({
     include: [
       "src/**/*.test.{ts,tsx}",
       "src/**/*.spec.{ts,tsx}",
-      "backend/src/**/*.test.ts",
     ],
   },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      hono: path.resolve(__dirname, "./backend/node_modules/hono"),
     },
   },
 });
