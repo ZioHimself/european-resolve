@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { eventDetails } from "@/data/event";
 import { t } from "@/locales";
 import styles from "./EventGallery.module.css";
 
@@ -11,14 +12,19 @@ interface GalleryPhoto {
 }
 
 export function EventGallery() {
+  const folderId = eventDetails.postEvent.galleryFolderId;
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
 
   useEffect(() => {
+    if (!folderId) return;
+
     const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
 
     async function fetchPhotos() {
       try {
-        const res = await fetch(`${apiUrl}/api/gallery`);
+        const res = await fetch(
+          `${apiUrl}/api/gallery?folderId=${encodeURIComponent(folderId)}`,
+        );
         if (res.ok) {
           const data = await res.json();
           if (data.success && data.data?.photos) {
@@ -31,9 +37,9 @@ export function EventGallery() {
     }
 
     fetchPhotos();
-  }, []);
+  }, [folderId]);
 
-  if (photos.length === 0) return null;
+  if (!folderId || photos.length === 0) return null;
 
   return (
     <section className={styles.section}>
