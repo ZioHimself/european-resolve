@@ -2,7 +2,6 @@
 
 import { t } from "@/locales";
 import { eventDetails } from "@/data/event";
-import { useEventStatus } from "@/hooks/useEventStatus";
 import styles from "./ProgressSection.module.css";
 
 function buildProgressFromFinalStats() {
@@ -22,7 +21,6 @@ function buildProgressFromFinalStats() {
 }
 
 export function ProgressSection() {
-  const isCompleted = useEventStatus() === "completed";
   const progress = buildProgressFromFinalStats();
 
   const raised = `€${progress.totalRaisedEur.toLocaleString("en-GB")}`;
@@ -34,12 +32,7 @@ export function ProgressSection() {
   return (
     <section className={styles.section}>
       <div className={styles.header}>
-        <span className={styles.overline}>
-          {isCompleted ? t("closed.finalResults") : t("progress.overline")}
-        </span>
-        {!isCompleted && (
-          <span className={styles.indicator}>{t("progress.indicator")}</span>
-        )}
+        <span className={styles.overline}>{t("closed.finalResults")}</span>
       </div>
 
       <dl className={styles.stats}>

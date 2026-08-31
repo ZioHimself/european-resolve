@@ -287,40 +287,9 @@ export interface Locale {
   "closed.impactStatement": string;
   "closed.impactUpdatePending": string;
 
-  // errors.* — Backend error code mappings
-  "errors.VALIDATION_FIRSTNAME_REQUIRED": string;
-  "errors.VALIDATION_LASTNAME_REQUIRED": string;
-  "errors.VALIDATION_EMAIL_INVALID": string;
-  "errors.VALIDATION_TSHIRT_INVALID": string;
-  "errors.VALIDATION_SOCKS_INVALID": string;
-  "errors.VALIDATION_LANGUAGE_INVALID": string;
-  "errors.VALIDATION_COUNTRY_REQUIRED": string;
-  "errors.VALIDATION_TIER_INVALID": string;
-  "errors.VALIDATION_GDPR_REQUIRED": string;
-  "errors.VALIDATION_PARTICIPATION_TYPE_REQUIRED": string;
-  "errors.VALIDATION_DISPLAYNAME_LENGTH": string;
-  "errors.VALIDATION_MESSAGE_REQUIRED": string;
-  "errors.VALIDATION_MESSAGE_LENGTH": string;
-  "errors.VALIDATION_GOAL_INVALID": string;
-  "errors.VALIDATION_PHOTO_TYPE": string;
-  "errors.VALIDATION_PHOTO_SIZE": string;
-  "errors.VALIDATION_STATUS_INVALID": string;
-  "errors.VALIDATION_AUTH_REQUIRED": string;
-  "errors.VALIDATION_AUTH_INVALID": string;
-  "errors.VALIDATION_DONOR_NAME_LENGTH": string;
-  "errors.VALIDATION_DONOR_MESSAGE_LENGTH": string;
-  "errors.VALIDATION_SLUG_REQUIRED": string;
-  "errors.VALIDATION_SLUG_NOT_FOUND": string;
-  "errors.INTERNAL_ERROR": string;
-
   // nav.* — Breadcrumb labels
   "nav.events": string;
   "nav.register": string;
   "nav.fundraise": string;
   "nav.fundraiser": string;
-
-  // feeBreakdown.* — FeeBreakdownBar
-  "feeBreakdown.overline": string;
-  "feeBreakdown.cause": string;
-  "feeBreakdown.logistics": string;
 }

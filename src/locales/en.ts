@@ -335,43 +335,9 @@ export const en = {
   "closed.impactUpdatePending":
     "Hurkit will confirm how many stations your donations funded. We'll update this page and share news by email as soon as we have the figures. Check back soon.",
 
-  // errors (backend error code mappings)
-  "errors.VALIDATION_FIRSTNAME_REQUIRED": "First name is required",
-  "errors.VALIDATION_LASTNAME_REQUIRED": "Last name is required",
-  "errors.VALIDATION_EMAIL_INVALID": "Please enter a valid email address",
-  "errors.VALIDATION_TSHIRT_INVALID": "Valid t-shirt size is required",
-  "errors.VALIDATION_SOCKS_INVALID": "Valid socks size is required",
-  "errors.VALIDATION_LANGUAGE_INVALID": "Valid language is required",
-  "errors.VALIDATION_COUNTRY_REQUIRED": "Country is required",
-  "errors.VALIDATION_TIER_INVALID": "Valid tier is required",
-  "errors.VALIDATION_GDPR_REQUIRED": "GDPR consent is required to register",
-  "errors.VALIDATION_PARTICIPATION_TYPE_REQUIRED":
-    "Participation type is required",
-  "errors.VALIDATION_DISPLAYNAME_LENGTH":
-    "Display name must be 2-50 characters",
-  "errors.VALIDATION_MESSAGE_REQUIRED": "Message is required",
-  "errors.VALIDATION_MESSAGE_LENGTH": "Message must be under 500 characters",
-  "errors.VALIDATION_GOAL_INVALID":
-    "Goal must be a whole number between 10 and 100,000",
-  "errors.VALIDATION_PHOTO_TYPE": "Photo must be JPEG, PNG, or WebP",
-  "errors.VALIDATION_PHOTO_SIZE": "Photo must be under 5MB",
-  "errors.VALIDATION_STATUS_INVALID": "Invalid status value",
-  "errors.VALIDATION_AUTH_REQUIRED": "Authentication is required",
-  "errors.VALIDATION_AUTH_INVALID": "Invalid authentication token",
-  "errors.VALIDATION_DONOR_NAME_LENGTH": "Name must be 2-50 characters",
-  "errors.VALIDATION_DONOR_MESSAGE_LENGTH": "Message must be 5-200 characters",
-  "errors.VALIDATION_SLUG_REQUIRED": "Fundraiser slug is required",
-  "errors.VALIDATION_SLUG_NOT_FOUND": "Fundraiser not found",
-  "errors.INTERNAL_ERROR": "An unexpected error occurred. Please try again.",
-
   // nav (breadcrumbs)
   "nav.events": "Events",
   "nav.register": "Register",
   "nav.fundraise": "Fundraise",
   "nav.fundraiser": "Fundraiser",
-
-  // feeBreakdown
-  "feeBreakdown.overline": "Where it goes",
-  "feeBreakdown.cause": "cause",
-  "feeBreakdown.logistics": "logistics",
 } satisfies Locale;

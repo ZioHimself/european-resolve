@@ -340,47 +340,9 @@ export const nl = {
   "closed.impactUpdatePending":
     "Hurkit bevestigt binnenkort hoeveel stations jullie donaties hebben gefinancierd. We werken deze pagina bij en delen nieuws per e-mail zodra we de cijfers hebben. Kom binnenkort terug.",
 
-  // errors (backend error code mappings)
-  "errors.VALIDATION_FIRSTNAME_REQUIRED": "Voornaam is verplicht",
-  "errors.VALIDATION_LASTNAME_REQUIRED": "Achternaam is verplicht",
-  "errors.VALIDATION_EMAIL_INVALID": "Voer een geldig e-mailadres in",
-  "errors.VALIDATION_TSHIRT_INVALID": "Een geldige t-shirtmaat is verplicht",
-  "errors.VALIDATION_SOCKS_INVALID": "Een geldige sokmaat is verplicht",
-  "errors.VALIDATION_LANGUAGE_INVALID": "Een geldige taal is verplicht",
-  "errors.VALIDATION_COUNTRY_REQUIRED": "Land is verplicht",
-  "errors.VALIDATION_TIER_INVALID": "Een geldig niveau is verplicht",
-  "errors.VALIDATION_GDPR_REQUIRED":
-    "AVG-toestemming is verplicht om in te schrijven",
-  "errors.VALIDATION_PARTICIPATION_TYPE_REQUIRED": "Deelnametype is verplicht",
-  "errors.VALIDATION_DISPLAYNAME_LENGTH":
-    "Weergavenaam moet 2-50 tekens bevatten",
-  "errors.VALIDATION_MESSAGE_REQUIRED": "Bericht is verplicht",
-  "errors.VALIDATION_MESSAGE_LENGTH":
-    "Bericht moet minder dan 500 tekens bevatten",
-  "errors.VALIDATION_GOAL_INVALID":
-    "Doel moet een geheel getal zijn tussen 10 en 100.000",
-  "errors.VALIDATION_PHOTO_TYPE":
-    "Foto moet in JPEG-, PNG- of WebP-formaat zijn",
-  "errors.VALIDATION_PHOTO_SIZE": "Foto moet kleiner zijn dan 5 MB",
-  "errors.VALIDATION_STATUS_INVALID": "Ongeldige statuswaarde",
-  "errors.VALIDATION_AUTH_REQUIRED": "Authenticatie is verplicht",
-  "errors.VALIDATION_AUTH_INVALID": "Ongeldig authenticatietoken",
-  "errors.VALIDATION_DONOR_NAME_LENGTH": "Naam moet 2-50 tekens bevatten",
-  "errors.VALIDATION_DONOR_MESSAGE_LENGTH":
-    "Bericht moet 5-200 tekens bevatten",
-  "errors.VALIDATION_SLUG_REQUIRED": "Fondsenwervings-ID is verplicht",
-  "errors.VALIDATION_SLUG_NOT_FOUND": "Fondsenwervingspagina niet gevonden",
-  "errors.INTERNAL_ERROR":
-    "Er is een onverwachte fout opgetreden. Probeer het opnieuw.",
-
   // nav (breadcrumbs)
   "nav.events": "Evenementen",
   "nav.register": "Inschrijven",
   "nav.fundraise": "Fondsenwerving",
   "nav.fundraiser": "Fondsenwervingspagina",
-
-  // feeBreakdown
-  "feeBreakdown.overline": "Waar het naartoe gaat",
-  "feeBreakdown.cause": "doel",
-  "feeBreakdown.logistics": "logistiek",
 } satisfies Locale;

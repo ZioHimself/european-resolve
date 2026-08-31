@@ -341,48 +341,9 @@ export const uk = {
   "closed.impactUpdatePending":
     "Hurkit незабаром підтвердить, скільки станцій профінансували твої донати. Ми оновимо цю сторінку й поділимося новинами електронною поштою, щойно отримаємо цифри. Загляни сюди знову незабаром.",
 
-  // errors (backend error code mappings)
-  "errors.VALIDATION_FIRSTNAME_REQUIRED": "Ім'я є обов'язковим",
-  "errors.VALIDATION_LASTNAME_REQUIRED": "Прізвище є обов'язковим",
-  "errors.VALIDATION_EMAIL_INVALID":
-    "Будь ласка, введіть дійсну електронну адресу",
-  "errors.VALIDATION_TSHIRT_INVALID": "Потрібен дійсний розмір футболки",
-  "errors.VALIDATION_SOCKS_INVALID": "Потрібен дійсний розмір шкарпеток",
-  "errors.VALIDATION_LANGUAGE_INVALID": "Потрібна дійсна мова",
-  "errors.VALIDATION_COUNTRY_REQUIRED": "Країна є обов'язковою",
-  "errors.VALIDATION_TIER_INVALID": "Потрібен дійсний рівень",
-  "errors.VALIDATION_GDPR_REQUIRED": "Згода GDPR є обов'язковою для реєстрації",
-  "errors.VALIDATION_PARTICIPATION_TYPE_REQUIRED": "Тип участі є обов'язковим",
-  "errors.VALIDATION_DISPLAYNAME_LENGTH":
-    "Відображуване ім'я має містити від 2 до 50 символів",
-  "errors.VALIDATION_MESSAGE_REQUIRED": "Повідомлення є обов'язковим",
-  "errors.VALIDATION_MESSAGE_LENGTH":
-    "Повідомлення має містити менше 500 символів",
-  "errors.VALIDATION_GOAL_INVALID":
-    "Мета має бути цілим числом від 10 до 100 000",
-  "errors.VALIDATION_PHOTO_TYPE": "Фото має бути у форматі JPEG, PNG або WebP",
-  "errors.VALIDATION_PHOTO_SIZE": "Фото має бути менше 5 МБ",
-  "errors.VALIDATION_STATUS_INVALID": "Недійсне значення статусу",
-  "errors.VALIDATION_AUTH_REQUIRED": "Автентифікація є обов'язковою",
-  "errors.VALIDATION_AUTH_INVALID": "Недійсний токен автентифікації",
-  "errors.VALIDATION_DONOR_NAME_LENGTH":
-    "Ім'я має містити від 2 до 50 символів",
-  "errors.VALIDATION_DONOR_MESSAGE_LENGTH":
-    "Повідомлення має містити від 5 до 200 символів",
-  "errors.VALIDATION_SLUG_REQUIRED":
-    "Ідентифікатор збору коштів є обов'язковим",
-  "errors.VALIDATION_SLUG_NOT_FOUND": "Сторінку збору коштів не знайдено",
-  "errors.INTERNAL_ERROR":
-    "Сталася неочікувана помилка. Будь ласка, спробуй ще раз.",
-
   // nav (breadcrumbs)
   "nav.events": "Події",
   "nav.register": "Реєстрація",
   "nav.fundraise": "Збір коштів",
   "nav.fundraiser": "Сторінка збору",
-
-  // feeBreakdown
-  "feeBreakdown.overline": "Куди йдуть кошти",
-  "feeBreakdown.cause": "на справу",
-  "feeBreakdown.logistics": "логістика",
 } satisfies Locale;

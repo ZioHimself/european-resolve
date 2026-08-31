@@ -351,51 +351,9 @@ export const de = {
   "closed.impactUpdatePending":
     "Hurkit wird bald bestätigen, wie viele Stationen eure Spenden finanziert haben. Wir aktualisieren diese Seite und teilen Neuigkeiten per E-Mail, sobald wir die Zahlen haben. Schaut bald wieder vorbei.",
 
-  // errors (backend error code mappings)
-  "errors.VALIDATION_FIRSTNAME_REQUIRED": "Vorname ist erforderlich",
-  "errors.VALIDATION_LASTNAME_REQUIRED": "Nachname ist erforderlich",
-  "errors.VALIDATION_EMAIL_INVALID":
-    "Bitte geben Sie eine gültige E-Mail-Adresse ein",
-  "errors.VALIDATION_TSHIRT_INVALID":
-    "Eine gültige T-Shirt-Größe ist erforderlich",
-  "errors.VALIDATION_SOCKS_INVALID":
-    "Eine gültige Sockengröße ist erforderlich",
-  "errors.VALIDATION_LANGUAGE_INVALID": "Eine gültige Sprache ist erforderlich",
-  "errors.VALIDATION_COUNTRY_REQUIRED": "Land ist erforderlich",
-  "errors.VALIDATION_TIER_INVALID": "Eine gültige Stufe ist erforderlich",
-  "errors.VALIDATION_GDPR_REQUIRED":
-    "DSGVO-Einwilligung ist für die Anmeldung erforderlich",
-  "errors.VALIDATION_PARTICIPATION_TYPE_REQUIRED":
-    "Teilnahmeart ist erforderlich",
-  "errors.VALIDATION_DISPLAYNAME_LENGTH":
-    "Anzeigename muss 2-50 Zeichen lang sein",
-  "errors.VALIDATION_MESSAGE_REQUIRED": "Nachricht ist erforderlich",
-  "errors.VALIDATION_MESSAGE_LENGTH":
-    "Nachricht muss weniger als 500 Zeichen lang sein",
-  "errors.VALIDATION_GOAL_INVALID":
-    "Ziel muss eine ganze Zahl zwischen 10 und 100.000 sein",
-  "errors.VALIDATION_PHOTO_TYPE":
-    "Foto muss im JPEG-, PNG- oder WebP-Format sein",
-  "errors.VALIDATION_PHOTO_SIZE": "Foto muss kleiner als 5 MB sein",
-  "errors.VALIDATION_STATUS_INVALID": "Ungültiger Statuswert",
-  "errors.VALIDATION_AUTH_REQUIRED": "Authentifizierung ist erforderlich",
-  "errors.VALIDATION_AUTH_INVALID": "Ungültiges Authentifizierungstoken",
-  "errors.VALIDATION_DONOR_NAME_LENGTH": "Name muss 2-50 Zeichen lang sein",
-  "errors.VALIDATION_DONOR_MESSAGE_LENGTH":
-    "Nachricht muss 5-200 Zeichen lang sein",
-  "errors.VALIDATION_SLUG_REQUIRED": "Spendenseiten-ID ist erforderlich",
-  "errors.VALIDATION_SLUG_NOT_FOUND": "Spendenseite nicht gefunden",
-  "errors.INTERNAL_ERROR":
-    "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
-
   // nav (breadcrumbs)
   "nav.events": "Veranstaltungen",
   "nav.register": "Anmeldung",
   "nav.fundraise": "Spenden sammeln",
   "nav.fundraiser": "Spendenseite",
-
-  // feeBreakdown
-  "feeBreakdown.overline": "Wohin es geht",
-  "feeBreakdown.cause": "Zweck",
-  "feeBreakdown.logistics": "Logistik",
 } satisfies Locale;

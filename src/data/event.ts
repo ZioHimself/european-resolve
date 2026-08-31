@@ -38,7 +38,6 @@ export type EventDetails = {
     url: string;
   };
   goalEur: number;
-  whydonateShortcode: string;
   facebookEventUrl: string;
   postEvent: PostEventData;
 };
@@ -94,7 +93,6 @@ export const eventDetails = {
     url: "https://hurkit.org/",
   },
   goalEur: 3_000,
-  whydonateShortcode: "KvhGb",
   facebookEventUrl: "https://www.facebook.com/events/1826555465375638",
   postEvent: {
     thankYouMessage:

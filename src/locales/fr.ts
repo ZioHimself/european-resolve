@@ -348,53 +348,9 @@ export const fr = {
   "closed.impactUpdatePending":
     "Hurkit confirmera bientôt combien de stations vos dons ont financées. Nous mettrons cette page à jour et partagerons des nouvelles par e-mail dès que nous aurons les chiffres. Revenez bientôt.",
 
-  // errors (backend error code mappings)
-  "errors.VALIDATION_FIRSTNAME_REQUIRED": "Le prénom est obligatoire",
-  "errors.VALIDATION_LASTNAME_REQUIRED": "Le nom de famille est obligatoire",
-  "errors.VALIDATION_EMAIL_INVALID":
-    "Veuillez entrer une adresse e-mail valide",
-  "errors.VALIDATION_TSHIRT_INVALID":
-    "Une taille de t-shirt valide est obligatoire",
-  "errors.VALIDATION_SOCKS_INVALID":
-    "Une pointure de chaussettes valide est obligatoire",
-  "errors.VALIDATION_LANGUAGE_INVALID": "Une langue valide est obligatoire",
-  "errors.VALIDATION_COUNTRY_REQUIRED": "Le pays est obligatoire",
-  "errors.VALIDATION_TIER_INVALID": "Un palier valide est obligatoire",
-  "errors.VALIDATION_GDPR_REQUIRED":
-    "Le consentement RGPD est obligatoire pour s'inscrire",
-  "errors.VALIDATION_PARTICIPATION_TYPE_REQUIRED":
-    "Le type de participation est obligatoire",
-  "errors.VALIDATION_DISPLAYNAME_LENGTH":
-    "Le nom affiché doit contenir entre 2 et 50 caractères",
-  "errors.VALIDATION_MESSAGE_REQUIRED": "Le message est obligatoire",
-  "errors.VALIDATION_MESSAGE_LENGTH":
-    "Le message doit contenir moins de 500 caractères",
-  "errors.VALIDATION_GOAL_INVALID":
-    "L'objectif doit être un nombre entier entre 10 et 100 000",
-  "errors.VALIDATION_PHOTO_TYPE":
-    "La photo doit être au format JPEG, PNG ou WebP",
-  "errors.VALIDATION_PHOTO_SIZE": "La photo doit faire moins de 5 Mo",
-  "errors.VALIDATION_STATUS_INVALID": "Valeur de statut invalide",
-  "errors.VALIDATION_AUTH_REQUIRED": "L'authentification est obligatoire",
-  "errors.VALIDATION_AUTH_INVALID": "Jeton d'authentification invalide",
-  "errors.VALIDATION_DONOR_NAME_LENGTH":
-    "Le nom doit contenir entre 2 et 50 caractères",
-  "errors.VALIDATION_DONOR_MESSAGE_LENGTH":
-    "Le message doit contenir entre 5 et 200 caractères",
-  "errors.VALIDATION_SLUG_REQUIRED":
-    "L'identifiant de la collecte est obligatoire",
-  "errors.VALIDATION_SLUG_NOT_FOUND": "Page de collecte introuvable",
-  "errors.INTERNAL_ERROR":
-    "Une erreur inattendue est survenue. Veuillez réessayer.",
-
   // nav (breadcrumbs)
   "nav.events": "Événements",
   "nav.register": "Inscription",
   "nav.fundraise": "Collecte",
   "nav.fundraiser": "Page de collecte",
-
-  // feeBreakdown
-  "feeBreakdown.overline": "Répartition",
-  "feeBreakdown.cause": "cause",
-  "feeBreakdown.logistics": "logistique",
 } satisfies Locale;
