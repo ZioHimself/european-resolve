@@ -45,6 +45,7 @@ export type EventDisplay = {
   image_credit: string;
   announcement_url: string;
   announcement_title: string;
+  drive_url: string;
   organizers: { name: string; website?: string; role: string }[];
   media_features: string[];
   tags: string[];
@@ -64,6 +65,7 @@ export function parseEvents(
       image_credit: e.image_credit || "",
       announcement_url: e.announcement_url,
       announcement_title: e.announcement_title,
+      drive_url: e.drive_url || "",
       organizers: e.organizers,
       media_features: Array.isArray(e.media_features) ? e.media_features : [],
       tags: e.tags,

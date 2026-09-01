@@ -88,6 +88,15 @@ Feature: Events page
     When the event card is rendered
     Then no announcement link is displayed
 
+  Scenario: Show Drive photos link when drive_url is present
+    Given an event with announcement URL "/events/2026-run-for-ukraine/"
+    And the announcement title is "Event hub"
+    And the event has drive URL "https://drive.google.com/drive/folders/abc123"
+    When the event card is rendered
+    Then a link labelled "Event photos" is displayed
+    And the link points to "https://drive.google.com/drive/folders/abc123"
+    And the Drive link opens in a new tab
+
   Scenario: Show media feature links when present
     Given an event with media features "https://wsj.com/article" and "https://npr.org/story"
     When the event card is rendered

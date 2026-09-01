@@ -38,6 +38,7 @@ function makeEvent(overrides: Partial<EventDisplay> = {}): EventDisplay {
     image_credit: "",
     announcement_url: "",
     announcement_title: "",
+    drive_url: "",
     organizers: [],
     media_features: [],
     tags: [],
@@ -488,6 +489,59 @@ describeFeature(feature, ({ AfterEachScenario, Scenario }) => {
 
       Then("no announcement link is displayed", () => {
         expect(screen.queryByText("Official Event Announcement")).toBeNull();
+      });
+    },
+  );
+
+  Scenario(
+    "Show Drive photos link when drive_url is present",
+    ({ Given, When, Then, And }) => {
+      let event: EventDisplay;
+
+      Given(
+        'an event with announcement URL "/events/2026-run-for-ukraine/"',
+        () => {
+          event = makeEvent({
+            announcement_url: "/events/2026-run-for-ukraine/",
+          });
+        },
+      );
+
+      And('the announcement title is "Event hub"', () => {
+        event.announcement_title = "Event hub";
+      });
+
+      And(
+        'the event has drive URL "https://drive.google.com/drive/folders/abc123"',
+        () => {
+          event.drive_url = "https://drive.google.com/drive/folders/abc123";
+        },
+      );
+
+      When("the event card is rendered", async () => {
+        const { EventCard } = await import("@/components/ui/EventCard");
+        render(<EventCard event={event} />);
+      });
+
+      Then('a link labelled "Event photos" is displayed', () => {
+        expect(screen.getByText("Event photos")).toBeInTheDocument();
+      });
+
+      And(
+        'the link points to "https://drive.google.com/drive/folders/abc123"',
+        () => {
+          const link = screen.getByText("Event photos");
+          expect(link.closest("a")).toHaveAttribute(
+            "href",
+            "https://drive.google.com/drive/folders/abc123",
+          );
+        },
+      );
+
+      And("the Drive link opens in a new tab", () => {
+        const link = screen.getByText("Event photos").closest("a")!;
+        expect(link).toHaveAttribute("target", "_blank");
+        expect(link).toHaveAttribute("rel", "noopener noreferrer");
       });
     },
   );

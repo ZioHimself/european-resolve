@@ -76,25 +76,37 @@ export function EventCard({ event }: { event: EventDisplay }) {
         </div>
       )}
 
-      {event.announcement_url && (
+      {(event.announcement_url || event.drive_url) && (
         <div className={styles.links}>
-          <a
-            href={event.announcement_url}
-            className={
-              isParticipationAnnouncementLink(
-                event.announcement_url,
-                event.date,
-              )
-                ? styles.linkParticipation
-                : styles.linkReference
-            }
-            {...(!isInternalAnnouncementUrl(event.announcement_url) && {
-              target: "_blank",
-              rel: "noopener noreferrer",
-            })}
-          >
-            {event.announcement_title || "Announcement"}
-          </a>
+          {event.announcement_url && (
+            <a
+              href={event.announcement_url}
+              className={
+                isParticipationAnnouncementLink(
+                  event.announcement_url,
+                  event.date,
+                )
+                  ? styles.linkParticipation
+                  : styles.linkReference
+              }
+              {...(!isInternalAnnouncementUrl(event.announcement_url) && {
+                target: "_blank",
+                rel: "noopener noreferrer",
+              })}
+            >
+              {event.announcement_title || "Announcement"}
+            </a>
+          )}
+          {event.drive_url && (
+            <a
+              href={event.drive_url}
+              className={styles.linkReference}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Event photos
+            </a>
+          )}
         </div>
       )}
 

@@ -43,9 +43,10 @@ describe("parseEvents", () => {
         name: "We Remember",
         place: "Albertine, Brussels",
         type: "Manifestation",
-        announcement_url: "https://facebook.com/events/123",
-        announcement_title: "Official Event Announcement",
-        organizers: [
+      announcement_url: "https://facebook.com/events/123",
+      announcement_title: "Official Event Announcement",
+      drive_url: "",
+      organizers: [
           {
             name: "European Resolve",
             website: "https://european-resolve.org",
@@ -69,6 +70,7 @@ describe("parseEvents", () => {
       image_credit: "",
       announcement_url: "https://facebook.com/events/123",
       announcement_title: "Official Event Announcement",
+      drive_url: "",
       organizers: [
         {
           name: "European Resolve",
@@ -79,6 +81,21 @@ describe("parseEvents", () => {
       media_features: ["https://example.com/article"],
       tags: ["Belgium", "Ukraine"],
     });
+  });
+
+  it("maps drive_url to display output", () => {
+    const raw = [
+      makeRawEvent({
+        drive_url:
+          "https://drive.google.com/drive/folders/1BHGxjFwjSv7HCKGnIjkMB6qYa0lro-FI",
+      }),
+    ];
+
+    const result = parseEvents(raw, {});
+
+    expect(result[0].drive_url).toBe(
+      "https://drive.google.com/drive/folders/1BHGxjFwjSv7HCKGnIjkMB6qYa0lro-FI",
+    );
   });
 
   it("excludes internal fields from output", () => {
@@ -101,7 +118,7 @@ describe("parseEvents", () => {
 
     expect(output).not.toHaveProperty("description");
     expect(output).not.toHaveProperty("notes");
-    expect(output).not.toHaveProperty("drive_url");
+    expect(output).toHaveProperty("drive_url");
     expect(output).not.toHaveProperty("contacts");
     expect(output).not.toHaveProperty("social_hashtags");
     expect(output).not.toHaveProperty("attendance_estimated");
