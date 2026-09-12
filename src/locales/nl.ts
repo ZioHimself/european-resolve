@@ -339,6 +339,19 @@ export const nl = {
     "Elke opgehaalde euro ging rechtstreeks naar Hurkit voor draagbare oplaadstations voor de verdedigers van Oekraïne.",
   "closed.impactUpdatePending":
     "Hurkit bevestigt binnenkort hoeveel stations jullie donaties hebben gefinancierd. We werken deze pagina bij en delen nieuws per e-mail zodra we de cijfers hebben. Kom binnenkort terug.",
+  "closed.deploymentUpdateHeading": "Inzetupdate · 12 september 2026",
+  "closed.deploymentUpdateLead":
+    "Hurkit bevestigt dat alle fondsen zijn betaald en de inkoop loopt voor drie ontvangende eenheden.",
+  "closed.deploymentUpdateBullet1":
+    "Drie krachtige draagbare stroomstations voor de 54e aparte gemotoriseerde brigade naar naam van hetman Ivan Mazepa",
+  "closed.deploymentUpdateBullet2":
+    "Eén krachtig station en twee EcoFlow-eenheden voor de 13e Khartiia-operationele brigade",
+  "closed.deploymentUpdateBullet3":
+    "Twee EcoFlow-eenheden voor de 30e aparte gemotoriseerde brigade",
+  "closed.deploymentUpdateBullet4":
+    "Hurkit levert stations aan drone-teams, waaronder eenheden die Shahed-interceptors zijn",
+  "closed.deploymentUpdateBullet5":
+    "Foto's, video's en officiële documenten verwacht zodra de leveringen zijn afgerond",
 
   // nav (breadcrumbs)
   "nav.events": "Evenementen",

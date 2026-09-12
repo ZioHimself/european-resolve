@@ -16,7 +16,7 @@ const { mockEventDetails } = vi.hoisted(() => ({
         raised: 1500,
         participants: 42,
         donors: 10,
-        chargingStations: 0,
+        chargingStations: 8,
       },
     },
   },
@@ -30,37 +30,61 @@ import { AccountabilityReport } from "@/components/ui/AccountabilityReport";
 
 afterEach(() => {
   cleanup();
-  mockEventDetails.postEvent.finalStats.chargingStations = 0;
+  mockEventDetails.postEvent.finalStats.chargingStations = 8;
 });
 
 describe("AccountabilityReport — D-19 charging stations stat", () => {
-  it("hides charging-stations stat when chargingStations is 0", () => {
+  it("shows deployment update with three recipient units and stat card at 8", () => {
+    mockEventDetails.postEvent.finalStats.chargingStations = 8;
+
+    render(<AccountabilityReport />);
+
+    expect(screen.getByText("Total raised")).toBeInTheDocument();
+    expect(screen.getByText("Charging stations funded")).toBeInTheDocument();
+    expect(screen.getByText("8")).toBeInTheDocument();
+    expect(
+      screen.getByText(/Every euro raised went directly to Hurkit/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Deployment update · 12 September 2026/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Three high-capacity portable power stations/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/13th Khartiia Operational Brigade/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/30th Separate Mechanised Brigade/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Hurkit will provide stations to UAV teams/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(/Two more units in progress/i),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Final station count expected next week/i),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Hurkit will confirm how many stations/i),
+    ).not.toBeInTheDocument();
+  });
+
+  it("hides charging-stations stat when chargingStations is 0 but keeps deployment section", () => {
     mockEventDetails.postEvent.finalStats.chargingStations = 0;
 
     render(<AccountabilityReport />);
 
     expect(screen.getByText("Total raised")).toBeInTheDocument();
     expect(
-      screen.getByText("Mock impact statement for test"),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Hurkit will confirm how many stations/i),
-    ).toBeInTheDocument();
-    expect(
       screen.queryByText("Charging stations funded"),
     ).not.toBeInTheDocument();
-  });
-
-  it("shows charging-stations stat when chargingStations is greater than 0", () => {
-    mockEventDetails.postEvent.finalStats.chargingStations = 5;
-
-    render(<AccountabilityReport />);
-
-    expect(screen.getByText("Charging stations funded")).toBeInTheDocument();
-    expect(screen.getByText("5")).toBeInTheDocument();
-    expect(screen.getByText("Total raised")).toBeInTheDocument();
     expect(
-      screen.queryByText(/Hurkit will confirm how many stations/i),
-    ).not.toBeInTheDocument();
+      screen.getByText(/Deployment update · 12 September 2026/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/13th Khartiia Operational Brigade/i),
+    ).toBeInTheDocument();
   });
 });

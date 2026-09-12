@@ -286,6 +286,13 @@ export interface Locale {
   "closed.chargingStations": string;
   "closed.impactStatement": string;
   "closed.impactUpdatePending": string;
+  "closed.deploymentUpdateHeading": string;
+  "closed.deploymentUpdateLead": string;
+  "closed.deploymentUpdateBullet1": string;
+  "closed.deploymentUpdateBullet2": string;
+  "closed.deploymentUpdateBullet3": string;
+  "closed.deploymentUpdateBullet4": string;
+  "closed.deploymentUpdateBullet5": string;
 
   // nav.* — Breadcrumb labels
   "nav.events": string;

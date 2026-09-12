@@ -334,6 +334,19 @@ export const en = {
     "Every euro raised went directly to Hurkit for portable charging stations for Ukraine's defenders.",
   "closed.impactUpdatePending":
     "Hurkit will confirm how many stations your donations funded. We'll update this page and share news by email as soon as we have the figures. Check back soon.",
+  "closed.deploymentUpdateHeading": "Deployment update · 12 September 2026",
+  "closed.deploymentUpdateLead":
+    "Hurkit confirms all funds have been paid and procurement is underway for three recipient units.",
+  "closed.deploymentUpdateBullet1":
+    "Three high-capacity portable power stations for the 54th Separate Mechanised Brigade named after Hetman Ivan Mazepa",
+  "closed.deploymentUpdateBullet2":
+    "One high-capacity station and two EcoFlow units for the 13th Khartiia Operational Brigade",
+  "closed.deploymentUpdateBullet3":
+    "Two EcoFlow units for the 30th Separate Mechanised Brigade",
+  "closed.deploymentUpdateBullet4":
+    "Hurkit will provide stations to UAV teams, including those working as Shahed interceptors",
+  "closed.deploymentUpdateBullet5":
+    "Photo, video, and official acts expected once deliveries are complete",
 
   // nav (breadcrumbs)
   "nav.events": "Events",

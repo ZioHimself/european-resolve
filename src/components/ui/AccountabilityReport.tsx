@@ -2,8 +2,16 @@ import { t } from "@/locales";
 import { eventDetails } from "@/data/event";
 import styles from "./AccountabilityReport.module.css";
 
+const DEPLOYMENT_BULLET_KEYS = [
+  "closed.deploymentUpdateBullet1",
+  "closed.deploymentUpdateBullet2",
+  "closed.deploymentUpdateBullet3",
+  "closed.deploymentUpdateBullet4",
+  "closed.deploymentUpdateBullet5",
+] as const;
+
 export function AccountabilityReport() {
-  const { finalStats, impactStatement } = eventDetails.postEvent;
+  const { finalStats } = eventDetails.postEvent;
 
   return (
     <section className={styles.section}>
@@ -22,11 +30,21 @@ export function AccountabilityReport() {
         )}
       </dl>
 
-      <p className={styles.impact}>{impactStatement}</p>
+      <p className={styles.impact}>{t("closed.impactStatement")}</p>
 
-      {finalStats.chargingStations === 0 && (
-        <p className={styles.impactPending}>{t("closed.impactUpdatePending")}</p>
-      )}
+      <div className={styles.deploymentUpdate}>
+        <h2 className={styles.deploymentHeading}>
+          {t("closed.deploymentUpdateHeading")}
+        </h2>
+        <p className={styles.deploymentLead}>
+          {t("closed.deploymentUpdateLead")}
+        </p>
+        <ul className={styles.deploymentList}>
+          {DEPLOYMENT_BULLET_KEYS.map((key) => (
+            <li key={key}>{t(key)}</li>
+          ))}
+        </ul>
+      </div>
 
       <p className={styles.beneficiary}>
         {t("hero.beneficiary")}{" "}

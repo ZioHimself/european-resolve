@@ -105,7 +105,7 @@ export const eventDetails = {
       raised: 6473,
       participants: 248,
       donors: 9,
-      chargingStations: 0,
+      chargingStations: 8,
     },
   },
 } satisfies EventDetails;

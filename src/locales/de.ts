@@ -350,6 +350,19 @@ export const de = {
     "Jeder gesammelte Euro ging direkt an Hurkit für tragbare Ladestationen für die Verteidiger der Ukraine.",
   "closed.impactUpdatePending":
     "Hurkit wird bald bestätigen, wie viele Stationen eure Spenden finanziert haben. Wir aktualisieren diese Seite und teilen Neuigkeiten per E-Mail, sobald wir die Zahlen haben. Schaut bald wieder vorbei.",
+  "closed.deploymentUpdateHeading": "Einsatz-Update · 12. September 2026",
+  "closed.deploymentUpdateLead":
+    "Hurkit bestätigt, dass alle Gelder bezahlt wurden und die Beschaffung für drei empfangende Einheiten läuft.",
+  "closed.deploymentUpdateBullet1":
+    "Drei leistungsstarke tragbare Stromstationen für die 54. Separate Mechanisierte Brigade im Namen des Hetmans Ivan Mazepa",
+  "closed.deploymentUpdateBullet2":
+    "Eine leistungsstarke Station und zwei EcoFlow-Einheiten für die 13. Khartiia-Operationsbrigade",
+  "closed.deploymentUpdateBullet3":
+    "Zwei EcoFlow-Einheiten für die 30. Separate Mechanisierte Brigade",
+  "closed.deploymentUpdateBullet4":
+    "Hurkit wird Stationen an Drohnenteams liefern, einschließlich solcher, die als Shahed-Abfangjäger arbeiten",
+  "closed.deploymentUpdateBullet5":
+    "Fotos, Videos und offizielle Unterlagen werden nach Abschluss der Lieferungen erwartet",
 
   // nav (breadcrumbs)
   "nav.events": "Veranstaltungen",
