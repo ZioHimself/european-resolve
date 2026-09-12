@@ -349,17 +349,17 @@ export const fr = {
     "Hurkit confirmera bientôt combien de stations vos dons ont financées. Nous mettrons cette page à jour et partagerons des nouvelles par e-mail dès que nous aurons les chiffres. Revenez bientôt.",
   "closed.deploymentUpdateHeading": "Mise à jour du déploiement · 12 septembre 2026",
   "closed.deploymentUpdateLead":
-    "Hurkit confirme que tous les fonds ont été payés et que les achats sont en cours pour trois unités bénéficiaires.",
+    "Hurkit confirme que tous les fonds ont été payés et que huit stations électriques portables ont été achetées pour trois unités bénéficiaires. Les livraisons et les rapports des unités sont encore en cours.",
   "closed.deploymentUpdateBullet1":
-    "Trois stations électriques portables haute capacité pour la 54e brigade mécanisée séparée du nom du hetman Ivan Mazepa",
+    "Achetées pour la 54e brigade mécanisée séparée du nom du hetman Ivan Mazepa : trois Oukitel BP3000E (2048 Wh, 3200 W)",
   "closed.deploymentUpdateBullet2":
-    "Une station haute capacité et deux unités EcoFlow pour la 13e brigade opérationnelle Khartiia",
+    "Achetées pour la 13e brigade opérationnelle Khartiia : une EcoFlow DELTA 3 Max (2048 Wh, 2400 W) et deux EcoFlow Delta 2 (1024 Wh, 1800 W)",
   "closed.deploymentUpdateBullet3":
-    "Deux unités EcoFlow pour la 30e brigade mécanisée séparée",
+    "Achetées pour la 30e brigade mécanisée du prince Konstanty Ostrogski : deux EcoFlow Delta 2 (1024 Wh, 1800 W)",
   "closed.deploymentUpdateBullet4":
     "Hurkit fournira des stations aux équipes de drones, y compris celles qui interceptent les Shahed",
   "closed.deploymentUpdateBullet5":
-    "Photos, vidéos et actes officiels attendus une fois les livraisons terminées",
+    "Photos, vidéos, actes officiels et rapports des unités attendus à l'issue des livraisons",
 
   // nav (breadcrumbs)
   "nav.events": "Événements",

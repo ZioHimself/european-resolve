@@ -48,14 +48,15 @@ describe("AccountabilityReport — D-19 charging stations stat", () => {
     expect(
       screen.getByText(/Deployment update · 12 September 2026/i),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Three high-capacity portable power stations/i),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Purchased for the 54th Separate Mechanised Brigade/i)).toBeInTheDocument();
+    expect(screen.getByText(/Deliveries and unit reports are still in progress/i)).toBeInTheDocument();
+    expect(screen.getByText(/Oukitel BP3000E/i)).toBeInTheDocument();
+    expect(screen.getByText(/EcoFlow DELTA 3 Max/i)).toBeInTheDocument();
     expect(
       screen.getByText(/13th Khartiia Operational Brigade/i),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/30th Separate Mechanised Brigade/i),
+      screen.getByText(/30th Prince Konstanty Ostrogski Mechanized Brigade/i),
     ).toBeInTheDocument();
     expect(
       screen.getByText(/Hurkit will provide stations to UAV teams/i),

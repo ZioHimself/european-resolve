@@ -336,17 +336,17 @@ export const en = {
     "Hurkit will confirm how many stations your donations funded. We'll update this page and share news by email as soon as we have the figures. Check back soon.",
   "closed.deploymentUpdateHeading": "Deployment update · 12 September 2026",
   "closed.deploymentUpdateLead":
-    "Hurkit confirms all funds have been paid and procurement is underway for three recipient units.",
+    "Hurkit confirms all funds have been paid and eight portable power stations purchased for three recipient units. Deliveries and unit reports are still in progress.",
   "closed.deploymentUpdateBullet1":
-    "Three high-capacity portable power stations for the 54th Separate Mechanised Brigade named after Hetman Ivan Mazepa",
+    "Purchased for the 54th Separate Mechanised Brigade named after Hetman Ivan Mazepa: three Oukitel BP3000E (2048 Wh, 3200 W)",
   "closed.deploymentUpdateBullet2":
-    "One high-capacity station and two EcoFlow units for the 13th Khartiia Operational Brigade",
+    "Purchased for the 13th Khartiia Operational Brigade: one EcoFlow DELTA 3 Max (2048 Wh, 2400 W) and two EcoFlow Delta 2 (1024 Wh, 1800 W)",
   "closed.deploymentUpdateBullet3":
-    "Two EcoFlow units for the 30th Separate Mechanised Brigade",
+    "Purchased for the 30th Prince Konstanty Ostrogski Mechanized Brigade: two EcoFlow Delta 2 (1024 Wh, 1800 W)",
   "closed.deploymentUpdateBullet4":
     "Hurkit will provide stations to UAV teams, including those working as Shahed interceptors",
   "closed.deploymentUpdateBullet5":
-    "Photo, video, and official acts expected once deliveries are complete",
+    "Photo, video, official acts, and reports from the units expected as deliveries complete",
 
   // nav (breadcrumbs)
   "nav.events": "Events",

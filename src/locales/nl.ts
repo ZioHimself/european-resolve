@@ -341,17 +341,17 @@ export const nl = {
     "Hurkit bevestigt binnenkort hoeveel stations jullie donaties hebben gefinancierd. We werken deze pagina bij en delen nieuws per e-mail zodra we de cijfers hebben. Kom binnenkort terug.",
   "closed.deploymentUpdateHeading": "Inzetupdate · 12 september 2026",
   "closed.deploymentUpdateLead":
-    "Hurkit bevestigt dat alle fondsen zijn betaald en de inkoop loopt voor drie ontvangende eenheden.",
+    "Hurkit bevestigt dat alle fondsen zijn betaald en acht draagbare stroomstations zijn ingekocht voor drie ontvangende eenheden. Leveringen en rapporten van de eenheden zijn nog onderweg.",
   "closed.deploymentUpdateBullet1":
-    "Drie krachtige draagbare stroomstations voor de 54e aparte gemotoriseerde brigade naar naam van hetman Ivan Mazepa",
+    "Ingekocht voor de 54e aparte gemotoriseerde brigade naar naam van hetman Ivan Mazepa: drie Oukitel BP3000E (2048 Wh, 3200 W)",
   "closed.deploymentUpdateBullet2":
-    "Eén krachtig station en twee EcoFlow-eenheden voor de 13e Khartiia-operationele brigade",
+    "Ingekocht voor de 13e Khartiia-operationele brigade: één EcoFlow DELTA 3 Max (2048 Wh, 2400 W) en twee EcoFlow Delta 2 (1024 Wh, 1800 W)",
   "closed.deploymentUpdateBullet3":
-    "Twee EcoFlow-eenheden voor de 30e aparte gemotoriseerde brigade",
+    "Ingekocht voor de 30e mechanized brigade van prins Konstanty Ostrogski: twee EcoFlow Delta 2 (1024 Wh, 1800 W)",
   "closed.deploymentUpdateBullet4":
     "Hurkit levert stations aan drone-teams, waaronder eenheden die Shahed-interceptors zijn",
   "closed.deploymentUpdateBullet5":
-    "Foto's, video's en officiële documenten verwacht zodra de leveringen zijn afgerond",
+    "Foto's, video's, officiële documenten en rapporten van de eenheden verwacht zodra de leveringen zijn afgerond",
 
   // nav (breadcrumbs)
   "nav.events": "Evenementen",
