@@ -293,6 +293,13 @@ export interface Locale {
   "closed.deploymentUpdateBullet3": string;
   "closed.deploymentUpdateBullet4": string;
   "closed.deploymentUpdateBullet5": string;
+  "closed.rewardsMerchHeading": string;
+  "closed.rewardsMerchIntro": string;
+  "closed.rewardsMerchPickupLead": string;
+  "closed.rewardsMerchLocationName": string;
+  "closed.rewardsMerchContactLead": string;
+  "closed.rewardsMerchContactName": string;
+  "closed.rewardsMerchContactSuffix": string;
 
   // nav.* — Breadcrumb labels
   "nav.events": string;

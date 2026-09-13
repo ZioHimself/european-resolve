@@ -59,8 +59,25 @@ describe("AccountabilityReport — D-19 charging stations stat", () => {
       screen.getByText(/30th Prince Konstanty Ostrogski Mechanized Brigade/i),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Hurkit will provide stations to UAV teams/i),
+      screen.getByText(/air defence units that work on Shahed drone interception/i),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Reports from the units expected as deliveries complete/i),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Rewards and merchandise")).toBeInTheDocument();
+    expect(
+      screen.getByText(/Plenty of dog tags and other merchandise remain from the event/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Ukrainian Solidarity Café/i }),
+    ).toHaveAttribute(
+      "href",
+      "https://maps.app.goo.gl/2sfQGd6XfAESa6nT9",
+    );
+    expect(
+      screen.getByRole("link", { name: "olena.kuzhym@european-resolve.org" }),
+    ).toHaveAttribute("href", "mailto:olena.kuzhym@european-resolve.org");
+    expect(screen.getByText(/contact Olena/i)).toBeInTheDocument();
     expect(
       screen.queryByText(/Two more units in progress/i),
     ).not.toBeInTheDocument();

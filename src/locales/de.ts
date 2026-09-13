@@ -360,9 +360,18 @@ export const de = {
   "closed.deploymentUpdateBullet3":
     "Beschafft für die 30. Mechanisierte Brigade Prinz Konstanty Ostrogski: zwei EcoFlow Delta 2 (1024 Wh, 1800 W)",
   "closed.deploymentUpdateBullet4":
-    "Hurkit wird Stationen an Drohnenteams liefern, einschließlich solcher, die als Shahed-Abfangjäger arbeiten",
+    "Die Unterstützung vom Lauf erreicht auch Luftverteidigungseinheiten, die an der Abfang von Shahed-Drohnen arbeiten",
   "closed.deploymentUpdateBullet5":
-    "Fotos, Videos, offizielle Unterlagen und Berichte der Einheiten werden nach Abschluss der Lieferungen erwartet",
+    "Berichte der Einheiten werden nach Abschluss der Lieferungen erwartet",
+  "closed.rewardsMerchHeading": "Belohnungen und Merchandise",
+  "closed.rewardsMerchIntro":
+    "Von der Veranstaltung sind noch viele Erkennungsmarken und weiteres Merchandise übrig.",
+  "closed.rewardsMerchPickupLead":
+    "Teilnehmende können ihre Belohnungen abholen im",
+  "closed.rewardsMerchLocationName": "Ukrainian Solidarity Café",
+  "closed.rewardsMerchContactLead": "oder",
+  "closed.rewardsMerchContactName": "Olena",
+  "closed.rewardsMerchContactSuffix": "für Details kontaktieren.",
 
   // nav (breadcrumbs)
   "nav.events": "Veranstaltungen",

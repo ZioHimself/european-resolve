@@ -1,0 +1,22 @@
+{
+  "name": "@european-resolve/email-ops",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "send-deployment-update": "node --import tsx src/send-deployment-update.ts",
+    "send-deployment-update:live": "node --env-file=.env --import tsx src/send-deployment-update.ts"
+  },
+  "dependencies": {
+    "nodemailer": "^9.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/nodemailer": "^8.0.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.5"
+  }
+}

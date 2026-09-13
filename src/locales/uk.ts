@@ -350,9 +350,18 @@ export const uk = {
   "closed.deploymentUpdateBullet3":
     "Закуплено для 30-ї окремої механізованої бригади імені князя Костянтина Острозького: дві EcoFlow Delta 2 (1024 Вт·год, 1800 Вт)",
   "closed.deploymentUpdateBullet4":
-    "Hurkit надасть станції підрозділам БПЛА, зокрема тим, що працюють як перехоплювачі Shahed",
+    "Підтримка з забігу також дійде до підрозділів ППО, що працюють над перехопленням дронів Shahed",
   "closed.deploymentUpdateBullet5":
-    "Фото, відео, офіційні акти та звіти від підрозділів очікуються після завершення доставок",
+    "Звіти від підрозділів очікуються після завершення доставок",
+  "closed.rewardsMerchHeading": "Нагороди та мерч",
+  "closed.rewardsMerchIntro":
+    "З події ще залишилося багато жетонів та іншого мерчу.",
+  "closed.rewardsMerchPickupLead":
+    "Учасники можуть забрати свої нагороди в",
+  "closed.rewardsMerchLocationName": "Ukrainian Solidarity Café",
+  "closed.rewardsMerchContactLead": "або зв'язатися з",
+  "closed.rewardsMerchContactName": "Оленою",
+  "closed.rewardsMerchContactSuffix": "для деталей.",
 
   // nav (breadcrumbs)
   "nav.events": "Події",

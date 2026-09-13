@@ -1,0 +1,6 @@
+email	first_name	full_name	language	comms_optin	status
+optin@example.com	Alice	Alice Optin	English	true	paid
+nope@example.com	Bob	Bob Nope	English	false	paid
+french@example.com	Marie	Marie Dupont	French	TRUE	paid
+pending@example.com	Pete	Pete Pending	English	true	pending
+invalid@example.com			English	true	paid
