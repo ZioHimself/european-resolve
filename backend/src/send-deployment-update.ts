@@ -9,7 +9,7 @@
  */
 
 import { writeFileSync } from "node:fs";
-import { LANGUAGE_TO_LOCALE, type Language } from "./types.js";
+import { LANGUAGE_TO_LOCALE } from "./types.js";
 import { loadRecipientsFromTsv } from "./lib/recipients.js";
 import { renderDeploymentUpdateEmail } from "./email/render.js";
 import { sendDeploymentUpdateEmail } from "./services/email.js";
